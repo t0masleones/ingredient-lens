@@ -1,0 +1,421 @@
+term,lang,lactose,gluten,allergens,may_allergens,origin,animal_type,note,source
+leite,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+leche,es,red,,milk,,animal,dairy,,lactose-gluten-glossary
+milk,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+lactose,pt/en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+lactosa,es,red,,milk,,animal,dairy,,lactose-gluten-glossary
+soro de leite,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+suero de leche,es,red,,milk,,animal,dairy,,lactose-gluten-glossary
+whey,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+creme de leite,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+nata,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+cream,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+iogurte,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+yogurt,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+coalhada,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+kefir,pt/en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+queijo,pt,red,,milk,,animal,dairy_rennet,Cheese may use animal rennet,lactose-gluten-glossary
+queso,es,red,,milk,,animal,dairy_rennet,Cheese may use animal rennet,lactose-gluten-glossary
+cheese,en,red,,milk,,animal,dairy_rennet,Cheese may use animal rennet,lactose-gluten-glossary
+requeijao,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+leitelho,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+buttermilk,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+composto lacteo,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+bebida lactea,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+chocolate ao leite,pt,red,,milk,,animal,dairy,,lactose-gluten-glossary
+milk chocolate,en,red,,milk,,animal,dairy,,lactose-gluten-glossary
+manteiga,pt,yellow,,milk,,animal,dairy,Little lactose; tolerance varies,lactose-gluten-glossary
+manteiga clarificada,pt,yellow,,milk,,animal,dairy,Little lactose; tolerance varies,lactose-gluten-glossary
+mantequilla,es,yellow,,milk,,animal,dairy,Little lactose; tolerance varies,lactose-gluten-glossary
+ghee,pt/en,yellow,,milk,,animal,dairy,Little lactose; tolerance varies,lactose-gluten-glossary
+butter,en,yellow,,milk,,animal,dairy,Little lactose; tolerance varies,lactose-gluten-glossary
+queijo curado,pt,yellow,,milk,,animal,dairy_rennet,Little lactose; may use animal rennet,lactose-gluten-glossary
+aged cheese,en,yellow,,milk,,animal,dairy_rennet,Little lactose; may use animal rennet,lactose-gluten-glossary
+parmesao,pt,yellow,,milk,,animal,dairy_rennet,Aged cheese; traditionally made with animal rennet,origin-glossary
+parmesan,en,yellow,,milk,,animal,dairy_rennet,Aged cheese; traditionally made with animal rennet,origin-glossary
+caseina,pt,yellow,,milk,,animal,dairy,Milk protein,lactose-gluten-glossary
+caseinato,pt,yellow,,milk,,animal,dairy,Milk protein,lactose-gluten-glossary
+casein,en,yellow,,milk,,animal,dairy,Milk protein,lactose-gluten-glossary
+caseinate,en,yellow,,milk,,animal,dairy,Milk protein,lactose-gluten-glossary
+proteina do leite,pt,yellow,,milk,,animal,dairy,Milk protein; lactose amount unclear,lactose-gluten-glossary
+proteina do soro de leite,pt,yellow,,milk,,animal,dairy,Isolates have less lactose than concentrates,lactose-gluten-glossary
+milk protein,en,yellow,,milk,,animal,dairy,Milk protein; lactose amount unclear,lactose-gluten-glossary
+whey protein,en,yellow,,milk,,animal,dairy,Isolates have less lactose than concentrates,lactose-gluten-glossary
+lactoalbumina,pt,yellow,,milk,,animal,dairy,,lactose-gluten-glossary
+lactoglobulina,pt,yellow,,milk,,animal,dairy,,lactose-gluten-glossary
+lactalbumin,en,yellow,,milk,,animal,dairy,,lactose-gluten-glossary
+lactoglobulin,en,yellow,,milk,,animal,dairy,,lactose-gluten-glossary
+aroma natural,pt,yellow,yellow,,milk,either,,Source not stated; check the allergen statement,lactose-gluten-glossary
+aromas naturais,pt,yellow,yellow,,milk,either,,Source not stated; check the allergen statement,lactose-gluten-glossary
+natural flavor,en,yellow,yellow,,milk,either,,Source not stated; check the allergen statement,origin-glossary
+natural flavoring,en,yellow,yellow,,milk,either,,Source not stated; check the allergen statement,origin-glossary
+natural and artificial flavors,en,yellow,yellow,,milk,either,,Source not stated; check the allergen statement,origin-glossary
+butter flavored,en,yellow,,,milk,either,,Flavor and emulsifiers of unstated source,origin-glossary
+butter flavor,en,yellow,,,milk,either,,Flavor and emulsifiers of unstated source,origin-glossary
+margarina,pt,yellow,,,milk,either,,May contain milk solids or whey,lactose-gluten-glossary
+margarine,en,yellow,,,milk,either,,May contain milk solids or whey,lactose-gluten-glossary
+chocolate,pt/en,yellow,,,milk,either,,Not stated as dark; may contain milk,lactose-gluten-glossary
+chocolate amargo,pt,green,,,milk,plant,,,lactose-gluten-glossary
+dark chocolate,en,green,,,milk,plant,,,lactose-gluten-glossary
+presunto,pt,yellow,,,milk,animal,meat,Cold cuts sometimes have added milk,lactose-gluten-glossary
+ham,en,yellow,,,milk,animal,meat,Cold cuts sometimes have added milk,lactose-gluten-glossary
+embutido,pt,yellow,,,milk,animal,meat,Cold cuts sometimes have added milk,lactose-gluten-glossary
+caldo,pt,yellow,yellow,,milk,either,,Check the full broth ingredient list,lactose-gluten-glossary
+caldo de legumes,pt,yellow,yellow,,milk,either,,Vegetable broth may include animal fat or flavors,origin-glossary
+vegetable broth,en,yellow,yellow,,milk,either,,Vegetable broth may include animal fat or flavors,origin-glossary
+manteiga de cacau,pt,green,,,,plant,,Not dairy,lactose-gluten-glossary
+cocoa butter,en,green,,,,plant,,Not dairy,lactose-gluten-glossary
+shea butter,en,green,,,,plant,,Not dairy,origin-glossary
+leite de coco,pt,green,,,,plant,,Not dairy,lactose-gluten-glossary
+coconut milk,en,green,,,,plant,,Not dairy,lactose-gluten-glossary
+leite de soja,pt,green,,soy,,plant,,Not dairy,lactose-gluten-glossary
+soy milk,en,green,,soy,,plant,,Not dairy,lactose-gluten-glossary
+leite de aveia,pt,green,red,,,plant,,Not dairy; oats are a gluten source in Brazil,lactose-gluten-glossary
+oat milk,en,green,red,,,plant,,Not dairy; oats are a gluten source in Brazil,lactose-gluten-glossary
+leite de arroz,pt,green,,,,plant,,Not dairy,lactose-gluten-glossary
+rice milk,en,green,,,,plant,,Not dairy,lactose-gluten-glossary
+leite de amendoas,pt,green,,tree_nuts,,plant,,Not dairy; almond is a tree nut,lactose-gluten-glossary
+almond milk,en,green,,tree_nuts,,plant,,Not dairy; almond is a tree nut,lactose-gluten-glossary
+acido latico,pt,green,,,,mineral_synthetic,,Fermentation; not dairy,lactose-gluten-glossary
+acido lactico,pt,green,,,,mineral_synthetic,,Fermentation; not dairy,lactose-gluten-glossary
+lactic acid,en,green,,,,mineral_synthetic,,Fermentation; not dairy,lactose-gluten-glossary
+lactato,pt,green,,,,mineral_synthetic,,Not dairy,lactose-gluten-glossary
+lactate,en,green,,,,mineral_synthetic,,Not dairy,lactose-gluten-glossary
+estearoil lactilato,pt,green,,,,either,,Not dairy; fatty acid source not stated,lactose-gluten-glossary
+stearoyl lactylate,en,green,,,,either,,Not dairy; fatty acid source not stated,lactose-gluten-glossary
+lactase,pt/en,green,,,,microbial,,Enzyme that digests lactose,lactose-gluten-glossary
+creme de tartaro,pt,green,,,,mineral_synthetic,,Not dairy,lactose-gluten-glossary
+cream of tartar,en,green,,,,mineral_synthetic,,Not dairy,lactose-gluten-glossary
+cultura lactica,pt,green,,,,either,,Microbial; growth medium may be dairy,v0.2-added
+fermento lacteo,pt,green,,,,either,,Microbial; growth medium may be dairy,v0.2-added
+lactic culture,en,green,,,,either,,Microbial; growth medium may be dairy,v0.2-added
+trigo,pt/es,,red,gluten,,plant,,,lactose-gluten-glossary
+wheat,en,,red,gluten,,plant,,,lactose-gluten-glossary
+all purpose flour,en,,red,gluten,,plant,,Wheat flour,v0.2-added
+flour,en,,yellow,,gluten,plant,,Usually wheat when the grain is not named,v0.2-added
+semola,pt,,red,gluten,,plant,,,lactose-gluten-glossary
+semolina,en,,red,gluten,,plant,,,lactose-gluten-glossary
+durum,en,,red,gluten,,plant,,,lactose-gluten-glossary
+bulgur,pt/en,,red,gluten,,plant,,,lactose-gluten-glossary
+seitan,pt/en,,red,gluten,,plant,,,lactose-gluten-glossary
+gluten,pt/en,,red,gluten,,plant,,,lactose-gluten-glossary
+centeio,pt,,red,gluten,,plant,,,lactose-gluten-glossary
+centeno,es,,red,gluten,,plant,,,lactose-gluten-glossary
+rye,en,,red,gluten,,plant,,,lactose-gluten-glossary
+cevada,pt,,red,gluten,,plant,,,lactose-gluten-glossary
+cebada,es,,red,gluten,,plant,,,lactose-gluten-glossary
+barley,en,,red,gluten,,plant,,,lactose-gluten-glossary
+aveia,pt,,red,gluten,,plant,,Gluten source in Brazil; often cross-contaminated,lactose-gluten-glossary
+avena,es,,red,gluten,,plant,,Gluten source in Brazil; often cross-contaminated,lactose-gluten-glossary
+oat,en,,red,gluten,,plant,,Gluten source in Brazil; often cross-contaminated,lactose-gluten-glossary
+triticale,pt/en,,red,gluten,,plant,,,lactose-gluten-glossary
+espelta,pt,,red,gluten,,plant,,,lactose-gluten-glossary
+spelt,en,,red,gluten,,plant,,,lactose-gluten-glossary
+kamut,pt/en,,red,gluten,,plant,,,lactose-gluten-glossary
+malte,pt,,red,gluten,,plant,,Usually barley,lactose-gluten-glossary
+extrato de malte,pt,,red,gluten,,plant,,Usually barley,lactose-gluten-glossary
+xarope de malte,pt,,red,gluten,,plant,,Usually barley,lactose-gluten-glossary
+malt,en,,red,gluten,,plant,,Usually barley,lactose-gluten-glossary
+malt extract,en,,red,gluten,,plant,,Usually barley,lactose-gluten-glossary
+malt vinegar,en,,red,gluten,,plant,,,lactose-gluten-glossary
+vinagre de malte,pt,,red,gluten,,plant,,,lactose-gluten-glossary
+cerveja,pt,,red,gluten,,either,,Fining agents may be animal-derived,lactose-gluten-glossary
+beer,en,,red,gluten,,either,,Fining agents may be animal-derived,lactose-gluten-glossary
+molho shoyu,pt,,red,gluten;soy,,plant,,Soy sauce usually contains wheat,lactose-gluten-glossary
+shoyu,pt,,red,gluten;soy,,plant,,Soy sauce usually contains wheat,lactose-gluten-glossary
+soy sauce,en,,red,gluten;soy,,plant,,Soy sauce usually contains wheat,lactose-gluten-glossary
+amido,pt,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
+amido modificado,pt,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
+starch,en,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
+modified starch,en,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
+amido de milho,pt,,green,,,plant,,,v0.2-added
+corn starch,en,,green,,,plant,,,v0.2-added
+maltodextrina,pt,,yellow,,gluten,plant,,Usually corn,lactose-gluten-glossary
+maltodextrin,en,,yellow,,gluten,plant,,Usually corn,lactose-gluten-glossary
+proteina vegetal hidrolisada,pt,,yellow,,gluten;soy,plant,,Source not stated,lactose-gluten-glossary
+hydrolyzed vegetable protein,en,,yellow,,gluten;soy,plant,,Source not stated,lactose-gluten-glossary
+extrato de levedura,pt,,yellow,,gluten,microbial,,May come from brewer's yeast,lactose-gluten-glossary
+yeast extract,en,,yellow,,gluten,microbial,,May come from brewer's yeast,lactose-gluten-glossary
+levedura de cerveja,pt,,yellow,,gluten,microbial,,,lactose-gluten-glossary
+brewer's yeast,en,,yellow,,gluten,microbial,,,lactose-gluten-glossary
+gluten de milho,pt,,yellow,,,plant,,Corn gluten is not wheat gluten; confirm,lactose-gluten-glossary
+corn gluten,en,,yellow,,,plant,,Corn gluten is not wheat gluten; confirm,lactose-gluten-glossary
+arroz,pt/es,,green,,,plant,,,lactose-gluten-glossary
+rice,en,,green,,,plant,,,lactose-gluten-glossary
+farinha de arroz,pt,,green,,,plant,,,lactose-gluten-glossary
+rice flour,en,,green,,,plant,,,lactose-gluten-glossary
+milho,pt,,green,,,plant,,,lactose-gluten-glossary
+corn,en,,green,,,plant,,,lactose-gluten-glossary
+fuba,pt,,green,,,plant,,,lactose-gluten-glossary
+mandioca,pt,,green,,,plant,,,lactose-gluten-glossary
+cassava,en,,green,,,plant,,,lactose-gluten-glossary
+polvilho,pt,,green,,,plant,,,lactose-gluten-glossary
+tapioca,pt/en,,green,,,plant,,,lactose-gluten-glossary
+batata,pt,,green,,,plant,,,lactose-gluten-glossary
+potato,en,,green,,,plant,,,lactose-gluten-glossary
+quinoa,pt/en,,green,,,plant,,,lactose-gluten-glossary
+amaranto,pt,,green,,,plant,,,lactose-gluten-glossary
+sorgo,pt,,green,,,plant,,,lactose-gluten-glossary
+trigo sarraceno,pt,,green,,gluten,plant,,Not wheat; cross-contact is common,lactose-gluten-glossary
+buckwheat,en,,green,,gluten,plant,,Not wheat; cross-contact is common,lactose-gluten-glossary
+soja,pt/es,,,soy,,plant,,,origin-glossary
+soy,en,,,soy,,plant,,,origin-glossary
+soybean,en,,,soy,,plant,,,origin-glossary
+lecitina de soja,pt,,,soy,,plant,,,origin-glossary
+soy lecithin,en,,,soy,,plant,,,origin-glossary
+lecitina de girassol,pt,,,,,plant,,,origin-glossary
+sunflower lecithin,en,,,,,plant,,,origin-glossary
+lecitina,pt,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
+lecithin,en,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
+e322,code,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
+amendoim,pt,,,peanut,,plant,,,v0.2-added
+peanut,en,,,peanut,,plant,,,v0.2-added
+peanut butter,en,,,peanut,,plant,,Not dairy,v0.2-added
+pasta de amendoim,pt,,,peanut,,plant,,,v0.2-added
+mani,es,,,peanut,,plant,,,v0.2-added
+castanha,pt,,,tree_nuts,,plant,,,v0.2-added
+castanha de caju,pt,,,tree_nuts,,plant,,,v0.2-added
+castanha do para,pt,,,tree_nuts,,plant,,,v0.2-added
+nozes,pt,,,tree_nuts,,plant,,,v0.2-added
+noz,pt,,,tree_nuts,,plant,,,v0.2-added
+amendoa,pt,,,tree_nuts,,plant,,,v0.2-added
+avela,pt,,,tree_nuts,,plant,,,v0.2-added
+pistache,pt,,,tree_nuts,,plant,,,v0.2-added
+macadamia,pt/en,,,tree_nuts,,plant,,,v0.2-added
+almond,en,,,tree_nuts,,plant,,,v0.2-added
+almond flour,en,,green,tree_nuts,,plant,,,v0.2-added
+hazelnut,en,,,tree_nuts,,plant,,,v0.2-added
+cashew,en,,,tree_nuts,,plant,,,v0.2-added
+walnut,en,,,tree_nuts,,plant,,,v0.2-added
+pecan,en,,,tree_nuts,,plant,,,v0.2-added
+pistachio,en,,,tree_nuts,,plant,,,v0.2-added
+tree nut,en,,,tree_nuts,,plant,,,v0.2-added
+gergelim,pt,,,sesame,,plant,,,v0.2-added
+sesamo,es,,,sesame,,plant,,,v0.2-added
+sesame,en,,,sesame,,plant,,,v0.2-added
+tahine,pt,,,sesame,,plant,,,v0.2-added
+tahini,en,,,sesame,,plant,,,v0.2-added
+ovo,pt,,,egg,,animal,egg,,origin-glossary
+huevo,es,,,egg,,animal,egg,,origin-glossary
+egg,en,,,egg,,animal,egg,,origin-glossary
+albumina,pt,,,egg,,animal,egg,,origin-glossary
+albumen,en,,,egg,,animal,egg,,origin-glossary
+mel,pt,,,,,animal,bee,,origin-glossary
+miel,es,,,,,animal,bee,,origin-glossary
+honey,en,,,,,animal,bee,,origin-glossary
+cera de abelha,pt,,,,,animal,bee,,origin-glossary
+beeswax,en,,,,,animal,bee,,origin-glossary
+e901,code,,,,,animal,bee,,origin-glossary
+geleia real,pt,,,,,animal,bee,,origin-glossary
+royal jelly,en,,,,,animal,bee,,origin-glossary
+propolis,pt/en,,,,,animal,bee,,origin-glossary
+carne,pt/es,,,,,animal,meat,,origin-glossary
+beef,en,,,,,animal,meat,,origin-glossary
+pork,en,,,,,animal,meat,,origin-glossary
+porco,pt,,,,,animal,meat,,origin-glossary
+frango,pt,,,,,animal,meat,,origin-glossary
+chicken,en,,,,,animal,meat,,origin-glossary
+turkey,en,,,,,animal,meat,,origin-glossary
+bacon,pt/en,,,,,animal,meat,,origin-glossary
+linguica,pt,,,,,animal,meat,,origin-glossary
+sausage,en,,,,,animal,meat,,origin-glossary
+caldo de carne,pt,,yellow,,milk,animal,meat,,origin-glossary
+caldo de galinha,pt,,yellow,,milk,animal,meat,,origin-glossary
+beef broth,en,,yellow,,milk,animal,meat,,origin-glossary
+chicken broth,en,,yellow,,milk,animal,meat,,origin-glossary
+banha,pt,,,,,animal,slaughter,Animal fat,origin-glossary
+sebo,pt,,,,,animal,slaughter,Animal fat,origin-glossary
+gordura animal,pt,,,,,animal,slaughter,Animal fat,origin-glossary
+lard,en,,,,,animal,slaughter,Animal fat,origin-glossary
+tallow,en,,,,,animal,slaughter,Animal fat,origin-glossary
+suet,en,,,,,animal,slaughter,Animal fat,origin-glossary
+gelatina,pt/es,,,,,animal,slaughter,Slaughter by-product,origin-glossary
+gelatin,en,,,,,animal,slaughter,Slaughter by-product,origin-glossary
+e441,code,,,,,animal,slaughter,Slaughter by-product,origin-glossary
+colageno,pt,,,,,animal,slaughter,Slaughter by-product,origin-glossary
+collagen,en,,,,,animal,slaughter,Slaughter by-product,origin-glossary
+edible bone phosphate,en,,,,,animal,slaughter,,origin-glossary
+e542,code,,,,,animal,slaughter,,origin-glossary
+peixe,pt,,,fish,,animal,fish,,origin-glossary
+pescado,es,,,fish,,animal,fish,,origin-glossary
+fish,en,,,fish,,animal,fish,,origin-glossary
+anchova,pt,,,fish,,animal,fish,,origin-glossary
+anchovy,en,,,fish,,animal,fish,,origin-glossary
+anchovies,en,,,fish,,animal,fish,,origin-glossary
+atum,pt,,,fish,,animal,fish,,v0.2-added
+tuna,en,,,fish,,animal,fish,,v0.2-added
+salmao,pt,,,fish,,animal,fish,,v0.2-added
+salmon,en,,,fish,,animal,fish,,v0.2-added
+molho de peixe,pt,,,fish,,animal,fish,,origin-glossary
+fish sauce,en,,,fish,,animal,fish,,origin-glossary
+oleo de peixe,pt,,,fish,,animal,fish,,origin-glossary
+fish oil,en,,,fish,,animal,fish,,origin-glossary
+cod liver oil,en,,,fish,,animal,fish,,origin-glossary
+krill oil,en,,,crustacean,,animal,fish,,origin-glossary
+crustaceos,pt,,,crustacean,,animal,fish,,v0.2-added
+crustaceans,en,,,crustacean,,animal,fish,,v0.2-added
+camarao,pt,,,crustacean,,animal,fish,,v0.2-added
+shrimp,en,,,crustacean,,animal,fish,,v0.2-added
+lagosta,pt,,,crustacean,,animal,fish,,v0.2-added
+lobster,en,,,crustacean,,animal,fish,,v0.2-added
+caranguejo,pt,,,crustacean,,animal,fish,,v0.2-added
+crab,en,,,crustacean,,animal,fish,,v0.2-added
+moluscos,pt,,,mollusc,,animal,fish,,v0.2-added
+molluscs,en,,,mollusc,,animal,fish,,v0.2-added
+shellfish,en,,,crustacean;mollusc,,animal,fish,,v0.2-added
+molho de ostra,pt,,,mollusc,,animal,fish,,origin-glossary
+oyster sauce,en,,,mollusc,,animal,fish,,origin-glossary
+carmim,pt,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+cochonilha,pt,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+carmine,en,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+cochineal,en,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+e120,code,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+natural red 4,en,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
+goma laca,pt,,,,,animal,insect,Insect secretion; vegetarian rules vary,origin-glossary
+shellac,en,,,,,animal,insect,Insect secretion; vegetarian rules vary,origin-glossary
+confectioner's glaze,en,,,,,animal,insect,Insect secretion; vegetarian rules vary,origin-glossary
+e904,code,,,,,animal,insect,Insect secretion; vegetarian rules vary,origin-glossary
+lanolina,pt,,,,,animal,wool,From sheep wool,origin-glossary
+lanolin,en,,,,,animal,wool,From sheep wool,origin-glossary
+oleo,pt,,,,,either,,Oil source not stated,origin-glossary
+oil,en,,,,,either,,Oil source not stated,origin-glossary
+gordura,pt,,,,,either,,Fat source not stated,origin-glossary
+fat,en,,,,,either,,Fat source not stated,origin-glossary
+gordura hidrogenada,pt,,,,,either,,Fat source not stated,origin-glossary
+shortening,en,,,,,either,,Fat source not stated,origin-glossary
+gordura vegetal,pt,,,,,plant,,,origin-glossary
+vegetable shortening,en,,,,,plant,,,origin-glossary
+oleo vegetal,pt,,,,,plant,,,origin-glossary
+vegetable oil,en,,,,,plant,,,origin-glossary
+oleo de soja,pt,,,,soy,plant,,Refined oil; check the allergen statement,origin-glossary
+soybean oil,en,,,,soy,plant,,Refined oil; check the allergen statement,origin-glossary
+oleo de canola,pt,,,,,plant,,,origin-glossary
+canola oil,en,,,,,plant,,,origin-glossary
+oleo de girassol,pt,,,,,plant,,,origin-glossary
+sunflower oil,en,,,,,plant,,,origin-glossary
+azeite,pt,,,,,plant,,,origin-glossary
+olive oil,en,,,,,plant,,,origin-glossary
+oleo de palma,pt,,,,,plant,,,origin-glossary
+palm oil,en,,,,,plant,,,origin-glossary
+oleo de coco,pt,,,,,plant,,,origin-glossary
+coconut oil,en,,,,,plant,,,origin-glossary
+mono and diglycerides,en,,,,,either,,Emulsifier; plant or animal fat,origin-glossary
+mono e diglicerideos,pt,,,,,either,,Emulsifier; plant or animal fat,origin-glossary
+diglycerides,en,,,,,either,,Emulsifier; plant or animal fat,origin-glossary
+e471,code,,,,,either,,Emulsifier; plant or animal fat,origin-glossary
+glicerina,pt,,,,,either,,Plant or animal fat,origin-glossary
+glicerol,pt,,,,,either,,Plant or animal fat,origin-glossary
+glycerin,en,,,,,either,,Plant or animal fat,origin-glossary
+glycerol,en,,,,,either,,Plant or animal fat,origin-glossary
+e422,code,,,,,either,,Plant or animal fat,origin-glossary
+acido estearico,pt,,,,,either,,Plant or animal fat,origin-glossary
+stearic acid,en,,,,,either,,Plant or animal fat,origin-glossary
+e570,code,,,,,either,,Plant or animal fat,origin-glossary
+estearato de magnesio,pt,,,,,either,,Plant or animal fat,origin-glossary
+magnesium stearate,en,,,,,either,,Plant or animal fat,origin-glossary
+e572,code,,,,,either,,Plant or animal fat,origin-glossary
+inosinato dissodico,pt,,,,,either,,Meat or fish or fermentation,origin-glossary
+disodium inosinate,en,,,,,either,,Meat or fish or fermentation,origin-glossary
+e631,code,,,,,either,,Meat or fish or fermentation,origin-glossary
+guanilato dissodico,pt,,,,,either,,Meat or fish or fermentation,origin-glossary
+disodium guanylate,en,,,,,either,,Meat or fish or fermentation,origin-glossary
+e627,code,,,,,either,,Meat or fish or fermentation,origin-glossary
+e635,code,,,,,either,,Meat or fish or fermentation,origin-glossary
+l cisteina,pt,,,,,either,,Animal-derived or fermentation,origin-glossary
+l cysteine,en,,,,,either,,Animal-derived or fermentation,origin-glossary
+e920,code,,,,,either,,Animal-derived or fermentation,origin-glossary
+enzimas,pt,,,,,either,,Animal or microbial or plant,origin-glossary
+enzymes,en,,,,,either,,Animal or microbial or plant,origin-glossary
+coalho,pt,,,,,either,,Animal or microbial rennet,origin-glossary
+rennet,en,,,,,either,,Animal or microbial rennet,origin-glossary
+lipase,pt/en,,,,,either,,Animal or microbial,origin-glossary
+pepsina,pt,,,,,animal,slaughter,Usually from pig stomach,origin-glossary
+pepsin,en,,,,,animal,slaughter,Usually from pig stomach,origin-glossary
+vitamina d3,pt,,,,,either,,Sheep lanolin or lichen,origin-glossary
+vitamin d3,en,,,,,either,,Sheep lanolin or lichen,origin-glossary
+omega 3,pt/en,,,,fish,either,,Fish or algae,origin-glossary
+dha,pt/en,,,,fish,either,,Fish or algae,origin-glossary
+epa,pt/en,,,,fish,either,,Fish or algae,origin-glossary
+vinho,pt,,,,,either,,Fining agents may be animal-derived,origin-glossary
+wine,en,,,,,either,,Fining agents may be animal-derived,origin-glossary
+acucar,pt,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
+azucar,es,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
+sugar,en,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
+xarope de glicose,pt,,,,,plant,,,v0.2-added
+glucose syrup,en,,,,,plant,,,v0.2-added
+caramelo,pt,,,,,plant,,,v0.2-added
+caramel color,en,,,,,plant,,,v0.2-added
+melaco,pt,,,,,plant,,,origin-glossary
+molasses,en,,,,,plant,,,origin-glossary
+maple syrup,en,,,,,plant,,,origin-glossary
+agave,pt/en,,,,,plant,,,origin-glossary
+vinagre,pt/es,,,,,plant,,,origin-glossary
+vinegar,en,,,,,plant,,,origin-glossary
+pectina,pt,,,,,plant,,,origin-glossary
+pectin,en,,,,,plant,,,origin-glossary
+agar,pt/en,,,,,plant,,,origin-glossary
+carragena,pt,,,,,plant,,,origin-glossary
+carrageenan,en,,,,,plant,,,origin-glossary
+goma guar,pt,,,,,plant,,,origin-glossary
+guar gum,en,,,,,plant,,,origin-glossary
+locust bean gum,en,,,,,plant,,,origin-glossary
+urucum,pt,,,,,plant,,,origin-glossary
+annatto,en,,,,,plant,,,origin-glossary
+beterraba,pt,,,,,plant,,,origin-glossary
+curcuma,pt,,,,,plant,,,origin-glossary
+turmeric,en,,,,,plant,,,origin-glossary
+paprica,pt,,,,,plant,,,origin-glossary
+paprika,en,,,,,plant,,,origin-glossary
+cacau,pt,,,,,plant,,,v0.2-added
+cocoa,en,,,,,plant,,,v0.2-added
+massa de cacau,pt,,,,,plant,,,v0.2-added
+baunilha,pt,,,,,plant,,,v0.2-added
+vanilla,en,,,,,plant,,,v0.2-added
+coco,pt,,,,,plant,,,v0.2-added
+coconut,en,,,,,plant,,,v0.2-added
+tofu,pt/en,,,soy,,plant,,,origin-glossary
+tempeh,pt/en,,,soy,,plant,,,origin-glossary
+feijao,pt,,,,,plant,,,v0.2-added
+beans,en,,,,,plant,,,v0.2-added
+cebola,pt,,,,,plant,,,v0.2-added
+onion,en,,,,,plant,,,v0.2-added
+alho,pt,,,,,plant,,,v0.2-added
+garlic,en,,,,,plant,,,v0.2-added
+cenoura,pt,,,,,plant,,,v0.2-added
+carrot,en,,,,,plant,,,v0.2-added
+aipo,pt,,,,,plant,,,v0.2-added
+celery,en,,,,,plant,,,v0.2-added
+cravo,pt,,,,,plant,,,v0.2-added
+clove,en,,,,,plant,,,v0.2-added
+tamarindo,pt,,,,,plant,,,v0.2-added
+tamarind,en,,,,,plant,,,v0.2-added
+mostarda,pt,,,,,plant,,,v0.2-added
+mustard,en,,,,,plant,,,v0.2-added
+sal,pt/es,,,,,mineral_synthetic,,,origin-glossary
+salt,en,,,,,mineral_synthetic,,,origin-glossary
+agua,pt/es,,,,,mineral_synthetic,,,origin-glossary
+water,en,,,,,mineral_synthetic,,,origin-glossary
+bicarbonato de sodio,pt,,,,,mineral_synthetic,,,origin-glossary
+baking soda,en,,,,,mineral_synthetic,,,origin-glossary
+baking powder,en,,,,,mineral_synthetic,,,origin-glossary
+fermento quimico,pt,,,,,mineral_synthetic,,,origin-glossary
+carbonato de calcio,pt,,,,,mineral_synthetic,,,origin-glossary
+calcium carbonate,en,,,,,mineral_synthetic,,,origin-glossary
+ferro,pt,,,,,mineral_synthetic,,,origin-glossary
+iron,en,,,,,mineral_synthetic,,,origin-glossary
+acido folico,pt,,,,,mineral_synthetic,,,origin-glossary
+folic acid,en,,,,,mineral_synthetic,,,origin-glossary
+acido citrico,pt,,,,,mineral_synthetic,,,origin-glossary
+citric acid,en,,,,,mineral_synthetic,,,origin-glossary
+acido ascorbico,pt,,,,,mineral_synthetic,,,origin-glossary
+ascorbic acid,en,,,,,mineral_synthetic,,,origin-glossary
+goma xantana,pt,,,,,microbial,,,origin-glossary
+xanthan gum,en,,,,,microbial,,,origin-glossary
+goma gelana,pt,,,,,microbial,,,origin-glossary
+gellan gum,en,,,,,microbial,,,origin-glossary
+fermento biologico,pt,,,,,microbial,,,origin-glossary
+levedura,pt,,,,,microbial,,,origin-glossary
+yeast,en,,,,,microbial,,,origin-glossary
+nutritional yeast,en,,,,,microbial,,,origin-glossary
+vitamina b12,pt,,,,,microbial,,,origin-glossary
+vitamin b12,en,,,,,microbial,,,origin-glossary
