@@ -1,4 +1,4 @@
-# Rules engine vs golden set (rules 0.2.0)
+# Rules engine vs golden set (rules 0.2.1)
 
 Deterministic layer only: no LLM, no photos. Photo and edge cases are tested in the Claude chat.
 

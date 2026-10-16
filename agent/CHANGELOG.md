@@ -1,5 +1,16 @@
 # Agent changelog
 
+## v0.2.1 - 2026-10-16 (rules engine only)
+Code review fixes, each with a test in `mcp-server/tests/test_review_findings.py` (written first, failing on v0.2.0).
+- Safety: items after "contains 2% or less of:" / "contém menos de 2% de:" were dropped, so gelatin or carmine could come out 🟢 for a vegan. They are now read as ingredients.
+- Safety: the word "vegan"/"vegano" inside an ingredient ("vegan butter", "queijo vegano") ended the list. Claims now end the list only when they stand alone.
+- Without an "INGREDIENTES:" header, "Pode conter leite" was read as an ingredient (🔴). It is now a may-contain statement (🟡).
+- "(65%)" and "(INS 322)" are no longer counted as unknown ingredients.
+- New terms (`v0.2.1-added`, no cited source yet): vegan butter/cheese/mayonnaise and the Portuguese names, cashew cheese, queijo de castanha, coconut cream, mayonnaise and maionese (egg).
+- `create_review_ticket`: reports the real destination, and keeps the case in the local queue when GitHub fails or there is no token.
+- `eval_rules.py` no longer crashes on Windows when its output is redirected.
+- Tests: 27 passed. Golden set (text rows): still 25/25.
+
 ## v0.2 - 2026-10-16
 - Added the `mcp-server/`: the agent now calls tools instead of classifying from memory.
   - `check_label`: deterministic rules engine (ingredient matching, profile, STRICT mode, cross-checks XC1-XC4).

@@ -419,3 +419,14 @@ yeast,en,,,,,microbial,,,origin-glossary
 nutritional yeast,en,,,,,microbial,,,origin-glossary
 vitamina b12,pt,,,,,microbial,,,origin-glossary
 vitamin b12,en,,,,,microbial,,,origin-glossary
+vegan butter,en,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+manteiga vegana,pt,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+vegan cheese,en,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+queijo vegano,pt,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+cashew cheese,en,green,,tree_nuts,,plant,,Not dairy; cashew is a tree nut,v0.2.1-added
+queijo de castanha,pt,green,,tree_nuts,,plant,,Not dairy; usually cashew (tree nut),v0.2.1-added
+coconut cream,en,green,,,,plant,,Not dairy,v0.2.1-added
+vegan mayonnaise,en,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+maionese vegana,pt,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
+mayonnaise,en,green,,egg,,animal,egg,Made with egg,v0.2.1-added
+maionese,pt,green,,egg,,animal,egg,Made with egg,v0.2.1-added

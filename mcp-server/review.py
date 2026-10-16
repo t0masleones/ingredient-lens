@@ -51,19 +51,25 @@ def _github_token() -> str | None:
 
 def create_ticket(title: str, body: str) -> dict:
     repo = os.environ.get("INGREDIENT_LENS_GITHUB_REPO")
-    record = {"at": _now(), "title": title, "body": body}
+    record = {"at": _now(), "title": title, "body": body, "ticket": f"local:{QUEUE.name}"}
+    destination = "local queue"
     if repo and (token := _github_token()):
         req = urllib.request.Request(
             f"https://api.github.com/repos/{repo}/issues", method="POST",
             data=json.dumps({"title": title, "body": body}).encode(),
             headers={"Authorization": f"Bearer {token}", "Accept": "application/vnd.github+json"})
-        with urllib.request.urlopen(req, timeout=20) as resp:
-            issue = json.load(resp)
-        record["ticket"] = issue["html_url"]
-    else:
-        record["ticket"] = f"local:{QUEUE.name}"
+        # If GitHub fails, the case still lands in the local queue instead of being lost.
+        try:
+            with urllib.request.urlopen(req, timeout=20) as resp:
+                record["ticket"] = json.load(resp)["html_url"]
+            destination = "github"
+        except (OSError, ValueError, KeyError) as e:
+            record["github_error"] = str(e)
+    elif repo:
+        record["github_error"] = "no GitHub token found"
     _append(QUEUE, record)
-    return {"ticket": record["ticket"], "destination": "github" if repo else "local queue"}
+    return {"ticket": record["ticket"], "destination": destination, **({"error": record["github_error"]}
+                                                                        if "github_error" in record else {})}
 
 
 def usage_stats() -> dict:

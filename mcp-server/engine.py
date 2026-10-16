@@ -14,7 +14,7 @@ import unicodedata
 from dataclasses import dataclass, field
 from pathlib import Path
 
-RULES_VERSION = "0.2.0"
+RULES_VERSION = "0.2.1"
 DATA_DIR = Path(__file__).parent / "data"
 CSV_PATH = DATA_DIR / "ingredients.csv"
 DB_PATH = DATA_DIR / "ingredients.db"
@@ -104,9 +104,19 @@ class Matcher:
 # ---------------------------------------------------------------- parsing
 
 HEADER = re.compile(r"\b(ingredientes|ingredients)\s*:", re.I)
+# Allergen statements end the list wherever they start; claims only when they stand alone ("Oats, sugar. VEGAN"),
+# so "vegan butter" or "queijo vegano" stay ingredients.
 STATEMENT_START = re.compile(
-    r"\b(alergicos|alergenos|allergens|contem|contains|contiene|pode conter|may contain|puede contener|"
-    r"nao contem|zero lactose|sem lactose|lactose free|gluten free|sem gluten|sin gluten|vegano|vegan)\b")
+    r"\b(alergicos|alergenos|allergens|contem|contains|contiene|pode conter|may contain|puede contener|nao contem)\b")
+CLAIM_START = re.compile(
+    r"(?:^|[\n,;])\s*(zero lactose|sem lactose|lactose free|gluten free|sem gluten|sin gluten|vegano|vegana|vegan)"
+    r"\s*(?=$|[\n,;.!])")
+# "contains 2% or less of:", "contém menos de 2% de:" introduce more ingredients, not a statement.
+MINOR_INGREDIENTS = re.compile(
+    r"\b(?:(?:contains|cont[eé]m|contiene)\s+)?(?:\d+(?:[.,]\d+)?\s*%\s+or\s+less\s+of|less\s+than\s+\d+(?:[.,]\d+)?\s*%\s+of|"
+    r"menos\s+de\s+\d+(?:[.,]\d+)?\s*%\s+de)\s*:?", re.I)
+PERCENT = re.compile(r"^\s*\d+(?:[.,]\d+)?\s*%\s*$")
+ADDITIVE_CODE = re.compile(r"^\s*(?:ins|e)\s*-?\s*\d{3,4}[a-z]?(?:\s*[ivx]+)?\s*$", re.I)
 GLUTEN_FREE = re.compile(r"\b(nao contem gluten|sem gluten|isento de gluten|gluten free|sin gluten|libre de gluten)\b")
 GLUTEN_CONTAINS = re.compile(r"\b(contem gluten|contains gluten|contiene gluten)\b")
 LACTOSE_FREE = re.compile(r"(\bzero lactose|\bsem lactose|\bisento de lactose|0% lactose|\bnao contem lactose|"
@@ -141,10 +151,16 @@ def split_ingredients(list_text: str) -> list[str]:
     for item in split_top_level(list_text):
         m = re.match(r"^(.*?)\((.*)\)\s*(.*)$", item, re.S)
         if m:
-            head = f"{m.group(1)} {m.group(3)}".strip()
+            head, inner = f"{m.group(1)} {m.group(3)}".strip(), m.group(2)
+            # "(65%)" is a quantity and "(INS 322)" names the head; neither is a separate ingredient.
+            if PERCENT.match(inner):
+                inner = ""
+            elif ADDITIVE_CODE.match(inner):
+                head, inner = f"{head} {inner.strip()}".strip(), ""
             if head:
                 out.append(head)
-            out.extend(split_ingredients(m.group(2)))
+            if inner:
+                out.extend(split_ingredients(inner))
         else:
             out.append(item)
     return out
@@ -164,17 +180,23 @@ class Statements:
 
 def parse_label(text: str, matcher: Matcher) -> tuple[list[str], Statements]:
     """Return (ingredient items, statements). Recipes without a header are all ingredients."""
+    text = MINOR_INGREDIENTS.sub(",", text)
     header = HEADER.search(text)
     if header:
         body = text[header.end():]
-        # The list ends at the first statement keyword or the first sentence end, whichever comes first.
-        ends = [m.start() for m in (STATEMENT_START.search(normalize_keep_len(body)), re.search(r"\.(\s|$)", body)) if m]
+        norm = normalize_keep_len(body)
+        # The list ends at the first statement, standalone claim or sentence end, whichever comes first.
+        ends = [m.start(m.lastindex or 0) for m in (STATEMENT_START.search(norm), CLAIM_START.search(norm),
+                                                    re.search(r"\.(\s|$)", body)) if m]
         cut = min(ends, default=len(body))
         list_text, rest = body[:cut], text[:header.start()] + " " + body[cut:]
     else:
         # A recipe such as "Pastry for vegan guests: flour; lard; salt" -> drop the title.
         title = re.match(r"^[^:;\n]{0,100}:\s*", text)
-        list_text, rest = (text[title.end():] if title else text), ""
+        list_text = text[title.end():] if title else text
+        # No header: only an allergen statement ends the list (recipes use "1 tsp. salt", so not periods).
+        stmt = STATEMENT_START.search(normalize_keep_len(list_text))
+        list_text, rest = (list_text[:stmt.start()], list_text[stmt.start():]) if stmt else (list_text, "")
     return split_ingredients(list_text), parse_statements(rest, matcher)
 
 

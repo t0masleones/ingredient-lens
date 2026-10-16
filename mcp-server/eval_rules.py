@@ -5,6 +5,7 @@ Usage: uv run eval_rules.py   (writes tests/evidence/results-rules-v0.2.md)
 
 import csv
 import re
+import sys
 from pathlib import Path
 
 import engine
@@ -49,6 +50,7 @@ def main() -> None:
     lines += ["", f"**Pass rate: {passed}/{len(rows)} ({passed / len(rows):.0%})**", ""]
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text("\n".join(lines), encoding="utf-8")
+    sys.stdout.reconfigure(encoding="utf-8")  # Windows consoles default to cp1252 when output is redirected
     print("\n".join(lines))
 
 
