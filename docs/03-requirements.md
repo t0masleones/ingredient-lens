@@ -26,6 +26,7 @@ Priority: P1 = needed for the demo, P2 = next.
 | US-14 | P2 | As a cook, I want substitutes for ingredients that do not fit. | Substitutes only for 🔴 items, as generic types, and re-checked against the same profile (for example plant butters may contain soy or tree nuts). |
 | US-15 | P2 | As an analyst, I want a consistency check and a handoff note. | The agent lists declared allergens for the market on the label, mismatches, "Escalate to human review: Yes/No" and a 3-line note. |
 | US-16 | P2 | As the product owner, I want to track quality over time. | Every test run is logged against the golden set; pass rates for v0.1 and v0.2 are compared. |
+| US-17 | P2 | As the product owner, I want ingredient data from public sources with clear provenance, so coverage grows without new risk. | Every database row names its source. Imported data never turns a missing allergen fact into 🟢. Licenses are credited. Coverage is measured on labels not used for tuning. |
 
 ## Non-functional requirements
 - **Safety:** no diagnosis, no medication or dose advice, no claims of safety or "vegan for sure".
@@ -34,6 +35,7 @@ Priority: P1 = needed for the demo, P2 = next.
 - **Accessibility:** icons always paired with words; short sentences; text-only output.
 - **Transparency:** the agent shows what it read and how confident it is.
 - **Maintainability:** instructions and knowledge files are versioned, with a changelog.
+- **Data provenance:** curated data wins over imported data; imports are scripted, versioned and credited (Open Food Facts under the ODbL).
 - **Cost:** zero.
 
 ## Definition of done for v0.1
@@ -43,7 +45,7 @@ Priority: P1 = needed for the demo, P2 = next.
 - Screen recording of the demo (one case per mode).
 
 ## Open questions (if this became a real project)
-- Where would ingredient-origin data come from, and who approves it?
+- Where would ingredient-origin data come from, and who approves it? (v0.3 uses curated glossaries plus Open Food Facts; production would need supplier specifications.)
 - Which diets need certification-level evidence (halal, kosher)?
 - How would answers be logged and reviewed, and what is the human-review turnaround?
 - What data-privacy rules apply to customer-facing use?

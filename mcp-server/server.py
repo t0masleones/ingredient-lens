@@ -6,7 +6,7 @@ import engine
 import review
 
 mcp = MCPServer("ingredient-lens", version=engine.RULES_VERSION)
-_matcher = engine.Matcher(engine.connect())
+_matcher = engine.Matcher()
 
 
 @mcp.tool()

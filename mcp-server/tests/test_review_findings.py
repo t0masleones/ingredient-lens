@@ -10,7 +10,7 @@ import review
 
 @pytest.fixture(scope="module")
 def m():
-    return engine.Matcher(engine.connect())
+    return engine.Matcher()
 
 
 def check(m, text, avoid, strict=False):

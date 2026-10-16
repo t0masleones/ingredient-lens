@@ -44,7 +44,25 @@ Example data mapping for a production version (replaces the knowledge files with
 
 Integration needs: connector or API to the ingredient and specification data, logging of every answer with its evidence, a human-review queue for 🟡 and 🔴 cases, and access control.
 
+## Data sources for the ingredient database (v0.3, checked 2026-10-16)
+The same build-vs-buy question applies to data: curate everything by hand, or reuse a public dataset.
+
+| Source | Regulated? | Machine-readable? | What it adds | Decision |
+|---|---|---|---|---|
+| Open Food Facts taxonomies (additives, ingredients) | No, volunteer-maintained; follows the EU additive list | Yes, JSON, ODbL license | 10,902 terms in PT, EN and ES; vegan and vegetarian status; E/INS codes | **Imported** for diet status and coverage. Allergens are never assumed absent without evidence |
+| Codex CXG 36-1989 (INS) | Yes, international standard | No, PDF | Additive numbers and functions | Used through the E/INS code mapping |
+| Anvisa IN 211/2023 | Yes, Brazil | No, amended often | Additives authorized in Brazil | Cited in the label rules |
+| EU additives database (Regulation 1333/2008, Annex II) | Yes, EU | Searchable only | Authorized E numbers | Cited; Open Food Facts follows it |
+| FDA Substances Added to Food | Yes, US | Searchable only | About 4,000 substances | Backlog, if a download becomes available |
+| USDA FoodData Central, TACO (Brazil) | Yes, public | Yes | Nutrient composition | Not used: out of scope (nutrition) |
+
+Rule for any imported data: the curated rows win, the import is a script whose output is versioned and reviewed as a diff, and a gap in the data must produce 🟡, never 🟢. Details: [mcp-server/data/README.md](../mcp-server/data/README.md).
+
 ## Sources
+- Open Food Facts taxonomies: https://static.openfoodfacts.org/data/taxonomies/ and terms of use (ODbL): https://world.openfoodfacts.org/terms-of-use
+- EU food additives database: https://food.ec.europa.eu/food-safety/food-improvement-agents/additives/database_en
+- FDA Substances Added to Food: https://www.fda.gov/food/food-additives-petitions/substances-added-food-formerly-eafus
+- Codex INS working documents: https://www.fao.org/fileadmin/user_upload/codexalimentarius/invitations/CCFA55_INS2025.pdf
 - Claude Projects on free plans, sharing and RAG limits: https://support.claude.com/en/articles/9517075
 - Claude AI-powered artifacts: https://support.claude.com/en/articles/9487310
 - Image upload guidance: https://support.claude.com/en/articles/8241126-upload-files-to-claude

@@ -14,7 +14,7 @@ Aid for classifying ingredients when the profile is a diet (vegan, vegetarian). 
 - Dairy: milk, butter, cream, cheese, yogurt, whey, casein, ghee (leite, manteiga, creme, queijo, iogurte, soro de leite, caseína)
 - Egg: whole egg, egg white, egg yolk, albumen (ovo, clara, gema, albumina)
 - Bee products: honey, beeswax E901, royal jelly, propolis (mel, cera de abelha, geleia real, própolis)
-- Gelatin E441 and collagen (gelatina, colágeno)
+- Gelatin and collagen (gelatina, colágeno). Gelatin has no E or INS number: it is a food, not an additive. E441 / INS 441 is superglycerinated hydrogenated rapeseed oil (plant).
 - Carmine, cochineal, E120, natural red 4 (carmim, cochonilha): insect-derived
 - Shellac, confectioner's glaze, E904 (goma-laca): insect secretion
 - Lanolin (from sheep wool)

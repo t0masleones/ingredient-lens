@@ -31,7 +31,7 @@ def expected(row: dict) -> str | None:
 
 
 def main() -> None:
-    matcher = engine.Matcher(engine.connect())
+    matcher = engine.Matcher()
     rows = [r for r in csv.DictReader(open(GOLDEN, encoding="utf-8")) if expected(r)]
     lines = [f"# Rules engine vs golden set (rules {engine.RULES_VERSION})", "",
              "Deterministic layer only: no LLM, no photos. Photo and edge cases are tested in the Claude chat.", "",
