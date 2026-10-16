@@ -31,6 +31,43 @@ flowchart LR
 3. Add the three files in `agent/knowledge/` to the project's files.
 4. Open a chat inside the project. Attach a photo of an ingredient panel (1000x1000 px or larger works best) or paste a recipe, and say what you need to avoid.
 
+## v0.2: the agent uses tools
+In v0.1 the model did everything from its instructions. In v0.2 it calls an MCP server (`mcp-server/`) and only transcribes and explains:
+
+| Tool | What it does | Why it is not left to the model |
+|---|---|---|
+| `check_label` | Matches each ingredient against the ingredient database, applies the profile and STRICT mode, cross-checks label statements (rules XC1-XC4) | Same input, same answer, every time; rules are tested in code |
+| `lookup_ingredient` | Looks up one term in a SQLite database built from the glossaries; every row cites its source | Governed, versioned data instead of free text |
+| `create_review_ticket` | Sends escalated cases to a human-review queue (GitHub Issues or a local file) | Human in the loop for contradictions and STRICT cases |
+| `usage_stats` | Verdict mix, escalation rate and most frequent mismatches from the audit log | Monitoring after go-live |
+
+```mermaid
+flowchart LR
+  U[User: photo or text] --> C[Claude: transcribe exactly]
+  C --> T[check_label tool]
+  T --> DB[(Ingredient DB - SQLite)]
+  T --> R[Rules: profile, STRICT, XC1-XC4]
+  R --> C2[Claude: explain in plain words]
+  R -- escalate --> Q[create_review_ticket: GitHub Issue]
+  T --> L[(Audit log)] --> S[usage_stats]
+```
+
+**Connect it to Claude Desktop** (needs [uv](https://docs.astral.sh/uv/)): Settings → Developer → Edit Config, add the block below with your path, restart Claude Desktop, then use the Ingredient Lens project from the desktop app.
+```json
+{
+  "mcpServers": {
+    "ingredient-lens": {
+      "command": "uv",
+      "args": ["run", "--directory", "C:\\path\\to\\ingredient-lens\\mcp-server", "server.py"],
+      "env": { "INGREDIENT_LENS_GITHUB_REPO": "your-user/ingredient-lens" }
+    }
+  }
+}
+```
+Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mcp.json` at the repo root connects it automatically.
+
+**Check the rules without any LLM:** `cd mcp-server`, then `uv run pytest` and `uv run eval_rules.py` (runs the golden set's text rows through the rules engine).
+
 ## Repo map
 | Path | What it is |
 |---|---|
@@ -38,10 +75,12 @@ flowchart LR
 | `docs/02-tool-selection.md` | Why a Claude Project (no-code), and what would need engineering |
 | `docs/03-requirements.md` | User stories, acceptance criteria, safety requirements |
 | `agent/` | The agent: instructions, knowledge files, changelog |
+| `mcp-server/` | v0.2 tools: rules engine, ingredient database (`data/ingredients.csv`), review queue, audit log, unit tests |
 | `tests/` | Test plan, golden set (including trap cases), evidence |
 
 ## Results
-_To be filled after testing: recall, false alarms, origin accuracy, safety checks, v0.1 to v0.2._
+- Rules engine (no LLM) vs golden set text rows: 25/25 ([results-rules-v0.2.md](tests/evidence/results-rules-v0.2.md)). The golden set was used while building the rules, so this is not yet an unbiased accuracy figure; a held-out set is next.
+- _To be filled: full agent in the Claude chat (photos, tone, safety wording), v0.1 vs v0.2._
 
 ## Limitations
 - Photo reading can fail on curved packs, glare and tiny print. The agent must say so instead of guessing.
