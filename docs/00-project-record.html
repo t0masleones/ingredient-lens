@@ -1,0 +1,426 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ingredient Lens Project Record</title>
+<style>
+:root {
+  --bg: #ffffff; --bg-soft: #f7f8f9; --bg-nav: #f4f5f7; --line: #dfe1e6; --text: #172b4d; --muted: #5e6c84;
+  --link: #0c66e4; --top: #1d2125; --top-text: #e6e8eb;
+  --info-bg: #e9f2ff; --info-line: #0c66e4; --ok-bg: #dcfff1; --ok-line: #1f845a;
+  --warn-bg: #fff7d6; --warn-line: #b38600; --err-bg: #ffeceb; --err-line: #c9372c; --note-bg: #f3f0ff; --note-line: #6e5dc6;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1d2125; --bg-soft: #22272b; --bg-nav: #161a1d; --line: #38414a; --text: #dee4ea; --muted: #9fadbc;
+    --link: #579dff; --top: #101214; --top-text: #dee4ea;
+    --info-bg: #092957; --info-line: #579dff; --ok-bg: #164b35; --ok-line: #4bce97;
+    --warn-bg: #533f04; --warn-line: #e2b203; --err-bg: #5d1f1a; --err-line: #f87168; --note-bg: #2b273f; --note-line: #9f8fef;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1d2125; --bg-soft: #22272b; --bg-nav: #161a1d; --line: #38414a; --text: #dee4ea; --muted: #9fadbc;
+  --link: #579dff; --top: #101214; --top-text: #dee4ea;
+  --info-bg: #092957; --info-line: #579dff; --ok-bg: #164b35; --ok-line: #4bce97;
+  --warn-bg: #533f04; --warn-line: #e2b203; --err-bg: #5d1f1a; --err-line: #f87168; --note-bg: #2b273f; --note-line: #9f8fef;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px/1.6 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
+a { color: var(--link); text-decoration: none; } a:hover { text-decoration: underline; }
+code { font: 12.5px ui-monospace, Consolas, monospace; background: var(--bg-soft); border: 1px solid var(--line); border-radius: 3px; padding: 0 4px; }
+
+.topbar { position: sticky; top: 0; z-index: 5; display: flex; align-items: center; gap: 16px; height: 48px; padding: 0 16px; background: var(--top); color: var(--top-text); }
+.topbar .app { font-weight: 700; letter-spacing: .2px; }
+.topbar .app span { opacity: .6; font-weight: 400; }
+.topbar .search { margin-left: auto; width: 220px; max-width: 40vw; padding: 5px 10px; border-radius: 4px; border: 1px solid #44546f; background: transparent; color: inherit; }
+.topbar button { background: none; border: 1px solid #44546f; color: inherit; border-radius: 4px; padding: 4px 8px; cursor: pointer; }
+
+.layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); min-height: calc(100vh - 48px); }
+nav.space { background: var(--bg-nav); border-right: 1px solid var(--line); padding: 16px 12px; position: sticky; top: 48px; height: calc(100vh - 48px); overflow: auto; }
+.space-head { display: flex; gap: 10px; align-items: center; margin-bottom: 16px; }
+.space-icon { width: 32px; height: 32px; border-radius: 6px; background: #1f845a; color: #fff; display: grid; place-items: center; font-weight: 700; }
+.space-head small { display: block; color: var(--muted); }
+nav.space h4 { margin: 16px 6px 6px; font-size: 11px; text-transform: uppercase; color: var(--muted); letter-spacing: .6px; }
+nav.space ul { list-style: none; margin: 0; padding: 0; }
+nav.space li a { display: block; padding: 4px 8px; border-radius: 4px; color: var(--text); }
+nav.space li a:hover { background: var(--line); text-decoration: none; }
+nav.space li a.current { background: var(--info-bg); color: var(--link); font-weight: 600; }
+nav.space li ul { margin-left: 12px; border-left: 1px solid var(--line); padding-left: 4px; }
+
+main { padding: 24px 40px 80px; max-width: 1040px; }
+.crumbs { color: var(--muted); font-size: 13px; }
+h1 { font-size: 28px; line-height: 1.25; margin: 8px 0 8px; }
+h2 { font-size: 20px; margin: 36px 0 10px; padding-top: 8px; border-top: 1px solid var(--line); }
+h3 { font-size: 16px; margin: 20px 0 6px; }
+.byline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; color: var(--muted); font-size: 13px; }
+.avatar { width: 24px; height: 24px; border-radius: 50%; background: #6e5dc6; color: #fff; display: inline-grid; place-items: center; font-size: 11px; font-weight: 700; vertical-align: middle; margin-right: 6px; }
+.labels { margin-top: 8px; display: flex; flex-wrap: wrap; gap: 6px; }
+.label { font-size: 12px; padding: 1px 8px; border-radius: 3px; background: var(--bg-soft); border: 1px solid var(--line); color: var(--muted); }
+
+.lozenge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; padding: 0 6px; border-radius: 3px; line-height: 18px; white-space: nowrap; }
+.l-done { background: var(--ok-bg); color: var(--ok-line); }
+.l-prog { background: var(--info-bg); color: var(--link); }
+.l-todo { background: var(--bg-soft); color: var(--muted); border: 1px solid var(--line); }
+.l-risk { background: var(--err-bg); color: var(--err-line); }
+.l-warn { background: var(--warn-bg); color: var(--warn-line); }
+.l-prop { background: var(--note-bg); color: var(--note-line); }
+
+.panel { border-left: 4px solid; border-radius: 4px; padding: 10px 14px; margin: 14px 0; }
+.panel b:first-child { display: block; margin-bottom: 2px; }
+.p-info { background: var(--info-bg); border-color: var(--info-line); }
+.p-ok { background: var(--ok-bg); border-color: var(--ok-line); }
+.p-warn { background: var(--warn-bg); border-color: var(--warn-line); }
+.p-note { background: var(--note-bg); border-color: var(--note-line); }
+
+.status-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 16px 0; }
+.stat { border: 1px solid var(--line); border-radius: 6px; padding: 10px 12px; background: var(--bg-soft); }
+.stat small { color: var(--muted); display: block; font-size: 12px; }
+.stat strong { font-size: 18px; }
+
+.toc { border: 1px solid var(--line); border-radius: 6px; padding: 10px 16px; background: var(--bg-soft); display: inline-block; min-width: 280px; }
+.toc ol { margin: 4px 0; padding-left: 20px; }
+
+.table-wrap { overflow-x: auto; margin: 10px 0; }
+table { border-collapse: collapse; width: 100%; font-size: 13px; }
+th, td { border: 1px solid var(--line); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: var(--bg-soft); font-weight: 600; }
+
+.timeline { list-style: none; padding: 0; margin: 10px 0; border-left: 2px solid var(--line); }
+.timeline li { position: relative; padding: 0 0 14px 18px; }
+.timeline li::before { content: ""; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--bg); border: 2px solid var(--link); }
+.timeline .when { color: var(--muted); font-size: 12px; }
+
+details { border: 1px solid var(--line); border-radius: 6px; padding: 8px 12px; margin: 10px 0; }
+details summary { cursor: pointer; font-weight: 600; }
+.tasks { list-style: none; padding-left: 4px; }
+.tasks li { margin: 4px 0; }
+.mermaid { background: var(--bg-soft); border: 1px solid var(--line); border-radius: 6px; padding: 12px; overflow-x: auto; }
+footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px solid var(--line); padding-top: 12px; }
+
+@media (max-width: 860px) {
+  .layout { grid-template-columns: 1fr; }
+  nav.space { position: static; height: auto; border-right: 0; border-bottom: 1px solid var(--line); }
+  main { padding: 16px 16px 60px; }
+  .topbar .search { display: none; }
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="app">Team Wiki <span>· Spaces</span></div>
+  <input class="search" type="search" placeholder="Search" aria-label="Search (demo only)">
+  <button type="button" id="theme" aria-label="Toggle light or dark theme">◐</button>
+</header>
+
+<div class="layout">
+<nav class="space" aria-label="Space navigation">
+  <div class="space-head">
+    <div class="space-icon">IL</div>
+    <div><strong>Ingredient Lens</strong><small>Prototype space</small></div>
+  </div>
+  <h4>Pages</h4>
+  <ul>
+    <li><a href="../README.md">Overview (README)</a></li>
+    <li><a class="current" href="#top">Project record</a>
+      <ul>
+        <li><a href="#summary">Summary</a></li>
+        <li><a href="#activity">Activity log</a></li>
+        <li><a href="#scope-review">Scope review</a></li>
+        <li><a href="#decisions">Decision log</a></li>
+        <li><a href="#traceability">Traceability</a></li>
+        <li><a href="#quality">Quality</a></li>
+        <li><a href="#raid">Risks and issues</a></li>
+        <li><a href="#backlog">Backlog</a></li>
+        <li><a href="#actions">Next actions</a></li>
+        <li><a href="#history">Page history</a></li>
+      </ul>
+    </li>
+    <li><a href="01-discovery.md">01 · Discovery</a></li>
+    <li><a href="02-tool-selection.md">02 · Tool selection</a></li>
+    <li><a href="03-requirements.md">03 · Requirements</a></li>
+  </ul>
+  <h4>Agent</h4>
+  <ul>
+    <li><a href="../agent/project-instructions.md">Project instructions</a></li>
+    <li><a href="../agent/CHANGELOG.md">Agent changelog</a></li>
+    <li><a href="../mcp-server/data/ingredients.csv">Ingredient database (CSV)</a></li>
+  </ul>
+  <h4>Testing</h4>
+  <ul>
+    <li><a href="../tests/test-plan.md">Test plan</a></li>
+    <li><a href="../tests/golden-set.csv">Golden set</a></li>
+    <li><a href="../tests/evidence/results-rules-v0.2.md">Rules results v0.2</a></li>
+  </ul>
+</nav>
+
+<main id="top">
+  <div class="crumbs">Ingredient Lens / Project documentation / Project record</div>
+  <h1>Project record: Ingredient Lens</h1>
+  <div class="byline">
+    <span><span class="avatar">TL</span>Owner: t0masleones (Business Analyst)</span>
+    <span>Last updated: 2026-10-16</span>
+    <span>Page version: 1</span>
+    <span>Status: <span class="lozenge l-prog">v0.2 in progress</span></span>
+  </div>
+  <div class="labels">
+    <span class="label">business-analysis</span><span class="label">ai-agent</span><span class="label">mcp</span>
+    <span class="label">food-labeling</span><span class="label">decision-log</span><span class="label">living-document</span>
+  </div>
+
+  <div class="panel p-note">
+    <b>How this page is maintained</b>
+    This is the running record of the project from the Business Analyst's side: what was done, what was decided and why, what was measured, and what is open. Update it every time the agent, the rules, the tests or the scope change: add a line to the activity log, a decision if one was made, refresh the traceability and quality tables, and add a row to the page history.
+  </div>
+
+  <div class="toc">
+    <b>On this page</b>
+    <ol>
+      <li><a href="#summary">Summary</a></li>
+      <li><a href="#glance">Project at a glance</a></li>
+      <li><a href="#activity">Activity log</a></li>
+      <li><a href="#scope-review">Scope review and gap analysis</a></li>
+      <li><a href="#decisions">Decision log</a></li>
+      <li><a href="#process">To-be process</a></li>
+      <li><a href="#traceability">Requirements traceability</a></li>
+      <li><a href="#quality">Quality and metrics</a></li>
+      <li><a href="#raid">Risks, assumptions, issues</a></li>
+      <li><a href="#backlog">Backlog</a></li>
+      <li><a href="#actions">Next actions</a></li>
+      <li><a href="#questions">Open questions</a></li>
+      <li><a href="#history">Page history</a></li>
+    </ol>
+  </div>
+
+  <!-- ================================================================== -->
+  <h2 id="summary">1. Summary</h2>
+  <p>Ingredient Lens is an AI agent that reads an ingredient list (label photo, typed text or recipe) and tells the user, in plain language, whether it fits their restrictions: intolerances, allergies, celiac disease and vegan or vegetarian diets. It also cross-checks the ingredient list against the label's own statements and sends contradictions to human review.</p>
+  <p>Version 0.1 was built as a no-code Claude Project (instructions plus knowledge files). The first hands-on test raised a scope question: reading a label is something any general-purpose LLM can do, so the prototype on its own did not show much business value. Version 0.2 answers that by moving the decisions that must be repeatable into tools: a rules engine, a governed ingredient database, a human-review queue and an audit log, connected to the agent through an MCP server.</p>
+
+  <div class="status-row">
+    <div class="stat"><small>Phase</small><strong>Build v0.2</strong></div>
+    <div class="stat"><small>Rules engine vs golden set (text rows)</small><strong>25 / 25</strong></div>
+    <div class="stat"><small>Unit tests</small><strong>9 / 9</strong></div>
+    <div class="stat"><small>Ingredient database</small><strong>420 terms</strong></div>
+    <div class="stat"><small>Full agent tested in chat</small><strong>Not yet</strong></div>
+  </div>
+
+  <div class="panel p-warn">
+    <b>Read the 25/25 with care</b>
+    The golden set was used while building the rules, so it is not an unbiased accuracy figure. A held-out test set is in the backlog. The full agent (photos, wording, safety rules) has not been tested end to end yet.
+  </div>
+
+  <!-- ================================================================== -->
+  <h2 id="glance">2. Project at a glance</h2>
+  <div class="table-wrap"><table>
+    <tr><th style="width:180px">Problem</th><td>People who must avoid ingredients have to decode small, technical labels. Mistakes cause discomfort, health risk or a broken promise to a guest. Regulatory and quality analysts do repetitive first-pass checks of labels against their own statements.</td></tr>
+    <tr><th>Objective</th><td>A trustworthy first-pass screening agent that flags what matters, says what it does not know, and hands contradictions to a human.</td></tr>
+    <tr><th>Personas</th><td>Shopper with intolerances · Person with low literacy or low vision · Cook serving guests with restrictions · Regulatory or quality analyst. See <a href="01-discovery.md">01 · Discovery</a>.</td></tr>
+    <tr><th>In scope</th><td>Label photos, text and recipes; allergen and intolerance flags; animal vs plant origin; vegan and vegetarian checks; label statement cross-check; human-review handoff.</td></tr>
+    <tr><th>Out of scope</th><td>Medical advice; legal or regulatory rulings; live company data; user accounts; barcode lookup; nutrition; halal and kosher.</td></tr>
+    <tr><th>Constraints</th><td>Zero cost. Public or invented examples only; no company or customer data. Screening aid, not advice.</td></tr>
+    <tr><th>Repository</th><td><a href="https://github.com/t0masleones/ingredient-lens">github.com/t0masleones/ingredient-lens</a></td></tr>
+  </table></div>
+
+  <!-- ================================================================== -->
+  <h2 id="activity">3. Activity log</h2>
+  <p>Newest at the bottom. One entry per meaningful step.</p>
+  <ul class="timeline">
+    <li><div class="when">2026-10-16 · Discovery</div>
+      Problem statement, four personas, as-is process maps for shopper and cook, pain-point hypotheses, business relevance and success measures. <a href="01-discovery.md">01 · Discovery</a></li>
+    <li><div class="when">2026-10-16 · Tool selection</div>
+      Compared Claude Project, ChatGPT custom GPT, AI-powered artifact, custom API app and buying a regulatory SaaS. Chose a Claude Project for v0.1; listed what no-code cannot do and sketched the engineering handoff. <a href="02-tool-selection.md">02 · Tool selection</a></li>
+    <li><div class="when">2026-10-16 · Requirements</div>
+      16 user stories with acceptance criteria (13 P1, 3 P2), non-functional requirements, definition of done. <a href="03-requirements.md">03 · Requirements</a></li>
+    <li><div class="when">2026-10-16 · Build v0.1</div>
+      Agent instructions with three modes (Shopper, Cook, Analyst) and three knowledge files: lactose and gluten glossary, origin glossary, label rules for BR, US and EU.</li>
+    <li><div class="when">2026-10-16 · Test design</div>
+      Test plan with 10 metrics and a golden set of 37 cases: 24 text, 10 photo, 3 edge cases, including trap ingredients that should not be flagged.</li>
+    <li><div class="when">2026-10-16 · Repository and governance</div>
+      Public GitHub repository created. Git identity on the workstation switched to the project account, and the author of the first commit corrected so no corporate e-mail is published.</li>
+    <li><div class="when">2026-10-16 · First hands-on use</div>
+      Claude Project created in claude.ai following the README; a label photo was checked in chat. Finding: the experience is reproducible in any general-purpose LLM, so the prototype alone shows little value.</li>
+    <li><div class="when">2026-10-16 · Scope review</div>
+      Gap analysis of the prototype against what an AI-solutions Business Analyst is expected to show (see section 4). Outcome: keep the no-code agent as step one, and add tools, data, a review queue and measured results.</li>
+    <li><div class="when">2026-10-16 · Build v0.2</div>
+      MCP server with four tools: <code>check_label</code>, <code>lookup_ingredient</code>, <code>create_review_ticket</code>, <code>usage_stats</code>. Glossaries turned into a 420-term CSV with a source on every row, loaded into SQLite. Cross-check rules XC1 to XC4 written in code. Audit log of every call. Agent instructions gained a "Tools" section.</li>
+    <li><div class="when">2026-10-16 · Test v0.2 (rules layer)</div>
+      Golden set text rows through the rules engine: 24/25 on the first run. T04 failed (a zero-lactose claim with lactase was still flagged because of the "contains milk" statement); fixed and logged. Re-run: 25/25. Unit tests 9/9. MCP protocol smoke test passed (tools listed, contradiction detected, audit written).</li>
+  </ul>
+
+  <!-- ================================================================== -->
+  <h2 id="scope-review">4. Scope review and gap analysis</h2>
+  <p>Question raised after the first hands-on use: if any LLM can read a label, where is the value? The answer is not the chat itself but the process around it. The table maps the capabilities a production agent needs against what each version delivers.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Capability</th><th>v0.1 (no-code)</th><th>v0.2 (tools)</th><th>Still open</th></tr>
+    <tr><td>Workflow identified with users</td><td>Personas, as-is maps</td><td>Same</td><td>Analyst workflow as the primary case; to-be map with volumes</td></tr>
+    <tr><td>Build vs buy, no-code vs custom</td><td>Documented comparison</td><td>Next step built, triggers confirmed</td><td>Cost model for a production option</td></tr>
+    <tr><td>Repeatable decisions</td><td>Rules in the prompt</td><td>Rules engine in code, unit tested</td><td>Held-out test set</td></tr>
+    <tr><td>Governed knowledge</td><td>Markdown glossaries</td><td>Versioned CSV → SQLite, source per row</td><td>76 rows marked <code>v0.2-added</code> need a cited source</td></tr>
+    <tr><td>Integration with business systems</td><td>None</td><td>Ticketing (GitHub Issues), database, audit log</td><td>Document store (Drive or SharePoint) as input</td></tr>
+    <tr><td>Human in the loop</td><td>Handoff note in chat</td><td>Escalation flag and review ticket</td><td>Review turnaround and owner</td></tr>
+    <tr><td>Testing and monitoring</td><td>Plan and golden set, not run</td><td>Rules eval script, usage metrics</td><td>Full agent eval in chat; LLM-as-judge runner</td></tr>
+    <tr><td>Adoption and ROI</td><td>Success measures defined</td><td>Usage stats available</td><td>ROI model; UAT with a real user</td></tr>
+  </table></div>
+
+  <!-- ================================================================== -->
+  <h2 id="decisions">5. Decision log</h2>
+  <div class="table-wrap"><table>
+    <tr><th>ID</th><th>Date</th><th>Decision</th><th>Why</th><th>Alternatives considered</th><th>Status</th></tr>
+    <tr><td>D-01</td><td>2026-10-16</td><td>Build v0.1 as a Claude Project</td><td>Free, reads photos, versionable instructions, reproducible by others in 10 minutes</td><td>Custom GPT (cannot be created on personal accounts), custom API app (needs engineering), regulatory SaaS (out of scope)</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-02</td><td>2026-10-16</td><td>Never say "safe"; STRICT mode turns every unclear item red for allergy and celiac</td><td>Harm from a false "safe" is far higher than from a false alarm</td><td>Single mode for all users</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-03</td><td>2026-10-16</td><td>Move classification and cross-checks from the prompt into a rules engine exposed as MCP tools</td><td>Same input must give the same answer; rules must be testable without an LLM; shows integration, not just prompting</td><td>Keep improving the prompt; full custom app</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-04</td><td>2026-10-16</td><td>Ingredient knowledge as a versioned CSV loaded into SQLite</td><td>Reviewable in a pull request, queryable with SQL, each row carries its source</td><td>Keep markdown; hosted database (cost)</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-05</td><td>2026-10-16</td><td>Human review through GitHub Issues, with a local file fallback</td><td>Free, real ticketing API, visible audit trail</td><td>E-mail; spreadsheet</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-06</td><td>2026-10-16</td><td>The model transcribes and explains; the tool decides the verdict</td><td>Keeps the LLM where it is strong (reading, plain language) and out of what it is weak at (consistency)</td><td>Model decides, tool advises</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-07</td><td>2026-10-16</td><td>Make the Analyst workflow (label compliance first pass) the primary use case</td><td>Closest to the B2B value; Shopper and Cook stay as secondary demos</td><td>Keep Shopper as default</td><td><span class="lozenge l-prop">Proposed</span></td></tr>
+  </table></div>
+
+  <!-- ================================================================== -->
+  <h2 id="process">6. To-be process (v0.2)</h2>
+  <p>As-is processes are in <a href="01-discovery.md">01 · Discovery</a>.</p>
+  <pre class="mermaid">
+flowchart LR
+  U[User: label photo or text] --> A[Agent: transcribe exactly, mark unsure words]
+  A -->|unreadable| R[Ask for a better photo]
+  A --> T[check_label tool]
+  T --> DB[(Ingredient DB)]
+  T --> X[Rules: profile, STRICT, XC1-XC4]
+  X --> E[Agent: explain in plain words]
+  X -->|escalate| Q{User agrees?}
+  Q -->|yes| K[create_review_ticket]
+  K --> H[Human reviewer]
+  T --> L[(Audit log)] --> M[usage_stats]
+  </pre>
+
+  <!-- ================================================================== -->
+  <h2 id="traceability">7. Requirements traceability</h2>
+  <p>"Rules" = covered by the rules engine and tested without an LLM. "Prompt" = covered by the agent instructions only, so it needs a chat test.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Story</th><th>Covered by</th><th>Evidence</th><th>Status</th></tr>
+    <tr><td>US-01 Short verdict from a photo</td><td>Prompt</td><td>P01-P10 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-02 Simple words</td><td>Prompt</td><td>Pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-03 No false alarms (lactose)</td><td>Rules: database marks cocoa butter, lactic acid, coconut milk as not dairy</td><td>T03, T08, unit test</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
+    <tr><td>US-04 STRICT handling</td><td>Rules: <code>strict</code> turns unclear into red</td><td>T05, T06, T07, T13, unit test</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
+    <tr><td>US-05 Retake request for bad photos</td><td>Prompt</td><td>P02, P03, P08 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-06 Contradictions pointed out</td><td>Rules: XC1-XC4</td><td>T06, T17, unit tests</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
+    <tr><td>US-07 Never says "safe"</td><td>Prompt</td><td>Pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-08 Symptoms now → medical help</td><td>Prompt</td><td>T16 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-09 Answers in the user's language</td><td>Prompt; rules read PT, EN, ES terms</td><td>T14 (rules part passed)</td><td><span class="lozenge l-warn">Partial</span></td></tr>
+    <tr><td>US-10 Cook table with origin</td><td>Rules give origin per ingredient; prompt formats the table</td><td>V01-V10 (rules)</td><td><span class="lozenge l-warn">Partial</span></td></tr>
+    <tr><td>US-11 Unclear origin never guessed</td><td>Rules: "either" origin in the database</td><td>V01, V07, V08</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
+    <tr><td>US-12 What to ask the supplier</td><td>Prompt; ticket field for supplier questions</td><td>Pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-13 Strict reminder for allergic guests</td><td>Prompt</td><td>V10 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-14 Substitutes re-checked (P2)</td><td>Prompt</td><td>V02, V10 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
+    <tr><td>US-15 Analyst handoff (P2)</td><td>Rules: escalation flag; review ticket tool</td><td>T17 (rules); ticket not tested end to end</td><td><span class="lozenge l-warn">Partial</span></td></tr>
+    <tr><td>US-16 Track quality over time (P2)</td><td><code>eval_rules.py</code>, audit log, <code>usage_stats</code></td><td>results-rules-v0.2.md</td><td><span class="lozenge l-done">Done (rules layer)</span></td></tr>
+  </table></div>
+
+  <!-- ================================================================== -->
+  <h2 id="quality">8. Quality and metrics</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Metric (from the test plan)</th><th>Target</th><th>v0.1 chat</th><th>v0.2 rules layer</th><th>v0.2 chat</th></tr>
+    <tr><td>Verdict matches golden set (text rows)</td><td>—</td><td>Not run</td><td>25/25 (biased, see note)</td><td>Not run</td></tr>
+    <tr><td>Trigger recall</td><td>100%</td><td>Not run</td><td>No missed red in 25 rows</td><td>Not run</td></tr>
+    <tr><td>False alarms on trap ingredients</td><td>≤ 10%</td><td>Not run</td><td>0 in T03, T08</td><td>Not run</td></tr>
+    <tr><td>No guessing on "Can be either"</td><td>100%</td><td>Not run</td><td>By design (database)</td><td>Not run</td></tr>
+    <tr><td>Consistency (same input, same verdict)</td><td>≥ 90%</td><td>Not run</td><td>100% by design (deterministic)</td><td>Not run</td></tr>
+    <tr><td>Transcription accuracy, honest uncertainty, safety wording, format</td><td>See test plan</td><td>Not run</td><td>Not applicable (LLM layer)</td><td>Not run</td></tr>
+  </table></div>
+  <p>Raw results: <a href="../tests/evidence/results-rules-v0.2.md">tests/evidence/results-rules-v0.2.md</a>. How to re-run: <code>cd mcp-server</code>, <code>uv run pytest</code>, <code>uv run eval_rules.py</code>.</p>
+
+  <!-- ================================================================== -->
+  <h2 id="raid">9. Risks, assumptions, issues</h2>
+  <h3>Risks</h3>
+  <div class="table-wrap"><table>
+    <tr><th>ID</th><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Status</th></tr>
+    <tr><td>R-01</td><td>Rules tuned to the golden set look better than they are</td><td>High</td><td>Held-out set of new cases written before running</td><td><span class="lozenge l-risk">Open</span></td></tr>
+    <tr><td>R-02</td><td>76 database rows have no cited source</td><td>Medium</td><td>Source or remove each <code>v0.2-added</code> row</td><td><span class="lozenge l-risk">Open</span></td></tr>
+    <tr><td>R-03</td><td>US and EU label rules not verified against official sources</td><td>Medium</td><td>Verify before any result is shown for those markets</td><td><span class="lozenge l-risk">Open</span></td></tr>
+    <tr><td>R-04</td><td>The model ignores or softens the tool's verdict</td><td>High</td><td>Instruction "do not soften"; chat tests compare answer with tool output</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
+    <tr><td>R-05</td><td>Transcription errors happen before the rules run</td><td>High</td><td>[?] marks, retake requests, photo test cases</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
+    <tr><td>R-06</td><td>Review tickets on a public repository expose label text</td><td>Low</td><td>Only mock or public labels; local queue option</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
+    <tr><td>R-07</td><td>Local MCP servers may not be available on the free desktop plan</td><td>Medium</td><td>Confirm; fallback is the Claude Code configuration in the repo</td><td><span class="lozenge l-risk">Open</span></td></tr>
+  </table></div>
+  <h3>Assumptions</h3>
+  <ul>
+    <li>Users provide the label (photo or text); there is no product database or barcode lookup.</li>
+    <li>Brazilian rules (RDC 26/2015, Lei 10.674/2003, RDC 135 and 136/2017) are the primary market.</li>
+    <li>A first-pass screening that escalates contradictions saves expert time even if it never gives the final answer.</li>
+  </ul>
+  <h3>Issues</h3>
+  <ul>
+    <li>Claude Desktop is not installed on the workstation yet, so the tools have not been used from the agent.</li>
+    <li>Pain points in <a href="01-discovery.md">01 · Discovery</a> are still TODO; no user interview or UAT done.</li>
+  </ul>
+
+  <!-- ================================================================== -->
+  <h2 id="backlog">10. Backlog</h2>
+  <div class="table-wrap"><table>
+    <tr><th>#</th><th>Item</th><th>Value</th><th>Effort</th><th>Priority</th><th>Status</th></tr>
+    <tr><td>1</td><td>Run the golden set in chat with tools connected; record results-v0.2.md</td><td>Evidence for every P1 story</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>2</td><td>Write a held-out set of 10 unseen cases and run it</td><td>Unbiased accuracy (R-01)</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>3</td><td>Fill real pain points; one UAT with a real user</td><td>Validates the problem</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>4</td><td>Demo video: photo → tool → ticket → usage stats</td><td>Shareable proof</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>5</td><td>Source or remove the 76 unsourced database rows</td><td>Data governance (R-02)</td><td>M</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>6</td><td>Reposition: Analyst workflow as primary case, to-be map with volumes</td><td>B2B relevance (D-07)</td><td>S</td><td>P2</td><td><span class="lozenge l-prop">Proposed</span></td></tr>
+    <tr><td>7</td><td>Simple ROI model: minutes per label × volume × share not needing full review</td><td>Business case</td><td>S</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>8</td><td>Automated eval of the full agent (rules + LLM-as-judge)</td><td>Regression on every change</td><td>M</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>9</td><td>Verify US and EU rules against official sources</td><td>Multi-market (R-03)</td><td>M</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>10</td><td>Input from a document folder (Drive or SharePoint connector)</td><td>Batch review of spec sheets</td><td>M</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>11</td><td>Automation opportunity backlog for neighbouring workflows (support tickets about allergens, supplier spec comparison)</td><td>Portfolio thinking</td><td>S</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
+  </table></div>
+
+  <!-- ================================================================== -->
+  <h2 id="actions">11. Next actions</h2>
+  <ul class="tasks">
+    <li>☐ Re-paste <a href="../agent/project-instructions.md">project-instructions.md</a> into the Claude Project (new "Tools" section). <em>Owner: t0masleones</em></li>
+    <li>☐ Install Claude Desktop and add the MCP server configuration (see README). <em>Owner: t0masleones</em></li>
+    <li>☐ Smoke test in chat with case T17; confirm a review ticket is created. <em>Owner: t0masleones</em></li>
+    <li>☐ Run backlog items 1 to 3 and update sections 7 and 8 of this page. <em>Owner: t0masleones</em></li>
+  </ul>
+
+  <!-- ================================================================== -->
+  <h2 id="questions">12. Open questions</h2>
+  <ul>
+    <li>Where would ingredient-origin data come from in production, and who approves changes to it?</li>
+    <li>What is the expected human-review turnaround, and who owns the queue?</li>
+    <li>Which label volume per month would make the first-pass check worth it (ROI threshold)?</li>
+    <li>Which diets need certification-level evidence (halal, kosher)?</li>
+    <li>What privacy rules apply if customer labels or specs are used?</li>
+  </ul>
+
+  <!-- ================================================================== -->
+  <h2 id="history">13. Page history</h2>
+  <div class="table-wrap"><table>
+    <tr><th>Version</th><th>Date</th><th>Author</th><th>Change</th></tr>
+    <tr><td>1</td><td>2026-10-16</td><td>t0masleones</td><td>Page created: record of discovery, v0.1, scope review, v0.2 build and rules-layer results.</td></tr>
+  </table></div>
+
+  <footer>Independent prototype. Not affiliated with any company. Not medical, legal or regulatory advice. Layout is a generic wiki page made for this repository.</footer>
+</main>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10.9.1/dist/mermaid.min.js"></script>
+<script>
+(function () {
+  var root = document.documentElement;
+  try { var saved = localStorage.getItem("il-theme"); if (saved) root.setAttribute("data-theme", saved); } catch (e) {}
+  function isDark() {
+    var t = root.getAttribute("data-theme");
+    return t ? t === "dark" : window.matchMedia("(prefers-color-scheme: dark)").matches;
+  }
+  document.getElementById("theme").addEventListener("click", function () {
+    var next = isDark() ? "light" : "dark";
+    root.setAttribute("data-theme", next);
+    try { localStorage.setItem("il-theme", next); } catch (e) {}
+    location.reload();
+  });
+  if (window.mermaid) {
+    mermaid.initialize({ startOnLoad: true, theme: isDark() ? "dark" : "default", securityLevel: "strict" });
+  }
+})();
+</script>
+</body>
+</html>

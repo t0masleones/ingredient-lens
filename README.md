@@ -71,6 +71,7 @@ Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mc
 ## Repo map
 | Path | What it is |
 |---|---|
+| `docs/00-project-record.html` | Living project record (BA view): activity log, decisions, traceability, metrics, risks, backlog. Open in a browser |
 | `docs/01-discovery.md` | Problem, personas, current process, pain points, business relevance |
 | `docs/02-tool-selection.md` | Why a Claude Project (no-code), and what would need engineering |
 | `docs/03-requirements.md` | User stories, acceptance criteria, safety requirements |
