@@ -91,8 +91,8 @@ fermento lacteo,pt,green,,,,either,,Microbial; growth medium may be dairy,v0.2-a
 lactic culture,en,green,,,,either,,Microbial; growth medium may be dairy,v0.2-added
 trigo,pt/es,,red,gluten,,plant,,,lactose-gluten-glossary
 wheat,en,,red,gluten,,plant,,,lactose-gluten-glossary
-all purpose flour,en,,red,gluten,,plant,,Wheat flour,v0.2-added
-flour,en,,yellow,,gluten,plant,,Usually wheat when the grain is not named,v0.2-added
+all purpose flour,en,,red,gluten,,plant,,Wheat flour,v0.2-added; fda-falcpa-2004 (wheat)
+flour,en,,yellow,,gluten,plant,,Usually wheat when the grain is not named,v0.2-added; confirmed by openfoodfacts:en:flour
 semola,pt,,red,gluten,,plant,,,lactose-gluten-glossary
 semolina,en,,red,gluten,,plant,,,lactose-gluten-glossary
 durum,en,,red,gluten,,plant,,,lactose-gluten-glossary
@@ -128,8 +128,8 @@ amido,pt,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
 amido modificado,pt,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
 starch,en,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
 modified starch,en,,yellow,,gluten,plant,,Starch source not stated,lactose-gluten-glossary
-amido de milho,pt,,green,,,plant,,,v0.2-added
-corn starch,en,,green,,,plant,,,v0.2-added
+amido de milho,pt,,green,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:corn-starch
+corn starch,en,,green,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:corn-starch
 maltodextrina,pt,,yellow,,gluten,plant,,Usually corn,lactose-gluten-glossary
 maltodextrin,en,,yellow,,gluten,plant,,Usually corn,lactose-gluten-glossary
 proteina vegetal hidrolisada,pt,,yellow,,gluten;soy,plant,,Source not stated,lactose-gluten-glossary
@@ -168,33 +168,33 @@ sunflower lecithin,en,,,,,plant,,,origin-glossary
 lecitina,pt,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
 lecithin,en,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
 e322,code,,,,soy;egg,either,,Soy or sunflower (plant) or egg (animal); check the stated source,origin-glossary
-amendoim,pt,,,peanut,,plant,,,v0.2-added
-peanut,en,,,peanut,,plant,,,v0.2-added
-peanut butter,en,,,peanut,,plant,,Not dairy,v0.2-added
-pasta de amendoim,pt,,,peanut,,plant,,,v0.2-added
-mani,es,,,peanut,,plant,,,v0.2-added
-castanha,pt,,,tree_nuts,,plant,,,v0.2-added
-castanha de caju,pt,,,tree_nuts,,plant,,,v0.2-added
-castanha do para,pt,,,tree_nuts,,plant,,,v0.2-added
-nozes,pt,,,tree_nuts,,plant,,,v0.2-added
-noz,pt,,,tree_nuts,,plant,,,v0.2-added
-amendoa,pt,,,tree_nuts,,plant,,,v0.2-added
-avela,pt,,,tree_nuts,,plant,,,v0.2-added
-pistache,pt,,,tree_nuts,,plant,,,v0.2-added
-macadamia,pt/en,,,tree_nuts,,plant,,,v0.2-added
-almond,en,,,tree_nuts,,plant,,,v0.2-added
-almond flour,en,,green,tree_nuts,,plant,,,v0.2-added
-hazelnut,en,,,tree_nuts,,plant,,,v0.2-added
-cashew,en,,,tree_nuts,,plant,,,v0.2-added
-walnut,en,,,tree_nuts,,plant,,,v0.2-added
-pecan,en,,,tree_nuts,,plant,,,v0.2-added
-pistachio,en,,,tree_nuts,,plant,,,v0.2-added
-tree nut,en,,,tree_nuts,,plant,,,v0.2-added
-gergelim,pt,,,sesame,,plant,,,v0.2-added
-sesamo,es,,,sesame,,plant,,,v0.2-added
-sesame,en,,,sesame,,plant,,,v0.2-added
-tahine,pt,,,sesame,,plant,,,v0.2-added
-tahini,en,,,sesame,,plant,,,v0.2-added
+amendoim,pt,,,peanut,,plant,,,v0.2-added; confirmed by openfoodfacts:en:peanut
+peanut,en,,,peanut,,plant,,,v0.2-added; confirmed by openfoodfacts:en:peanut
+peanut butter,en,,,peanut,,plant,,Not dairy,v0.2-added; confirmed by openfoodfacts:en:peanut-butter
+pasta de amendoim,pt,,,peanut,,plant,,,v0.2-added; confirmed by openfoodfacts:en:peanut-paste
+mani,es,,,peanut,,plant,,,v0.2-added; confirmed by openfoodfacts:en:peanut
+castanha,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:chestnut
+castanha de caju,pt,,,tree_nuts,,plant,,,v0.2-added; rdc-26-2015-annex (castanha-de-caju)
+castanha do para,pt,,,tree_nuts,,plant,,,v0.2-added; rdc-26-2015-annex (castanha-do-brasil)
+nozes,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:nut
+noz,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:walnut
+amendoa,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:almond
+avela,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:hazelnut
+pistache,pt,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:pistachio-nuts
+macadamia,pt/en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:macadamia-nut
+almond,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:almond
+almond flour,en,,green,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:almond-flour
+hazelnut,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:hazelnut
+cashew,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:cashew-nuts
+walnut,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:walnut
+pecan,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:pecan-nut
+pistachio,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:pistachio-nuts
+tree nut,en,,,tree_nuts,,plant,,,v0.2-added; confirmed by openfoodfacts:en:tree-nut
+gergelim,pt,,,sesame,,plant,,,v0.2-added; fda-faster-act-2021 (sesame)
+sesamo,es,,,sesame,,plant,,,v0.2-added; confirmed by openfoodfacts:en:sesame
+sesame,en,,,sesame,,plant,,,v0.2-added; confirmed by openfoodfacts:en:sesame
+tahine,pt,,,sesame,,plant,,,v0.2-added; confirmed by openfoodfacts:en:tahini
+tahini,en,,,sesame,,plant,,,v0.2-added; confirmed by openfoodfacts:en:tahini
 ovo,pt,,,egg,,animal,egg,,origin-glossary
 huevo,es,,,egg,,animal,egg,,origin-glossary
 egg,en,,,egg,,animal,egg,,origin-glossary
@@ -241,27 +241,27 @@ fish,en,,,fish,,animal,fish,,origin-glossary
 anchova,pt,,,fish,,animal,fish,,origin-glossary
 anchovy,en,,,fish,,animal,fish,,origin-glossary
 anchovies,en,,,fish,,animal,fish,,origin-glossary
-atum,pt,,,fish,,animal,fish,,v0.2-added
-tuna,en,,,fish,,animal,fish,,v0.2-added
-salmao,pt,,,fish,,animal,fish,,v0.2-added
-salmon,en,,,fish,,animal,fish,,v0.2-added
+atum,pt,,,fish,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:tuna
+tuna,en,,,fish,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:tuna
+salmao,pt,,,fish,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:salmon
+salmon,en,,,fish,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:salmon
 molho de peixe,pt,,,fish,,animal,fish,,origin-glossary
 fish sauce,en,,,fish,,animal,fish,,origin-glossary
 oleo de peixe,pt,,,fish,,animal,fish,,origin-glossary
 fish oil,en,,,fish,,animal,fish,,origin-glossary
 cod liver oil,en,,,fish,,animal,fish,,origin-glossary
 krill oil,en,,,crustacean,,animal,fish,,origin-glossary
-crustaceos,pt,,,crustacean,,animal,fish,,v0.2-added
-crustaceans,en,,,crustacean,,animal,fish,,v0.2-added
-camarao,pt,,,crustacean,,animal,fish,,v0.2-added
-shrimp,en,,,crustacean,,animal,fish,,v0.2-added
-lagosta,pt,,,crustacean,,animal,fish,,v0.2-added
-lobster,en,,,crustacean,,animal,fish,,v0.2-added
-caranguejo,pt,,,crustacean,,animal,fish,,v0.2-added
-crab,en,,,crustacean,,animal,fish,,v0.2-added
-moluscos,pt,,,mollusc,,animal,fish,,v0.2-added
-molluscs,en,,,mollusc,,animal,fish,,v0.2-added
-shellfish,en,,,crustacean;mollusc,,animal,fish,,v0.2-added
+crustaceos,pt,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:crustacean
+crustaceans,en,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:crustacean
+camarao,pt,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:shrimp
+shrimp,en,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:shrimp
+lagosta,pt,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:spiny-lobster
+lobster,en,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:lobster
+caranguejo,pt,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:crab
+crab,en,,,crustacean,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:crab
+moluscos,pt,,,mollusc,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:mollusc
+molluscs,en,,,mollusc,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:mollusc
+shellfish,en,,,crustacean;mollusc,,animal,fish,,v0.2-added; confirmed by openfoodfacts:en:shellfish
 molho de ostra,pt,,,mollusc,,animal,fish,,origin-glossary
 oyster sauce,en,,,mollusc,,animal,fish,,origin-glossary
 carmim,pt,,,,,animal,insect,Insect-derived; vegetarian rules vary,origin-glossary
@@ -276,16 +276,16 @@ confectioner's glaze,en,,,,,animal,insect,Insect secretion; vegetarian rules var
 e904,code,,,,,animal,insect,Insect secretion; vegetarian rules vary,origin-glossary
 lanolina,pt,,,,,animal,wool,From sheep wool,origin-glossary
 lanolin,en,,,,,animal,wool,From sheep wool,origin-glossary
-oleo,pt,,,,,either,,Oil source not stated,origin-glossary
-oil,en,,,,,either,,Oil source not stated,origin-glossary
+oleo,pt,,,,soy,either,,Oil source not stated; Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
+oil,en,,,,soy,either,,Oil source not stated; Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
 gordura,pt,,,,,either,,Fat source not stated,origin-glossary
 fat,en,,,,,either,,Fat source not stated,origin-glossary
 gordura hidrogenada,pt,,,,,either,,Fat source not stated,origin-glossary
-shortening,en,,,,,either,,Fat source not stated,origin-glossary
-gordura vegetal,pt,,,,,plant,,,origin-glossary
+shortening,en,,,,soy,either,,Fat source not stated; Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
+gordura vegetal,pt,,,,soy,plant,,Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
 vegetable shortening,en,,,,,plant,,,origin-glossary
-oleo vegetal,pt,,,,,plant,,,origin-glossary
-vegetable oil,en,,,,,plant,,,origin-glossary
+oleo vegetal,pt,,,,soy,plant,,Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
+vegetable oil,en,,,,soy,plant,,Unnamed vegetable oil is often soybean oil (highly refined soybean oil is exempt from allergen labeling in the US and EU),origin-glossary
 oleo de soja,pt,,,,soy,plant,,Refined oil; check the allergen statement,origin-glossary
 soybean oil,en,,,,soy,plant,,Refined oil; check the allergen statement,origin-glossary
 oleo de canola,pt,,,,,plant,,,origin-glossary
@@ -340,10 +340,10 @@ wine,en,,,,,either,,Fining agents may be animal-derived,origin-glossary
 acucar,pt,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
 azucar,es,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
 sugar,en,,,,,plant,,Some cane sugar is filtered with bone char (not visible on the label),origin-glossary
-xarope de glicose,pt,,,,,plant,,,v0.2-added
-glucose syrup,en,,,,,plant,,,v0.2-added
-caramelo,pt,,,,,plant,,,v0.2-added
-caramel color,en,,,,,plant,,,v0.2-added
+xarope de glicose,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:glucose-syrup
+glucose syrup,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:glucose-syrup
+caramelo,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:e150
+caramel color,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:e150a
 melaco,pt,,,,,plant,,,origin-glossary
 molasses,en,,,,,plant,,,origin-glossary
 maple syrup,en,,,,,plant,,,origin-glossary
@@ -365,31 +365,31 @@ curcuma,pt,,,,,plant,,,origin-glossary
 turmeric,en,,,,,plant,,,origin-glossary
 paprica,pt,,,,,plant,,,origin-glossary
 paprika,en,,,,,plant,,,origin-glossary
-cacau,pt,,,,,plant,,,v0.2-added
-cocoa,en,,,,,plant,,,v0.2-added
-massa de cacau,pt,,,,,plant,,,v0.2-added
-baunilha,pt,,,,,plant,,,v0.2-added
-vanilla,en,,,,,plant,,,v0.2-added
-coco,pt,,,,,plant,,,v0.2-added
-coconut,en,,,,,plant,,,v0.2-added
+cacau,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:cocoa
+cocoa,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:cocoa
+massa de cacau,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:cocoa-paste
+baunilha,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:vanilla
+vanilla,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:vanilla
+coco,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:coconut
+coconut,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:coconut
 tofu,pt/en,,,soy,,plant,,,origin-glossary
 tempeh,pt/en,,,soy,,plant,,,origin-glossary
-feijao,pt,,,,,plant,,,v0.2-added
-beans,en,,,,,plant,,,v0.2-added
-cebola,pt,,,,,plant,,,v0.2-added
-onion,en,,,,,plant,,,v0.2-added
-alho,pt,,,,,plant,,,v0.2-added
-garlic,en,,,,,plant,,,v0.2-added
-cenoura,pt,,,,,plant,,,v0.2-added
-carrot,en,,,,,plant,,,v0.2-added
-aipo,pt,,,,,plant,,,v0.2-added
-celery,en,,,,,plant,,,v0.2-added
+feijao,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:beans
+beans,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:beans
+cebola,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:onion
+onion,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:onion
+alho,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:garlic
+garlic,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:garlic
+cenoura,pt,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:carrot
+carrot,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:carrot
+aipo,pt,,,celery,,plant,,,eu-1169-2011-annex-ii
+celery,en,,,celery,,plant,,,eu-1169-2011-annex-ii
 cravo,pt,,,,,plant,,,v0.2-added
-clove,en,,,,,plant,,,v0.2-added
+clove,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:clove
 tamarindo,pt,,,,,plant,,,v0.2-added
-tamarind,en,,,,,plant,,,v0.2-added
-mostarda,pt,,,,,plant,,,v0.2-added
-mustard,en,,,,,plant,,,v0.2-added
+tamarind,en,,,,,plant,,,v0.2-added; confirmed by openfoodfacts:en:tamarind
+mostarda,pt,,,mustard,,plant,,,eu-1169-2011-annex-ii
+mustard,en,,,mustard,,plant,,,eu-1169-2011-annex-ii
 sal,pt/es,,,,,mineral_synthetic,,,origin-glossary
 salt,en,,,,,mineral_synthetic,,,origin-glossary
 agua,pt/es,,,,,mineral_synthetic,,,origin-glossary
@@ -424,8 +424,231 @@ vegan cheese,en,green,,,,plant,,Plant-based by name; check its sub-ingredients,v
 queijo vegano,pt,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
 cashew cheese,en,green,,tree_nuts,,plant,,Not dairy; cashew is a tree nut,v0.2.1-added
 queijo de castanha,pt,green,,tree_nuts,,plant,,Not dairy; usually cashew (tree nut),v0.2.1-added
-coconut cream,en,green,,,,plant,,Not dairy,v0.2.1-added
+coconut cream,en,green,,,,plant,,Not dairy,v0.2.1-added; confirmed by openfoodfacts:en:coconut-cream
 vegan mayonnaise,en,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
 maionese vegana,pt,green,,,,plant,,Plant-based by name; check its sub-ingredients,v0.2.1-added
 mayonnaise,en,green,,egg,,animal,egg,Made with egg,v0.2.1-added
 maionese,pt,green,,egg,,animal,egg,Made with egg,v0.2.1-added
+salsao,pt,,,celery,,plant,,,eu-1169-2011-annex-ii
+apio,es,,,celery,,plant,,,eu-1169-2011-annex-ii
+celeriac,en,,,celery,,plant,,,eu-1169-2011-annex-ii
+aipo-rabano,pt,,,celery,,plant,,,eu-1169-2011-annex-ii
+sal de aipo,pt,,,celery,,plant,,,eu-1169-2011-annex-ii
+celery salt,en,,,celery,,plant,,,eu-1169-2011-annex-ii
+celery seed,en,,,celery,,plant,,,eu-1169-2011-annex-ii
+mostaza,es,,,mustard,,plant,,,eu-1169-2011-annex-ii
+semente de mostarda,pt,,,mustard,,plant,,,eu-1169-2011-annex-ii
+mustard seed,en,,,mustard,,plant,,,eu-1169-2011-annex-ii
+mustard flour,en,,,mustard,,plant,,,eu-1169-2011-annex-ii
+farinha de mostarda,pt,,,mustard,,plant,,,eu-1169-2011-annex-ii
+tremoco,pt,,,lupin,,plant,,,eu-1169-2011-annex-ii
+lupin,en,,,lupin,,plant,,,eu-1169-2011-annex-ii
+lupine,en,,,lupin,,plant,,,eu-1169-2011-annex-ii
+altramuz,es,,,lupin,,plant,,,eu-1169-2011-annex-ii
+farinha de tremoco,pt,,,lupin,,plant,,,eu-1169-2011-annex-ii
+lupin flour,en,,,lupin,,plant,,,eu-1169-2011-annex-ii
+sulfito,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sulfite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sulphite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sulfitos,es,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+dioxido de enxofre,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sulphur dioxide,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sulfur dioxide,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+anidrido sulfuroso,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+metabissulfito de sodio,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+metabissulfito de potassio,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+bissulfito de sodio,pt,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sodium metabisulfite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sodium metabisulphite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+potassium metabisulfite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+potassium metabisulphite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sodium bisulfite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+sodium sulfite,en,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e220,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 220,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 220,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e221,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 221,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 221,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e222,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 222,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 222,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e223,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 223,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 223,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e224,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 224,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 224,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e225,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 225,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 225,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e226,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 226,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 226,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e227,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 227,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 227,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e228,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+ins 228,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+e 228,code,,,sulphites,,mineral_synthetic,,EU allergen above 10 mg/kg as SO2; not a mandatory allergen in Brazil or the US,eu-1169-2011-annex-ii
+emulsificante,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsificantes,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsifier,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsifiers,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsionante,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsifiant,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulsifiants,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulgator,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+emulgatoren,multi,,,,soy;egg,either,,Class name only: the substance is not named; often soy lecithin or mono- and diglycerides,codex-cxg-36-1989 (class names)
+estabilizante,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+estabilizantes,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilizer,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabiliser,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilizers,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilisant,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilisants,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilisator,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+stabilisatoren,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+espessante,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+espessantes,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+thickener,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+thickeners,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+espesante,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+epaississant,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+epaississants,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+verdickungsmittel,multi,,,,,either,,Class name only: the substance is not named; can be gelatin,codex-cxg-36-1989 (class names)
+corante,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+corantes,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+color,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+colour,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+colors,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+colorante,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+colorant,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+colorants,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+farbstoff,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+farbstoffe,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
+realcador de sabor,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+flavor enhancer,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+flavour enhancer,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+potenciador del sabor,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+exhausteur de gout,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+geschmacksverstarker,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+umectante,multi,,,,,either,,Class name only: the substance is not named; can be glycerol of animal origin,codex-cxg-36-1989 (class names)
+humectant,multi,,,,,either,,Class name only: the substance is not named; can be glycerol of animal origin,codex-cxg-36-1989 (class names)
+humectants,multi,,,,,either,,Class name only: the substance is not named; can be glycerol of animal origin,codex-cxg-36-1989 (class names)
+feuchthaltemittel,multi,,,,,either,,Class name only: the substance is not named; can be glycerol of animal origin,codex-cxg-36-1989 (class names)
+antioxidante,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxidantes,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxidant,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxidants,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxydant,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxydants,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+antioxidationsmittel,multi,,,,soy,mineral_synthetic,,Class name only: the substance is not named; tocopherols are often from soy,codex-cxg-36-1989 (class names)
+acidulante,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+acidulantes,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+acidity regulator,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+regulador de acidez,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+acidulant,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+correcteur d'acidite,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+sauerungsmittel,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+saureregulator,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservador,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservadores,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservante,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservantes,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+preservative,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+preservatives,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservateur,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+conservateurs,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+konservierungsstoff,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+leavening,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+leavening agent,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+raising agent,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+poudre a lever,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+poudres a lever,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+backtriebmittel,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+gasificante,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+edulcorante,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+edulcorantes,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+sweetener,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+sweeteners,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+edulcorant,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+edulcorants,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+sussungsmittel,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+sussstoff,multi,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+vitamina a,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin a,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina b1,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin b1,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+tiamina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+thiamine,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+thiamin,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+thiamine mononitrate,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+mononitrato de tiamina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina b2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin b2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+riboflavina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+riboflavin,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina b3,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin b3,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+niacina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+niacin,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+niacinamida,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+niacinamide,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+nicotinamida,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+nicotinamide,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina b5,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin b5,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+pantotenato de calcio,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+calcium pantothenate,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina b6,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin b6,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+piridoxina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+pyridoxine,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+cloridrato de piridoxina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+pyridoxine hydrochloride,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+cianocobalamina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+cyanocobalamin,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+biotina,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+biotin,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina d2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin d2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+ergocalciferol,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamina k,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+vitamin k,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b1,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b3,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b5,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b6,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+b12,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+d2,multi,,,,,mineral_synthetic,,Usually synthetic or made by fermentation,eu-1925-2006-annex-ii (vitamin forms)
+colecalciferol,multi,,,,,either,,Usually from sheep lanolin (animal); vegan D3 comes from lichen,eu-1925-2006-annex-ii (vitamin forms)
+cholecalciferol,multi,,,,,either,,Usually from sheep lanolin (animal); vegan D3 comes from lichen,eu-1925-2006-annex-ii (vitamin forms)
+d3,multi,,,,,either,,Usually from sheep lanolin (animal); vegan D3 comes from lichen,eu-1925-2006-annex-ii (vitamin forms)
+vitamina e,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+vitamin e,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+tocoferol,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+tocoferois,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+tocopherol,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+tocopherols,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+mixed tocopherols,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+tocoferois mistos,multi,,,,soy,mineral_synthetic,,Often extracted from soybean oil,eu-1925-2006-annex-ii (vitamin forms)
+sel,fr,,,,,mineral_synthetic,,,openfoodfacts:en:salt
+eau,fr,,,,,mineral_synthetic,,,openfoodfacts:en:water
+canola,en,,,,,plant,,,openfoodfacts:en:rapeseed
+bicarbonato de amonio,multi,,,,,mineral_synthetic,,Raising agent (INS 503ii),codex-cxg-36-1989 (class names)
+ammonium bicarbonate,multi,,,,,mineral_synthetic,,Raising agent (INS 503ii),codex-cxg-36-1989 (class names)
+ble,fr,,red,gluten,,plant,,Blé = wheat,openfoodfacts:en:wheat
+ble dur,fr,,red,gluten,,plant,,Blé dur = durum wheat,openfoodfacts:en:durum-wheat
+riz,fr,,,,,plant,,,openfoodfacts:en:rice
+ail,fr,,,,,plant,,,openfoodfacts:en:garlic
+fer,fr,,,,,mineral_synthetic,,,openfoodfacts:en:iron
+acidifiant,fr,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+correcteurs d'acidite,fr,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+regulador de la acidez,es,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+reguladores de acidez,pt,,,,,mineral_synthetic,,Class name only: the substance is not named,codex-cxg-36-1989 (class names)
+monoglycerides,en,,,,,either,,Can be from animal or plant fat,origin-glossary
+acetato de retinila,pt,,,,,mineral_synthetic,,Vitamin A,eu-1925-2006-annex-ii (vitamin forms)
+retinyl palmitate,en,,,,,mineral_synthetic,,Vitamin A,eu-1925-2006-annex-ii (vitamin forms)
+kohlensaure,de,,,,,mineral_synthetic,,,openfoodfacts:en:carbon-dioxide

@@ -161,8 +161,8 @@ footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px
   <div class="byline">
     <span><span class="avatar">TL</span>Owner: t0masleones (Business Analyst)</span>
     <span>Last updated: 2026-10-16</span>
-    <span>Page version: 2</span>
-    <span>Status: <span class="lozenge l-prog">v0.3 in progress</span></span>
+    <span>Page version: 3</span>
+    <span>Status: <span class="lozenge l-prog">v0.4 in progress</span></span>
   </div>
   <div class="labels">
     <span class="label">business-analysis</span><span class="label">ai-agent</span><span class="label">mcp</span>
@@ -198,13 +198,15 @@ footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px
   <p>Ingredient Lens is an AI agent that reads an ingredient list (label photo, typed text or recipe) and tells the user, in plain language, whether it fits their restrictions: intolerances, allergies, celiac disease and vegan or vegetarian diets. It also cross-checks the ingredient list against the label's own statements and sends contradictions to human review.</p>
   <p>Version 0.1 was built as a no-code Claude Project (instructions plus knowledge files). The first hands-on test raised a scope question: reading a label is something any general-purpose LLM can do, so the prototype on its own did not show much business value. Version 0.2 answers that by moving the decisions that must be repeatable into tools: a rules engine, a governed ingredient database, a human-review queue and an audit log, connected to the agent through an MCP server.</p>
   <p>Version 0.3 widens the data. 10,902 terms from the public Open Food Facts taxonomies (ODbL) sit behind the 430 curated terms, with a conservative rule: they give diet status only, and an allergen is ruled out only with evidence. The US and EU label rules were checked against official sources.</p>
+  <p>Version 0.4 tests the rules at scale. 6,000 real products from Brazil, the US, France and Germany run through the engine on every change (160,570 runs); the benchmark found nine real engine errors, each fixed and turned into a test. Of the 4,607 allergens the products declare, 25 come out green (0.5%), and a manual review found none where the allergen was readable in the ingredient text. EU allergens, market-specific rules and seven label languages were added, and tests run on every push.</p>
 
   <div class="status-row">
-    <div class="stat"><small>Phase</small><strong>Build v0.3</strong></div>
+    <div class="stat"><small>Phase</small><strong>Build v0.4</strong></div>
     <div class="stat"><small>Rules engine vs golden set (text rows)</small><strong>25 / 25</strong></div>
-    <div class="stat"><small>Unit tests</small><strong>50 / 50</strong></div>
-    <div class="stat"><small>Ingredient database</small><strong>430 curated + 10,902 imported</strong></div>
-    <div class="stat"><small>Coverage, 10 new labels</small><strong>75% → 95%</strong></div>
+    <div class="stat"><small>Automated tests (every push)</small><strong>3,108 passed</strong></div>
+    <div class="stat"><small>Real products benchmarked</small><strong>6,000 (BR, US, FR, DE)</strong></div>
+    <div class="stat"><small>Declared allergens missed</small><strong>25 of 4,607 (0.5%)</strong></div>
+    <div class="stat"><small>Ingredient database</small><strong>653 curated + 35,043 imported</strong></div>
     <div class="stat"><small>Full agent tested in chat</small><strong>Connected, not tested</strong></div>
   </div>
 
@@ -257,20 +259,28 @@ footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px
       Searched for public, regulated food datasets. Regulated lists (Codex INS, Anvisa IN 211/2023, EU additives database, FDA Substances Added to Food) have no bulk download, so they are cited in the label rules. Open Food Facts publishes machine-readable additive and ingredient taxonomies (ODbL) with PT, EN and ES names and vegan and vegetarian status. Imported 10,902 terms with a conservative allergen rule; the curated data wins. Found and fixed an error in the curated data: E441 is not gelatin. Coverage on 10 new labels: 75% → 95%. <a href="../mcp-server/data/README.md">Data sources and licenses</a></li>
     <li><div class="when">2026-10-16 · Label rules verified (US, EU)</div>
       US rules checked against the FDA (9 major allergens, Edition 5 guidance with coconut removed from tree nuts, 21 CFR 101.91 gluten-free). EU rules checked against Regulations 1169/2011 (14 allergens, emphasis in the list) and 828/2014 (gluten-free). Brazil: RDC 727/2022 consolidated the allergen and lactose rules. Unit tests 50/50, golden set 25/25.</li>
+    <li><div class="when">2026-10-16 · Knowledge expansion (v0.4)</div>
+      Open Food Facts import now reads the source taxonomies with synonyms, in PT, EN, ES, FR, DE, IT and NL, plus the taxonomy's own allergen property: 10,902 → 35,043 terms. Curated additions: EU allergens (Regulation 1169/2011 Annex II), additive class names (Codex CXG 36-1989), vitamin forms (EU 1925/2006). Label keywords in the four EU languages.</li>
+    <li><div class="when">2026-10-16 · Pending items prioritized; three done</div>
+      All open items ranked by risk reduced, value to the analyst workflow and whether they can be done safely without a person (section 10). Done: backlog 2 (independent evaluation, as a benchmark on real products), backlog 12 (EU-only allergens, which were 🟢 for allergic users) and backlog 5 (68 of 83 unsourced rows sourced by an automated cross-check, which also found two import bugs).</li>
+    <li><div class="when">2026-10-16 · Benchmark on 6,000 real products</div>
+      Frozen sample of the most scanned products in BR, US, FR and DE (Open Food Facts export). Measured: missed declared allergens, conflicts with claims on the pack, coverage, metamorphic properties and speed. Found and fixed nine engine errors, among them periods inside the list hiding milk and soy, French trace wording, oats treated as gluten in the US (111 → 24 false conflicts) and claims printed before the list. Final: 25 of 4,607 declared allergens missed (0.5%), none with the allergen readable in the text; coverage 91.5–95.0%; 94,097 property checks with 45 failures on ingredient order (under review). <a href="../tests/evidence/benchmark-review-v0.4.md">Benchmark review</a></li>
+    <li><div class="when">2026-10-16 · Continuous integration and critical review</div>
+      GitHub Actions runs 3,108 tests and the golden set on every push; the full benchmark runs on demand. A critical review of everything built so far was written, with a 13-item roadmap. <a href="04-critical-review.md">04 · Critical review and roadmap</a></li>
   </ul>
 
   <!-- ================================================================== -->
   <h2 id="scope-review">4. Scope review and gap analysis</h2>
   <p>Question raised after the first hands-on use: if any LLM can read a label, where is the value? The answer is not the chat itself but the process around it. The table maps the capabilities a production agent needs against what each version delivers.</p>
   <div class="table-wrap"><table>
-    <tr><th>Capability</th><th>v0.1 (no-code)</th><th>v0.2-v0.3 (tools, data)</th><th>Still open</th></tr>
+    <tr><th>Capability</th><th>v0.1 (no-code)</th><th>v0.2-v0.4 (tools, data, tests)</th><th>Still open</th></tr>
     <tr><td>Workflow identified with users</td><td>Personas, as-is maps</td><td>Same</td><td>Analyst workflow as the primary case; to-be map with volumes</td></tr>
     <tr><td>Build vs buy, no-code vs custom</td><td>Documented comparison</td><td>Next step built, triggers confirmed</td><td>Cost model for a production option</td></tr>
     <tr><td>Repeatable decisions</td><td>Rules in the prompt</td><td>Rules engine in code, unit tested</td><td>Held-out test set</td></tr>
-    <tr><td>Governed knowledge</td><td>Markdown glossaries</td><td>Versioned CSV → SQLite, source per row; v0.3 adds Open Food Facts taxonomies (ODbL) behind the curated data, regenerated by a script</td><td>87 curated rows (<code>v0.2-added</code>, <code>v0.2.1-added</code>) need a cited source; regulated additive lists have no bulk download</td></tr>
+    <tr><td>Governed knowledge</td><td>Markdown glossaries</td><td>Versioned CSV → SQLite, source per row; v0.3 adds Open Food Facts taxonomies (ODbL) behind the curated data, regenerated by a script</td><td>15 curated rows need a cited source; regulated additive lists have no bulk download</td></tr>
     <tr><td>Integration with business systems</td><td>None</td><td>Ticketing (GitHub Issues), database, audit log</td><td>Document store (Drive or SharePoint) as input</td></tr>
     <tr><td>Human in the loop</td><td>Handoff note in chat</td><td>Escalation flag and review ticket</td><td>Review turnaround and owner</td></tr>
-    <tr><td>Testing and monitoring</td><td>Plan and golden set, not run</td><td>Rules eval script, usage metrics</td><td>Full agent eval in chat; LLM-as-judge runner</td></tr>
+    <tr><td>Testing and monitoring</td><td>Plan and golden set, not run</td><td>Rules eval script, usage metrics; v0.4: benchmark on 6,000 real products, property tests, CI on every push</td><td>Full agent eval in chat; LLM-as-judge runner</td></tr>
     <tr><td>Adoption and ROI</td><td>Success measures defined</td><td>Usage stats available</td><td>ROI model; UAT with a real user</td></tr>
   </table></div>
 
@@ -286,6 +296,9 @@ footer { margin-top: 48px; color: var(--muted); font-size: 12px; border-top: 1px
     <tr><td>D-06</td><td>2026-10-16</td><td>The model transcribes and explains; the tool decides the verdict</td><td>Keeps the LLM where it is strong (reading, plain language) and out of what it is weak at (consistency)</td><td>Model decides, tool advises</td><td><span class="lozenge l-done">Done</span></td></tr>
     <tr><td>D-07</td><td>2026-10-16</td><td>Make the Analyst workflow (label compliance first pass) the primary use case</td><td>Closest to the B2B value; Shopper and Cook stay as secondary demos</td><td>Keep Shopper as default</td><td><span class="lozenge l-prop">Proposed</span></td></tr>
     <tr><td>D-08</td><td>2026-10-16</td><td>Import Open Food Facts taxonomies for diet status and coverage, never as evidence that an allergen is absent</td><td>Largest machine-readable multilingual source; volunteer-maintained, so it must not create false greens</td><td>Regulated lists (no bulk download); FDA Substances Added to Food (US only, no diet status); manual curation only (slow)</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-10</td><td>2026-10-16</td><td>Measure the rules on a frozen sample of 6,000 real products (most scanned in BR, US, FR, DE) instead of 10 hand-written held-out cases</td><td>Scale and independence from the author; reproducible, versioned sample</td><td>Hand-written cases (biased, small); live API reads (too slow, rate limited)</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-11</td><td>2026-10-16</td><td>Check the allergen statement against each market's own list (BR, US, EU); other allergens become a note</td><td>A Brazilian label need not declare sesame or mustard; flagging it would be a false mismatch for the analyst</td><td>One list for all markets</td><td><span class="lozenge l-done">Done</span></td></tr>
+    <tr><td>D-12</td><td>2026-10-16</td><td>Run unit, data and property tests on every push (GitHub Actions); the full benchmark on demand</td><td>Regressions are caught before they reach the agent; the full run takes about 20 minutes</td><td>Manual runs only</td><td><span class="lozenge l-done">Done</span></td></tr>
     <tr><td>D-09</td><td>2026-10-16</td><td>Curated rows always win; the imported file is generated by a script and versioned in Git</td><td>Curated decisions (for example sugar and bone char) stay in control; every refresh shows up as a reviewable diff</td><td>Merge everything into one CSV; download at runtime</td><td><span class="lozenge l-done">Done</span></td></tr>
   </table></div>
 
@@ -319,7 +332,7 @@ flowchart LR
     <tr><td>US-06 Contradictions pointed out</td><td>Rules: XC1-XC4</td><td>T06, T17, unit tests</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
     <tr><td>US-07 Never says "safe"</td><td>Prompt</td><td>Pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
     <tr><td>US-08 Symptoms now → medical help</td><td>Prompt</td><td>T16 pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
-    <tr><td>US-09 Answers in the user's language</td><td>Prompt; rules read PT, EN, ES terms</td><td>T14 (rules part passed)</td><td><span class="lozenge l-warn">Partial</span></td></tr>
+    <tr><td>US-09 Answers in the user's language</td><td>Prompt; rules read PT, EN, ES, FR, DE, IT, NL terms and label keywords</td><td>T14 (rules part passed)</td><td><span class="lozenge l-warn">Partial</span></td></tr>
     <tr><td>US-10 Cook table with origin</td><td>Rules give origin per ingredient; prompt formats the table</td><td>V01-V10 (rules)</td><td><span class="lozenge l-warn">Partial</span></td></tr>
     <tr><td>US-11 Unclear origin never guessed</td><td>Rules: "either" origin in the database (Open Food Facts "maybe vegan" maps to it)</td><td>V01, V07, V08, test_open_food_facts.py</td><td><span class="lozenge l-done">Passed (rules)</span></td></tr>
     <tr><td>US-12 What to ask the supplier</td><td>Prompt; ticket field for supplier questions</td><td>Pending</td><td><span class="lozenge l-todo">Not tested</span></td></tr>
@@ -333,32 +346,37 @@ flowchart LR
   <!-- ================================================================== -->
   <h2 id="quality">8. Quality and metrics</h2>
   <div class="table-wrap"><table>
-    <tr><th>Metric (from the test plan)</th><th>Target</th><th>v0.1 chat</th><th>Rules layer (v0.3)</th><th>Chat with tools</th></tr>
+    <tr><th>Metric (from the test plan)</th><th>Target</th><th>v0.1 chat</th><th>Rules layer (v0.4)</th><th>Chat with tools</th></tr>
     <tr><td>Verdict matches golden set (text rows)</td><td>—</td><td>Not run</td><td>25/25 (biased, see note)</td><td>Not run</td></tr>
     <tr><td>Ingredients found in the database, 10 new labels (5 BR, 5 US)</td><td>—</td><td>n/a</td><td>95% (75% with curated data only)</td><td>n/a</td></tr>
     <tr><td>False greens on known traps (semolina, malt, bread, kefir, tofu...)</td><td>0</td><td>Not run</td><td>0 (unit tests)</td><td>Not run</td></tr>
+    <tr><td>Declared allergens missed on 6,000 real products (v0.4)</td><td>0 readable in the text</td><td>n/a</td><td>25 of 4,607 (0.5%); 0 readable in the text after review</td><td>n/a</td></tr>
+    <tr><td>Ingredients found in the database, 6,000 real products (v0.4)</td><td>—</td><td>n/a</td><td>BR 93.1%, US 94.6%, FR 95.0%, DE 91.5%</td><td>n/a</td></tr>
+    <tr><td>Claims on the pack in conflict with the engine (v0.4)</td><td>Each one reviewed</td><td>n/a</td><td>Vegan 30 of 763, gluten-free 65 of 1,311, lactose-free 98 of 260</td><td>n/a</td></tr>
+    <tr><td>Metamorphic properties (v0.4)</td><td>0 failures</td><td>n/a</td><td>94,097 checks; 45 failures, all on ingredient order</td><td>n/a</td></tr>
     <tr><td>Trigger recall</td><td>100%</td><td>Not run</td><td>No missed red in 25 rows</td><td>Not run</td></tr>
     <tr><td>False alarms on trap ingredients</td><td>≤ 10%</td><td>Not run</td><td>0 in T03, T08</td><td>Not run</td></tr>
     <tr><td>No guessing on "Can be either"</td><td>100%</td><td>Not run</td><td>By design (database)</td><td>Not run</td></tr>
     <tr><td>Consistency (same input, same verdict)</td><td>≥ 90%</td><td>Not run</td><td>100% by design (deterministic)</td><td>Not run</td></tr>
     <tr><td>Transcription accuracy, honest uncertainty, safety wording, format</td><td>See test plan</td><td>Not run</td><td>Not applicable (LLM layer)</td><td>Not run</td></tr>
   </table></div>
-  <p>Raw results: <a href="../tests/evidence/results-rules-v0.3.md">tests/evidence/results-rules-v0.3.md</a>. The coverage figure uses labels written after v0.2 and not used to tune the rules, but it is a small sample. How to re-run: <code>cd mcp-server</code>, <code>uv run pytest</code>, <code>uv run eval_rules.py</code>.</p>
+  <p>Raw results: <a href="../tests/evidence/results-rules-v0.4.md">results-rules-v0.4.md</a>, <a href="../tests/evidence/benchmark-rules-v0.4.md">benchmark-rules-v0.4.md</a> and the manual <a href="../tests/evidence/benchmark-review-v0.4.md">benchmark review</a>. The benchmark's reference allergens are partly derived with the same taxonomy this project imports (R-10), so read agreement as an upper bound. How to re-run: <code>cd mcp-server</code>, <code>uv run pytest</code>, <code>uv run eval_rules.py</code>, <code>uv run python ../tests/benchmark/run_benchmark.py</code>.</p>
 
   <!-- ================================================================== -->
   <h2 id="raid">9. Risks, assumptions, issues</h2>
   <h3>Risks</h3>
   <div class="table-wrap"><table>
     <tr><th>ID</th><th>Risk</th><th>Impact</th><th>Mitigation</th><th>Status</th></tr>
-    <tr><td>R-01</td><td>Rules tuned to the golden set look better than they are</td><td>High</td><td>Held-out set of new cases written before running</td><td><span class="lozenge l-risk">Open</span></td></tr>
-    <tr><td>R-02</td><td>87 curated database rows have no cited source</td><td>Medium</td><td>Source or remove each <code>v0.2-added</code> and <code>v0.2.1-added</code> row</td><td><span class="lozenge l-risk">Open</span></td></tr>
-    <tr><td>R-03</td><td>US and EU label rules not verified against official sources</td><td>Medium</td><td>Verified on 2026-10-16 (FDA, 21 CFR 101.91, EU 1169/2011 and 828/2014). Still open: diet claims in Brazil and the EU; EU-only allergens (celery, mustard, sulphites, lupin) not in the engine</td><td><span class="lozenge l-warn">Mitigated</span></td></tr>
+    <tr><td>R-01</td><td>Rules tuned to the golden set look better than they are</td><td>High</td><td>Benchmark on 6,000 real products not used to write the rules (v0.4); see R-10 for its limit</td><td><span class="lozenge l-warn">Mitigated</span></td></tr>
+    <tr><td>R-02</td><td>Curated database rows without a cited source (87 at v0.3, 15 at v0.4)</td><td>Medium</td><td>68 rows sourced by an automated cross-check with Open Food Facts or a regulation; the rest need a person (F-10)</td><td><span class="lozenge l-warn">Mitigated</span></td></tr>
+    <tr><td>R-03</td><td>US and EU label rules not verified against official sources</td><td>Medium</td><td>Verified on 2026-10-16 (FDA, 21 CFR 101.91, EU 1169/2011 and 828/2014); EU-only allergens and market-specific statements in the engine since v0.4. Still open: diet claims in Brazil and the EU</td><td><span class="lozenge l-warn">Mitigated</span></td></tr>
     <tr><td>R-04</td><td>The model ignores or softens the tool's verdict</td><td>High</td><td>Instruction "do not soften"; chat tests compare answer with tool output</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
     <tr><td>R-05</td><td>Transcription errors happen before the rules run</td><td>High</td><td>[?] marks, retake requests, photo test cases</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
     <tr><td>R-06</td><td>Review tickets on a public repository expose label text</td><td>Low</td><td>Only mock or public labels; local queue option</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
     <tr><td>R-07</td><td>Local MCP servers may not be available on the free desktop plan</td><td>Medium</td><td>Using a paid plan; Claude Desktop loads the server (log shows the tool list). Not confirmed on the free plan</td><td><span class="lozenge l-done">Closed</span></td></tr>
     <tr><td>R-08</td><td>Open Food Facts terms are volunteer-edited and may be wrong</td><td>Medium</td><td>Diet status only; allergens never assumed absent without evidence; curated rows win; trap tests; review the diff on every refresh</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
     <tr><td>R-09</td><td>ODbL share-alike obligations on the derived data</td><td>Low</td><td>Attribution in the README, data README and every <code>check_label</code> result; the derived file is published under the ODbL</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
+    <tr><td>R-10</td><td>The benchmark's reference allergens are partly derived by Open Food Facts with the same taxonomy this project imports, so agreement is overstated</td><td>Medium</td><td>Reported as an upper bound; misses reviewed by hand; claims on the pack (independent) reported separately; the agent eval (F-01) will use hand-labeled cases</td><td><span class="lozenge l-warn">Monitor</span></td></tr>
   </table></div>
   <h3>Assumptions</h3>
   <ul>
@@ -378,18 +396,35 @@ flowchart LR
   <div class="table-wrap"><table>
     <tr><th>#</th><th>Item</th><th>Value</th><th>Effort</th><th>Priority</th><th>Status</th></tr>
     <tr><td>1</td><td>Run the golden set in chat with tools connected; record results-v0.2.md</td><td>Evidence for every P1 story</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
-    <tr><td>2</td><td>Write a held-out set of 10 unseen cases and run it</td><td>Unbiased accuracy (R-01)</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>2</td><td>Write a held-out set of 10 unseen cases and run it → replaced by a benchmark on 6,000 real products not used to write the rules</td><td>Unbiased accuracy (R-01)</td><td>S</td><td>P1</td><td><span class="lozenge l-done">Done (v0.4)</span></td></tr>
     <tr><td>3</td><td>Fill real pain points; one UAT with a real user</td><td>Validates the problem</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
     <tr><td>4</td><td>Demo video: photo → tool → ticket → usage stats</td><td>Shareable proof</td><td>S</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
-    <tr><td>5</td><td>Source or remove the 87 unsourced curated rows</td><td>Data governance (R-02)</td><td>M</td><td>P1</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>5</td><td>Source or remove the unsourced curated rows (68 of 83 sourced automatically; 15 left for a person, see F-10)</td><td>Data governance (R-02)</td><td>M</td><td>P1</td><td><span class="lozenge l-done">Done (v0.4), 15 rows left</span></td></tr>
     <tr><td>6</td><td>Reposition: Analyst workflow as primary case, to-be map with volumes</td><td>B2B relevance (D-07)</td><td>S</td><td>P2</td><td><span class="lozenge l-prop">Proposed</span></td></tr>
     <tr><td>7</td><td>Simple ROI model: minutes per label × volume × share not needing full review</td><td>Business case</td><td>S</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
     <tr><td>8</td><td>Automated eval of the full agent (rules + LLM-as-judge)</td><td>Regression on every change</td><td>M</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
     <tr><td>9</td><td>Verify US and EU rules against official sources</td><td>Multi-market (R-03)</td><td>M</td><td>P2</td><td><span class="lozenge l-done">Done</span></td></tr>
     <tr><td>10</td><td>Input from a document folder (Drive or SharePoint connector)</td><td>Batch review of spec sheets</td><td>M</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
     <tr><td>11</td><td>Automation opportunity backlog for neighbouring workflows (support tickets about allergens, supplier spec comparison)</td><td>Portfolio thinking</td><td>S</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
-    <tr><td>12</td><td>EU-only allergens in the engine: celery, mustard, sulphites, lupin</td><td>EU labels (R-03)</td><td>S</td><td>P2</td><td><span class="lozenge l-todo">To do</span></td></tr>
-    <tr><td>13</td><td>Import the FDA Substances Added to Food inventory if a download becomes available; INS codes from Anvisa IN 211/2023</td><td>Regulated additive coverage</td><td>M</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>12</td><td>EU-only allergens in the engine: celery, mustard, sulphites, lupin</td><td>EU labels (R-03)</td><td>S</td><td>P2</td><td><span class="lozenge l-done">Done (v0.4)</span></td></tr>
+    <tr><td>13</td><td>Import the FDA Substances Added to Food inventory if a download becomes available; INS codes from Anvisa IN 211/2023 (= F-13)</td><td>Regulated additive coverage</td><td>M</td><td>P3</td><td><span class="lozenge l-todo">To do</span></td></tr>
+  </table></div>
+  <h3>Pending work, in the order a BA would take it (2026-10-16)</h3>
+  <p>Ranked by risk reduced and value to the analyst workflow, then by whether it can be done safely without a person. The first three automatable items (backlog 2, 12 and 5) were done in v0.4. Full descriptions of the F-items: <a href="04-critical-review.md">04 · Critical review and roadmap</a>.</p>
+  <div class="table-wrap"><table>
+    <tr><th>Rank</th><th>Item</th><th>Who can do it</th><th>Why this rank</th><th>Status</th></tr>
+    <tr><td>1</td><td>F-05 Review every benchmark miss and claim conflict; each real engine error becomes a test</td><td>Automated first pass done; conflicts need a person</td><td>Directly reduces false greens</td><td><span class="lozenge l-prog">In progress</span></td></tr>
+    <tr><td>2</td><td>F-01 / backlog 1 and 8: automated eval of the full agent (Claude + tools), graded by rules and an LLM judge</td><td>Automatable; needs an API key and a budget approved by the owner</td><td>The model layer is the biggest untested risk (R-04, R-05)</td><td><span class="lozenge l-todo">Pending approval</span></td></tr>
+    <tr><td>3</td><td>F-04 / backlog 6 and 7: Analyst workflow as the primary case, to-be map, ROI model</td><td>Draft automatable; volumes and minutes per label need a business owner</td><td>Ties the prototype to B2B value</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>4</td><td>F-03 / backlog 3: UAT with three users</td><td>Needs people</td><td>Validates the problem and the wording</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>5</td><td>F-02: photo test set with known text</td><td>Needs photos of real labels</td><td>Transcription is the first failure point</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>6</td><td>F-06: German compound words and negations in the matcher</td><td>Automatable</td><td>Known blind spot; DE coverage is the lowest</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>7</td><td>F-08: monthly data refresh as a reviewed pull request</td><td>Automatable</td><td>Governed data over time</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>8</td><td>F-09: market rules as a versioned table (incl. the Anvisa 2025 revision)</td><td>Automatable; the revision outcome needs checking</td><td>Regulation changes without code changes</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>9</td><td>F-07: log answers given without a tool call</td><td>Automatable</td><td>Monitoring after go-live</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>10</td><td>F-10: source the last 15 curated rows</td><td>Needs a person to choose a source</td><td>Data governance (R-02)</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>11</td><td>Backlog 4: demo video</td><td>Needs the owner</td><td>Shareable proof</td><td><span class="lozenge l-todo">To do</span></td></tr>
+    <tr><td>12</td><td>F-11, F-12, F-13 / backlog 10, 11, 13: hosted server, document input, regulated additive lists</td><td>Needs infrastructure or data access</td><td>Only if a pilot goes ahead</td><td><span class="lozenge l-todo">To do</span></td></tr>
   </table></div>
 
   <!-- ================================================================== -->
@@ -397,9 +432,10 @@ flowchart LR
   <ul class="tasks">
     <li>☐ Re-paste <a href="../agent/project-instructions.md">project-instructions.md</a> v0.3 and <a href="../agent/knowledge/label-rules-br-us-eu.md">label-rules-br-us-eu.md</a> v0.2 into the Claude Project. <em>Owner: t0masleones</em></li>
     <li>☑ Install Claude Desktop and add the MCP server configuration (see README). <em>Owner: t0masleones</em></li>
-    <li>☐ Restart Claude Desktop so the server loads the v0.3 data. <em>Owner: t0masleones</em></li>
+    <li>☐ Restart Claude Desktop so the server loads the v0.4 data. <em>Owner: t0masleones</em></li>
     <li>☐ Smoke test in chat with case T17; confirm a review ticket is created. <em>Owner: t0masleones</em></li>
-    <li>☐ Run backlog items 1 to 3 and update sections 7 and 8 of this page. <em>Owner: t0masleones</em></li>
+    <li>☐ Decide on a budget for the automated eval of the full agent (rank 2 above). <em>Owner: t0masleones</em></li>
+    <li>☐ Review the claim conflicts in the benchmark report (rank 1 above). <em>Owner: t0masleones</em></li>
   </ul>
 
   <!-- ================================================================== -->
@@ -418,6 +454,7 @@ flowchart LR
     <tr><th>Version</th><th>Date</th><th>Author</th><th>Change</th></tr>
     <tr><td>1</td><td>2026-10-16</td><td>t0masleones</td><td>Page created: record of discovery, v0.1, scope review, v0.2 build and rules-layer results.</td></tr>
     <tr><td>2</td><td>2026-10-16</td><td>t0masleones</td><td>v0.2.1 code review fixes, Claude Desktop connected (R-07 closed), v0.3 data sources (Open Food Facts), US and EU rules verified (R-03 mitigated), decisions D-08 and D-09, risks R-08 and R-09, backlog 12 and 13.</td></tr>
+    <tr><td>3</td><td>2026-10-16</td><td>t0masleones</td><td>v0.4: knowledge expansion, benchmark on 6,000 real products, EU allergens and market rules, CI; pending items prioritized (three done); decisions D-10 to D-12; risks R-01 and R-02 mitigated, R-10 added; quality metrics; link to the critical review and roadmap.</td></tr>
   </table></div>
 
   <footer>Independent prototype. Not affiliated with any company. Not medical, legal or regulatory advice. Layout is a generic wiki page made for this repository.</footer>

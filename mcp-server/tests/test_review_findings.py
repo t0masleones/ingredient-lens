@@ -62,6 +62,32 @@ def test_guard_allergen_statement_without_period_ends_the_list(m):
     assert texts(r) == ["Farinha de trigo", "açúcar"]
 
 
+# ---------------------------------------------------------------- claims printed before or inside the list
+# Found by the benchmark on real Brazilian products (v0.4).
+
+@pytest.mark.parametrize("text, items", [
+    ("INGREDIENTES: Sem glúten, Sem lactose, Sem conservantes, Farinha de trigo, água",
+     ["Farinha de trigo", "água"]),
+    ("INGREDIENTES: CONTÉM FENILALANINA Água Gaseificada, Cafeína, Aroma Natural",
+     ["Água Gaseificada", "Cafeína", "Aroma Natural"]),
+    ("INGREDIENTES: Feijão carioca, sem conservantes", ["Feijão carioca"]),
+])
+def test_claims_before_or_inside_the_list(m, text, items):
+    assert texts(check(m, text, ["gluten"])) == items
+
+
+def test_claim_words_never_swallow_an_ingredient(m):
+    r = check(m, "INGREDIENTES: SEM GLÚTEN Leite integral, açúcar", ["lactose"])
+    assert texts(r) == ["Leite integral", "açúcar"]
+    assert r["verdict"] == "red"
+    assert check(m, "INGREDIENTS: fat free milk, sugar", ["lactose"])["verdict"] == "red"
+
+
+def test_gluten_free_claim_before_wheat_is_a_mismatch(m):
+    r = check(m, "INGREDIENTES: Sem glúten, Farinha de trigo, água", [])
+    assert [x["rule"] for x in r["mismatches"]] == ["XC1"]
+
+
 # ---------------------------------------------------------------- items that are not ingredients
 
 def test_percentages_and_additive_codes_are_not_unknown_ingredients(m):

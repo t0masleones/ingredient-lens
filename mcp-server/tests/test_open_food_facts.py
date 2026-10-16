@@ -24,6 +24,19 @@ def status(m, item, avoid):
     return r["ingredients"][0]["status"][avoid]
 
 
+@pytest.mark.parametrize("item, avoid, level", [
+    ("lait écrémé", "lactose", "red"), ("Weizenmehl", "gluten", "red"), ("farina di frumento", "gluten", "red"),
+    ("crème de coco", "lactose", "green"), ("Haselnüsse", "tree_nuts", "red"),
+])
+def test_eu_language_terms(m, item, avoid, level):
+    assert status(m, item, avoid) == level
+
+
+def test_foreign_term_never_replaces_portuguese(off_rows):
+    langs = {r["term"]: r["lang"] for r in off_rows}
+    assert langs.get("polvo", "pt") in ("pt", "es", "en")
+
+
 def test_curated_terms_win(m):
     assert m.terms["acucar"].source == "origin-glossary"
     assert m.terms["leite de coco"].source == "lactose-gluten-glossary"
@@ -63,6 +76,7 @@ def test_no_allergen_is_ruled_out_without_evidence(off_rows):
         covered = set(filter(None, (r["allergens"] + ";" + r["may_allergens"]).split(";")))
         if r["origin"] != "non_animal":
             assert ANIMAL <= covered, r["term"]
+        assert {"celery", "mustard", "sulphites", "lupin"} <= covered, r["term"]
         # The gluten column must agree with the allergen columns, since the engine reads it first.
         if "gluten" in r["allergens"].split(";"):
             assert r["gluten"] == "red", r["term"]

@@ -37,7 +37,7 @@ In v0.1 the model did everything from its instructions. In v0.2 it calls an MCP 
 | Tool | What it does | Why it is not left to the model |
 |---|---|---|
 | `check_label` | Matches each ingredient against the ingredient database, applies the profile and STRICT mode, cross-checks label statements (rules XC1-XC4) | Same input, same answer, every time; rules are tested in code |
-| `lookup_ingredient` | Looks up one term in a SQLite database: 430 curated terms from the glossaries plus 10,902 terms from Open Food Facts (v0.3); every row cites its source | Governed, versioned data instead of free text |
+| `lookup_ingredient` | Looks up one term in a SQLite database: 653 curated terms from glossaries and regulations plus 35,043 terms from Open Food Facts in 7 languages (v0.4); every row cites its source | Governed, versioned data instead of free text |
 | `create_review_ticket` | Sends escalated cases to a human-review queue (GitHub Issues or a local file) | Human in the loop for contradictions and STRICT cases |
 | `usage_stats` | Verdict mix, escalation rate and most frequent mismatches from the audit log | Monitoring after go-live |
 
@@ -66,7 +66,7 @@ flowchart LR
 ```
 Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mcp.json` at the repo root connects it automatically.
 
-**Check the rules without any LLM:** `cd mcp-server`, then `uv run pytest` and `uv run eval_rules.py` (runs the golden set's text rows through the rules engine).
+**Check the rules without any LLM:** `cd mcp-server`, then `uv run pytest` (unit, data and property tests) and `uv run eval_rules.py` (the golden set's text rows). The benchmark on 6,000 real products: `uv run python ../tests/benchmark/run_benchmark.py`. GitHub Actions runs the tests on every push.
 
 ## Repo map
 | Path | What it is |
@@ -75,12 +75,15 @@ Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mc
 | `docs/01-discovery.md` | Problem, personas, current process, pain points, business relevance |
 | `docs/02-tool-selection.md` | Why a Claude Project (no-code), and what would need engineering |
 | `docs/03-requirements.md` | User stories, acceptance criteria, safety requirements |
+| `docs/04-critical-review.md` | What the evidence does and does not show, weaknesses, roadmap of future activities |
 | `agent/` | The agent: instructions, knowledge files, changelog |
 | `mcp-server/` | Tools: rules engine, ingredient database (`data/`, see [data/README.md](mcp-server/data/README.md) for sources and licenses), review queue, audit log, unit tests |
-| `tests/` | Test plan, golden set (including trap cases), evidence |
+| `tests/` | Test plan, golden set (including trap cases), benchmark sample of real products (`benchmark/`), evidence |
 
 ## Results
-- Rules engine (no LLM) vs golden set text rows: 25/25 ([results-rules-v0.3.md](tests/evidence/results-rules-v0.3.md)). The golden set was used while building the rules, so this is not yet an unbiased accuracy figure; a held-out set is next.
+- Rules engine (no LLM) vs golden set text rows: 25/25 ([results-rules-v0.4.md](tests/evidence/results-rules-v0.4.md)). The golden set was used while building the rules, so it is not an unbiased accuracy figure.
+- **Benchmark on 6,000 real products** (most scanned in BR, US, FR, DE; v0.4): 25 of 4,607 declared allergens came out 🟢 (0.5%), and a manual review found none where the allergen was readable in the ingredient text ([report](tests/evidence/benchmark-rules-v0.4.md), [review](tests/evidence/benchmark-review-v0.4.md)). Coverage 91.5–95.0%. 94,097 property checks (deterministic, case-insensitive, STRICT never milder). The benchmark found nine engine errors, all fixed and kept as tests. The reference allergens are partly derived with the same taxonomy this project imports, so read agreement as an upper bound.
+- Automated tests: 3,108 on every push (GitHub Actions).
 - Ingredient coverage on 10 new labels (5 BR, 5 US) written after v0.2: 75% with the curated data only, 95% with the Open Food Facts terms (v0.3).
 - _To be filled: full agent in the Claude chat (photos, tone, safety wording), v0.1 vs v0.2._
 
@@ -89,7 +92,7 @@ Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mc
 - A label cannot show everything: processing aids (for example bone char used to filter some sugar) and cross-contact are usually invisible.
 - Ingredient origin is often not stated (shortening, glycerin, natural flavors). The agent marks these "Can be either" and says what to check; it never guesses.
 - The rules are a simplified summary. See `agent/knowledge/label-rules-br-us-eu.md` and its linked sources.
-- Open Food Facts terms are volunteer-maintained and give diet status only; their allergen status stays 🟡 unless there is evidence. EU-only allergens (celery, mustard, sulphites, lupin) are not checked by the engine yet.
+- Open Food Facts terms are volunteer-maintained and give diet status only; their allergen status stays 🟡 unless there is evidence.
 
 Ingredient data from Open Food Facts is © Open Food Facts contributors, available under the [Open Database License](https://opendatacommons.org/licenses/odbl/1-0/).
 - The agent never says a product is "safe" or "vegan for sure". For allergy or celiac disease, always confirm with the manufacturer and a health professional.

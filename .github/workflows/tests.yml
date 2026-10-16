@@ -1,0 +1,37 @@
+name: tests
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  rules-engine:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Unit, data and property tests (properties run on 1,500 real products)
+        run: uv run pytest -q
+      - name: Golden set (text rows) must stay 25/25
+        run: |
+          uv run eval_rules.py > eval.txt
+          grep -q "Pass rate: 25/25" eval.txt
+  # The full benchmark (6,000 products, about 20 minutes) runs on demand from the Actions tab.
+  benchmark:
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - run: uv run python ../tests/benchmark/run_benchmark.py

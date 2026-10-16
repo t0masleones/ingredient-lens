@@ -1,0 +1,79 @@
+{
+  "rules_version": "0.4.0",
+  "products": 6000,
+  "engine_runs": 160570,
+  "allergen_checks": 4607,
+  "false_greens": 25,
+  "false_green_rate": 0.005426524853483829,
+  "false_greens_strict": 25,
+  "claims": {
+    "BR/vegan": {
+      "yellow": 59,
+      "green": 61,
+      "red": 6
+    },
+    "BR/gluten": {
+      "red": 25,
+      "yellow": 283,
+      "green": 74
+    },
+    "BR/lactose": {
+      "green": 35,
+      "red": 29,
+      "yellow": 36
+    },
+    "US/gluten": {
+      "yellow": 559,
+      "red": 24,
+      "green": 43
+    },
+    "US/vegan": {
+      "yellow": 178,
+      "green": 103,
+      "red": 9
+    },
+    "US/lactose": {
+      "red": 36,
+      "yellow": 18,
+      "green": 10
+    },
+    "FR/vegan": {
+      "green": 26,
+      "yellow": 93,
+      "red": 8
+    },
+    "FR/gluten": {
+      "yellow": 112,
+      "green": 6,
+      "red": 7
+    },
+    "FR/lactose": {
+      "yellow": 21,
+      "green": 2,
+      "red": 7
+    },
+    "DE/vegan": {
+      "yellow": 145,
+      "green": 68,
+      "red": 7
+    },
+    "DE/gluten": {
+      "yellow": 158,
+      "red": 9,
+      "green": 11
+    },
+    "DE/lactose": {
+      "yellow": 35,
+      "red": 26,
+      "green": 5
+    }
+  },
+  "coverage": {
+    "BR": 0.9308,
+    "US": 0.9463,
+    "FR": 0.9496,
+    "DE": 0.915
+  },
+  "metamorphic_checks": 94097,
+  "metamorphic_failures": 45
+}
