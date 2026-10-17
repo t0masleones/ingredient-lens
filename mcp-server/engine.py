@@ -654,6 +654,12 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         "next_step": next_step,
         "requires_sign_off": not avoid,
         "not_verifiable_from_text": NOT_VERIFIABLE_FROM_TEXT if not avoid else [],
+        # US-14: substitutes are checked by the rules too, never named from memory.
+        "on_substitutes": (f"Before naming any substitute, run check_label on the candidates (for example "
+                           f"'INGREDIENTS: candidate 1, candidate 2') with this same avoid list {avoid}; name only "
+                           "those not flagged red, and say the chosen product's own label must be checked: plant "
+                           "butters, milks and cheeses often contain soy or tree nuts.")
+                          if avoid and verdict != "green" else "",
         "evidence_needed": evidence,
         "coverage": f"{len(items) - unknown}/{len(items)} ingredients found in the database",
         "ingredients": ingredients,

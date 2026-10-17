@@ -43,3 +43,9 @@ def test_answers_without_check_are_counted(audit_log, m):
     s = review.usage_stats()
     assert s["answers_without_check"] == 1 and s["answers_without_check_rate"] == 0.5
     assert s["answers_without_check_reasons"] == {"general_question": 1}
+
+
+def test_a_flagged_profile_result_says_how_to_check_substitutes(m):
+    r = engine.check_label("INGREDIENTS: flour, lard, salt.", ["vegan"], matcher=m)
+    assert r["verdict"] == "red" and "same avoid list" in r["on_substitutes"]
+    assert engine.check_label("INGREDIENTS: rice, salt.", ["vegan"], matcher=m)["on_substitutes"] == ""

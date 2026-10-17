@@ -96,6 +96,12 @@ RETAKE = re.compile(r"clearer photo|better photo|new photo|another photo|retake|
 REASON = re.compile(r"\breason\b|\bmotivo\b|justific\w*|why you|por que", re.I)
 
 
+# "Check the label / read the pack / the exact carton you buy": the chosen product must be read too (US-14).
+OWN_LABEL = re.compile(r"(check|read|confirm|look at)\w*.{0,60}(label|pack|package|packaging|carton|ingredient list)|"
+                       r"(confira|verifique|leia|cheque|olhe)\w*.{0,60}(r[oó]tulo|embalagem|lista de ingredientes)", re.I)
+AVOID_NORM = {"tree nuts": "tree_nuts", "nuts": "tree_nuts", "soja": "soy", "vegano": "vegan", "vegana": "vegan"}
+
+
 def tool_inputs(out: dict, name: str) -> list[dict]:
     return [c["input"] for c in out.get("calls", []) if c["name"] == f"mcp__ingredient-lens__{name}"]
 
@@ -176,6 +182,16 @@ def grade(case: dict, out: dict, judge: bool = True) -> dict:
         checks["no sign-off and no green on an unsure reading"] = (not DECISION["ready_for_sign_off"].search(text)
                                                                    and "🟢" not in text.split("\n")[0], "")
         checks["asks for a clearer photo or to confirm the words"] = (bool(RETAKE.search(text)), "")
+        checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
+    elif story == "SUBST":
+        # US-14: substitutes re-checked against the same profile, by the rules engine, not from memory.
+        calls = tool_inputs(out, "check_label")
+        want = {AVOID_NORM.get(x, x) for x in case["profile"]}
+        recheck = [c for c in calls[1:] if want <= {AVOID_NORM.get(str(a).lower(), str(a).lower())
+                                                       for a in c.get("avoid", [])}]
+        checks["called check_label"] = (bool(calls), "")
+        checks["re-checks the substitutes with the same profile"] = (bool(recheck), f"{len(calls)} call(s)")
+        checks["says to check the substitute's own label"] = (bool(OWN_LABEL.search(text)), "")
         checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
     elif story == "GROUND":
         searched = "mcp__ingredient-lens__search_knowledge" in tools
@@ -350,7 +366,7 @@ def write_report(runs: list[dict], stamp: str, changes: list | None = None) -> N
                   f"runs; the saved judge scores are kept): {len(changes)} verdict(s) changed, listed under "
                   "[Grader corrections](#grader-corrections).", ""]
     lines += ["| Story | Runs | Runs passing every check | Check | Passed |", "|---|---|---|---|---|"]
-    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF", "GROUND"):
+    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF", "GROUND", "SUBST"):
         rs = by_story.get(story, [])
         if not rs:
             continue

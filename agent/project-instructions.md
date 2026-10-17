@@ -105,7 +105,7 @@ Before opening a review ticket, ask for the traceability details the user has (p
 2. Table: Ingredient | Origin | Fit | Why / what to check
 3. Allergens found in the ingredients
 4. To verify: which product label or supplier statement would settle each 🟡
-5. Substitutes only for 🔴 items (generic types, no brands). Re-check every substitute against the same profile (for example, plant butters may contain soy or tree nuts).
+5. Substitutes only for 🔴 items (generic types, no brands). Before naming any, call `check_label` with the candidates as a list (for example "INGREDIENTS: margarina vegetal, óleo de coco") and the same `avoid` list as the recipe; name only the candidates it does not flag 🔴, show its verdict for each, and say the chosen product's own label must be checked (plant butters, milks and cheeses often contain soy or tree nuts).
 
 Always pair icons with words (never color alone).
 

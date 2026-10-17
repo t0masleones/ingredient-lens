@@ -1,6 +1,8 @@
 # Agent changelog
 
 ## v0.6 - 2026-10-17 (instructions v0.6, rules engine 0.6.0)
+US-14, substitutes re-checked by the rules: a new evaluation story (SUBST) showed the agent re-ran its substitutes through `check_label` in only 2 of 9 runs. `check_label` now returns `on_substitutes` when an item fails the profile, and the Cook instructions say to check the candidates with the same avoid list and name only those not flagged red. After the fix: 9/9 (`tests/evidence/substitutes-check-v0.6.md`).
+
 Retrieval and grounding (RAG practices, after reviewing how the agent uses its knowledge):
 - **What was kept.** Facts that decide a verdict stay in deterministic tools (rules engine, ingredient database, rule register); they are not retrieved text. The five knowledge files (about 30 KB) still sit in full in the Claude Project: at this size full context is the recommended choice, and a vector database would add risk, not value.
 - **New tool `search_knowledge`.** The knowledge files split into their own sections (39 passages), ranked by BM25 with section titles weighted, a minimum share of the question covered (a single shared word is not an answer), source lists left out, and Portuguese or Spanish domain words expanded to English. Every passage has an id to cite, the file version and a `to_verify` flag. It works where the project files are not in context (Claude Desktop with the server only).
@@ -16,7 +18,7 @@ Retrieval and grounding (RAG practices, after reviewing how the agent uses its k
 - **Monthly data refresh (F-08).** `.github/workflows/data-refresh.yml` regenerates `off-terms.csv`, runs the tests and the golden set, and opens a pull request with the diff for review.
 - **Sign-off recheck.** The sign-off cases ran again with the new rules (`tests/evidence/signoff-recheck-v0.6.md`): 9/9; the agent asks for the category, evidence and second approver before recording a critical override.
 - **Hard-case test pack (F-27)**, `tests/test_hard_cases.py`: gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, may-contain versus contains, umbrella ingredients, statements that contradict the list, additives without concentration, unsure critical words. It found two umbrella terms that came out 🟢 for a soy allergy in STRICT mode: "temperos" (read as a single spice) and "realçador de sabor". Both now carry possible allergens (curated rows; a stricter change, so one reviewer). The benchmark numbers above were measured before this data change.
-- Tests: 3,286 passed. Golden set 25/25.
+- Tests: 3,293 passed. Golden set 25/25.
 
 An external AI review of v0.5 scored it 6.5/10 for rigor and 7/10 for business value and named three next steps: an interpretable benchmark, an ingestion gate that fails closed, and governed rules. All three are in this version (`docs/04-critical-review.md`, section 5).
 - **Ingestion gate that fails closed (rule INGEST-GATE).** `check_label` takes `source` (photo, text or recipe), `transcription_confidence` and `complete_pack`. Low confidence or no ingredient list: `needs_manual_review`, no check runs. Medium confidence or any word marked [?]: nothing can be 🟢 and no check can pass. A photo of part of the pack: a missing statement is review, not fail.
@@ -32,7 +34,7 @@ An external AI review of v0.5 scored it 6.5/10 for rigor and 7/10 for business v
 - **Data governance:** synonym policy, a disputed-mapping workflow (a change that makes a term milder needs a second reviewer) and GitHub issue forms for disputed mappings and rule changes (`mcp-server/data/README.md`).
 - Instructions v0.6: scope statement, honest transcription confidence, the gate, rule ids in the checklist, sign-off and overrides, `check_id` in document control.
 - Agent evaluation v0.6 (120 runs, 3 per case): 0 "safe" claims; emergency first 21/21; Analyst 15/15, never saying the tool approved a label; certification 12/12; ingestion gate 9/9; sign-off and overrides 6/6. Plain language judged 4+/5 in 8/18; a controlled re-judge of the v0.5 and v0.6 answers found no change (mean 3.87 and 3.85, while the judge's own spread on the same answer is 1.1 points), so US-02 stays partly met. Four grader errors (contractions, "what is safe for you", Portuguese word order) were fixed with control sentences (`mcp-server/tests/test_eval_graders.py`) and all runs graded again.
-- Tests: 3,286 passed. Golden set 25/25.
+- Tests: 3,293 passed. Golden set 25/25.
 
 ## v0.5 - 2026-10-17 (instructions v0.5, rules engine 0.4.0)
 Standards a food certification, testing and compliance company works under, turned into agent behaviour (`docs/06-standards-alignment.md`).

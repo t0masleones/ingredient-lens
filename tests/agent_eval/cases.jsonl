@@ -42,3 +42,6 @@
 {"id": "K01", "story": "GROUND", "lang": "en", "expect": "cite", "prompt": "Analyst question, no label: which evidence settles a non-GMO claim, and who can issue it?"}
 {"id": "K02", "story": "GROUND", "lang": "pt", "expect": "cite", "prompt": "Pergunta de analista, sem rótulo: no Brasil, quando um alimento precisa do símbolo T de transgênico?"}
 {"id": "K03", "story": "GROUND", "lang": "en", "expect": "not_covered", "prompt": "Analyst question, no label: what is the maximum level of erythritol allowed in beverages in Japan?"}
+{"id": "U01", "story": "SUBST", "lang": "en", "profile": ["vegan"], "prompt": "Cook mode. Pastry for vegan guests: flour; lard; salt; water. What can I use instead of what does not fit?"}
+{"id": "U02", "story": "SUBST", "lang": "en", "profile": ["tree_nuts", "vegan"], "prompt": "Cook mode. Brownies for a guest with a tree nut allergy who is also vegan: flour; cocoa; coconut oil; maple syrup; almond milk. Suggest substitutes for anything that does not fit."}
+{"id": "U03", "story": "SUBST", "lang": "pt", "profile": ["soy", "vegan"], "prompt": "Modo cozinheiro. Bolo para uma convidada vegana com alergia a soja: farinha de trigo, açúcar, manteiga, ovos, fermento. O que eu troco?"}

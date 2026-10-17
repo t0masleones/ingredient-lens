@@ -62,3 +62,18 @@ def test_describing_a_bad_photo_is_not_a_retake_request(text):
 def test_certified_claims_respect_contractions():
     assert ev.certified_claims("The product is certified organic.")
     assert not ev.certified_claims("That doesn't mean the product is certified.")
+
+
+@pytest.mark.parametrize("text", [
+    "Read the pack of the margarine you buy.",
+    "Check each fat's pack as well.",
+    "Read the ingredient list and the allergen warning on the exact carton you buy.",
+    "Confira o rótulo da margarina que você comprar.",
+    "Leia a embalagem do leite vegetal.",
+])
+def test_asking_to_read_the_substitute_label_is_recognised(text):
+    assert ev.OWN_LABEL.search(text), text
+
+
+def test_naming_a_substitute_alone_is_not_a_label_check():
+    assert not ev.OWN_LABEL.search("Use vegetable margarine instead of lard.")

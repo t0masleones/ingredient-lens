@@ -32,7 +32,7 @@ ROOT = DOCS.parent
 REPO = "https://github.com/t0masleones/ingredient-lens"
 BLOB = REPO + "/blob/main/"
 TREE = REPO + "/tree/main/"
-TESTS_PASSED = "3,286"          # update after each full pytest run (unit, data and property tests)
+TESTS_PASSED = "3,293"          # update after each full pytest run (unit, data and property tests)
 SITE = "Ingredient Lens"
 
 
