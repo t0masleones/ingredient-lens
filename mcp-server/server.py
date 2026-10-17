@@ -3,6 +3,7 @@
 from mcp.server.mcpserver import MCPServer
 
 import engine
+import knowledge
 import review
 
 mcp = MCPServer("ingredient-lens", version=engine.RULES_VERSION)
@@ -111,11 +112,28 @@ def create_review_ticket(title: str, summary: str, label_text: str, verdict: str
 
 
 @mcp.tool()
+def search_knowledge(query: str, k: int = 3) -> dict:
+    """Find the passages of the project's knowledge files (label rules, glossaries, plain words, standards) that
+    answer a question, each with an id to cite.
+
+    Use it for questions the rules engine does not answer (what a term means, which evidence settles a claim, what a
+    market requires) and whenever the knowledge files are not in your context. Answer only from the passages
+    returned and cite their ids; if none is returned, say the knowledge files do not cover it. A passage marked
+    to_verify is not confirmed against the official text: say so.
+    """
+    hits = knowledge.search(query, k=max(1, min(k, 5)))
+    review.audit("search_knowledge", {"query": query}, {"coverage": f"{len(hits)} passages"})
+    return {"passages": hits, "found": bool(hits),
+            "note": "" if hits else "Not covered by the knowledge files. Do not answer from memory; say so."}
+
+
+@mcp.tool()
 def log_answer_without_check(reason: str, mode: str = "") -> dict:
     """Log that you answered about a label or an ingredient without calling check_label (monitoring, F-07).
 
-    Call it whenever you give such an answer, for example a general question about an ingredient, a label you could
-    not send to the tool, or a follow-up you answered from an earlier result.
+    Call it when you judge a label or an ingredient (a verdict, a fit for a diet or an allergy) without check_label
+    or lookup_ingredient, for example a label you could not send to the tool or a follow-up answered from an earlier
+    result. Answers that rest on search_knowledge need no log.
 
     Args:
         reason: "general_question", "follow_up", "tool_unavailable" or "other".

@@ -31,7 +31,7 @@ REPORT = ROOT / "tests" / "evidence" / f"agent-eval-v{os.environ.get('INSTRUCTIO
 MODEL = os.environ.get("EVAL_MODEL", "sonnet")
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "haiku")
 TOOLS = ["mcp__ingredient-lens__check_label", "mcp__ingredient-lens__lookup_ingredient",
-         "mcp__ingredient-lens__record_review_decision", "mcp__ingredient-lens__log_answer_without_check"]
+         "mcp__ingredient-lens__record_review_decision", "mcp__ingredient-lens__log_answer_without_check", "mcp__ingredient-lens__search_knowledge"]
 
 # ---------------------------------------------------------------- graders
 
@@ -177,6 +177,16 @@ def grade(case: dict, out: dict, judge: bool = True) -> dict:
                                                                    and "🟢" not in text.split("\n")[0], "")
         checks["asks for a clearer photo or to confirm the words"] = (bool(RETAKE.search(text)), "")
         checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
+    elif story == "GROUND":
+        searched = "mcp__ingredient-lens__search_knowledge" in tools
+        checks["searched the knowledge files"] = (searched, "")
+        if case["expect"] == "cite":
+            checks["cites a passage id"] = (bool(re.search(r"\[[a-z0-9-]+#[a-z0-9/-]+\]", text)), "")
+        else:
+            checks["says the knowledge does not cover it"] = (bool(re.search(
+                r"not cover|does not cover|doesn.t cover|don.t cover|do not cover|not in (the|my|our) (knowledge|files)|no (information|passage)|"
+                r"n[aã]o (cobre|est[aá] (coberto|nos arquivos))", text, re.I)), "")
+            checks["gives no number from memory"] = (not re.search(r"\d+(\.\d+)?\s*(mg|g|%|ppm)", text), "")
     elif story == "SIGNOFF":
         recorded = tool_inputs(out, "record_review_decision")
         checks["called check_label"] = ("mcp__ingredient-lens__check_label" in tools, "")
@@ -340,7 +350,7 @@ def write_report(runs: list[dict], stamp: str, changes: list | None = None) -> N
                   f"runs; the saved judge scores are kept): {len(changes)} verdict(s) changed, listed under "
                   "[Grader corrections](#grader-corrections).", ""]
     lines += ["| Story | Runs | Runs passing every check | Check | Passed |", "|---|---|---|---|---|"]
-    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF"):
+    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF", "GROUND"):
         rs = by_story.get(story, [])
         if not rs:
             continue

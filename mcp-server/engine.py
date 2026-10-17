@@ -879,4 +879,12 @@ def lookup(name: str, con: sqlite3.Connection | None = None) -> list[dict]:
         rows = c.execute(
             "SELECT * FROM ingredient WHERE term = ? OR term LIKE ? OR ? LIKE '%' || term || '%' "
             "ORDER BY term = ? DESC, length(term) DESC LIMIT 10", (key, f"%{key}%", key, key)).fetchall()
-    return [dict(r) for r in rows]
+    out = []
+    for r in rows:
+        row = dict(r)
+        # A partial match ("sal" in "salsa") is a different term: say so, so it is never read as the answer.
+        row["match_type"] = "exact" if row["term"] == key else "partial"
+        if row["match_type"] == "partial":
+            row["match_note"] = f"Different term from '{name}': it only shares words. Do not use it as the answer."
+        out.append(row)
+    return out
