@@ -4,6 +4,9 @@
 
 <br>
 
+<h3><a href="https://t0masleones.github.io/ingredient-lens/">📘 Documentation site → t0masleones.github.io/ingredient-lens</a></h3>
+
+<a href="https://t0masleones.github.io/ingredient-lens/"><img alt="Documentation site" src="https://img.shields.io/badge/docs-live_site-FFE600?style=flat-square&labelColor=00596B"></a>
 <a href="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml"><img alt="CI status" src="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Instructions v0.6" src="https://img.shields.io/badge/instructions-v0.6-00596B?style=flat-square">
 <img alt="Rules engine 0.6.0" src="https://img.shields.io/badge/rules_engine-0.6.0-27787F?style=flat-square">
@@ -174,7 +177,7 @@ uv run python ../tests/agent_eval/run_agent_eval.py --repeats 3
 uv run --no-project --with markdown==3.7 python docs/_build/build.py
 ```
 
-Open `docs/index.html` in a browser. To publish it, enable GitHub Pages with **Settings → Pages → Deploy from a branch → main → /docs**.
+Open `docs/index.html` in a browser. The published version is served by GitHub Pages from `main` / `docs` at [t0masleones.github.io/ingredient-lens](https://t0masleones.github.io/ingredient-lens/) and updates on every push.
 
 </details>
 
@@ -182,7 +185,7 @@ Open `docs/index.html` in a browser. To publish it, enable GitHub Pages with **S
 
 ## ✦ Documentation
 
-The documentation is a static site in [`docs/`](docs/) (open `docs/index.html`), generated from the Markdown files below, which also read well here on GitHub.
+The documentation is a static site, live at **[t0masleones.github.io/ingredient-lens](https://t0masleones.github.io/ingredient-lens/)**, generated from the Markdown files below, which also read well here on GitHub.
 
 | | Document | What it covers |
 |:--|:--|:--|

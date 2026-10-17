@@ -9,7 +9,7 @@ O que só uma pessoa pode fazer ou testar. Tudo o mais do backlog já é automá
 
 - [ ] **Commit e push** de tudo que está pendente no repositório.
 - [ ] **Permitir pull requests automáticos** (para a atualização mensal de dados, F-08): GitHub → *Settings → Actions → General → Workflow permissions* → marque *Read and write* e *Allow GitHub Actions to create and approve pull requests*. Teste em *Actions → data-refresh → Run workflow*. **Pronto quando** abrir um PR "Data refresh: Open Food Facts terms".
-- [ ] **Publicar o site** (opcional): *Settings → Pages → Deploy from a branch → main → /docs*.
+- [x] **Site publicado** no GitHub Pages: [t0masleones.github.io/ingredient-lens](https://t0masleones.github.io/ingredient-lens/). Ele mostra a versão que está no `main`; depois do push, confira em *Actions → pages build and deployment* que a publicação terminou (1 a 2 min).
 - [ ] **Reiniciar o VS Code**, para o Claude Code achar o `uv` e conectar o servidor.
 - [ ] **Atualizar o Claude Project:** cole o conteúdo atual de [project-instructions.md](../agent/project-instructions.md) nas instruções e confira que os 5 arquivos de [agent/knowledge/](../agent/knowledge/) estão nos arquivos do projeto.
 - [ ] **Reiniciar o Claude Desktop** e confirmar em *Settings → Connectors* que "ingredient-lens" está ativo (7 ferramentas).
