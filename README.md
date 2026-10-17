@@ -7,7 +7,7 @@
 <a href="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml"><img alt="CI status" src="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Instructions v0.6" src="https://img.shields.io/badge/instructions-v0.6-00596B?style=flat-square">
 <img alt="Rules engine 0.6.0" src="https://img.shields.io/badge/rules_engine-0.6.0-27787F?style=flat-square">
-<img alt="3,274 tests passing" src="https://img.shields.io/badge/tests-3%2C274_passing-007681?style=flat-square">
+<img alt="3,278 tests passing" src="https://img.shields.io/badge/tests-3%2C278_passing-007681?style=flat-square">
 <img alt="Benchmark on 6,000 real products" src="https://img.shields.io/badge/benchmark-6%2C000_real_products-1D4F91?style=flat-square">
 <img alt="120 agent runs, 0 safe claims" src="https://img.shields.io/badge/agent_eval-120_runs%2C_0_%E2%80%9Csafe%E2%80%9D-00596B?style=flat-square&labelColor=27787F">
 <img alt="Markets Brazil, US, EU" src="https://img.shields.io/badge/markets-BR_%C2%B7_US_%C2%B7_EU-FFE600?style=flat-square&labelColor=00596B">
@@ -33,7 +33,7 @@
 
 ## ✦ At a glance
 
-<img src="docs/assets/readme-metrics.svg" alt="3,274 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
+<img src="docs/assets/readme-metrics.svg" alt="3,278 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
 
 | Mode | Who | What they get |
 |:--|:--|:--|
@@ -65,7 +65,7 @@ flowchart LR
 ```
 
 <details>
-<summary><b>The five MCP tools</b></summary>
+<summary><b>The six MCP tools</b></summary>
 <br>
 
 | Tool | What it returns | Why it is not left to the model |
@@ -74,7 +74,8 @@ flowchart LR
 | `lookup_ingredient` | One term from the SQLite database, with its source | Governed, versioned data instead of free text |
 | `create_review_ticket` | A GitHub Issue or a local queue entry with product, supplier, lot, artwork version and failed checks | Human in the loop, with traceability |
 | `record_review_decision` | The reviewer's signed decision on a `check_id` (approve, reject, approve with override); an override needs a reason and its category, and on a critical finding also evidence and a second approver | The tool never approves; overrides are justified and audited |
-| `usage_stats` | Verdict mix, escalation rate, decisions, override rate and uncertainty rate from the audit log | Monitoring after go-live, including automation bias |
+| `log_answer_without_check` | A log line when the agent answers without running the rules | Shows when the model skips the engine |
+| `usage_stats` | Verdict mix, escalation reasons and rate, decisions, override rate, uncertainty rate and answers without a check, from the audit log | Monitoring after go-live, including automation bias |
 
 </details>
 
@@ -155,7 +156,7 @@ Leave out `env` to keep review tickets in a local file. If Claude Desktop does n
 
 ```bash
 cd mcp-server
-uv run pytest                                      # 3,274 unit, data and property tests
+uv run pytest                                      # 3,278 unit, data and property tests
 uv run eval_rules.py                               # golden set, text rows
 uv run python ../tests/benchmark/run_benchmark.py  # 6,000 real products, about 45 minutes
 # full agent evaluation (uses your Claude login): set CLAUDE_BIN to the Claude Code executable

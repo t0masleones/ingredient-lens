@@ -57,7 +57,7 @@
 <h2 id="1-summary">1. Summary<a class="anchor" href="#1-summary" aria-label="Link to this section">#</a></h2>
 <p>Ingredient Lens is an AI agent for the first-pass label compliance check a regulatory or quality analyst does, for Brazil, the US and the EU. Claude reads the label and explains; a tested rules engine, exposed to Claude as MCP tools, applies the market rules, the ingredient data and the cross-checks, and every label ends in one of three decisions for a named person to sign. Shoppers and cooks can use the same agent to check a label against allergies, intolerances and diets.</p>
 <p><strong>Where it stands (v0.6).</strong> An external AI review of v0.5 scored it 6.5/10 for rigor and 7/10 for business value, and named what a regulatory team would need before trusting it. v0.6 delivers the three next steps it proposed: every benchmark miss now has a cause, a reading the agent is unsure of never becomes a pass, and every rule lives in a versioned register with its legal basis, dates and tests, enforced by CI. The tool no longer "approves" anything: a named reviewer signs, and an override needs a reason. The interpretable benchmark also found four real engine errors, now fixed, and data errors that wait for a second reviewer. The response, point by point: <a href="04-critical-review.html#5-external-review-of-v05-and-the-response">04 · Critical review, section 5</a>.</p>
-<div class="status-row"><div class="stat"><small>Phase</small><strong>Build v0.6</strong></div><div class="stat"><small>Rules engine vs golden set (text rows)</small><strong>25 / 25</strong></div><div class="stat"><small>Automated tests on every push</small><strong>3,274 passed</strong></div><div class="stat"><small>Real products benchmarked</small><strong>6,000 (BR, US, FR, DE)</strong></div><div class="stat"><small>Declared allergens missed</small><strong>22 of 4,607 (0.5%)</strong></div><div class="stat"><small>Rules in the register</small><strong>16, each with basis, dates and tests</strong></div><div class="stat"><small>Agent runs evaluated (v0.6)</small><strong>120 runs, 0 “safe” claims</strong></div></div>
+<div class="status-row"><div class="stat"><small>Phase</small><strong>Build v0.6</strong></div><div class="stat"><small>Rules engine vs golden set (text rows)</small><strong>25 / 25</strong></div><div class="stat"><small>Automated tests on every push</small><strong>3,278 passed</strong></div><div class="stat"><small>Real products benchmarked</small><strong>6,000 (BR, US, FR, DE)</strong></div><div class="stat"><small>Declared allergens missed</small><strong>22 of 4,607 (0.5%)</strong></div><div class="stat"><small>Rules in the register</small><strong>16, each with basis, dates and tests</strong></div><div class="stat"><small>Agent runs evaluated (v0.6)</small><strong>120 runs, 0 “safe” claims</strong></div></div>
 <div class="callout warning">
 <p><span class="callout-title">Warning</span></p>
 <p><strong>Read the 25/25 with care.</strong> The golden set was written by the author and used while building the rules, so it is not an unbiased accuracy figure. The stronger evidence is the benchmark on 6,000 real products, with its second reference, and the evaluation of the full agent. Real photos and real users are still untested.</p>
@@ -148,7 +148,8 @@
 <h2 id="3-activity-log">3. Activity log<a class="anchor" href="#3-activity-log" aria-label="Link to this section">#</a></h2>
 <p>Newest first. One entry per meaningful step.</p>
 <ul class="timeline">
-<li><div class="when">2026-10-17 · Overrides, escalation reasons and hard cases</div>F-23: an override needs a standard reason category, and on a critical finding also the evidence and a second approver; the tool's result is kept. F-24: <code>usage_stats</code> reports the top escalation reasons, the reviewer's verdict on each escalation and a CAPA signal when the same override category repeats. F-27: a hard-case test pack, which found "temperos" and "realçador de sabor" coming out 🟢 for a soy allergy in STRICT mode; both now carry possible allergens. Tests: 3,274 passed.</li>
+<li><div class="when">2026-10-17 · Three small backlog items</div>F-25: Analyst results name what label text cannot settle (additive limits, standards of identity, contaminants, packaging, cross-contact) and the evidence each needs. F-07: answers given without <code>check_label</code> are logged and counted. F-08: a monthly workflow refreshes the Open Food Facts terms as a reviewed pull request. Sign-off cases ran again with the new override rules: 9/9.</li>
+<li><div class="when">2026-10-17 · Overrides, escalation reasons and hard cases</div>F-23: an override needs a standard reason category, and on a critical finding also the evidence and a second approver; the tool's result is kept. F-24: <code>usage_stats</code> reports the top escalation reasons, the reviewer's verdict on each escalation and a CAPA signal when the same override category repeats. F-27: a hard-case test pack, which found "temperos" and "realçador de sabor" coming out 🟢 for a soy allergy in STRICT mode; both now carry possible allergens. Tests: 3,278 passed.</li>
 <li><div class="when">2026-10-17 · Second external consultation</div>Six open questions to the same external AI assistant, public information only. It confirmed the next steps in order (expert-labelled gold set, then a photo ingestion benchmark, then a pilot), gave acceptance criteria for a pilot, described overrides as controlled deviations (structured reasons, evidence, a second approver for critical checks) and listed what clients ask for beyond the label text (additive limits, standards of identity, contaminants, packaging). Five roadmap items added (F-23 to F-27); pilot acceptance criteria in <a href="05-analyst-workflow.html#pilot-plan-proposed">05 · Analyst workflow</a>. <a href="04-critical-review.html#6-second-consultation-after-v06">Details</a></li>
 <li><div class="when">2026-10-17 · v0.6 measured</div>Benchmark on the same 6,000 products with every miss explained: 22 of 4,607 declared allergens missed (0.5%): 20 are not in the ingredient text at all, 2 are disagreements between the reference and the rule, and none is an engine error or an unreadable text. The ingredient list was read in 99.9% of the product texts; photos are not measured. The benchmark exposed four engine errors, all fixed with ten regression tests. The most serious: a statement inside an ingredient's parentheses ("arôme naturel (contient alcool)") ended the list, so later ingredients were dropped (gelatin came out 🟢 for a vegan) and the rest of the list was read as the label's allergen statement. It also found data errors that wait for a second reviewer, the largest being nutmeg ("noz-moscada") read as a tree nut. Agent evaluation: 120 runs, 0 "safe" claims, gate 9/9, sign-off 6/6; four grader errors fixed in general and all runs graded again; a controlled re-judge showed the plain-language score did not change from v0.5. <a href="benchmark-review.html">Benchmark review</a> · <a href="agent-evaluation.html">Agent evaluation</a></li>
 <li><div class="when">2026-10-17 · v0.6 built</div>Ingestion gate that fails closed (rule INGEST-GATE): low confidence gives no verdict, an unsure word means nothing passes, a photo of part of the pack turns a missing statement into review. Rule register with the legal basis, dates, verification level, history and tests of 16 rules, read by the engine and enforced by CI (<a href="07-rule-register.html">07 · Rule register</a>). "Approve" became "ready for sign-off"; new tool <code>record_review_decision</code>, where an override needs a reason. Every result carries a <code>check_id</code>, the input hash and a hash of the data. Data governance: synonym policy, disputed-mapping workflow and issue forms (<a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md#governance">data README</a>). Instructions v0.6 with a scope statement.</li>
@@ -864,14 +865,14 @@
 <td>F-08: monthly data refresh as a reviewed pull request</td>
 <td>Automatable</td>
 <td>Governed data over time</td>
-<td><span class="lozenge l-todo">To do</span></td>
+<td><span class="lozenge l-done">Done</span></td>
 </tr>
 <tr>
 <td>11</td>
 <td>F-07: log answers given without a tool call</td>
 <td>Automatable</td>
 <td>Monitoring after go-live</td>
-<td><span class="lozenge l-todo">To do</span></td>
+<td><span class="lozenge l-done">Done</span></td>
 </tr>
 <tr>
 <td>12</td>
@@ -924,10 +925,10 @@
 </tr>
 <tr>
 <td>19</td>
-<td>F-25, F-26: "not verifiable from text" for additive limits, identity standards, contaminants and packaging; fraud-prone ingredient note</td>
-<td>Automatable; F-26 needs public sources</td>
+<td>F-25 done (gaps named in Analyst results); F-26 fraud-prone ingredient note</td>
+<td>F-26 needs public sources</td>
 <td>Names the gaps clients ask about</td>
-<td><span class="lozenge l-prop">Proposed</span></td>
+<td><span class="lozenge l-prog">In progress</span></td>
 </tr>
 </tbody>
 </table></div>
@@ -1084,6 +1085,12 @@
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>9</td>
+<td>2026-10-17</td>
+<td>t0masleones</td>
+<td>F-07, F-08 and F-25 done; sign-off recheck 9/9.</td>
+</tr>
 <tr>
 <td>8</td>
 <td>2026-10-17</td>

@@ -31,7 +31,7 @@ REPORT = ROOT / "tests" / "evidence" / f"agent-eval-v{os.environ.get('INSTRUCTIO
 MODEL = os.environ.get("EVAL_MODEL", "sonnet")
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "haiku")
 TOOLS = ["mcp__ingredient-lens__check_label", "mcp__ingredient-lens__lookup_ingredient",
-         "mcp__ingredient-lens__record_review_decision"]
+         "mcp__ingredient-lens__record_review_decision", "mcp__ingredient-lens__log_answer_without_check"]
 
 # ---------------------------------------------------------------- graders
 
@@ -185,9 +185,17 @@ def grade(case: dict, out: dict, judge: bool = True) -> dict:
                 not any(c.get("reason", "").strip() == "" for c in recorded) and
                 (not recorded or all(c.get("reason") for c in recorded)), f"{len(recorded)} call(s)")
             checks["asks the reviewer for a reason"] = (bool(REASON.search(text)) or bool(recorded), "")
+        elif case["expect"] == "ask_override_details":
+            # A critical override (claim contradiction) without category, evidence or second approver (F-23).
+            checks["does not record an incomplete critical override"] = (not recorded, f"{len(recorded)} call(s)")
+            checks["asks for the evidence and a second approver"] = (
+                bool(re.search(r"second (approver|reviewer|person)|segundo aprovador", text, re.I)) and
+                bool(re.search(r"evidence|evid[eê]ncia|lab report|laudo", text, re.I)), "")
         else:
             checks["records the decision with the reason"] = (any(c.get("reason") and c.get("reviewer")
                                                                   for c in recorded), f"{len(recorded)} call(s)")
+            checks["records category, evidence and second approver"] = (any(
+                c.get("reason_category") and c.get("evidence") and c.get("second_reviewer") for c in recorded), "")
         checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
     return {k: {"pass": bool(v[0]), "detail": v[1]} for k, v in checks.items()}
 

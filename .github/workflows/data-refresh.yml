@@ -1,0 +1,59 @@
+name: data-refresh
+
+# F-08: the Open Food Facts terms are refreshed monthly as a pull request, never committed straight to main.
+# The pull request shows the diff of off-terms.csv for a person to review (volunteer-edited data), and the tests and
+# golden set must pass on it. Milder changes (a term losing an allergen) need a second reviewer before merging.
+on:
+  schedule:
+    - cron: "0 6 1 * *"      # 06:00 UTC on the first day of each month
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: mcp-server
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: "3.12"
+      - name: Regenerate off-terms.csv from the current Open Food Facts taxonomies
+        run: uv run data/import_off.py
+      - name: Summarise the change
+        id: diff
+        run: |
+          {
+            echo "summary<<EOF"
+            git diff --stat -- data/off-terms.csv
+            echo
+            echo "Rows added: $(git diff -U0 -- data/off-terms.csv | grep -c '^+[^+]' || true)"
+            echo "Rows removed: $(git diff -U0 -- data/off-terms.csv | grep -c '^-[^-]' || true)"
+            echo "EOF"
+          } >> "$GITHUB_OUTPUT"
+      - name: Unit, data and property tests
+        run: uv run pytest -q
+      - name: Golden set must stay 25/25
+        run: |
+          uv run eval_rules.py > eval.txt
+          grep -q "Pass rate: 25/25" eval.txt
+      - name: Open a pull request for review
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: data/off-refresh
+          commit-message: "data: monthly Open Food Facts refresh"
+          title: "Data refresh: Open Food Facts terms"
+          add-paths: mcp-server/data/off-terms.csv
+          body: |
+            Monthly refresh of `mcp-server/data/off-terms.csv` (F-08). Tests and the golden set passed on this branch.
+
+            ${{ steps.diff.outputs.summary }}
+
+            Before merging: read the diff (Open Food Facts is edited by volunteers), run the benchmark if many rows
+            changed, and get a second reviewer for any term that loses an allergen
+            ([data governance](../blob/main/mcp-server/data/README.md#governance)).

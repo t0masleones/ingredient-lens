@@ -67,6 +67,18 @@ MARKET_ALLERGENS = {
     "EU": ALLERGEN_GROUPS,
 }
 DIETS = {"vegan", "vegetarian"}
+# F-25: checks clients ask for that label text cannot settle. The analyst result names them and the evidence each
+# needs, so the gap is visible instead of silent. They never change the decision (they are not checklist rows).
+NOT_VERIFIABLE_FROM_TEXT = [
+    {"check": "Additive limits and permitted uses", "needs": "the formulation with concentrations, checked against "
+     "the market's additive regulation (Anvisa, 21 CFR, Regulation (EC) 1333/2008)"},
+    {"check": "Standard of identity (can the product use this name?)", "needs": "the recipe and, for some "
+     "standards, physico-chemical results"},
+    {"check": "Contaminants (pesticide residues, mycotoxins, heavy metals)", "needs": "lab results from an ISO/IEC "
+     "17025 laboratory"},
+    {"check": "Food contact materials (packaging)", "needs": "supplier declarations of compliance and migration tests"},
+    {"check": "Cross-contact controls in the factory", "needs": "the allergen management plan and validation tests"},
+]
 AVOID_ALIASES = {"wheat": "gluten", "celiac": "gluten", "nuts": "tree_nuts", "tree nuts": "tree_nuts",
                  "peanuts": "peanut", "shellfish": "crustacean", "eggs": "egg",
                  "aipo": "celery", "salsao": "celery", "apio": "celery", "mostarda": "mustard", "mostaza": "mustard",
@@ -641,6 +653,7 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         "escalate_to_human_review": escalate,
         "next_step": next_step,
         "requires_sign_off": not avoid,
+        "not_verifiable_from_text": NOT_VERIFIABLE_FROM_TEXT if not avoid else [],
         "evidence_needed": evidence,
         "coverage": f"{len(items) - unknown}/{len(items)} ingredients found in the database",
         "ingredients": ingredients,

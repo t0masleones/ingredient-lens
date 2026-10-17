@@ -160,9 +160,14 @@ def usage_stats() -> dict:
         return {"checks": 0}
     checks = [r for r in rows if r["tool"] == "check_label"]
     decisions = [r for r in rows if r["tool"] == "record_review_decision"]
+    unchecked = [r for r in rows if r["tool"] == "log_answer_without_check"]
     n = max(len(checks), 1)
     return {
         "checks": len(checks),
+        # F-07: label answers given without check_label. A rising rate means the agent is skipping the rules.
+        "answers_without_check": len(unchecked),
+        "answers_without_check_rate": round(len(unchecked) / max(len(checks) + len(unchecked), 1), 2),
+        "answers_without_check_reasons": dict(Counter(r["inputs"].get("reason") for r in unchecked)),
         "verdicts": dict(Counter(r["result"].get("verdict") for r in checks)),
         "next_steps": dict(Counter(r["result"].get("next_step") for r in checks)),
         "escalation_rate": round(sum(bool(r["result"].get("escalate_to_human_review")) for r in checks) / n, 2),

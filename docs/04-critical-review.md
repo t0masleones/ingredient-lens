@@ -45,8 +45,8 @@ Ordered by value for a regulated B2B setting. P1 = before showing results as evi
 | F-04 | Analyst workflow pilot on 50 real labels with a reviewer's decisions, to fill the ROI inputs and measure the override rate | Ties the prototype to the B2B business | S | P1 |
 | F-05 | Review every benchmark miss, claim conflict and candidate disputed mapping; each real engine error becomes a test | Converts the benchmark into regression tests and governed data | S | P1 |
 | F-06 | German compound-word splitting and negation handling ("non-dairy", "sem", "ohne") in the matcher | Known blind spots | M | P2 |
-| F-07 | Track answers without a tool call (instruction + log field) and alert when the rate rises | Monitoring after go-live | S | P2 |
-| F-08 | Scheduled data refresh (monthly): regenerate `off-terms.csv`, run all tests, open a pull request with the diff | Governed data, not a one-off import | S | P2 |
+| F-07 | Track answers without a tool call (instruction + log field) and alert when the rate rises | Monitoring after go-live | S | P2 · ✅ Done |
+| F-08 | Scheduled data refresh (monthly): regenerate `off-terms.csv`, run all tests, open a pull request with the diff | Governed data, not a one-off import | S | P2 · ✅ Done |
 | F-09 | Market thresholds and allergen lists as data. The basis, dates and history are in the rule register since v0.6; the thresholds are still in code | Regulation changes without code changes | M | P2 |
 | F-10 | Source the last 15 curated rows; second reviewer for any curated change | Data governance (R-02) | S | P2 |
 | F-11 | Hosted MCP server (remote, with authentication) so a team shares the tools and the audit log | Needed for a real pilot | L | P3 |
@@ -61,7 +61,7 @@ Ordered by value for a regulated B2B setting. P1 = before showing results as evi
 | F-22 | Apply effective dates: check a label against the rules in force when it was printed | Jurisdiction and date drift (R-14) | M | P2 |
 | F-23 | Structured override reasons (category, severity, evidence attached yes/no) and a second approver for overrides on allergen, gluten and legal claims; report the override rate per check and per input type | Overrides as controlled deviations, as an auditor expects; free text alone gives no KPI | S | P1 · ✅ Done |
 | F-24 | Escalation reasons as a reported distribution (top 10) and a reviewer verdict on each escalation (needed / not needed) | Separates good escalation (OCR, ambiguity, evidence) from noise (parser, dictionary) | S | P1 · ✅ Done |
-| F-25 | "Not verifiable from text" for additive limits, standards of identity, contaminants and packaging: say the check exists and what evidence or data it needs | Clients ask for these; text cannot settle them, so the agent must name the gap instead of staying silent | S | P2 |
+| F-25 | "Not verifiable from text" for additive limits, standards of identity, contaminants and packaging: say the check exists and what evidence or data it needs | Clients ask for these; text cannot settle them, so the agent must name the gap instead of staying silent | S | P2 · ✅ Done |
 | F-26 | Fraud-vulnerable ingredient note (honey, olive oil, spices…) from public sources, asking for a vulnerability assessment (with F-17) | GFSI schemes require food fraud assessments | M | P3 |
 | F-27 | Hard-case test pack (12 to 20 cases): gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, "may contain" variants, umbrella ingredients, additives without concentration | Locks in fail-closed behaviour on the cases a regulatory team worries about | S | P1 · ✅ Done |
 

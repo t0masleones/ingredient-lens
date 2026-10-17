@@ -111,8 +111,24 @@ def create_review_ticket(title: str, summary: str, label_text: str, verdict: str
 
 
 @mcp.tool()
+def log_answer_without_check(reason: str, mode: str = "") -> dict:
+    """Log that you answered about a label or an ingredient without calling check_label (monitoring, F-07).
+
+    Call it whenever you give such an answer, for example a general question about an ingredient, a label you could
+    not send to the tool, or a follow-up you answered from an earlier result.
+
+    Args:
+        reason: "general_question", "follow_up", "tool_unavailable" or "other".
+        mode: "analyst", "shopper" or "cook".
+    """
+    review.audit("log_answer_without_check", {"reason": reason, "mode": mode}, {"mode": mode})
+    return {"logged": True}
+
+
+@mcp.tool()
 def usage_stats() -> dict:
-    """Usage and quality metrics from the audit log: checks, verdict mix, escalation rate, tickets."""
+    """Usage and quality metrics from the audit log: checks, verdict mix, escalation reasons and rate, decisions and
+    overrides, answers given without check_label."""
     return review.usage_stats()
 
 
