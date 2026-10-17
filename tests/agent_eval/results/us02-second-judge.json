@@ -1,0 +1,110 @@
+[
+ {
+  "id": "P01",
+  "repeat": 1,
+  "haiku": "4/5: S",
+  "sonnet": "3/5: Opens clearly with a short verdict and explains key terms (soro de leite, maltodextrina, lecitina/emulsificante, INS 322). Some sentences are short and everyday. But it has several weak points for a low-literacy reader: 'declaração de alérgicos', 'declaração de glúten', 'origem animal ou vegetal', '"
+ },
+ {
+  "id": "P01",
+  "repeat": 2,
+  "haiku": "2/5: T",
+  "sonnet": "3/5: Opens well: the verdict is short and clear, the sections are labeled, and soro de leite, maltodextrina and lecitina are explained in a few words. But several things keep it from a 5. 'INS 322' is repeated and never explained. 'Emulsificante', 'aromatizante' and 'frase de alérgicos' are not explained"
+ },
+ {
+  "id": "P01",
+  "repeat": 3,
+  "haiku": "4/5: M",
+  "sonnet": "4/5: Short sentences, clear verdict up front with color icons, and the key terms (maltodextrina, lecitina de soja, INS 322) are explained simply. Easy next step. Points lost: 'aromatizante' and 'emulsificante' are not explained, 'tolerância varia' and 'origem animal ou vegetal' are a bit abstract, 'Quão "
+ },
+ {
+  "id": "P02",
+  "repeat": 1,
+  "haiku": "4/5: M",
+  "sonnet": "3/5: Opens well: short sentences, emoji flags, and plain explanations of whey, flavouring and E471 (emulsifier). But several parts are hard for a low-literacy or limited-English reader. 'Maltodextrin' is explained only as 'a sugar made from corn', and 'bone char' is never explained. 'Lactose' is never de"
+ },
+ {
+  "id": "P02",
+  "repeat": 2,
+  "haiku": "4/5: M",
+  "sonnet": "3/5: The opening line is short and clear, and the traffic-light icons help. Several terms are explained well: whey powder, emulsifier, maltodextrin. But there is jargon left over. 'Lactose' is never explained. 'Allergen statement', 'lactose statement' and 'E471' are not made simple. 'Tolerate different a"
+ },
+ {
+  "id": "P02",
+  "repeat": 3,
+  "haiku": "2/5: M",
+  "sonnet": "3/5: The answer is organized with clear colors, short bullets, and a plain verdict, and it explains most terms (whey powder, emulsifier, maltodextrin). But it has several long or complex sentences, and some wording is hard for low-literacy or limited-English readers: 'Tolerance differs from person to per"
+ },
+ {
+  "id": "P03",
+  "repeat": 1,
+  "haiku": "3/5: M",
+  "sonnet": "3/5: Structure is clear (verdict, reasons, next step) and the first lines are easy. But there is jargon left unexplained: 'INS 471', 'INS 120', 'estabilizante', 'corante', 'declaração de alérgicos', 'hidrogenada'. Some sentences are long. An English phrase ('worth double-checking') appears in a Portugues"
+ },
+ {
+  "id": "P03",
+  "repeat": 2,
+  "haiku": "4/5: M",
+  "sonnet": "3/5: The verdict and main points are short and easy to follow, and some terms are explained (carmim, cochonilhas, hidrogenada, mono e diglicerídeos). But several terms stay unexplained or technical: 'INS', 'estabilizante', 'base de dados', 'declaração do fabricante', 'origem animal'. Some sentences are l"
+ },
+ {
+  "id": "P03",
+  "repeat": 3,
+  "haiku": "3/5: M",
+  "sonnet": "3/5: The answer uses short sentences, emojis, and a clear verdict, and it explains some terms (carmim as insect dye, INS 471 as helping mix fat and water). But it leaves several things unclear for a low-literacy reader: 'INS' is never explained, 'estabilizante', 'hidrogenada', 'alérgicos', and 'declaraçã"
+ },
+ {
+  "id": "P04",
+  "repeat": 1,
+  "haiku": "3/5: M",
+  "sonnet": "3/5: Mostly short sentences and everyday words, and it explains modified starch, E330 and barley malt extract simply. But some jargon is left unexplained or hard: 'acidity regulator', 'celiac disease', 'allergen or gluten statement', 'review ticket', 'US rules', 'dietitian', and the emoji-and-label layou"
+ },
+ {
+  "id": "P04",
+  "repeat": 2,
+  "haiku": "2/5: O",
+  "sonnet": "3/5: The answer starts clearly and uses short sentences with some good explanations, such as modified starch and E330 (citric acid, a sour powder). But it leaves several terms unexplained: 'celiac', 'gluten', 'allergen statement', 'bone char', 'rules engine', 'human review ticket', and 'Contains line'. S"
+ },
+ {
+  "id": "P04",
+  "repeat": 3,
+  "haiku": "4/5: M",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with clear colors and a direct next step. Key terms like modified starch, E330 (citric acid) and acidity regulator are explained simply. Some jargon is left unexplained or hard for low-literacy readers: 'celiac disease', 'gluten', 'allergen statement', 'bar"
+ },
+ {
+  "id": "P05",
+  "repeat": 1,
+  "haiku": "2/5: T",
+  "sonnet": "3/5: Starts well: short sentences, a clear red-light opening ('Não coma este produto'), and simple explanations for albumina ('proteína da clara do ovo'). But several parts are hard for a low-literacy reader. 'Lecitina' is explained only by its possible sources, not what it is. 'Alérgicos: Contém...' and"
+ },
+ {
+  "id": "P05",
+  "repeat": 2,
+  "haiku": "4/5: S",
+  "sonnet": "4/5: Short sentences, everyday words, clear action (não coma) and a simple next step. Albumina and lecitina are explained by origin. Small gaps: 'rótulo' fine, but 'fabricante', 'aviso de alérgicos', 'glúten', 'origem' and 'pedido de revisão' are not explained, and the section about the odd label (possib"
+ },
+ {
+  "id": "P05",
+  "repeat": 3,
+  "haiku": "2/5: T",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with a clear action up front ('Não coma este produto') and emoji cues. Albumina is explained ('é a clara do ovo'). Some terms are not explained: 'lecitina' is only described by its possible sources, 'SAC' is not spelled out, 'alergista' and 'fabricante' are"
+ },
+ {
+  "id": "P06",
+  "repeat": 1,
+  "haiku": "4/5: M",
+  "sonnet": "4/5: Mostly plain: short sentences, everyday words, clear red/yellow/green cues, and a clear next step. Gelatin, bone char, citric acid, and carnauba wax are explained simply. Points lost for a few unexplained or harder words: 'by-product of slaughter', 'fermentation', 'pectin', 'agar', 'animal-derived',"
+ },
+ {
+  "id": "P06",
+  "repeat": 2,
+  "haiku": "4/5: M",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with clear color-coded structure and a concrete next step. Gelatin, by-product, bone char, and pectin/agar are explained simply. Weaknesses: 'by-product of slaughter' and 'bone char' are somewhat hard for low-literacy readers, 'E903' is given without explan"
+ },
+ {
+  "id": "P06",
+  "repeat": 3,
+  "haiku": "4/5: M",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with key terms explained: gelatin (from skin and bones), bone char (burnt animal bones), pectin and agar (plant gelling ingredients), and citric acid (a sour powder). The action step is clear. Some words are harder for low-literacy or limited-English reader"
+ }
+]

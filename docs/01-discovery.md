@@ -3,15 +3,32 @@
 ## Problem statement
 People who must or want to avoid certain ingredients (lactose, gluten, allergens, animal-derived ingredients) have to decode small, technical ingredient lists. Mistakes cause discomfort, health risk (allergy, celiac disease) or a broken promise to a guest (a dish served as vegan that is not). Some people cannot easily read or copy long ingredient names: low literacy, low vision, or a label in a foreign language.
 
+For a food company the same problem appears one step earlier: before a label reaches shoppers, someone in regulatory or quality checks that its statements match its ingredients and the rules of each market. Since v0.4 that analyst workflow is the primary use case (decision D-07); see [05 · Analyst workflow](05-analyst-workflow.md).
+
 ## Who is affected
 | Persona | Need | Pain today |
 |---|---|---|
+| **Regulatory or quality analyst (primary)** | Check that label statements match the ingredient list and the rules of each market, and hand doubtful cases to an expert | Manual, repetitive first-pass checks; rules differ by market (BR, US, EU); contradictions are easy to miss in long lists |
 | Shopper with intolerances (the author) | A quick yes / maybe / no in the aisle | Hidden sources (whey, malt), tiny print, false alarms (cocoa butter, lactic acid) |
 | Person with low literacy or low vision | An answer without typing or reading long words | Cannot copy ingredient names into a search box |
 | Cook or recipe developer serving guests (for example a US caterer) | Confirm that every ingredient fits vegan, vegetarian or allergen-free requests | Ingredients with unclear origin (shortening, glycerin, natural flavors), manual label checks, supplier emails |
-| Regulatory or quality analyst | Check that label statements match the ingredient list | Manual, repetitive first-pass checks before expert review |
 
 ## Current process (as-is)
+
+### Regulatory or quality analyst (hypothesis, to validate with an analyst)
+```mermaid
+flowchart TD
+  A[Receive label artwork or spec sheet] --> B[Read the ingredient list line by line]
+  B --> C[Look up unclear ingredients and additive codes]
+  C --> D[Compare with the allergen, gluten and lactose statements]
+  D --> E[Check the rules of the target market]
+  E --> F{Anything doubtful?}
+  F -- yes --> G[Email the supplier or a senior reviewer]
+  G --> H[Wait for the answer]
+  H --> I[Record the decision]
+  F -- no --> I
+  I --> J[Approve or send back the artwork]
+```
 
 ### Shopper
 ```mermaid
@@ -50,6 +67,11 @@ Add your own real situations here (3 to 5). Examples to look for:
 - TODO: a time a label was hard to read or understand
 - TODO: a time a term turned out to be a false alarm
 - TODO: a time a "safe" product caused discomfort
+
+Hypotheses to validate with analysts (talk to at least one):
+- The first pass (reading, lookups, cross-checks) takes most of the time; the expert decision takes less.
+- Analysts would trust a checklist that shows the legal basis of each check and says "review" when text alone cannot settle it.
+- Most labels pass the first pass; the time saved comes from not re-reading clean labels in full.
 
 Hypotheses to validate with cooks (talk to at least one):
 - Unclear origin (shortening, emulsifiers, natural flavors) is the main source of doubt, more than obvious ingredients like lard or honey.

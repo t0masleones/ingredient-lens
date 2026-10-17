@@ -333,6 +333,16 @@ def normalize_avoid(avoid: list[str]) -> list[str]:
     return out
 
 
+# Symptoms of an allergic reaction described as happening now (PT, EN, ES). Checked before any analysis.
+URGENT = re.compile(
+    r"\b(lips?|tongue|throat|face|eyes?|labios?|lingua|garganta|rosto|boca|olhos?|lengua|cara)\b[^.]{0,30}"
+    r"\b(swelling|swollen|closing|tight|tingling|inchad[oa]s?|inchando|fechando|apertad[oa]|coca|cocando|"
+    r"formigando|hinchad[oa]s?|cerrando)\b"
+    r"|\b(can ?not|can't|cant|hard to|trouble|difficulty) breath(e|ing)\b"
+    r"|\b(nao consigo|dificuldade (para|de)|falta de) respira|\bfalta de ar\b|\bme cuesta respirar\b|\bno puedo respirar\b"
+    r"|\b(hives|anaphyla\w*|anafila\w*|urticaria)\b.{0,40}\b(now|right now|agora|ahora|started|comecou|empezo)\b"
+    r"|\b(i ate|i just ate|comi|acabei de comer|acabo de comer)\b.{0,80}\b(swell|inch|hinch|itch|coc|vomit|"
+    r"breath|respir)")
 OAT = re.compile(r"\b(oat|oats|aveia|avena|avoine|hafer|haver)\b")
 
 
@@ -381,6 +391,13 @@ def status_for(term: Term, avoid: str, lactose_free_with_lactase: bool, market: 
 def check_label(label_text: str, avoid: list[str], strict: bool = False, market: str = "BR",
                 matcher: Matcher | None = None) -> dict:
     """Classify a transcribed label or recipe against a profile and cross-check its statements."""
+    if URGENT.search(normalize(label_text)):
+        # US-08: symptoms happening now come before any label analysis.
+        return {"rules_version": RULES_VERSION, "verdict": "urgent",
+                "action": "Symptoms of a possible allergic reaction were described. Tell the user to seek emergency "
+                          "medical help now (Brazil SAMU 192, US 911, EU 112) and to use their adrenaline "
+                          "auto-injector if they have one. Do not analyse the label.",
+                "escalate_to_human_review": False}
     matcher = matcher or Matcher()
     avoid = normalize_avoid(avoid)
     items, st = parse_label(label_text, matcher)
@@ -451,7 +468,74 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         "findings": findings,
         "mismatches": mismatches,
         "notes": notes,
+        "compliance": compliance_checklist(st, terms, mismatches, market),
+        "wording": wording_for(verdict, avoid),
     }
+
+
+def wording_for(verdict: str, avoid: list[str]) -> str:
+    """US-07: the sentence to use instead of "safe". A green verdict only means nothing was found in the text."""
+    what = ", ".join(avoid) or "a problem"
+    if verdict == "green":
+        return (f'Say "I did not find {what} in the text I could read." Never say "safe", "seguro", "free of" '
+                'or "vegan for sure": processing aids and cross-contact are not on labels.')
+    return 'Never say "safe" or "seguro". Explain each red and yellow item and what would settle it.'
+
+
+def compliance_checklist(st: Statements, terms: list[Term], mismatches: list[dict], market: str) -> list[dict]:
+    """D-07: first-pass label compliance checks for the Analyst workflow, per market.
+
+    Each check is pass / fail / review (a person must look) / n/a, with its legal basis. Text alone cannot prove
+    compliance: format (bold, 2 mm letters), quantities and processing aids are outside what the engine reads.
+    """
+    market = market.upper()
+    required = MARKET_ALLERGENS.get(market, ALLERGEN_GROUPS)
+    listed = {g for t in terms for g in t.allergens if g in required
+              and not (g == "gluten" and oats_only_gluten(t, market))}
+    rules = {m["rule"] for m in mismatches}
+    out = []
+
+    def add(check, status, basis, detail=""):
+        out.append({"check": check, "status": status, "basis": basis, "detail": detail})
+
+    basis = {"BR": "RDC 26/2015 (in RDC 727/2022)", "US": "FALCPA 2004, FASTER Act 2021",
+             "EU": "Regulation (EU) 1169/2011, Art. 21 and Annex II"}.get(market, "")
+    if not listed:
+        add("Allergen declaration", "n/a", basis, "No allergen of this market found in the ingredients read.")
+    elif market == "EU":
+        add("Allergen declaration", "review", basis,
+            f"Ingredients include {', '.join(sorted(listed))}. In the EU they must be emphasised in the list "
+            "(for example in bold); emphasis cannot be read from text.")
+    elif not st.allergen_statement_found:
+        add("Allergen declaration", "fail" if market == "BR" else "review", basis,
+            f"Ingredients include {', '.join(sorted(listed))}, but no allergen statement was found."
+            + (" In the US the source may instead appear in parentheses after the ingredient." if market == "US" else ""))
+    elif "XC2" in rules:
+        add("Allergen declaration", "fail", basis, "The statement leaves out an allergen listed in the ingredients.")
+    else:
+        add("Allergen declaration", "pass", basis, f"Declares {', '.join(sorted(listed))}.")
+
+    if market == "BR":
+        add("Gluten statement", "pass" if st.gluten != "not found" else "fail", "Lei 10.674/2003",
+            "" if st.gluten != "not found" else 'Neither "CONTÉM GLÚTEN" nor "NÃO CONTÉM GLÚTEN" was found.')
+        dairy = sorted({t.term for t in terms if t.lactose == "red"})
+        if st.lactose == "free":
+            add("Lactose-free claim", "fail" if "XC3" in rules else "review", "RDC 135/2017 and 136/2017",
+                "Claim with milk listed and no lactase." if "XC3" in rules
+                else "Claim allowed up to 100 mg of lactose per 100 g or mL: confirm with a lab result.")
+        elif dairy:
+            add('"Contém lactose" statement', "pass" if st.lactose == "contains" else "review",
+                "RDC 135/2017 and 136/2017", "" if st.lactose == "contains" else
+                f"{', '.join(dairy)} listed: above 100 mg of lactose per 100 g or mL the label must say "
+                '"CONTÉM LACTOSE". The amount cannot be checked from text.')
+    if st.gluten == "free":
+        law = {"BR": "Lei 10.674/2003", "US": "21 CFR 101.91", "EU": "Regulation (EU) 828/2014"}.get(market, "")
+        add("Gluten-free claim", "fail" if "XC1" in rules else "pass", law,
+            "A gluten source is listed or may be present." if "XC1" in rules else "")
+    if st.vegan_claim:
+        add("Vegan claim", "fail" if "XC4" in rules else "review", "No legal definition in BR or the US",
+            "Animal-derived items listed." if "XC4" in rules else "No animal-derived item found; claim not verified.")
+    return out
 
 
 def _merge_origin(ts: list[Term]) -> str:

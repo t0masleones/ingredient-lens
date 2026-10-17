@@ -1,5 +1,14 @@
 # Agent changelog
 
+## v0.4.1 - 2026-10-17 (instructions v0.4, rules engine 0.4.0)
+- D-07 done: the Analyst workflow (label compliance first pass) is the primary use case. Instructions v0.4 put it first, with a new Analyst format (compliance checklist, allergens found vs declared, escalation, handoff note, supplier questions). A label shared with no personal restriction goes to Analyst mode.
+- `check_label` returns `compliance`: per market (BR, US, EU), each check with pass / fail / review / n/a and its legal basis (US-18). Points text cannot settle (format, amounts, bold emphasis) are always "review".
+- US-08: new section 0 "Emergency first". `check_label` returns `"verdict": "urgent"` when symptoms are described (PT, EN, ES), with emergency numbers and no analysis; no false trigger on the 6,000 benchmark labels.
+- US-07: every result carries `wording`, the sentence to use instead of "safe"; the instructions list the forbidden phrases in both languages and what to say when the user insists.
+- US-02: plain-language rules (12-year-old reader, every code explained, no regulatory asides in Shopper and Cook) and a new knowledge file, `plain-words-glossary.md`.
+- First automated evaluation of the full agent (`tests/agent_eval/`): 93 runs of Claude with the instructions, knowledge files and MCP tools. Never "safe": 0 in 93. Emergency first: 21/21 (no false emergency 3/3). Analyst escalation: 15/15. Plain language: objective checks 18/18, model judges 4+/5 in 11/18 and 9/18, so US-02 is partly met (F-14). See `tests/evidence/agent-eval-v0.4.md`.
+- Tests: 3,127 passed. Golden set 25/25.
+
 ## v0.4 - 2026-10-16 (rules engine 0.4.0, data, tests at scale)
 - Knowledge: Open Food Facts import now reads the source taxonomies with synonyms, adds French, German, Italian and Dutch, and uses the taxonomy's own allergen property: 10,902 → 35,043 terms (653 curated terms win over them). A foreign word never replaces a Portuguese, English or Spanish one.
 - EU allergens (backlog 12): celery, mustard, sulphites and lupin are now allergen groups, with curated terms citing Regulation 1169/2011 Annex II. Before, "aipo" and "mostarda" were in the data without an allergen, so they came out 🟢 for an allergic user.

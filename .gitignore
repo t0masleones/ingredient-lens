@@ -3,3 +3,4 @@ __pycache__/
 .pytest_cache/
 mcp-server/data/ingredients.db
 mcp-server/logs/
+tests/agent_eval/last-run.log

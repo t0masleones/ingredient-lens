@@ -1,16 +1,18 @@
 # Ingredient Lens
 
-An AI agent that reads an ingredient list (from a label photo, typed text or a recipe) and tells you, in plain language, what matters for your restrictions: lactose, gluten, allergens, and whether each ingredient is of **animal or plant origin** (vegan and vegetarian checks). Built as a no-code agent on Claude, with the whole process documented in this repo.
+An AI agent for the **first-pass label compliance check** a regulatory or quality analyst does: it reads a label (photo or text), checks it against its own statements and the rules of its market (Brazil, US, EU), returns a checklist with the legal basis of each check, and hands doubtful cases to a person. It also helps shoppers and cooks check labels against intolerances, allergies and **animal or plant origin** (vegan and vegetarian). Built on Claude with an MCP rules engine, with the whole process documented in this repo.
 
-> **Status:** v0.1 in progress · **Video demo:** _link coming soon_
+> **Status:** v0.4 · **Video demo:** _link coming soon_
 > Independent prototype. Not affiliated with any company. Not medical, legal or regulatory advice.
 
 ## Three ways to use it
 | Mode | Who | Input | Output |
 |---|---|---|---|
-| **Shopper** | Person with intolerances or allergies | Photo or text of one label | Short traffic-light verdict |
+| **Analyst (primary)** | Regulatory or quality analyst | Label photo or text | Compliance checklist per market (pass / fail / review, with the legal basis), mismatches, escalation decision, handoff note and supplier questions. See [05 · Analyst workflow](docs/05-analyst-workflow.md) |
+| **Shopper** | Person with intolerances or allergies | Photo or text of one label | Short traffic-light verdict in plain words |
 | **Cook** | Cook or recipe developer serving guests with restrictions (vegan, vegetarian, allergens) | Recipe ingredients (text) or product labels (photos) | Table with origin and fit per ingredient, plus what to verify with the supplier |
-| **Analyst** | Regulatory or quality analyst | Label photo or text | Ingredients vs. label statements cross-check and a human-review handoff note |
+
+Safety comes first in every mode: symptoms described now get emergency guidance only (SAMU 192, 911, 112), and the agent never calls a product "safe".
 
 ## How it works
 ```mermaid
@@ -28,7 +30,7 @@ flowchart LR
 ## Reproduce it for free (about 10 minutes)
 1. Create a free Claude account, then **Projects → New project** (name it "Ingredient Lens").
 2. Paste `agent/project-instructions.md` into the project's instructions.
-3. Add the three files in `agent/knowledge/` to the project's files.
+3. Add the four files in `agent/knowledge/` to the project's files.
 4. Open a chat inside the project. Attach a photo of an ingredient panel (1000x1000 px or larger works best) or paste a recipe, and say what you need to avoid.
 
 ## v0.2: the agent uses tools
@@ -76,16 +78,18 @@ Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mc
 | `docs/02-tool-selection.md` | Why a Claude Project (no-code), and what would need engineering |
 | `docs/03-requirements.md` | User stories, acceptance criteria, safety requirements |
 | `docs/04-critical-review.md` | What the evidence does and does not show, weaknesses, roadmap of future activities |
+| `docs/05-analyst-workflow.md` | Primary use case: to-be process, roles, compliance checks per market, ROI model, pilot plan |
 | `agent/` | The agent: instructions, knowledge files, changelog |
 | `mcp-server/` | Tools: rules engine, ingredient database (`data/`, see [data/README.md](mcp-server/data/README.md) for sources and licenses), review queue, audit log, unit tests |
-| `tests/` | Test plan, golden set (including trap cases), benchmark sample of real products (`benchmark/`), evidence |
+| `tests/` | Test plan, golden set (including trap cases), benchmark sample of real products (`benchmark/`), agent evaluation (`agent_eval/`), evidence |
 
 ## Results
 - Rules engine (no LLM) vs golden set text rows: 25/25 ([results-rules-v0.4.md](tests/evidence/results-rules-v0.4.md)). The golden set was used while building the rules, so it is not an unbiased accuracy figure.
 - **Benchmark on 6,000 real products** (most scanned in BR, US, FR, DE; v0.4): 25 of 4,607 declared allergens came out 🟢 (0.5%), and a manual review found none where the allergen was readable in the ingredient text ([report](tests/evidence/benchmark-rules-v0.4.md), [review](tests/evidence/benchmark-review-v0.4.md)). Coverage 91.5–95.0%. 94,097 property checks (deterministic, case-insensitive, STRICT never milder). The benchmark found nine engine errors, all fixed and kept as tests. The reference allergens are partly derived with the same taxonomy this project imports, so read agreement as an upper bound.
-- Automated tests: 3,108 on every push (GitHub Actions).
+- Automated tests: 3,127 on every push (GitHub Actions).
+- **Agent evaluation** (Claude with the instructions, knowledge files and MCP tools, 93 runs; v0.4.1): never calls a product "safe" (0 in 93, 36 of them adversarial), emergency guidance first when symptoms are described (21/21, no false emergency), Analyst escalation right in 15/15. Plain language is partly met: objective checks 18/18, model judges 4+/5 in 11 and 9 of 18 runs ([report](tests/evidence/agent-eval-v0.4.md)).
 - Ingredient coverage on 10 new labels (5 BR, 5 US) written after v0.2: 75% with the curated data only, 95% with the Open Food Facts terms (v0.3).
-- _To be filled: full agent in the Claude chat (photos, tone, safety wording), v0.1 vs v0.2._
+- _Still to measure: photo transcription, and user trust in a UAT._
 
 ## Limitations
 - Photo reading can fail on curved packs, glare and tiny print. The agent must say so instead of guessing.

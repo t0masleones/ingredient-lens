@@ -1,0 +1,110 @@
+[
+ {
+  "id": "P01",
+  "repeat": 1,
+  "haiku": "4/5: Short sentences and everyday words for most of the answer, with the key terms explained inline (soro de leite em pó, maltodextrina, lecitina, INS 322). Actionable next steps are clear. Minor deductions: 'Cada pessoa tolera uma quantidade diferente de lactose' and 'obrigatório' are slightly abstract,",
+  "sonnet": "3/5: Structure is clear, with color icons, short headers and a direct verdict, and several terms are explained (lactose, maltodextrin, lecitina, aromatizante). But some jargon is left unexplained or confusing: 'INS 322', 'emulsificante', 'soro de leite em pó' (described only as 'um líquido', which contra"
+ },
+ {
+  "id": "P01",
+  "repeat": 2,
+  "haiku": "4/5: Mostly plain: short bullets, everyday examples, and key terms like soro de leite, lactose, and maltodextrina are explained in a few words. Minor lapses: 'emulsificante' and 'INS 322' are only partly explained, 'aromatizante' is explained but the reasoning about its source is a bit wordy, and some se",
+  "sonnet": "3/5: The answer opens clearly with short sentences, a color code and an easy action ('Não coma este produto'), and it explains most terms (lactose, maltodextrina, lecitina, aromatizante). But it has several weaknesses for a low-literacy reader. 'INS 322' is shown without explanation. The description of '"
+ },
+ {
+  "id": "P01",
+  "repeat": 3,
+  "haiku": "4/5: Mostly plain: short sentences, everyday words, and most jargon is explained in a few words (soro de leite em pó, lactose, maltodextrina, lecitina, fabricante). Some terms are still technical or dense: 'emulsificante' and 'INS 322' are not fully explained beyond 'ajuda a misturar gordura e água', 'ar",
+  "sonnet": "3/5: The opening verdict and the color-coded bullets are short and easy to act on, and key terms like lactose, lecitina, maltodextrina and fabricante are explained in a few words. But several parts are hard for a low-literacy reader. 'INS 322' is shown with no explanation. 'Aromatizante' is only half exp"
+ },
+ {
+  "id": "P02",
+  "repeat": 1,
+  "haiku": "3/5: Mostly clear and well organized, with short bullets and plain status words. But it uses several terms that need explaining or are unexplained for a low-literacy reader: 'lactose' is glossed, yet 'emulsifier', 'E471', 'maltodextrin', 'cross-contact'-style jargon, and 'ingredient list' appear with lit",
+  "sonnet": "3/5: The answer opens clearly and uses short sentences and emoji colors. It explains whey, lactose, flavouring, E471, emulsifier and maltodextrin in simple words. But it also has jargon and abstract phrases a low-literacy or limited-English reader may find hard: 'allergen warning', 'label statements', 'b"
+ },
+ {
+  "id": "P02",
+  "repeat": 2,
+  "haiku": "3/5: The core message is clear and well organized, with short bullets and an easy next step. But it uses some jargon and longer sentences that a low-literacy or limited-English reader may struggle with: 'emulsifier', 'maltodextrin', 'lactose tolerance', 'E471' and 'mix fat and water' are explained only b",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with clear emoji flags and a simple next step. Technical terms like emulsifier, E471, lactose, and maltodextrin are explained briefly. Some phrases are harder for low-literacy or limited-English readers: 'allergen statement', 'gluten statement', 'lactose st"
+ },
+ {
+  "id": "P02",
+  "repeat": 3,
+  "haiku": "4/5: Mostly plain: short bullets, clear verdict up front, and terms like emulsifier, maltodextrin, and lactose are explained in a few words. It loses a point for some denser phrasing (\"In the EU, milk in the ingredient list should stand out\", \"tolerance varies\") and for the unexplained \"allergen statemen",
+  "sonnet": "3/5: Short sentences, emoji colour cues and a clear next step make it easy to act on, and key terms like whey powder, lactose, emulsifier (E471) and maltodextrin are explained. But some jargon is left unexplained or hard for low-literacy readers: 'allergen statement', 'lactose statement', 'label statemen"
+ },
+ {
+  "id": "P03",
+  "repeat": 1,
+  "haiku": "5/5: Short, simple sentences with everyday words. Technical terms are explained in a few words: 'corante carmim' is described as a red dye from a bug (cochonilha), 'estabilizante INS 471' is glossed as 'ajudam a misturar', and 'gordura vegetal hidrogenada' as 'óleo de planta endurecido'. The action steps",
+  "sonnet": "4/5: Short sentences, everyday words, clear color-coded structure and a concrete next step. Most terms are explained: INS 471 as 'ajudam a misturar', hydrogenated fat as 'óleo de planta endurecido', carmim as 'inseto (a cochonilha)'. Weak points: 'INS 120' and 'INS 471' are never explained as codes, 'est"
+ },
+ {
+  "id": "P03",
+  "repeat": 2,
+  "haiku": "4/5: Mostly short sentences and everyday words, and most technical terms get a short explanation in parentheses (gordura vegetal hidrogenada, mono e diglicerídeos, corante carmim). Deductions: 'INS 120' and 'INS 471' are never explained as code numbers, 'estabilizante' and 'selo vegetariano' are used wit",
+  "sonnet": "3/5: Many sentences are short and the carmine explanation (red dye from an insect) is clear, with traffic-light icons and a simple next step. But jargon remains: 'INS 471', 'INS 120', 'estabilizante', 'hidrogenada', 'declaração do fabricante', 'selo vegano', 'obrigatórios', and 'mono e diglicerídeos' is "
+ },
+ {
+  "id": "P03",
+  "repeat": 3,
+  "haiku": "5/5: Short sentences and everyday words throughout. Technical terms are explained inline: INS 471 is glossed as 'mono e diglicerídeos, ajudam a misturar', carmim as 'corante vermelho feito de um inseto', and hydrogenated fat as 'óleo de planta endurecido'. The verdict and next step are clear and actionab",
+  "sonnet": "3/5: Mostly short sentences and everyday words, and several terms are explained (carmim as insect dye, mono e diglicerídeos 'ajudam a misturar', hydrogenated fat as hardened plant oil). But some jargon is left unexplained or only partly explained: 'INS' codes are never defined, 'estabilizante' and 'coran"
+ },
+ {
+  "id": "P04",
+  "repeat": 1,
+  "haiku": "3/5: Mostly short, plain sentences, and it explains barley malt extract, modified starch, E330 and citric acid. But 'allergen statement', 'gluten statement' and 'celiac disease' are never explained. Some sentences are long, such as the one about the database not checking the term's allergens.",
+  "sonnet": "4/5: Mostly short sentences and everyday words. It explains barley malt extract, modified starch and E330 (citric acid, a sour powder), and the action is clear: leave it on the shelf. It loses a point for unexplained terms: 'celiac disease', 'allergen statement', 'database', 'contradicts', 'rules out' an"
+ },
+ {
+  "id": "P04",
+  "repeat": 2,
+  "haiku": "2/5: The answer is mostly plain in its structure (short bullets, clear verdict), but it uses several terms a low-literacy or limited-English reader may not know without explanation: 'modified starch' (explained only briefly), 'celiac disease' (not explained beyond 'hurts the gut'), 'barley malt extract' ",
+  "sonnet": "3/5: Many short sentences and simple words, with clear verdict and actions, and several terms are explained (barley malt extract, modified starch, E330 as citric acid). But some jargon is left unexplained or hard for low-literacy readers: 'acidity regulator', 'celiac', 'allergen statement', 'EU rules', '"
+ },
+ {
+  "id": "P04",
+  "repeat": 3,
+  "haiku": "2/5: The answer is mostly clear and well organized, with short labels and emoji cues, but it uses several technical or hard terms without plain explanation: 'celiac disease' is only partly explained, 'allergen' and 'allergen details' are unexplained, 'database entry' and 'rules tool' are internal jargon,",
+  "sonnet": "3/5: The answer opens clearly with a red flag and uses everyday words for most terms, and it explains barley malt extract, modified starch and E330 simply. But it is too long, with some long, tangled sentences (for example the 'rules tool' and 'database entry is a general term' lines). Phrases like 'Labe"
+ },
+ {
+  "id": "P05",
+  "repeat": 1,
+  "haiku": "5/5: Short sentences and everyday words throughout. Technical terms are explained in a few words: 'albumina' is 'a clara do ovo', 'lecitina' is 'ajuda a misturar gordura e água', and 'alergia' is plain. Each point is a brief statement and the next action is easy to follow. Minor nitpick: 'Alta para a alb",
+  "sonnet": "4/5: Mostly short sentences and everyday words. Key terms are explained in a few words: albumina is 'a clara do ovo', lecitina 'ajuda a misturar gordura e água'. The action is clear: 'Não coma', with a simple emergency step (ligue 192). Small flaws keep it from a 5: 'Alta' for certainty is brief and not "
+ },
+ {
+  "id": "P05",
+  "repeat": 2,
+  "haiku": "5/5: Short sentences and everyday words throughout. Technical terms are explained briefly: 'albumina' is 'a clara do ovo', 'lecitina' is 'ajuda a misturar gordura e água'. Each step is clear and easy to act on, with a direct instruction not to use the product.",
+  "sonnet": "4/5: Mostly short sentences and everyday Portuguese, with clear action (don't use the product) and the key terms explained: albumina is 'a clara do ovo' and lecitina 'ajuda a misturar gordura e água'. Small deductions: 'cross-contact'-style jargon is absent, but 'Quanto tenho certeza', 'A lecitina fica s"
+ },
+ {
+  "id": "P05",
+  "repeat": 3,
+  "haiku": "2/5: Mostly short bullets with emoji markers, but several technical terms are used without plain explanation: 'albumina' is glossed as 'clara de ovo' (ok), yet 'lecitina' is explained with 'misturar gordura e água' which is abstract for a low-literacy reader; 'alergia' sign text 'Alérgicos: Contém...' an",
+  "sonnet": "4/5: Mostly very plain: short sentences, clear red/green markers, a bold action up front, and key terms like albumina and lecitina are explained in a few words. Points are lost for a few harder phrases: 'aviso de alergia ('Alérgicos: Contém...')', 'CONTÉM GLÚTEN / NÃO CONTÉM GLÚTEN' without saying what g"
+ },
+ {
+  "id": "P06",
+  "repeat": 1,
+  "haiku": "4/5: Short sentences and mostly everyday words, and most terms are explained (gelatin, natural flavors, citric acid, carnauba wax, fermentation). Some terms are left unexplained or only partly explained: 'vegan diet' is assumed, 'bone char' is not defined, and 'allergy warning' is not explained. Overall ",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with clear verdict and next step. Gelatin, natural flavors, bone char, and citric acid are explained simply. Small gaps: 'fermentation', 'pectin', 'agar', 'plant thickener', 'carnauba', 'bone char' and 'vegan diet' are not all explained in plain terms; some"
+ },
+ {
+  "id": "P06",
+  "repeat": 2,
+  "haiku": "4/5: Mostly plain and easy to act on: short bullets, clear advice ('Do not choose this product'), and simple words. Some terms are only partly explained: 'fermentation', 'pectin', and 'cross-contact' appear without a short definition, and 'carnauba wax' and 'natural flavors' need a little more context fo",
+  "sonnet": "4/5: Mostly very plain: short sentences, clear verdict first, emoji color cues, and everyday words. Gelatin, natural flavors, citric acid, carnauba wax and pectin are each explained briefly, and the next step is easy to act on. Small drops: 'fermentation', 'plant-based', 'claim', 'allergy warning' and 's"
+ },
+ {
+  "id": "P06",
+  "repeat": 3,
+  "haiku": "3/5: Mostly clear and uses short bullets with color cues and an easy next step. Some jargon remains unexplained: 'fermentation', 'pectin', and 'agar' are not defined, and 'Natural flavors' and 'Carnauba wax' are only partly explained. Sentences are short overall, but a few ('Some factories filter sugar w",
+  "sonnet": "4/5: Mostly short sentences and everyday words, with clear labels, a simple verdict, and an easy next step. Gelatin, natural flavors, citric acid, and carnauba wax are each explained briefly. Minor issues: 'fermentation', 'pectin', 'agar', and 'filter sugar with animal bones' are not explained simply, an"
+ }
+]

@@ -14,6 +14,9 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
     """Classify a transcribed ingredient label or recipe and cross-check its statements.
 
     Call this after transcribing the label exactly. Base the verdict on the result.
+    Include the user's own words when they describe symptoms: a verdict of "urgent" means stop and tell them to
+    seek emergency help. Use `wording` instead of ever calling a product safe. In Analyst mode, report the
+    `compliance` checklist (pass / fail / review per legal requirement) and the mismatches.
 
     Args:
         label_text: The label text as printed (ingredient list plus allergen, gluten,
