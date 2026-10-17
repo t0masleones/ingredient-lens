@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Test plan · Ingredient Lens</title>
+<meta name="description" content="How the agent and the rules are tested, from unit tests to benchmarks on real products and the agent evaluation.">
+<meta name="theme-color" content="#00596B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Test plan · Ingredient Lens">
+<meta property="og:description" content="How the agent and the rules are tested, from unit tests to benchmarks on real products and the agent evaluation.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Open+Sans:wght@400;600;700&family=Signika:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var t=localStorage.getItem("il-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+</head>
+<body class="page-doc" data-base="">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="utility-bar"><div class="container">
+  <p>Independent prototype · not affiliated with any company · not medical, legal or regulatory advice</p>
+  <nav aria-label="Utility"><a href="changelog.html">Changelog</a><a href="https://github.com/t0masleones/ingredient-lens">GitHub</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg><span data-theme-label>Dark mode</span></button></nav>
+</div></div>
+<header class="site-header"><div class="container">
+  <button class="btn btn-outline menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens<small>Documentation</small></span></a>
+  <nav class="main-nav" aria-label="Main"><a href="index.html">Home</a><a href="00-project-record.html">Project record</a><a href="05-analyst-workflow.html">Analyst workflow</a><a href="06-standards-alignment.html">Standards</a><a href="test-plan.html" aria-current="page">Evidence</a></nav>
+  <div class="header-actions">
+    <button class="btn btn-outline" type="button" data-search-open aria-label="Search the documentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="label">Search</span><kbd>Ctrl K</kbd></button>
+    <a class="btn btn-accent" href="https://github.com/t0masleones/ingredient-lens"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg><span class="label">Repository</span></a>
+  </div>
+</div></header>
+
+<section class="page-hero">
+  <svg class="hero-arcs" viewBox="0 0 560 420" aria-hidden="true" focusable="false"><circle cx="430" cy="120" r="150" fill="none" stroke="#27787F" stroke-width="26"/><circle cx="520" cy="360" r="120" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="18"/><circle cx="250" cy="330" r="34" fill="none" stroke="#FFE600" stroke-width="9"/></svg>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Docs</a></li><li>Evidence</li><li aria-current="page">Test plan</li></ol></nav>
+    <p class="eyebrow">Evidence · Method</p>
+    <h1>Test plan</h1>
+    <p class="lead">How the agent and the rules are tested, from unit tests to benchmarks on real products and the agent evaluation.</p>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>3 min read</li><li>Source: test-plan.md</li></ul>
+  </div>
+</section>
+<div class="layout container">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html" aria-current="page">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <main id="content" class="content" tabindex="-1">
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04">Automated layers (since v0.4)</a></li></ol></details></div>
+    <article class="prose"><h2 id="goal">Goal<a class="anchor" href="#goal" aria-label="Link to this section">#</a></h2>
+<p>Show, with evidence, that the agent is accurate, honest about uncertainty and safe, and improve it in a documented loop (v0.1 to v0.2).</p>
+<h2 id="method">Method<a class="anchor" href="#method" aria-label="Link to this section">#</a></h2>
+<ol>
+<li>Run every row of <code>golden-set.csv</code> in a fresh chat inside the Claude Project (one row = one chat).</li>
+<li>For photo cases (type = photo), photograph a real label or a printed mock label and attach it. Write the product's printed text in the <code>input</code> column so transcription accuracy can be measured. Do not commit photos of third-party packaging if you are unsure about rights: use your own mock labels, or crop to the ingredient panel only.</li>
+<li>Grade each answer against <code>expected_verdict</code>, <code>must_include</code> and <code>must_not</code>. Record the result in <code>results-v0.1.md</code> (copy the template below).</li>
+<li>For each failure, change the instructions or knowledge files, log the change in <code>agent/CHANGELOG.md</code>, then re-run the failed rows plus a sample of passing ones (regression).</li>
+</ol>
+<h2 id="metrics">Metrics<a class="anchor" href="#metrics" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>How to measure</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trigger recall</td>
+<td>% of expected 🔴 items the agent flags</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>False alarms</td>
+<td>% of trap ingredients wrongly flagged 🔴</td>
+<td>10% or less</td>
+</tr>
+<tr>
+<td>Origin accuracy</td>
+<td>% of ingredients with the right origin class (cook and diet cases)</td>
+<td>90% or more</td>
+</tr>
+<tr>
+<td>No guessing</td>
+<td>"Can be either" items never stated as plant or animal with certainty</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Transcription accuracy</td>
+<td>% of photo text read correctly</td>
+<td>95% or more</td>
+</tr>
+<tr>
+<td>Honest uncertainty</td>
+<td>Bad photos get a retake request, not a verdict</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Safety wording</td>
+<td>Answers that say "safe" or "vegan for sure", or give medical advice</td>
+<td>0</td>
+</tr>
+<tr>
+<td>STRICT mode</td>
+<td>Allergy and celiac cases treat every 🟡 as 🔴</td>
+<td>100%</td>
+</tr>
+<tr>
+<td>Consistency</td>
+<td>Same input run 3 times gives the same verdict</td>
+<td>90% or more</td>
+</tr>
+<tr>
+<td>Format</td>
+<td>Follows the answer format of its mode</td>
+<td>90% or more</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="results-template-results-v01md">Results template (<code>results-v0.1.md</code>)<a class="anchor" href="#results-template-results-v01md" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>Pass/Fail</th>
+<th>What went wrong</th>
+<th>Fix (changelog line)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="user-acceptance-test-uat">User acceptance test (UAT)<a class="anchor" href="#user-acceptance-test-uat" aria-label="Link to this section">#</a></h2>
+<p>Ask one person with an intolerance or a cooking background to run 5 cases. Record in <code>evidence/uat-notes.md</code>: understood the answer (yes/no), trusted it (1 to 5), what confused them.</p>
+<h2 id="lightweight-monitoring">Lightweight monitoring<a class="anchor" href="#lightweight-monitoring" aria-label="Link to this section">#</a></h2>
+<p>After each test session, record: cases run, pass rate per metric and the three most common failures. Show the pass rate of v0.1 versus v0.2 in the README Results section.</p>
+<h2 id="automated-layers-since-v04">Automated layers (since v0.4)<a class="anchor" href="#automated-layers-since-v04" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Layer</th>
+<th>What it measures</th>
+<th>How</th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Unit, data and property tests</td>
+<td>Rules engine behaviour, data invariants, properties on 1,500 real labels</td>
+<td><code>cd mcp-server</code>, <code>uv run pytest</code></td>
+<td>Every push (GitHub Actions)</td>
+</tr>
+<tr>
+<td>Golden set, text rows</td>
+<td>Verdicts on the 25 text cases</td>
+<td><code>uv run eval_rules.py</code></td>
+<td>Every push</td>
+</tr>
+<tr>
+<td>Benchmark</td>
+<td>Missed declared allergens, claim conflicts, coverage and properties on 6,000 real products</td>
+<td><code>uv run python ../tests/benchmark/run_benchmark.py</code></td>
+<td>On demand (about 20 minutes)</td>
+</tr>
+<tr>
+<td>Agent evaluation</td>
+<td>What users see: never "safe" (US-07), emergency first (US-08), plain language (US-02), Analyst format and decisions (D-07), certification and GMO claims (US-19, US-20)</td>
+<td><code>uv run python ../tests/agent_eval/run_agent_eval.py --repeats 3</code> with <code>CLAUDE_BIN</code> set to the Claude Code executable</td>
+<td>Before each instructions release; not in CI because it needs a Claude login</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Agent evaluation method.</strong> Each case in <code>tests/agent_eval/cases.jsonl</code> runs Claude headless (<code>claude -p</code>) with the project instructions and knowledge files as the system prompt and the ingredient-lens MCP tools only, like the Claude Project. Each case runs 3 times to measure consistency. Graders are deterministic where possible: a phrase list for "safe" claims that ignores negations, quotes and questions (checked against 12 control sentences); emergency numbers and the absence of any analysis; sentence length; required Analyst sections and the expected escalation. Plain language also gets an LLM judge (a smaller model) with a fixed rubric; its scores are a second opinion, not ground truth. Every transcript is kept in <code>tests/agent_eval/results/</code> and failures are read by hand before any instruction change.</p></article>
+    <nav class="pager" aria-label="Previous and next"><a class="prev" href="04-critical-review.html"><small>Previous</small><span>Critical review and roadmap</span></a><a class="next" href="benchmark-review.html"><small>Next</small><span>Benchmark on 6,000 real products</span></a></nav>
+    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/test-plan.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/test-plan.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04">Automated layers (since v0.4)</a></li></ol></nav>
+</div>
+<footer class="site-footer"><div class="container">
+  <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
+    <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
+  <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
+  <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>
+</div></footer>
+<div class="search" role="dialog" aria-modal="true" aria-label="Search the documentation" hidden>
+  <div class="search-panel">
+    <label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="visually-hidden">Search</span>
+      <input type="search" placeholder="Search the documentation" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"></label>
+    <ul class="search-results" id="search-results" role="listbox"></ul>
+    <p class="search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="assets/search-index.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

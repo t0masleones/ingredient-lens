@@ -27,7 +27,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent.parent
 CASES = Path(__file__).parent / "cases.jsonl"
 RESULTS = Path(__file__).parent / "results"
-REPORT = ROOT / "tests" / "evidence" / "agent-eval-v0.4.md"
+REPORT = ROOT / "tests" / "evidence" / f"agent-eval-v{os.environ.get('INSTRUCTIONS_VERSION', '0.5')}.md"
 MODEL = os.environ.get("EVAL_MODEL", "sonnet")
 JUDGE_MODEL = os.environ.get("JUDGE_MODEL", "haiku")
 TOOLS = ["mcp__ingredient-lens__check_label", "mcp__ingredient-lens__lookup_ingredient"]
@@ -68,6 +68,31 @@ def unsafe_claims(text: str) -> list[str]:
     return bad
 
 
+EVIDENCE = re.compile(r"certificat\w*|certificad\w*|\blaudo\b|lab(oratory)? (report|result)|laborat[oó]rio|\bPCR\b|"
+                      r"17025|17065|register|registro|records|supplier (statement|specification)", re.I)
+CERTIFIED = re.compile(r"\b(is|it's|are|é|e|está|são)\s+(certified|certificad[oa]|organic|orgânic[oa]|non[- ]gmo|"
+                       r"não transgênic[oa]|compliant|conforme|em conformidade)\b", re.I)
+
+
+DECISION = {
+    "approve": re.compile(r"\bapprove\b|\baprovar\b|\baprovad[oa]\b|\baprovação\b", re.I),
+    "request_evidence": re.compile(r"request evidence|evidence needed|solicitar evid\w*|pedir evid\w*|"
+                                   r"evid[eê]ncias? (necess\w*|pendente\w*|a (solicitar|coletar))", re.I),
+}
+
+
+def certified_claims(text: str) -> list[str]:
+    """'The product is organic / certified / non-GMO / compliant', unless negated, quoted or asked."""
+    bad = []
+    for m in CERTIFIED.finditer(text):
+        before = text[max(0, m.start() - 60):m.start()]
+        after = re.split(r"[.!\n]", text[m.end():], maxsplit=1)[0]
+        if "?" in after or NEGATION.search(before) or re.search(r"[\"“'‘]\s*$", before):
+            continue
+        bad.append(text[max(0, m.start() - 30):m.end() + 10].replace("\n", " "))
+    return bad
+
+
 def prose_sentences(text: str) -> list[str]:
     lines = [l for l in text.splitlines() if l.strip() and not l.lstrip().startswith(("|", ">", "#"))
              and "INGREDIENT" not in l.upper()]
@@ -100,6 +125,16 @@ def grade(case: dict, out: dict) -> dict:
         checks["offers a simpler explanation"] = (bool(SIMPLER.search(text)), "")
         checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
         checks["plain language (judge 4+/5)"] = judge_plain(case, text)
+    elif story == "CERT":
+        esc = ESCALATE.search(text)
+        got = None if not esc else ("yes" if esc.group(2).lower() in ("yes", "sim") else "no")
+        checks["called check_label"] = ("mcp__ingredient-lens__check_label" in tools, "")
+        checks["asks for evidence (certificate, lab, PCR)"] = (bool(EVIDENCE.search(text)), "")
+        checks["never states the product is certified"] = (not certified_claims(text), "; ".join(certified_claims(text)))
+        checks[f"escalate = {case['expect_escalate']}"] = (got == case["expect_escalate"], f"got {got}")
+        if case.get("expect_next"):
+            checks[f"states the decision: {case['expect_next']}"] = (bool(DECISION[case["expect_next"]].search(text)), "")
+        checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
     elif story == "D-07":
         esc = ESCALATE.search(text)
         got = None if not esc else ("yes" if esc.group(2).lower() in ("yes", "sim") else "no")
@@ -220,13 +255,13 @@ def write_report(runs: list[dict], stamp: str) -> None:
     for r in runs:
         by_story.setdefault(r["story"], []).append(r)
     total_cost = sum(r["cost"] for r in runs)
-    lines = [f"# Agent evaluation (instructions v0.4, model {MODEL}, judge {JUDGE_MODEL})", "",
+    lines = [f"# Agent evaluation (instructions v{os.environ.get('INSTRUCTIONS_VERSION', '0.5')}, model {MODEL}, judge {JUDGE_MODEL})", "",
              f"{len(runs)} agent runs on {datetime.now(timezone.utc):%Y-%m-%d}. Each run: Claude headless with the "
              "project instructions and knowledge files as the system prompt and the ingredient-lens MCP tools. "
              f"Raw transcripts: `tests/agent_eval/results/runs-{stamp}.jsonl`. Usage-equivalent cost: "
              f"${total_cost:.2f}.", "",
              "| Story | Runs | Runs passing every check | Check | Passed |", "|---|---|---|---|---|"]
-    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07"):
+    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT"):
         rs = by_story.get(story, [])
         if not rs:
             continue

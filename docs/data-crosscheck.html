@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Data cross-check · Ingredient Lens</title>
+<meta name="description" content="Curated rows without a source, checked against a public dataset, and the decisions taken.">
+<meta name="theme-color" content="#00596B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Data cross-check · Ingredient Lens">
+<meta property="og:description" content="Curated rows without a source, checked against a public dataset, and the decisions taken.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Open+Sans:wght@400;600;700&family=Signika:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var t=localStorage.getItem("il-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+</head>
+<body class="page-doc" data-base="">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="utility-bar"><div class="container">
+  <p>Independent prototype · not affiliated with any company · not medical, legal or regulatory advice</p>
+  <nav aria-label="Utility"><a href="changelog.html">Changelog</a><a href="https://github.com/t0masleones/ingredient-lens">GitHub</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg><span data-theme-label>Dark mode</span></button></nav>
+</div></div>
+<header class="site-header"><div class="container">
+  <button class="btn btn-outline menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens<small>Documentation</small></span></a>
+  <nav class="main-nav" aria-label="Main"><a href="index.html">Home</a><a href="00-project-record.html">Project record</a><a href="05-analyst-workflow.html">Analyst workflow</a><a href="06-standards-alignment.html">Standards</a><a href="test-plan.html">Evidence</a></nav>
+  <div class="header-actions">
+    <button class="btn btn-outline" type="button" data-search-open aria-label="Search the documentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="label">Search</span><kbd>Ctrl K</kbd></button>
+    <a class="btn btn-accent" href="https://github.com/t0masleones/ingredient-lens"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg><span class="label">Repository</span></a>
+  </div>
+</div></header>
+
+<section class="page-hero">
+  <svg class="hero-arcs" viewBox="0 0 560 420" aria-hidden="true" focusable="false"><circle cx="430" cy="120" r="150" fill="none" stroke="#27787F" stroke-width="26"/><circle cx="520" cy="360" r="120" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="18"/><circle cx="250" cy="330" r="34" fill="none" stroke="#FFE600" stroke-width="9"/></svg>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Docs</a></li><li>Evidence</li><li aria-current="page">Data cross-check</li></ol></nav>
+    <p class="eyebrow">Evidence · Data governance</p>
+    <h1>Data cross-check</h1>
+    <p class="lead">Curated rows without a source, checked against a public dataset, and the decisions taken.</p>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>4 min read</li><li>Source: curated-crosscheck.md</li></ul>
+  </div>
+</section>
+<div class="layout container">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html" aria-current="page">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <main id="content" class="content" tabindex="-1">
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#decisions-after-the-cross-check-2026-10-16">Decisions after the cross-check (2026-10-16)</a></li></ol></details></div>
+    <article class="prose"><p>83 rows checked: 64 confirmed, 2 in conflict, 17 not found. Confirmed rows now cite the Open Food Facts entry. Conflicts and missing terms need a person to decide, with an official or scientific source.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Origin</th>
+<th>Allergens</th>
+<th>Result</th>
+<th>Detail</th>
+<th>Open Food Facts entry</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>maionese</td>
+<td>animal</td>
+<td>egg</td>
+<td>conflict</td>
+<td>origin animal vs either</td>
+<td>openfoodfacts:en:mayonnaise</td>
+</tr>
+<tr>
+<td>mayonnaise</td>
+<td>animal</td>
+<td>egg</td>
+<td>conflict</td>
+<td>origin animal vs either</td>
+<td>openfoodfacts:en:mayonnaise</td>
+</tr>
+<tr>
+<td>all purpose flour</td>
+<td>plant</td>
+<td>gluten</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>cashew cheese</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>castanha de caju</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>castanha do para</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>cravo</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>cultura lactica</td>
+<td>either</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>fermento lacteo</td>
+<td>either</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>gergelim</td>
+<td>plant</td>
+<td>sesame</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>lactic culture</td>
+<td>either</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>maionese vegana</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>manteiga vegana</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>queijo de castanha</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>queijo vegano</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>tamarindo</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>vegan butter</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>vegan cheese</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>vegan mayonnaise</td>
+<td>plant</td>
+<td>-</td>
+<td>not found</td>
+<td>no Open Food Facts entry with this name</td>
+<td>-</td>
+</tr>
+<tr>
+<td>alho</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:garlic</td>
+</tr>
+<tr>
+<td>almond</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:almond</td>
+</tr>
+<tr>
+<td>almond flour</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:almond-flour</td>
+</tr>
+<tr>
+<td>amendoa</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:almond</td>
+</tr>
+<tr>
+<td>amendoim</td>
+<td>plant</td>
+<td>peanut</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:peanut</td>
+</tr>
+<tr>
+<td>amido de milho</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:corn-starch</td>
+</tr>
+<tr>
+<td>atum</td>
+<td>animal</td>
+<td>fish</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tuna</td>
+</tr>
+<tr>
+<td>avela</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:hazelnut</td>
+</tr>
+<tr>
+<td>baunilha</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:vanilla</td>
+</tr>
+<tr>
+<td>beans</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:beans</td>
+</tr>
+<tr>
+<td>cacau</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:cocoa</td>
+</tr>
+<tr>
+<td>camarao</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:shrimp</td>
+</tr>
+<tr>
+<td>caramel color</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:e150a</td>
+</tr>
+<tr>
+<td>caramelo</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:e150</td>
+</tr>
+<tr>
+<td>caranguejo</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:crab</td>
+</tr>
+<tr>
+<td>carrot</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:carrot</td>
+</tr>
+<tr>
+<td>cashew</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:cashew-nuts</td>
+</tr>
+<tr>
+<td>castanha</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:chestnut</td>
+</tr>
+<tr>
+<td>cebola</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:onion</td>
+</tr>
+<tr>
+<td>cenoura</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:carrot</td>
+</tr>
+<tr>
+<td>clove</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:clove</td>
+</tr>
+<tr>
+<td>coco</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:coconut</td>
+</tr>
+<tr>
+<td>cocoa</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:cocoa</td>
+</tr>
+<tr>
+<td>coconut</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:coconut</td>
+</tr>
+<tr>
+<td>coconut cream</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:coconut-cream</td>
+</tr>
+<tr>
+<td>corn starch</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:corn-starch</td>
+</tr>
+<tr>
+<td>crab</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:crab</td>
+</tr>
+<tr>
+<td>crustaceans</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:crustacean</td>
+</tr>
+<tr>
+<td>crustaceos</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:crustacean</td>
+</tr>
+<tr>
+<td>feijao</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:beans</td>
+</tr>
+<tr>
+<td>flour</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:flour</td>
+</tr>
+<tr>
+<td>garlic</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:garlic</td>
+</tr>
+<tr>
+<td>glucose syrup</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:glucose-syrup</td>
+</tr>
+<tr>
+<td>hazelnut</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:hazelnut</td>
+</tr>
+<tr>
+<td>lagosta</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:spiny-lobster</td>
+</tr>
+<tr>
+<td>lobster</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:lobster</td>
+</tr>
+<tr>
+<td>macadamia</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:macadamia-nut</td>
+</tr>
+<tr>
+<td>mani</td>
+<td>plant</td>
+<td>peanut</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:peanut</td>
+</tr>
+<tr>
+<td>massa de cacau</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:cocoa-paste</td>
+</tr>
+<tr>
+<td>molluscs</td>
+<td>animal</td>
+<td>mollusc</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:mollusc</td>
+</tr>
+<tr>
+<td>moluscos</td>
+<td>animal</td>
+<td>mollusc</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:mollusc</td>
+</tr>
+<tr>
+<td>noz</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:walnut</td>
+</tr>
+<tr>
+<td>nozes</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:nut</td>
+</tr>
+<tr>
+<td>onion</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:onion</td>
+</tr>
+<tr>
+<td>pasta de amendoim</td>
+<td>plant</td>
+<td>peanut</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:peanut-paste</td>
+</tr>
+<tr>
+<td>peanut</td>
+<td>plant</td>
+<td>peanut</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:peanut</td>
+</tr>
+<tr>
+<td>peanut butter</td>
+<td>plant</td>
+<td>peanut</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:peanut-butter</td>
+</tr>
+<tr>
+<td>pecan</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:pecan-nut</td>
+</tr>
+<tr>
+<td>pistache</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:pistachio-nuts</td>
+</tr>
+<tr>
+<td>pistachio</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:pistachio-nuts</td>
+</tr>
+<tr>
+<td>salmao</td>
+<td>animal</td>
+<td>fish</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:salmon</td>
+</tr>
+<tr>
+<td>salmon</td>
+<td>animal</td>
+<td>fish</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:salmon</td>
+</tr>
+<tr>
+<td>sesame</td>
+<td>plant</td>
+<td>sesame</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:sesame</td>
+</tr>
+<tr>
+<td>sesamo</td>
+<td>plant</td>
+<td>sesame</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:sesame</td>
+</tr>
+<tr>
+<td>shellfish</td>
+<td>animal</td>
+<td>crustacean;mollusc</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:shellfish</td>
+</tr>
+<tr>
+<td>shrimp</td>
+<td>animal</td>
+<td>crustacean</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:shrimp</td>
+</tr>
+<tr>
+<td>tahine</td>
+<td>plant</td>
+<td>sesame</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tahini</td>
+</tr>
+<tr>
+<td>tahini</td>
+<td>plant</td>
+<td>sesame</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tahini</td>
+</tr>
+<tr>
+<td>tamarind</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tamarind</td>
+</tr>
+<tr>
+<td>tree nut</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tree-nut</td>
+</tr>
+<tr>
+<td>tuna</td>
+<td>animal</td>
+<td>fish</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:tuna</td>
+</tr>
+<tr>
+<td>vanilla</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:vanilla</td>
+</tr>
+<tr>
+<td>walnut</td>
+<td>plant</td>
+<td>tree_nuts</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:walnut</td>
+</tr>
+<tr>
+<td>xarope de glicose</td>
+<td>plant</td>
+<td>-</td>
+<td>confirmed</td>
+<td>-</td>
+<td>openfoodfacts:en:glucose-syrup</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="decisions-after-the-cross-check-2026-10-16">Decisions after the cross-check (2026-10-16)<a class="anchor" href="#decisions-after-the-cross-check-2026-10-16" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Conflicts kept as curated:</strong> <code>maionese</code> / <code>mayonnaise</code>. Open Food Facts says "maybe vegan" because vegan mayonnaise exists. Traditional mayonnaise is made with egg, and vegan versions say so on the label (they match <code>maionese vegana</code> / <code>vegan mayonnaise</code>), so the curated egg flag stays.</li>
+<li><strong>Regulatory source added to 4 "not found" rows:</strong> <code>castanha de caju</code> and <code>castanha do para</code> (RDC 26/2015 annex), <code>gergelim</code> (FDA, FASTER Act 2021), <code>all purpose flour</code> (FDA, FALCPA 2004, wheat).</li>
+<li><strong>Still without a source (15 rows):</strong> the vegan analogues (<code>vegan butter</code>, <code>queijo vegano</code>...), <code>cashew cheese</code>, <code>queijo de castanha</code>, <code>cultura lactica</code>, <code>fermento lacteo</code>, <code>lactic culture</code>, <code>cravo</code>, <code>tamarindo</code>. They need a person to cite a source.</li>
+<li><strong>Importer bugs found by this check and fixed:</strong> peanuts were tagged as tree nuts (Open Food Facts files peanuts under nuts) and molluscs as crustaceans (both under "shellfish").</li>
+</ul></article>
+    <nav class="pager" aria-label="Previous and next"><a class="prev" href="agent-evaluation.html"><small>Previous</small><span>Agent evaluation</span></a><a class="next" href="changelog.html"><small>Next</small><span>Changelog</span></a></nav>
+    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/evidence/curated-crosscheck.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/evidence/curated-crosscheck.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#decisions-after-the-cross-check-2026-10-16">Decisions after the cross-check (2026-10-16)</a></li></ol></nav>
+</div>
+<footer class="site-footer"><div class="container">
+  <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
+    <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
+  <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
+  <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>
+</div></footer>
+<div class="search" role="dialog" aria-modal="true" aria-label="Search the documentation" hidden>
+  <div class="search-panel">
+    <label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="visually-hidden">Search</span>
+      <input type="search" placeholder="Search the documentation" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"></label>
+    <ul class="search-results" id="search-results" role="listbox"></ul>
+    <p class="search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="assets/search-index.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

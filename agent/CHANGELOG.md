@@ -1,5 +1,16 @@
 # Agent changelog
 
+## v0.5 - 2026-10-17 (instructions v0.5, rules engine 0.4.0)
+Standards a food certification, testing and compliance company works under, turned into agent behaviour (`docs/06-standards-alignment.md`).
+- Screening is not certification: only bodies accredited to ISO/IEC 17065 certify, and only ISO/IEC 17025 laboratories prove thresholds. The agent never writes that a product is certified, organic, non-GMO or compliant; it names the evidence that settles each claim.
+- New compliance checks: GMO labelling per market (BR: Decreto 4.680/2003 and the T symbol above 1%; US: bioengineered disclosure, 7 CFR Part 66; EU: Regulation 1829/2003, 0.9%), organic particulars (SisOrg; "Certified organic by …"; EU code number and farming origin; a missing US certifier statement or EU code is a fail), non-GMO claims and other certification marks.
+- New cross-check XC5: an organic claim with a declared GMO ingredient.
+- Three decisions instead of two: `next_step` is approve, request_evidence (with `evidence_needed`) or escalate. Found by the agent evaluation: the tool and the instructions disagreed on when to escalate, and the model followed one or the other.
+- Traceability in review tickets: market, product, supplier, lot or batch, artwork version and failed checks; tickets name the rules and data version.
+- New knowledge file `standards-and-certifications.md`; seals and symbols are transcribed as text ("[seal: SisOrg]", "[symbol: T in yellow triangle]").
+- Agent evaluation v0.5 (105 runs, 3 per case): never "safe" 105/105, emergency first 21/21, Analyst 15/15, certification and GMO cases 12/12, plain language judged 4+/5 in 14/18 (partly met; the score varied between 11 and 15 of 18 across three runs).
+- Tests: 3,145 passed. Golden set 25/25.
+
 ## v0.4.1 - 2026-10-17 (instructions v0.4, rules engine 0.4.0)
 - D-07 done: the Analyst workflow (label compliance first pass) is the primary use case. Instructions v0.4 put it first, with a new Analyst format (compliance checklist, allergens found vs declared, escalation, handoff note, supplier questions). A label shared with no personal restriction goes to Analyst mode.
 - `check_label` returns `compliance`: per market (BR, US, EU), each check with pass / fail / review / n/a and its legal basis (US-18). Points text cannot settle (format, amounts, bold emphasis) are always "review".

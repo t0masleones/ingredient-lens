@@ -3,17 +3,19 @@
 ## Why this is the primary use case
 Shopper and Cook show the idea; the Analyst workflow is where a food company spends expert time. A regulatory or quality analyst reads every new or changed label, checks it against its own statements and the rules of each market, and sends doubtful cases to a senior reviewer or the supplier. A first pass that is repeatable, cites the legal basis of each check and says "review" when text cannot settle a point saves the reading and lookups, and keeps the decision with the expert.
 
-## To-be process (v0.4)
+## To-be process (v0.5)
 ```mermaid
 flowchart TD
   A[Label artwork, photo or spec sheet] --> B[Agent transcribes every statement on the pack]
-  B --> C[check_label: market rules, cross-checks XC1-XC4, compliance checklist]
-  C --> D{Any fail, review or mismatch?}
-  D -- no --> E[Analyst skims the checklist and approves]
-  D -- yes --> F[Agent writes the handoff note and supplier questions]
-  F --> G[create_review_ticket: GitHub Issue or local queue]
+  B --> C[check_label: market rules, cross-checks XC1-XC5, compliance checklist]
+  C --> D{next_step}
+  D -- approve --> E[Analyst skims the checklist and approves]
+  D -- request_evidence --> R[Analyst collects certificates, lab reports or supplier records]
+  R --> C
+  D -- escalate --> F[Agent writes the handoff note and supplier questions]
+  F --> G[create_review_ticket with traceability: product, supplier, lot, artwork version]
   G --> H[Senior reviewer decides]
-  E --> I[(Audit log: every check, its basis and the decision)]
+  E --> I[(Audit log: every check, its basis, rules and data version, the decision)]
   H --> I
 ```
 
@@ -26,7 +28,7 @@ flowchart TD
 | Ask the supplier | Drafts the questions | Sends them | — |
 
 ## What the compliance checklist covers
-Returned by `check_label` as `compliance` (status pass / fail / review / n/a, legal basis, detail). Tested in `mcp-server/tests/test_safety_and_compliance.py`.
+Returned by `check_label` as `compliance` (status pass / fail / review / n/a, legal basis, detail). Tested in `mcp-server/tests/test_safety_and_compliance.py` and `mcp-server/tests/test_certifications.py`.
 
 | Market | Check | Basis | What text cannot settle (always "review") |
 |---|---|---|---|
@@ -38,6 +40,14 @@ Returned by `check_label` as `compliance` (status pass / fail / review / n/a, le
 | EU | 14 allergens emphasised in the list | Regulation (EU) 1169/2011, Art. 21, Annex II | Emphasis (bold) is not visible in text |
 | EU | Gluten-free claim | Regulation (EU) 828/2014 | The 20 mg/kg limit (lab result) |
 | All | Vegan claim consistent with the ingredients | No legal definition in BR or the US | Processing aids, cross-contact |
+| BR | GMO labelling: "transgênico" and the T symbol above 1% | Decreto 4.680/2003; Portaria 2.658/2003 | The GMO share: supplier record or PCR result |
+| US | Bioengineered disclosure for listed crops | 7 CFR Part 66 | Records showing non-BE status; detectability of refined ingredients |
+| EU | "Genetically modified" above 0.9% per ingredient | Regulation (EC) 1829/2003 | Adventitious presence: supplier evidence |
+| BR / US / EU | Organic particulars: SisOrg seal; "Certified organic by …"; EU logo, control body code, farming origin. A missing US certifier statement or EU code is a fail | Lei 10.831/2003; 7 CFR Part 205; Regulation (EU) 2018/848 | The certificate itself (public register) |
+| All | Non-GMO claims and other certification marks | Certification by ISO/IEC 17065 bodies | The certificate (body, number, scope, validity) or a PCR result |
+| All | Organic claim with a declared GMO ingredient (XC5) | Organic rules exclude GMOs | — |
+
+**Decision rule (`next_step`).** Approve when every check passes or does not apply; Request evidence when a check is "review" (the analyst collects the evidence and runs the check again); Escalate when a check fails or a mismatch exists. Standards behind it: [06 · Standards alignment](06-standards-alignment.md).
 
 ## What the benchmark says about this workflow
 On the 6,000 real products, Analyst mode flags 4% of US labels, 13–18% of EU labels and 76% of Brazilian labels. The Brazilian figure is not a real escalation rate: Open Food Facts usually stores only the ingredient list, without the "ALÉRGICOS" and "CONTÉM GLÚTEN" statements, so most labels look as if those statements were missing. The lesson for the workflow: the agent must transcribe every statement on the pack, and a pilot must measure the escalation rate on complete labels.

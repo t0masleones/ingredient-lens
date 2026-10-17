@@ -16,7 +16,9 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
     Call this after transcribing the label exactly. Base the verdict on the result.
     Include the user's own words when they describe symptoms: a verdict of "urgent" means stop and tell them to
     seek emergency help. Use `wording` instead of ever calling a product safe. In Analyst mode, report the
-    `compliance` checklist (pass / fail / review per legal requirement) and the mismatches.
+    `compliance` checklist (pass / fail / review per legal requirement, including GMO labelling and organic or
+    other certification claims), the mismatches and the decision in `next_step`: approve, request_evidence (list
+    `evidence_needed`) or escalate. The rules screen a label; they never certify it.
 
     Args:
         label_text: The label text as printed (ingredient list plus allergen, gluten,
@@ -47,17 +49,26 @@ def lookup_ingredient(name: str) -> list[dict]:
 
 @mcp.tool()
 def create_review_ticket(title: str, summary: str, label_text: str, verdict: str,
-                         mismatches: list[str], questions_for_supplier: list[str]) -> dict:
+                         mismatches: list[str], questions_for_supplier: list[str],
+                         market: str = "", product: str = "", supplier: str = "", lot_or_batch: str = "",
+                         artwork_version: str = "", failed_checks: list[str] | None = None) -> dict:
     """Send a case to human review (regulatory or quality expert). Ask the user before calling it.
 
-    Use when check_label returns escalate_to_human_review = true.
+    Use when check_label returns escalate_to_human_review = true, or a compliance check fails.
+    Fill the traceability fields the user gave (product, supplier, lot or batch, artwork version): a reviewer
+    must be able to trace the decision to the exact label and lot, as food safety schemes expect.
     """
+    trace = [f"- {k}: {v}" for k, v in (("Market", market), ("Product", product), ("Supplier", supplier),
+                                         ("Lot or batch", lot_or_batch), ("Artwork version", artwork_version)) if v]
     body = "\n".join([
         f"**Verdict:** {verdict}", "", f"**Summary:** {summary}", "",
+        "**Traceability:**", *(trace or ["- not given"]), "",
+        "**Failed or review checks:**", *[f"- {c}" for c in failed_checks or ["none"]], "",
         "**Mismatches:**", *[f"- {m}" for m in mismatches or ["none"]], "",
         "**Questions for the supplier:**", *[f"- {q}" for q in questions_for_supplier or ["none"]], "",
         "**Label text:**", "```", label_text, "```", "",
-        f"_Created by Ingredient Lens rules {engine.RULES_VERSION}. Screening aid, not regulatory advice._",
+        f"_Created by Ingredient Lens rules {engine.RULES_VERSION}, data {_matcher.data_version}. First-pass "
+        "screening, not certification or regulatory advice; certification is done only by accredited bodies._",
     ])
     result = review.create_ticket(f"[Review] {title}", body)
     review.audit("create_review_ticket", {"title": title, "verdict": verdict}, result)

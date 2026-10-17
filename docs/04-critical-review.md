@@ -9,7 +9,7 @@ A cold look at what was built, what the evidence really shows, and what should c
 | The engine rarely misses a declared allergen on real products | 6,000 products: 25 of 4,607 declared allergens came out 🟢 (0.5%); none of the 25 had the allergen readable in the ingredient text | Medium: large sample of real labels, but the reference allergens are partly derived by Open Food Facts with the same taxonomy this project imports, so agreement is inflated |
 | Claims on the pack (vegan, gluten-free, lactose-free) seldom conflict with the engine | Vegan: 30 🔴 of 763 claims; gluten-free: 65 of 1,311; lactose-free: 98 of 260 (mostly milk listed without lactase) | Medium: independent of the rules, but a conflict can be the engine, the data or the label |
 | The engine is deterministic, case-insensitive and STRICT is never milder | 94,097 metamorphic checks: 0 failures on those properties; 45 on ingredient order (0.2%) | Strong for these properties; they say nothing about correctness |
-| The agent (LLM + tools) answers safely and clearly | 93 headless runs (v0.4.1): 0 "safe" claims, emergency first 21/21, Analyst escalation 15/15; plain language 4+/5 in only 11 and 9 of 18 runs by two model judges | **Partly tested.** Text only (no photos), headless instead of the project UI, graded by rules and model judges, not by users. No UAT |
+| The agent (LLM + tools) answers safely and clearly | 105 headless runs (v0.5): 0 "safe" claims, emergency first 21/21, Analyst decisions 15/15, certification and GMO cases 12/12; plain language 4+/5 in 11 to 15 of 18 runs depending on the run | **Partly tested.** Text only (no photos), headless instead of the project UI, graded by rules and model judges, not by users. No UAT |
 
 The biggest gap is still the last line. The safety rules and the Analyst format are now measured on text, and the most critical ones are also enforced in code ("urgent", the safe wording). Photo transcription, the default Shopper format's readability and real users' trust are not measured yet.
 
@@ -49,6 +49,10 @@ Ordered by value for a regulated B2B setting. P1 = before showing results as evi
 | F-11 | Hosted MCP server (remote, with authentication) so a team can use the same tools and audit log | Needed for a real pilot | L | P3 |
 | F-12 | Input from documents: supplier specification sheets (PDF) from a shared folder, batch report for analysts | Closest to the regulatory workflow | L | P3 |
 | F-13 | Additional regulated sources when downloadable: FDA Substances Added to Food, Anvisa additive lists | Regulated coverage | M | P3 |
+| F-15 | Look up certificates in public registers (USDA Organic Integrity Database, MAPA CNPO, Non-GMO Project product list) through a tool | Turns "verify the certificate" into a check | M | P2 |
+| F-16 | Read a lab report (PDF) and compare its result with the claim's threshold | Closes the loop on gluten-free, lactose-free and GMO claims | M | P2 |
+| F-17 | Food fraud vulnerability as data (ingredient category → fraud types and sources) | GFSI food fraud requirement | M | P3 |
+| F-18 | GMO and organic rules as data, including the outcome of PLC 34/2015 in Brazil and USDA BE list updates | Regulation changes without code changes (with F-09) | S | P2 |
 | F-14 | "Simple first" Shopper format (verdict, three bullets, next step; details on request), validated with low-literacy users | US-02 is only partly met: model judges give the default format about 3/5 | S | P1 |
 
 ## 4. What went well and should be kept

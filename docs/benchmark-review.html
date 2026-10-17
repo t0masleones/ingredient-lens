@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Benchmark on 6,000 real products · Ingredient Lens</title>
+<meta name="description" content="The manual review of every miss on real products from four markets, and the engine errors it found.">
+<meta name="theme-color" content="#00596B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Benchmark on 6,000 real products · Ingredient Lens">
+<meta property="og:description" content="The manual review of every miss on real products from four markets, and the engine errors it found.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Open+Sans:wght@400;600;700&family=Signika:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var t=localStorage.getItem("il-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+</head>
+<body class="page-doc" data-base="">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="utility-bar"><div class="container">
+  <p>Independent prototype · not affiliated with any company · not medical, legal or regulatory advice</p>
+  <nav aria-label="Utility"><a href="changelog.html">Changelog</a><a href="https://github.com/t0masleones/ingredient-lens">GitHub</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg><span data-theme-label>Dark mode</span></button></nav>
+</div></div>
+<header class="site-header"><div class="container">
+  <button class="btn btn-outline menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens<small>Documentation</small></span></a>
+  <nav class="main-nav" aria-label="Main"><a href="index.html">Home</a><a href="00-project-record.html">Project record</a><a href="05-analyst-workflow.html">Analyst workflow</a><a href="06-standards-alignment.html">Standards</a><a href="test-plan.html">Evidence</a></nav>
+  <div class="header-actions">
+    <button class="btn btn-outline" type="button" data-search-open aria-label="Search the documentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="label">Search</span><kbd>Ctrl K</kbd></button>
+    <a class="btn btn-accent" href="https://github.com/t0masleones/ingredient-lens"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg><span class="label">Repository</span></a>
+  </div>
+</div></header>
+
+<section class="page-hero">
+  <svg class="hero-arcs" viewBox="0 0 560 420" aria-hidden="true" focusable="false"><circle cx="430" cy="120" r="150" fill="none" stroke="#27787F" stroke-width="26"/><circle cx="520" cy="360" r="120" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="18"/><circle cx="250" cy="330" r="34" fill="none" stroke="#FFE600" stroke-width="9"/></svg>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Docs</a></li><li>Evidence</li><li aria-current="page">Benchmark review</li></ol></nav>
+    <p class="eyebrow">Evidence · Rules engine</p>
+    <h1>Benchmark on 6,000 real products</h1>
+    <p class="lead">The manual review of every miss on real products from four markets, and the engine errors it found.</p>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>3 min read</li><li>Source: benchmark-review-v0.4.md</li></ul>
+  </div>
+</section>
+<div class="layout container">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html" aria-current="page">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <main id="content" class="content" tabindex="-1">
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#final-result">Final result</a></li><li><a href="#the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one</a></li><li><a href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests</a></li><li><a href="#still-open">Still open</a></li></ol></details></div>
+    <article class="prose"><p>Companion to <code>benchmark-rules-v0.4.md</code> (generated). This file is the manual review of every miss, done on 2026-10-16.</p>
+<h2 id="final-result">Final result<a class="anchor" href="#final-result" aria-label="Link to this section">#</a></h2>
+<ul>
+<li>6,000 real products (2,000 BR, 2,000 US, 1,000 FR, 1,000 DE), 160,570 engine runs, median 3.1 ms per label.</li>
+<li>4,607 declared allergens checked: 4,090 🔴, 492 🟡, <strong>25 🟢 (0.5%)</strong>, same in STRICT mode.</li>
+<li>Coverage of ingredients found in the database: BR 93.1%, US 94.6%, FR 95.0%, DE 91.5%.</li>
+<li>Metamorphic properties: 94,097 checks. Deterministic, case-insensitive, STRICT never milder, "may contain milk" never improves a milk verdict: 0 failures. Ingredient order: 45 failures (0.2%), see below.</li>
+</ul>
+<h2 id="the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one<a class="anchor" href="#the-25-remaining-misses-one-by-one" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cause</th>
+<th>Count</th>
+<th>Products</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The allergen does not appear in the ingredient text (Open Food Facts took it from traces, a separate allergen box or a data error)</td>
+<td>22</td>
+<td>Organic Garbanzo Beans (gluten, milk), Organic Popcorn (milk), Light Rye Crispbread (milk), Tortilla Wraps (gluten; the text is a different product), Great Grains (milk; the text says "CONTAINS WHEAT AND PECANS"), Omega-3 Trail Mix (egg), Cacao céréales, Les Fourrées, Tartines Multi-Céréales, Saveir, Biscuits Petit déj (milk), Chicorée soluble (gluten), Reiswaffeln (sesame), Cornichons (egg, milk), Fette croccanti (milk), Pan Bauletto (egg, milk), Rummo Rigatoni (milk), kimchi 4056489152903 (fish, crustacean)</td>
+</tr>
+<tr>
+<td>Ingredient text is unreadable OCR</td>
+<td>1</td>
+<td>Biscoito Aveia e Mel (soy)</td>
+</tr>
+<tr>
+<td>The reference disagrees with the regulation or the label</td>
+<td>2</td>
+<td>Natural Coconut Cream (tree nuts: the FDA removed coconut in 2025 and EU Annex II does not list it), Paçoquita (gluten: the label says GLUTEN FREE and lists only peanut, sugar, salt)</td>
+</tr>
+<tr>
+<td><strong>Engine error with the allergen readable in the text</strong></td>
+<td><strong>0</strong></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p>What this means: on this sample, the engine did not miss an allergen that was written in the ingredient text. It cannot see allergens that are only in a separate box or in the traces field, which is why the agent must transcribe every statement on the pack (instructions, section 2).</p>
+<h2 id="engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests<a class="anchor" href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests" aria-label="Link to this section">#</a></h2>
+<p>Each one is a test in <code>mcp-server/tests/test_benchmark_findings.py</code> or <code>test_review_findings.py</code>.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Error</th>
+<th>Example from the sample</th>
+<th>Effect before the fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A period inside parentheses, or used as a separator, ended the list</td>
+<td>"MILK CHOCOLATE (SUGAR, MILK. CHOCOLATE, … LECITHIN (SOY)"; "HASELNÜSSE (13%). MAGERMILCHPULVER"</td>
+<td>Soy and milk after the period were dropped: false greens</td>
+</tr>
+<tr>
+<td>French trace wording not read as "may contain"</td>
+<td>"Peut aussi contenir du lait", "Traces éventuelles de lait"</td>
+<td>Possible milk not reported</td>
+</tr>
+<tr>
+<td>Unnamed oil not flagged as possible soy</td>
+<td>"Atum, água, óleo, sal"</td>
+<td>🟢 for soy where the oil is usually soybean</td>
+</tr>
+<tr>
+<td>Claims before the list emptied it</td>
+<td>"Sem glúten, Rico em fibras, Farinha de trigo…", "CONTÉM FENILALANINA Água…"</td>
+<td>No ingredients read ("insufficient")</td>
+</tr>
+<tr>
+<td>German ß changed in upper case</td>
+<td>"WEISSWEIN" vs "Weißwein"</td>
+<td>Verdict depended on letter case</td>
+</tr>
+<tr>
+<td>Decimal commas split items</td>
+<td>"chocolat noir 12,5%"</td>
+<td>Items "chocolat noir 12" and "5%"</td>
+</tr>
+<tr>
+<td>Open Food Facts allergen markup</td>
+<td>"<em>Weizenmehl</em>"</td>
+<td>Term not found</td>
+</tr>
+<tr>
+<td>Oats treated as gluten in every market</td>
+<td>111 of 626 US "gluten-free" products came out 🔴, most with oats or "gluten free oats"</td>
+<td>US false alarms; oats are not a gluten grain under 21 CFR 101.91 (now 🟡 in the US, 🔴 in BR and EU and in STRICT mode). Conflicts: 111 → 24</td>
+</tr>
+<tr>
+<td>"corn semolina" and "gluten free oats" inherited gluten from a word in the name</td>
+<td>"Enriched corn meal"</td>
+<td>False gluten alarms on corn</td>
+</tr>
+<tr>
+<td>Missing basic terms</td>
+<td>"sel", "eau", "blé", "riz", additive class names, vitamins</td>
+<td>Unknown items (🟡 by default)</td>
+</tr>
+</tbody>
+</table></div>
+<p>A lesson worth keeping: adding coverage can raise false greens. When "blé" became a known term, some French labels that had been 🟡 only because of an unknown word turned 🟢, which exposed the missing trace wording. Coverage changes must always be re-measured on the benchmark.</p>
+<h2 id="still-open">Still open<a class="anchor" href="#still-open" aria-label="Link to this section">#</a></h2>
+<ul>
+<li><strong>Ingredient order (45 cases, 0.2%).</strong> Rejoining the parsed items in reverse order can move a statement keyword or a claim inside the list and change where it ends. These are mostly labels with claims or nutrition text mixed into the ingredient field. To review case by case (roadmap F-05).</li>
+<li><strong>Claims on the pack in conflict with the engine</strong> (section 2 of the report): 24 of 626 US and 25 of 382 Brazilian "gluten-free" products, and many "lactose-free" products (BR 29 of 100, US 36 of 64, DE 26 of 66), mostly because milk is listed and lactase is not (XC3 asks for a person in that case). Each needs a person: it can be an engine false alarm, a data error or a real labeling issue (roadmap F-05).</li>
+</ul></article>
+    <nav class="pager" aria-label="Previous and next"><a class="prev" href="test-plan.html"><small>Previous</small><span>Test plan</span></a><a class="next" href="agent-evaluation.html"><small>Next</small><span>Agent evaluation</span></a></nav>
+    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/evidence/benchmark-review-v0.4.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/evidence/benchmark-review-v0.4.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#final-result">Final result</a></li><li><a href="#the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one</a></li><li><a href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests</a></li><li><a href="#still-open">Still open</a></li></ol></nav>
+</div>
+<footer class="site-footer"><div class="container">
+  <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
+    <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
+  <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
+  <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>
+</div></footer>
+<div class="search" role="dialog" aria-modal="true" aria-label="Search the documentation" hidden>
+  <div class="search-panel">
+    <label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="visually-hidden">Search</span>
+      <input type="search" placeholder="Search the documentation" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"></label>
+    <ul class="search-results" id="search-results" role="listbox"></ul>
+    <p class="search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="assets/search-index.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

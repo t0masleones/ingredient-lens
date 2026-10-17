@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="420" viewBox="0 0 1280 420" role="img" aria-labelledby="t d">
+  <title id="t">Ingredient Lens</title>
+  <desc id="d">A first-pass label compliance agent for Brazil, the US and the EU: rules engine, governed data and measured evidence.</desc>
+  <defs>
+    <clipPath id="frame"><rect width="1280" height="420" rx="24"/></clipPath>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#F2FEFF"/>
+      <stop offset="1" stop-color="#D5FAFE"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="10" stdDeviation="14" flood-color="#00313B" flood-opacity="0.28"/>
+    </filter>
+  </defs>
+  <g clip-path="url(#frame)">
+    <rect width="1280" height="420" fill="#00596B"/>
+    <!-- curved light panel, right -->
+    <path d="M820 0 C 735 120, 735 300, 860 420 L1280 420 L1280 0 Z" fill="url(#panel)"/>
+    <!-- decorative arcs -->
+    <circle cx="1235" cy="455" r="150" fill="none" stroke="#FFFFFF" stroke-width="22" opacity="0.95"/>
+    <circle cx="70" cy="-40" r="120" fill="none" stroke="#27787F" stroke-width="18"/>
+    <circle cx="742" cy="404" r="46" fill="none" stroke="#FFE600" stroke-width="10"/>
+
+    <!-- headline -->
+    <text x="72" y="92" font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="600" letter-spacing="1.5" fill="#FFE600">AI AGENT · BUSINESS ANALYSIS CASE STUDY</text>
+    <text x="72" y="168" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="64" font-weight="700" fill="#FFFFFF">Ingredient Lens</text>
+    <text x="72" y="222" font-family="Fraunces, Georgia, 'Times New Roman', serif" font-size="30" font-weight="600" fill="#D5FAFE">Label compliance, first pass.</text>
+    <text x="72" y="262" font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="21" fill="#E6F4F5">Rules engine, governed data and measured evidence</text>
+    <text x="72" y="290" font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="21" fill="#E6F4F5">for allergens, GMO and organic claims.</text>
+    <!-- pill -->
+    <rect x="72" y="320" width="236" height="50" rx="25" fill="#FFE600"/>
+    <text x="190" y="352" text-anchor="middle" font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="20" font-weight="700" fill="#10292E">Brazil · US · EU</text>
+
+    <!-- checklist card -->
+    <g filter="url(#shadow)">
+      <rect x="878" y="62" width="330" height="292" rx="18" fill="#FFFFFF"/>
+    </g>
+    <text x="904" y="104" font-family="Fraunces, Georgia, serif" font-size="22" font-weight="700" fill="#00596B">Compliance checklist</text>
+    <text x="904" y="128" font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="14" fill="#5B6B6E">Market: BR · rules 0.4.0</text>
+    <line x1="904" y1="144" x2="1182" y2="144" stroke="#E2ECED" stroke-width="2"/>
+    <g font-family="Signika, 'Segoe UI', Arial, sans-serif" font-size="16">
+      <text x="904" y="178" fill="#3B3B3B">Allergen declaration</text>
+      <rect x="1112" y="160" width="70" height="26" rx="13" fill="#D9F2E6"/>
+      <text x="1147" y="178" text-anchor="middle" font-weight="700" fill="#00553A">Pass</text>
+      <text x="904" y="218" fill="#3B3B3B">Gluten statement</text>
+      <rect x="1112" y="200" width="70" height="26" rx="13" fill="#D9F2E6"/>
+      <text x="1147" y="218" text-anchor="middle" font-weight="700" fill="#00553A">Pass</text>
+      <text x="904" y="258" fill="#3B3B3B">GMO labelling</text>
+      <rect x="1102" y="240" width="80" height="26" rx="13" fill="#FFF7B3"/>
+      <text x="1142" y="258" text-anchor="middle" font-weight="700" fill="#5C4A00">Review</text>
+      <text x="904" y="298" fill="#3B3B3B">Organic claim</text>
+      <rect x="1112" y="280" width="70" height="26" rx="13" fill="#FDE2DE"/>
+      <text x="1147" y="298" text-anchor="middle" font-weight="700" fill="#8A1C12">Fail</text>
+      <text x="904" y="336" font-weight="700" fill="#00596B">Decision: escalate</text>
+    </g>
+  </g>
+</svg>

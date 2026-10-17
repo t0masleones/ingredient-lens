@@ -1,60 +1,125 @@
-# Ingredient Lens
+<div align="center">
 
-An AI agent for the **first-pass label compliance check** a regulatory or quality analyst does: it reads a label (photo or text), checks it against its own statements and the rules of its market (Brazil, US, EU), returns a checklist with the legal basis of each check, and hands doubtful cases to a person. It also helps shoppers and cooks check labels against intolerances, allergies and **animal or plant origin** (vegan and vegetarian). Built on Claude with an MCP rules engine, with the whole process documented in this repo.
+<img src="docs/assets/readme-banner.svg" alt="Ingredient Lens: label compliance, first pass. Rules engine, governed data and measured evidence for allergens, GMO and organic claims in Brazil, the US and the EU." width="100%">
 
-> **Status:** v0.4 · **Video demo:** _link coming soon_
-> Independent prototype. Not affiliated with any company. Not medical, legal or regulatory advice.
+<br>
 
-## Three ways to use it
-| Mode | Who | Input | Output |
-|---|---|---|---|
-| **Analyst (primary)** | Regulatory or quality analyst | Label photo or text | Compliance checklist per market (pass / fail / review, with the legal basis), mismatches, escalation decision, handoff note and supplier questions. See [05 · Analyst workflow](docs/05-analyst-workflow.md) |
-| **Shopper** | Person with intolerances or allergies | Photo or text of one label | Short traffic-light verdict in plain words |
-| **Cook** | Cook or recipe developer serving guests with restrictions (vegan, vegetarian, allergens) | Recipe ingredients (text) or product labels (photos) | Table with origin and fit per ingredient, plus what to verify with the supplier |
+<a href="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml"><img alt="CI status" src="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml/badge.svg"></a>
+<img alt="Instructions v0.5" src="https://img.shields.io/badge/instructions-v0.5-00596B?style=flat-square">
+<img alt="Rules engine 0.4.0" src="https://img.shields.io/badge/rules_engine-0.4.0-27787F?style=flat-square">
+<img alt="3,145 tests passing" src="https://img.shields.io/badge/tests-3%2C145_passing-007681?style=flat-square">
+<img alt="Benchmark on 6,000 real products" src="https://img.shields.io/badge/benchmark-6%2C000_real_products-1D4F91?style=flat-square">
+<img alt="105 agent runs, 0 safe claims" src="https://img.shields.io/badge/agent_eval-105_runs%2C_0_%E2%80%9Csafe%E2%80%9D-00596B?style=flat-square&labelColor=27787F">
+<img alt="Markets Brazil, US, EU" src="https://img.shields.io/badge/markets-BR_%C2%B7_US_%C2%B7_EU-FFE600?style=flat-square&labelColor=00596B">
 
-Safety comes first in every mode: symptoms described now get emergency guidance only (SAMU 192, 911, 112), and the agent never calls a product "safe".
+<h3>
+<a href="#-at-a-glance">At a glance</a> ·
+<a href="#-how-it-works">How it works</a> ·
+<a href="#-measured-evidence">Evidence</a> ·
+<a href="#-quick-start">Quick start</a> ·
+<a href="#-documentation">Documentation</a>
+</h3>
 
-## How it works
+</div>
+
+**Ingredient Lens** is an AI agent for the **first-pass label compliance check** a regulatory or quality analyst does. It reads a label (photo or text), checks it against its own statements and the rules of its market, returns a checklist with the legal basis of each check, and ends every label in one of three decisions: **approve**, **request evidence** or **escalate** to a person. It also helps shoppers and cooks check labels against intolerances, allergies and animal or plant origin.
+
+> [!IMPORTANT]
+> **The model reads and explains. A tested rules engine decides.** Claude transcribes the label and talks to the user; an MCP server applies the market rules, the ingredient data and the cross-checks, so the same label always gets the same verdict.
+
+<br>
+
+## ✦ At a glance
+
+<img src="docs/assets/readme-metrics.svg" alt="3,145 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 105 agent runs" width="100%">
+
+| Mode | Who | What they get |
+|:--|:--|:--|
+| 🧾 **Analyst** · *primary* | Regulatory or quality analyst | A compliance checklist per market (pass · fail · review, with the legal basis), GMO and certification claims, mismatches, a decision and a handoff note with supplier questions. [Analyst workflow →](docs/05-analyst-workflow.md) |
+| 🛒 **Shopper** | Person with an intolerance or allergy | A short traffic-light verdict in plain words, with what to check next |
+| 🍳 **Cook** | Cook serving guests with restrictions | A table with the origin and fit of each ingredient, and what to ask the supplier |
+
+<br>
+
+## ✦ How it works
+
 ```mermaid
+%%{init: {"theme": "base", "themeVariables": {"primaryColor": "#D5FAFE", "primaryTextColor": "#00596B", "primaryBorderColor": "#27787F", "lineColor": "#27787F", "secondaryColor": "#FFF7B3", "tertiaryColor": "#F1F6F6", "fontFamily": "Segoe UI, Arial, sans-serif"}}}%%
 flowchart LR
-  A[Label photo, text or recipe] --> B[Transcribe exactly, mark unsure words]
-  B --> C[Split: ingredients / allergen / gluten / lactose statements]
-  C --> D[Tag each ingredient: allergen groups and origin animal / plant / either]
-  D --> E[Check against the profile: intolerance, allergy, vegan, vegetarian]
-  E --> F[Cross-check ingredients vs label statements]
-  F --> G[Verdict + confidence + what to verify]
-  B -. unreadable .-> H[Ask for a better photo]
-  G -. strict mode, mismatch or unclear origin .-> I[Human review or supplier check]
+  L[Label photo or text] --> S{Symptoms<br>described?}
+  S -->|yes| EM[Emergency guidance only]
+  S -->|no| T[Claude transcribes<br>every statement]
+  T --> R[check_label<br>rules engine]
+  D[(653 curated +<br>35,043 public terms)] --- R
+  R --> C[Market checklist<br>BR · US · EU]
+  C -->|all pass| A[Approve]
+  C -->|evidence missing| E[Request evidence]
+  C -->|fail or contradiction| X[Escalate]
+  X --> K[Review ticket<br>with traceability]
 ```
 
-## Reproduce it for free (about 10 minutes)
-1. Create a free Claude account, then **Projects → New project** (name it "Ingredient Lens").
-2. Paste `agent/project-instructions.md` into the project's instructions.
-3. Add the four files in `agent/knowledge/` to the project's files.
-4. Open a chat inside the project. Attach a photo of an ingredient panel (1000x1000 px or larger works best) or paste a recipe, and say what you need to avoid.
+<details>
+<summary><b>The four MCP tools</b></summary>
+<br>
 
-## v0.2: the agent uses tools
-In v0.1 the model did everything from its instructions. In v0.2 it calls an MCP server (`mcp-server/`) and only transcribes and explains:
+| Tool | What it returns | Why it is not left to the model |
+|:--|:--|:--|
+| `check_label` | Verdict per restriction, findings, cross-checks XC1–XC5, the market `compliance` checklist, `next_step` (approve · request_evidence · escalate), `evidence_needed`, and the `wording` to use instead of “safe” | Same input, same answer, tested in code |
+| `lookup_ingredient` | One term from the SQLite database, with its source | Governed, versioned data instead of free text |
+| `create_review_ticket` | A GitHub Issue or a local queue entry with product, supplier, lot, artwork version and failed checks | Human in the loop, with traceability |
+| `usage_stats` | Verdict mix, escalation rate and frequent mismatches from the audit log | Monitoring after go-live |
 
-| Tool | What it does | Why it is not left to the model |
-|---|---|---|
-| `check_label` | Matches each ingredient against the ingredient database, applies the profile and STRICT mode, cross-checks label statements (rules XC1-XC4) | Same input, same answer, every time; rules are tested in code |
-| `lookup_ingredient` | Looks up one term in a SQLite database: 653 curated terms from glossaries and regulations plus 35,043 terms from Open Food Facts in 7 languages (v0.4); every row cites its source | Governed, versioned data instead of free text |
-| `create_review_ticket` | Sends escalated cases to a human-review queue (GitHub Issues or a local file) | Human in the loop for contradictions and STRICT cases |
-| `usage_stats` | Verdict mix, escalation rate and most frequent mismatches from the audit log | Monitoring after go-live |
+</details>
 
-```mermaid
-flowchart LR
-  U[User: photo or text] --> C[Claude: transcribe exactly]
-  C --> T[check_label tool]
-  T --> DB[(Ingredient DB - SQLite)]
-  T --> R[Rules: profile, STRICT, XC1-XC4]
-  R --> C2[Claude: explain in plain words]
-  R -- escalate --> Q[create_review_ticket: GitHub Issue]
-  T --> L[(Audit log)] --> S[usage_stats]
-```
+### Principles built into the agent
 
-**Connect it to Claude Desktop** (needs [uv](https://docs.astral.sh/uv/)): Settings → Developer → Edit Config, add the block below with your path, restart Claude Desktop, then use the Ingredient Lens project from the desktop app.
+> [!CAUTION]
+> **Emergency first.** If someone describes symptoms happening now, the agent gives emergency guidance only (SAMU 192, 911, 112) and does not analyse the label. The rules engine enforces this too.
+
+> [!WARNING]
+> **Never “safe”.** A product is never called safe, organic, non-GMO, certified or compliant. The agent says what the label claims and which evidence settles it: a certificate from a body accredited to ISO/IEC 17065, a lab report from an ISO/IEC 17025 laboratory, or a supplier record.
+
+> [!NOTE]
+> **Every rule names its basis.** RDC 26/2015 and Lei 10.674/2003 (BR), FALCPA, the FASTER Act and 21 CFR 101.91 (US), Regulation 1169/2011 (EU), plus GMO and organic rules for each market. Points that text cannot settle are always “review”, never “pass”.
+
+<br>
+
+## ✦ Measured evidence
+
+| What was measured | Result | Report |
+|:--|:--|:--|
+| Rules engine on 6,000 real products | 25 of 4,607 declared allergens missed (0.5%), none readable in the ingredient text; coverage 91.5–95.0%; 94,097 property checks | [benchmark](tests/evidence/benchmark-rules-v0.4.md) · [manual review](tests/evidence/benchmark-review-v0.4.md) |
+| Full agent: never “safe” | 0 claims in 105 runs, 36 of them adversarial | [agent evaluation v0.5](tests/evidence/agent-eval-v0.5.md) |
+| Full agent: emergency first | 21/21, and no false emergency on a past reaction (3/3) | [agent evaluation v0.5](tests/evidence/agent-eval-v0.5.md) |
+| Full agent: Analyst and certification decisions | 15/15 Analyst cases, 12/12 GMO and certification cases | [agent evaluation v0.5](tests/evidence/agent-eval-v0.5.md) |
+| Full agent: plain language | Objective checks 18/18; model judges 4+/5 in 11–15 of 18 runs. **Partly met** | [agent evaluation v0.5](tests/evidence/agent-eval-v0.5.md) |
+| Golden set (text rows) | 25/25, written by the author, so not an unbiased figure | [results](tests/evidence/results-rules-v0.4.md) |
+| Curated data without a source | 68 of 83 rows sourced by an automated cross-check; 15 left for a person | [cross-check](tests/evidence/curated-crosscheck.md) |
+
+> [!TIP]
+> The benchmark found nine real engine errors (for example a period inside the ingredient list hiding milk and soy). Each one was fixed and kept as a regression test. The reference allergens are partly derived with the same taxonomy this project imports, so agreement is reported as an upper bound.
+
+<br>
+
+## ✦ Quick start
+
+<details>
+<summary><b>1 · Use it as a Claude Project</b> (no code, about 10 minutes)</summary>
+<br>
+
+1. In Claude, open **Projects → New project** and name it “Ingredient Lens”.
+2. Paste [`agent/project-instructions.md`](agent/project-instructions.md) into the project's instructions.
+3. Add the files in [`agent/knowledge/`](agent/knowledge/) to the project's files.
+4. Open a chat, attach a photo of an ingredient panel or paste the text, and say what you need to avoid, or write “analyst mode” and the market.
+
+</details>
+
+<details>
+<summary><b>2 · Connect the rules engine to Claude Desktop</b> (MCP, needs <a href="https://docs.astral.sh/uv/">uv</a>)</summary>
+<br>
+
+In Claude Desktop: **Settings → Developer → Edit Config**, add the block below with your path, then restart the app. In Claude Code, the [`.mcp.json`](.mcp.json) at the repository root connects it automatically.
+
 ```json
 {
   "mcpServers": {
@@ -66,37 +131,86 @@ flowchart LR
   }
 }
 ```
-Leave out `env` to keep review tickets in a local file. In Claude Code, the `.mcp.json` at the repo root connects it automatically.
 
-**Check the rules without any LLM:** `cd mcp-server`, then `uv run pytest` (unit, data and property tests) and `uv run eval_rules.py` (the golden set's text rows). The benchmark on 6,000 real products: `uv run python ../tests/benchmark/run_benchmark.py`. GitHub Actions runs the tests on every push.
+Leave out `env` to keep review tickets in a local file. If Claude Desktop does not find `uv`, use its full path in `command`.
 
-## Repo map
+</details>
+
+<details>
+<summary><b>3 · Run the tests and evaluations</b></summary>
+<br>
+
+```bash
+cd mcp-server
+uv run pytest                                      # 3,145 unit, data and property tests
+uv run eval_rules.py                               # golden set, text rows
+uv run python ../tests/benchmark/run_benchmark.py  # 6,000 real products, about 20 minutes
+# full agent evaluation (uses your Claude login): set CLAUDE_BIN to the Claude Code executable
+uv run python ../tests/agent_eval/run_agent_eval.py --repeats 3
+```
+
+</details>
+
+<details>
+<summary><b>4 · Build the documentation site</b></summary>
+<br>
+
+```bash
+uv run --no-project --with markdown==3.7 python docs/_build/build.py
+```
+
+Open `docs/index.html` in a browser. To publish it, enable GitHub Pages with **Settings → Pages → Deploy from a branch → main → /docs**.
+
+</details>
+
+<br>
+
+## ✦ Documentation
+
+The documentation is a static site in [`docs/`](docs/) (open `docs/index.html`), generated from the Markdown files below, which also read well here on GitHub.
+
+| | Document | What it covers |
+|:--|:--|:--|
+| 📒 | [Project record](docs/00-project-record.html) | Activity log, decision log, traceability, quality metrics, risks and the prioritised backlog (an HTML page: open it in a browser or on GitHub Pages) |
+| 🔎 | [Discovery](docs/01-discovery.md) | Problem, personas, current processes, business relevance |
+| ⚖️ | [Tool and data selection](docs/02-tool-selection.md) | Build vs buy for the agent and for its data |
+| ✅ | [Requirements](docs/03-requirements.md) | User stories with measurable acceptance criteria |
+| 🧭 | [Critical review and roadmap](docs/04-critical-review.md) | What the evidence does and does not show, and what comes next |
+| 🧾 | [Analyst workflow](docs/05-analyst-workflow.md) | To-be process, roles, checks per market, decision rule, ROI model, pilot plan |
+| 🏅 | [Standards alignment](docs/06-standards-alignment.md) | Certification (ISO/IEC 17065), testing (ISO/IEC 17025), GMO and organic rules, and how the agent follows them |
+| 🧪 | [Test plan](tests/test-plan.md) | Every test layer, from unit tests to the agent evaluation |
+| 📝 | [Changelog](agent/CHANGELOG.md) | What changed in each version |
+
+<details>
+<summary><b>Repository map</b></summary>
+<br>
+
 | Path | What it is |
-|---|---|
-| `docs/00-project-record.html` | Living project record (BA view): activity log, decisions, traceability, metrics, risks, backlog. Open in a browser |
-| `docs/01-discovery.md` | Problem, personas, current process, pain points, business relevance |
-| `docs/02-tool-selection.md` | Why a Claude Project (no-code), and what would need engineering |
-| `docs/03-requirements.md` | User stories, acceptance criteria, safety requirements |
-| `docs/04-critical-review.md` | What the evidence does and does not show, weaknesses, roadmap of future activities |
-| `docs/05-analyst-workflow.md` | Primary use case: to-be process, roles, compliance checks per market, ROI model, pilot plan |
-| `agent/` | The agent: instructions, knowledge files, changelog |
-| `mcp-server/` | Tools: rules engine, ingredient database (`data/`, see [data/README.md](mcp-server/data/README.md) for sources and licenses), review queue, audit log, unit tests |
-| `tests/` | Test plan, golden set (including trap cases), benchmark sample of real products (`benchmark/`), agent evaluation (`agent_eval/`), evidence |
+|:--|:--|
+| [`agent/`](agent/) | Instructions, knowledge files (label rules, glossaries, plain words, standards and certifications) and the changelog |
+| [`mcp-server/`](mcp-server/) | The MCP server: rules engine, ingredient data ([sources and licenses](mcp-server/data/README.md)), review queue, audit log, tests |
+| [`tests/`](tests/) | Test plan, golden set, benchmark sample of real products, agent evaluation cases and transcripts, evidence reports |
+| [`docs/`](docs/) | Documentation sources and the generated site (`_build/build.py`, `assets/`, `src/`) |
+| [`.github/workflows/`](.github/workflows/) | Continuous integration: tests and golden set on every push, benchmark on demand |
 
-## Results
-- Rules engine (no LLM) vs golden set text rows: 25/25 ([results-rules-v0.4.md](tests/evidence/results-rules-v0.4.md)). The golden set was used while building the rules, so it is not an unbiased accuracy figure.
-- **Benchmark on 6,000 real products** (most scanned in BR, US, FR, DE; v0.4): 25 of 4,607 declared allergens came out 🟢 (0.5%), and a manual review found none where the allergen was readable in the ingredient text ([report](tests/evidence/benchmark-rules-v0.4.md), [review](tests/evidence/benchmark-review-v0.4.md)). Coverage 91.5–95.0%. 94,097 property checks (deterministic, case-insensitive, STRICT never milder). The benchmark found nine engine errors, all fixed and kept as tests. The reference allergens are partly derived with the same taxonomy this project imports, so read agreement as an upper bound.
-- Automated tests: 3,127 on every push (GitHub Actions).
-- **Agent evaluation** (Claude with the instructions, knowledge files and MCP tools, 93 runs; v0.4.1): never calls a product "safe" (0 in 93, 36 of them adversarial), emergency guidance first when symptoms are described (21/21, no false emergency), Analyst escalation right in 15/15. Plain language is partly met: objective checks 18/18, model judges 4+/5 in 11 and 9 of 18 runs ([report](tests/evidence/agent-eval-v0.4.md)).
-- Ingredient coverage on 10 new labels (5 BR, 5 US) written after v0.2: 75% with the curated data only, 95% with the Open Food Facts terms (v0.3).
-- _Still to measure: photo transcription, and user trust in a UAT._
+</details>
 
-## Limitations
-- Photo reading can fail on curved packs, glare and tiny print. The agent must say so instead of guessing.
-- A label cannot show everything: processing aids (for example bone char used to filter some sugar) and cross-contact are usually invisible.
-- Ingredient origin is often not stated (shortening, glycerin, natural flavors). The agent marks these "Can be either" and says what to check; it never guesses.
-- The rules are a simplified summary. See `agent/knowledge/label-rules-br-us-eu.md` and its linked sources.
-- Open Food Facts terms are volunteer-maintained and give diet status only; their allergen status stays 🟡 unless there is evidence.
+<br>
 
-Ingredient data from Open Food Facts is © Open Food Facts contributors, available under the [Open Database License](https://opendatacommons.org/licenses/odbl/1-0/).
-- The agent never says a product is "safe" or "vegan for sure". For allergy or celiac disease, always confirm with the manufacturer and a health professional.
+## ✦ Limitations
+
+> [!WARNING]
+> - **Photos are not measured yet.** Transcription can fail on curved packs, glare and tiny print; the agent must ask for a better photo instead of guessing.
+> - **A label cannot show everything.** Processing aids, cross-contact and allergens printed outside the transcribed text are invisible to the rules.
+> - **Plain language is partly met** in the default shopper format, and no user test (UAT) has been done yet.
+> - **Some regulatory details are marked TO VERIFY** in [`standards-and-certifications.md`](agent/knowledge/standards-and-certifications.md); checks on those points return “review”.
+> - For an allergy or celiac disease, always confirm with the manufacturer and a health professional.
+
+<br>
+
+<div align="center">
+<sub>
+Independent prototype by <a href="https://github.com/t0masleones">t0masleones</a>. Not affiliated with any company. Not medical, legal or regulatory advice.<br>
+Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, available under the <a href="https://opendatacommons.org/licenses/odbl/1-0/">Open Database License</a>.
+</sub>
+</div>

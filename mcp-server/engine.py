@@ -433,6 +433,11 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
 
     findings += _statement_findings(st, avoid, strict)
     mismatches = _cross_check(st, terms, has_lactase, market)
+    label_norm = normalize(label_text)
+    if ORGANIC_CLAIM.search(label_norm) and any(p.search(label_norm) for p in GM_DECLARED.values()):
+        # Organic rules in BR (Lei 10.831/2003), the US (7 CFR 205.105) and the EU (2018/848) exclude GMOs.
+        mismatches.append({"rule": "XC5", "issue": "Organic claim, but the label also declares a genetically "
+                           "modified (transgênico / bioengineered) ingredient; organic rules exclude GMOs."})
 
     verdict = worst(*(f["level"] for f in findings)) if findings else "green"
     if mismatches:
@@ -450,6 +455,14 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         notes.append(f"Contains {', '.join(not_required)}: an allergen elsewhere, but not one this market "
                      f"({market.upper()}) requires in the allergen statement.")
     unknown = sum(1 for _, ts in matched if not ts)
+    compliance = compliance_checklist(st, terms, mismatches, market, label_norm, items)
+    # Analyst decision (D-07): approve, request evidence (a claim or threshold needs a certificate, lab report or
+    # supplier record) or escalate (a failed check or a contradiction). Failed checks escalate only in the analyst
+    # cross-check (no personal profile); a shopper does not need a ticket for a missing gluten statement.
+    failed = [c for c in compliance if c["status"] == "fail"]
+    evidence = [f"{c['check']}: {c['detail']}" for c in compliance if c["status"] == "review"]
+    escalate = bool(mismatches) or (strict and verdict != "green") or (not avoid and bool(failed))
+    next_step = "escalate" if escalate else ("request_evidence" if evidence else "approve")
     return {
         "rules_version": RULES_VERSION,
         "data_version": f"{matcher.data_version} terms",
@@ -458,7 +471,9 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         "mode": "STRICT" if strict else ("DIET" if set(avoid) <= DIETS and avoid else "INFORMATIVE"),
         "profile": avoid,
         "verdict": verdict,
-        "escalate_to_human_review": bool(mismatches) or (strict and verdict != "green"),
+        "escalate_to_human_review": escalate,
+        "next_step": next_step,
+        "evidence_needed": evidence,
         "coverage": f"{len(items) - unknown}/{len(items)} ingredients found in the database",
         "ingredients": ingredients,
         "statements": {"allergen_statement_found": st.allergen_statement_found,
@@ -468,7 +483,7 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
         "findings": findings,
         "mismatches": mismatches,
         "notes": notes,
-        "compliance": compliance_checklist(st, terms, mismatches, market),
+        "compliance": compliance,
         "wording": wording_for(verdict, avoid),
     }
 
@@ -482,7 +497,76 @@ def wording_for(verdict: str, avoid: list[str]) -> str:
     return 'Never say "safe" or "seguro". Explain each red and yellow item and what would settle it.'
 
 
-def compliance_checklist(st: Statements, terms: list[Term], mismatches: list[dict], market: str) -> list[dict]:
+# Crops grown commercially in genetically modified form (USDA List of Bioengineered Foods; CTNBio approvals).
+GM_CROP = re.compile(r"\b(soja|soy|soya|soybeans?|milho|corn|maize|maiz|canola|colza|rapeseed|algodao|cotton(?:seed)?|"
+                     r"beterraba|sugar ?beets?|alfafa|alfalfa|papaya|mamao)\b")
+GM_DECLARED = {
+    "BR": re.compile(r"\btransgenic[oa]s?\b|\bsimbolo t\b|\btriangulo amarelo\b|\[t\]"),
+    "US": re.compile(r"\bbioengineered\b|\bderived from bioengineering\b|\bbioengineered food\b"),
+    "EU": re.compile(r"\bgenetically modified\b|\bgenetisch verandert\b|\bgenetiquement modifie\b|"
+                     r"\bgeneticamente modificad[oa]\b"),
+}
+NON_GMO_CLAIM = re.compile(r"\b(non ?gmo|gmo free|nao transgenico|nao contem transgenicos?|livre de transgenicos|"
+                           r"sem transgenicos|ohne gentechnik|vlog|proterra|sans ogm|sin ogm|sem ogm)\b")
+ORGANIC_CLAIM = re.compile(r"\b(organico|organica|organic|organique|biologique|biologico|okologisch|biologisch|"
+                           r"usda organic|sisorg|eu organic)\b")
+CERTIFIED_MARK = re.compile(r"\b(certified gluten free|gfco|crossed grain|espiga barrada|certified vegan|vegan society|"
+                            r"selo vegano|certificado vegano|non gmo project verified|kosher|halal)\b")
+
+
+def certification_checks(label_norm: str, items: list[str], market: str, add) -> None:
+    """Claims that depend on a certificate or a test. The engine can only ask for the evidence.
+
+    Certification is done by bodies accredited to ISO/IEC 17065; thresholds (GMO %, ppm, mg) need a result from a
+    laboratory accredited to ISO/IEC 17025.
+    """
+    gm_items = sorted({i for i in items if GM_CROP.search(normalize(i))})
+    declared = GM_DECLARED.get(market, GM_DECLARED["EU"]).search(label_norm)
+    gmo_rule = {
+        "BR": ("Decreto 4.680/2003; Portaria MJ 2.658/2003",
+               "above 1% of the product the label must say 'transgênico' and show the T symbol on the main panel"),
+        "US": ("National Bioengineered Food Disclosure Standard (7 CFR Part 66)",
+               "listed crops are presumed bioengineered unless records show otherwise; disclosure is needed above 5% "
+               "per ingredient; highly refined ingredients with no detectable modified genetic material may be exempt"),
+        "EU": ("Regulation (EC) 1829/2003, Art. 12-13",
+               "above 0.9% per ingredient (adventitious or technically unavoidable) the label must say "
+               "'genetically modified' or 'produced from genetically modified …'"),
+    }.get(market)
+    if gmo_rule and gm_items:
+        if declared:
+            add("GMO labelling", "pass", gmo_rule[0], "A GMO declaration was found on the label.")
+        else:
+            add("GMO labelling", "review", gmo_rule[0],
+                f"{', '.join(gm_items)}: crop also grown as GMO. {gmo_rule[1][0].upper() + gmo_rule[1][1:]}. "
+                "Ask the supplier for the GMO status or a PCR result from an ISO/IEC 17025 laboratory.")
+    if NON_GMO_CLAIM.search(label_norm):
+        add("Non-GMO claim", "review", "Certification scheme (for example Non-GMO Project, VLOG, ProTerra)",
+            ("The label lists " + ", ".join(gm_items) + "; " if gm_items else "")
+            + "check the certificate (body, number, scope, validity) or a PCR result; a claim is not evidence.")
+    if ORGANIC_CLAIM.search(label_norm):
+        rule = {"BR": ("Lei 10.831/2003; Decreto 6.323/2007; IN MAPA 18/2014",
+                       "certified organic products carry the SisOrg seal and the certifier's name"),
+                "US": ("USDA National Organic Program (7 CFR Part 205)",
+                       "the certifying agent must be named on the information panel ('Certified organic by …')"),
+                "EU": ("Regulation (EU) 2018/848",
+                       "the EU organic logo, the control body's code number and 'EU / non-EU Agriculture' must appear")
+                }.get(market, ("Organic regulation of the market", "check the certifier"))
+        # What text can show: the US certifier statement and the EU control body code (for example "BR-BIO-000").
+        missing = {"US": not re.search(r"\bcertified organic by\b|\bcertified by\b", label_norm),
+                   "EU": not re.search(r"\b[a-z]{2} (bio|oko|oeko|eko|org|eco|ekol|ecol)\w* \d{2,3}\b", label_norm),
+                   }.get(market, False)
+        add("Organic claim", "fail" if missing else "review", rule[0],
+            (f"Not found in the text: {'the certifier statement' if market == 'US' else 'the control body code number'}. "
+             if missing else "")
+            + f"{rule[1][0].upper() + rule[1][1:]}. Verify the certificate in the certifier's public register.")
+    if CERTIFIED_MARK.search(label_norm):
+        add("Other certification mark", "review", "Certification by a body accredited to ISO/IEC 17065",
+            f"Mark found: '{CERTIFIED_MARK.search(label_norm).group(0)}'. Verify the certificate (body, number, "
+            "scope, validity); the agent cannot certify.")
+
+
+def compliance_checklist(st: Statements, terms: list[Term], mismatches: list[dict], market: str,
+                         label_norm: str = "", items: list[str] | None = None) -> list[dict]:
     """D-07: first-pass label compliance checks for the Analyst workflow, per market.
 
     Each check is pass / fail / review (a person must look) / n/a, with its legal basis. Text alone cannot prove
@@ -535,6 +619,7 @@ def compliance_checklist(st: Statements, terms: list[Term], mismatches: list[dic
     if st.vegan_claim:
         add("Vegan claim", "fail" if "XC4" in rules else "review", "No legal definition in BR or the US",
             "Animal-derived items listed." if "XC4" in rules else "No animal-derived item found; claim not verified.")
+    certification_checks(label_norm, items or [], market, add)
     return out
 
 
