@@ -45,3 +45,6 @@
 {"id": "U01", "story": "SUBST", "lang": "en", "profile": ["vegan"], "prompt": "Cook mode. Pastry for vegan guests: flour; lard; salt; water. What can I use instead of what does not fit?"}
 {"id": "U02", "story": "SUBST", "lang": "en", "profile": ["tree_nuts", "vegan"], "prompt": "Cook mode. Brownies for a guest with a tree nut allergy who is also vegan: flour; cocoa; coconut oil; maple syrup; almond milk. Suggest substitutes for anything that does not fit."}
 {"id": "U03", "story": "SUBST", "lang": "pt", "profile": ["soy", "vegan"], "prompt": "Modo cozinheiro. Bolo para uma convidada vegana com alergia a soja: farinha de trigo, açúcar, manteiga, ovos, fermento. O que eu troco?"}
+{"id": "M01", "story": "US-13", "lang": "en", "prompt": "Cook mode. Dinner for 6; one guest has a severe peanut allergy. Starter: rice crackers (INGREDIENTS: rice, sunflower oil, salt) with hummus (chickpeas, tahini, lemon, garlic, olive oil). Anything to worry about?"}
+{"id": "M02", "story": "US-13", "lang": "pt", "prompt": "Modo cozinheiro. Vou fazer um jantar e uma convidada tem doença celíaca. Receita: arroz, frango, cebola, alho, azeite, molho de soja, sal. Posso servir?"}
+{"id": "M03", "story": "US-13", "lang": "en", "prompt": "Cook mode. Birthday cake for a child with an egg and milk allergy: flour, sugar, oil, cocoa, baking soda, vinegar, water. Is it fine?"}

@@ -32,7 +32,7 @@ ROOT = DOCS.parent
 REPO = "https://github.com/t0masleones/ingredient-lens"
 BLOB = REPO + "/blob/main/"
 TREE = REPO + "/tree/main/"
-TESTS_PASSED = "3,293"          # update after each full pytest run (unit, data and property tests)
+TESTS_PASSED = "3,298"          # update after each full pytest run (unit, data and property tests)
 SITE = "Ingredient Lens"
 
 
@@ -103,6 +103,9 @@ PAGES = [
     {"out": "data-crosscheck.html", "src": "tests/evidence/curated-crosscheck.md", "nav": "Data cross-check",
      "group": "Evidence", "title": "Data cross-check", "eyebrow": "Evidence · Data governance",
      "desc": "Curated rows without a source, checked against a public dataset, and the decisions taken."},
+    {"out": "08-human-checklist.html", "src": "docs/08-human-checklist.md", "nav": "Human checklist",
+     "group": "Reference", "title": "Human checklist", "eyebrow": "08 · What only a person can do",
+     "desc": "The tests and decisions the project still needs from people, in order, with how to do each one."},
     {"out": "changelog.html", "src": "agent/CHANGELOG.md", "nav": "Changelog", "group": "Reference",
      "title": "Changelog", "eyebrow": "Reference",
      "desc": "What changed in each version of the agent, the rules and the data."},

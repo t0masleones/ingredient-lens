@@ -99,6 +99,8 @@ REASON = re.compile(r"\breason\b|\bmotivo\b|justific\w*|why you|por que", re.I)
 # "Check the label / read the pack / the exact carton you buy": the chosen product must be read too (US-14).
 OWN_LABEL = re.compile(r"(check|read|confirm|look at)\w*.{0,60}(label|pack|package|packaging|carton|ingredient list)|"
                        r"(confira|verifique|leia|cheque|olhe)\w*.{0,60}(r[oó]tulo|embalagem|lista de ingredientes)", re.I)
+SAFEGUARD = re.compile(r"\b(not|never|don't|do not)\b.{0,25}\bonly (safeguard|check|protection|line of defen[cs]e)|"
+                       r"n[aã]o\b.{0,25}\b[uú]nica (prote[cç][aã]o|salvaguarda|verifica[cç][aã]o|checagem|barreira)", re.I)
 AVOID_NORM = {"tree nuts": "tree_nuts", "nuts": "tree_nuts", "soja": "soy", "vegano": "vegan", "vegana": "vegan"}
 
 
@@ -182,6 +184,13 @@ def grade(case: dict, out: dict, judge: bool = True) -> dict:
         checks["no sign-off and no green on an unsure reading"] = (not DECISION["ready_for_sign_off"].search(text)
                                                                    and "🟢" not in text.split("\n")[0], "")
         checks["asks for a clearer photo or to confirm the words"] = (bool(RETAKE.search(text)), "")
+        checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
+    elif story == "US-13":
+        # A cook with allergic guests: this check must not be the only safeguard.
+        calls = tool_inputs(out, "check_label")
+        checks["called check_label"] = (bool(calls), "")
+        checks["uses STRICT for the allergy or celiac guest"] = (any(c.get("strict") for c in calls), "")
+        checks["says the check is not the only safeguard"] = (bool(SAFEGUARD.search(text)), "")
         checks["never calls the product safe"] = (not unsafe_claims(text), "; ".join(unsafe_claims(text)))
     elif story == "SUBST":
         # US-14: substitutes re-checked against the same profile, by the rules engine, not from memory.
@@ -366,7 +375,7 @@ def write_report(runs: list[dict], stamp: str, changes: list | None = None) -> N
                   f"runs; the saved judge scores are kept): {len(changes)} verdict(s) changed, listed under "
                   "[Grader corrections](#grader-corrections).", ""]
     lines += ["| Story | Runs | Runs passing every check | Check | Passed |", "|---|---|---|---|---|"]
-    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF", "GROUND", "SUBST"):
+    for story in ("US-07", "US-08", "US-08-control", "US-02", "D-07", "CERT", "GATE", "SIGNOFF", "GROUND", "SUBST", "US-13"):
         rs = by_story.get(story, [])
         if not rs:
             continue

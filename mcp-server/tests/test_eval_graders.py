@@ -77,3 +77,17 @@ def test_asking_to_read_the_substitute_label_is_recognised(text):
 
 def test_naming_a_substitute_alone_is_not_a_label_check():
     assert not ev.OWN_LABEL.search("Use vegetable margarine instead of lard.")
+
+
+@pytest.mark.parametrize("text", [
+    "It must not be your only safeguard for a guest with a severe allergy.",
+    "Do not let it be your only safeguard.",
+    "This check must not be the only safeguard.",
+    "Esta checagem não deve ser a única proteção da convidada.",
+])
+def test_not_the_only_safeguard_is_recognised(text):
+    assert ev.SAFEGUARD.search(text), text
+
+
+def test_a_plain_disclaimer_is_not_the_safeguard_reminder():
+    assert not ev.SAFEGUARD.search("This is a quick check, not medical advice.")

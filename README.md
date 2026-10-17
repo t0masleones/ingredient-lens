@@ -7,7 +7,7 @@
 <a href="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml"><img alt="CI status" src="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Instructions v0.6" src="https://img.shields.io/badge/instructions-v0.6-00596B?style=flat-square">
 <img alt="Rules engine 0.6.0" src="https://img.shields.io/badge/rules_engine-0.6.0-27787F?style=flat-square">
-<img alt="3,293 tests passing" src="https://img.shields.io/badge/tests-3%2C293_passing-007681?style=flat-square">
+<img alt="3,298 tests passing" src="https://img.shields.io/badge/tests-3%2C298_passing-007681?style=flat-square">
 <img alt="Benchmark on 6,000 real products" src="https://img.shields.io/badge/benchmark-6%2C000_real_products-1D4F91?style=flat-square">
 <img alt="120 agent runs, 0 safe claims" src="https://img.shields.io/badge/agent_eval-120_runs%2C_0_%E2%80%9Csafe%E2%80%9D-00596B?style=flat-square&labelColor=27787F">
 <img alt="Markets Brazil, US, EU" src="https://img.shields.io/badge/markets-BR_%C2%B7_US_%C2%B7_EU-FFE600?style=flat-square&labelColor=00596B">
@@ -33,7 +33,7 @@
 
 ## ✦ At a glance
 
-<img src="docs/assets/readme-metrics.svg" alt="3,293 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
+<img src="docs/assets/readme-metrics.svg" alt="3,298 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
 
 | Mode | Who | What they get |
 |:--|:--|:--|
@@ -157,7 +157,7 @@ Leave out `env` to keep review tickets in a local file. If Claude Desktop does n
 
 ```bash
 cd mcp-server
-uv run pytest                                      # 3,293 unit, data and property tests
+uv run pytest                                      # 3,298 unit, data and property tests
 uv run eval_rules.py                               # golden set, text rows
 uv run python ../tests/benchmark/run_benchmark.py  # 6,000 real products, about 45 minutes
 # full agent evaluation (uses your Claude login): set CLAUDE_BIN to the Claude Code executable
@@ -194,6 +194,7 @@ The documentation is a static site in [`docs/`](docs/) (open `docs/index.html`),
 | 🧾 | [Analyst workflow](docs/05-analyst-workflow.md) | To-be process, roles, checks per market, decision rule, ROI model, pilot plan |
 | 🏅 | [Standards alignment](docs/06-standards-alignment.md) | Certification (ISO/IEC 17065), testing (ISO/IEC 17025), GMO and organic rules, and how the agent follows them |
 | 📜 | [Rule register](docs/07-rule-register.md) | Every rule with its legal basis per market, dates, verification level, history and tests, and how rule changes are released |
+| ☑️ | [Human checklist](docs/08-human-checklist.md) | What only a person can test or decide, in order, with how to do it (in Portuguese) |
 | 🧪 | [Test plan](tests/test-plan.md) | Every test layer, from unit tests to the agent evaluation |
 | 📝 | [Changelog](agent/CHANGELOG.md) | What changed in each version |
 
