@@ -46,7 +46,9 @@ def check_label(label_text: str, avoid: list[str], strict: bool = False, market:
 
 
 @mcp.tool()
-def record_review_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "") -> dict:
+def record_review_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "",
+                           reason_category: str = "", evidence: str = "", second_reviewer: str = "",
+                           escalation_needed: bool | None = None) -> dict:
     """Record a named person's decision on a checked label (human sign-off). Only call it when the user, acting as
     the reviewer, states the decision. Never decide on their behalf.
 
@@ -57,8 +59,15 @@ def record_review_decision(check_id: str, reviewer: str, decision: str, reason: 
             ready_for_sign_off counts as an override.
         reason: Required for a rejection or an override.
         ticket: Optional review ticket link.
+        reason_category: Required for an override: supplier_evidence, transcription_error, data_error,
+            rule_exception or artwork_pending. Ask the reviewer; never choose it for them.
+        evidence: Required for an override on a critical finding (allergen, gluten or lactose statement, claim
+            contradiction): the document, lab report or ticket that settles it.
+        second_reviewer: Required for an override on a critical finding: a second person, not the reviewer.
+        escalation_needed: Optional, when the tool escalated: the reviewer's view of whether it had to.
     """
-    return review.record_decision(check_id, reviewer, decision, reason, ticket)
+    return review.record_decision(check_id, reviewer, decision, reason, ticket, reason_category, evidence,
+                                  second_reviewer, escalation_needed)
 
 
 @mcp.tool()

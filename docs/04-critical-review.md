@@ -59,11 +59,11 @@ Ordered by value for a regulated B2B setting. P1 = before showing results as evi
 | F-18 | GMO and organic rules as data, including the outcome of PLC 34/2015 in Brazil and USDA BE list updates | Regulation changes without code changes (with F-09) | S | P2 |
 | F-19 | Hand-labelled reference set (labels read by a regulatory reviewer): a confusion matrix per check, market and input type | The only way to measure precision and recall without a coupled reference | M | P1 |
 | F-22 | Apply effective dates: check a label against the rules in force when it was printed | Jurisdiction and date drift (R-14) | M | P2 |
-| F-23 | Structured override reasons (category, severity, evidence attached yes/no) and a second approver for overrides on allergen, gluten and legal claims; report the override rate per check and per input type | Overrides as controlled deviations, as an auditor expects; free text alone gives no KPI | S | P1 |
-| F-24 | Escalation reasons as a reported distribution (top 10) and a reviewer verdict on each escalation (needed / not needed) | Separates good escalation (OCR, ambiguity, evidence) from noise (parser, dictionary) | S | P1 |
+| F-23 | Structured override reasons (category, severity, evidence attached yes/no) and a second approver for overrides on allergen, gluten and legal claims; report the override rate per check and per input type | Overrides as controlled deviations, as an auditor expects; free text alone gives no KPI | S | P1 · ✅ Done |
+| F-24 | Escalation reasons as a reported distribution (top 10) and a reviewer verdict on each escalation (needed / not needed) | Separates good escalation (OCR, ambiguity, evidence) from noise (parser, dictionary) | S | P1 · ✅ Done |
 | F-25 | "Not verifiable from text" for additive limits, standards of identity, contaminants and packaging: say the check exists and what evidence or data it needs | Clients ask for these; text cannot settle them, so the agent must name the gap instead of staying silent | S | P2 |
 | F-26 | Fraud-vulnerable ingredient note (honey, olive oil, spices…) from public sources, asking for a vulnerability assessment (with F-17) | GFSI schemes require food fraud assessments | M | P3 |
-| F-27 | Hard-case test pack (12 to 20 cases): gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, "may contain" variants, umbrella ingredients, additives without concentration | Locks in fail-closed behaviour on the cases a regulatory team worries about | S | P1 |
+| F-27 | Hard-case test pack (12 to 20 cases): gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, "may contain" variants, umbrella ingredients, additives without concentration | Locks in fail-closed behaviour on the cases a regulatory team worries about | S | P1 · ✅ Done |
 
 ## 4. What went well and should be kept
 - Decisions are logged with the alternatives considered; every change has a changelog line and a test.

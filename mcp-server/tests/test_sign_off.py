@@ -40,8 +40,10 @@ def test_approving_an_escalated_label_is_an_override_with_reason(audit_log, m):
     r = run(m, CONTRADICTION)
     assert r["next_step"] == "escalate"
     assert "error" in review.record_decision(r["check_id"], "A. Reviewer", "approve")
-    out = review.record_decision(r["check_id"], "A. Reviewer", "approve", "Supplier certificate: malt below 20 ppm")
-    assert out["decision"] == "approve_with_override" and out["override"]
+    out = review.record_decision(r["check_id"], "A. Reviewer", "approve", "Supplier certificate: malt below 20 ppm",
+                                 reason_category="supplier_evidence", evidence="Lab report LR-2026-114",
+                                 second_reviewer="B. Regulatory")
+    assert out["decision"] == "approve_with_override" and out["override"] and "XC1" in out["critical_findings"]
 
 
 def test_rejection_needs_a_reason_and_a_named_reviewer(audit_log, m):

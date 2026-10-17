@@ -30,8 +30,25 @@ def _append(path: Path, record: dict) -> None:
 
 
 AUDIT_KEYS = ("check_id", "input_sha256", "rules_version", "data_version", "verdict", "next_step",
-              "escalate_to_human_review", "requires_sign_off", "coverage", "mode", "ticket", "decision", "reviewer")
+              "escalate_to_human_review", "requires_sign_off", "coverage", "mode", "ticket", "decision", "reviewer",
+              "override", "reason_category", "second_reviewer", "critical_findings", "escalation_needed")
 DECISIONS = {"approve", "reject", "approve_with_override"}
+# Overrides are controlled deviations (F-23): a standard category makes them countable; free text explains.
+OVERRIDE_CATEGORIES = {
+    "supplier_evidence": "a certificate, lab report or supplier declaration settles the point",
+    "transcription_error": "the tool read the label wrongly (OCR, typing)",
+    "data_error": "the ingredient data is wrong; a disputed-mapping issue should follow",
+    "rule_exception": "the rule does not apply to this product or market, approved by Regulatory",
+    "artwork_pending": "the pack copy will change before release; tracked in change control",
+}
+# Findings on these rules are critical: an override needs evidence and a second approver.
+CRITICAL_RULES = {"ALG-DECL", "BR-GLUTEN", "BR-LACTOSE-STMT", "XC1", "XC2", "XC3", "XC5"}
+
+
+def critical_findings(check: dict) -> list[str]:
+    """Rules on which this check failed or found a contradiction, among the critical ones."""
+    failed = {rule for rule, status in check.get("compliance", {}).items() if status == "fail"}
+    return sorted((failed | set(check.get("mismatch_rules", []))) & CRITICAL_RULES)
 
 
 def audit(tool: str, inputs: dict, result: dict) -> None:
@@ -61,9 +78,13 @@ def find_check(check_id: str) -> dict | None:
     return hit
 
 
-def record_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "") -> dict:
+def record_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "",
+                    reason_category: str = "", evidence: str = "", second_reviewer: str = "",
+                    escalation_needed: bool | None = None) -> dict:
     """A named person's decision on a checked label. Approving a label the tool did not mark ready for sign-off is
-    an override and needs a reason; so does a rejection. Returns the record, or an error the agent must show."""
+    an override: it needs a reason and a reason category, and on a critical finding (allergen, gluten or lactose
+    statement, claim contradiction) also evidence and a second approver. A rejection needs a reason. The tool's
+    own result is never changed: the override is recorded next to it. Returns the record, or an error to show."""
     decision = decision.strip().lower()
     if decision not in DECISIONS:
         return {"error": f"decision must be one of {sorted(DECISIONS)}"}
@@ -78,8 +99,19 @@ def record_decision(check_id: str, reviewer: str, decision: str, reason: str = "
         decision = "approve_with_override"
     if (override or decision == "reject") and not reason.strip():
         return {"error": f"a reason is required: the tool's decision was '{tool_step}'"}
+    critical = critical_findings(check) if override else []
+    if override:
+        if reason_category not in OVERRIDE_CATEGORIES:
+            return {"error": "an override needs a reason_category", "categories": OVERRIDE_CATEGORIES}
+        if critical and not evidence.strip():
+            return {"error": f"an override on {', '.join(critical)} needs the evidence (document, lab report or "
+                             "ticket reference)"}
+        if critical and (not second_reviewer.strip() or second_reviewer.strip().lower() == reviewer.strip().lower()):
+            return {"error": f"an override on {', '.join(critical)} needs a second approver, not the same person"}
     record = {"check_id": check_id, "reviewer": reviewer.strip(), "decision": decision, "tool_next_step": tool_step,
-              "override": override, "reason": reason.strip(), "ticket": ticket,
+              "override": override, "reason": reason.strip(), "reason_category": reason_category or None,
+              "evidence": evidence.strip() or None, "second_reviewer": second_reviewer.strip() or None,
+              "critical_findings": critical, "escalation_needed": escalation_needed, "ticket": ticket,
               "rules_version": check["result"].get("rules_version"), "data_version": check["result"].get("data_version")}
     audit("record_review_decision", {"check_id": check_id}, record)
     return {**record, "recorded_at": _now()}
@@ -140,5 +172,20 @@ def usage_stats() -> dict:
         "decisions": dict(Counter(r["result"].get("decision") for r in decisions)),
         "override_rate": round(sum(r["result"].get("decision") == "approve_with_override" for r in decisions)
                                / max(len(decisions), 1), 2),
+        # Why labels were escalated (F-24): failed rules, contradictions and the ingestion gate, most frequent first.
+        "escalation_reasons": dict(Counter(
+            reason for r in checks if r["result"].get("next_step") in ("escalate", "manual_review")
+            for reason in ([f"fail:{k}" for k, v in r.get("compliance", {}).items() if v == "fail"]
+                           + r.get("mismatch_rules", [])
+                           + ([f"gate:{r['ingestion_gate']}"] if r.get("ingestion_gate") in ("blocked", "degraded")
+                              else []))).most_common(10)),
+        # The reviewer's verdict on each escalation: a high "not needed" share is noise to fix in rules or data.
+        "escalations_not_needed": sum(r["result"].get("escalation_needed") is False for r in decisions),
+        "escalations_judged": sum(r["result"].get("escalation_needed") is not None for r in decisions),
+        "overrides_by_category": dict(Counter(r["result"].get("reason_category") for r in decisions
+                                              if r["result"].get("override"))),
+        # The same override category three times or more is a process problem (CAPA), not an exception.
+        "capa_signals": [c for c, k in Counter(r["result"].get("reason_category") for r in decisions
+                                               if r["result"].get("override")).items() if k >= 3],
         "first_call": rows[0]["at"], "last_call": rows[-1]["at"],
     }

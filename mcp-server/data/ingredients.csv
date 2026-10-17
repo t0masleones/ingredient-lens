@@ -527,7 +527,7 @@ colorant,multi,,,,,either,,Class name only: the substance is not named; can be c
 colorants,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
 farbstoff,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
 farbstoffe,multi,,,,,either,,Class name only: the substance is not named; can be carmine (insect),codex-cxg-36-1989 (class names)
-realcador de sabor,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
+realcador de sabor,multi,,,,soy;fish;gluten,either,,Class name only: the substance is not named; inosinates can come from meat or fish and hydrolysed protein from soy or wheat (v0.6: possible allergens added after the hard-case tests),codex-cxg-36-1989 (class names)
 flavor enhancer,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
 flavour enhancer,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
 potenciador del sabor,multi,,,,,either,,Class name only: the substance is not named; inosinates can come from meat or fish,codex-cxg-36-1989 (class names)
@@ -652,3 +652,5 @@ monoglycerides,en,,,,,either,,Can be from animal or plant fat,origin-glossary
 acetato de retinila,pt,,,,,mineral_synthetic,,Vitamin A,eu-1925-2006-annex-ii (vitamin forms)
 retinyl palmitate,en,,,,,mineral_synthetic,,Vitamin A,eu-1925-2006-annex-ii (vitamin forms)
 kohlensaure,de,,,,,mineral_synthetic,,,openfoodfacts:en:carbon-dioxide
+temperos,pt,,,,soy;gluten;milk;celery;mustard;sesame,either,,Seasoning mix: in Brazilian labels usually a blend that can hold soy sauce powder wheat or milk; not a single spice (v0.6 hard-case tests),codex-cxg-36-1989 (class names)
+tempero,pt,,,,soy;gluten;milk;celery;mustard;sesame,either,,Seasoning mix: in Brazilian labels usually a blend that can hold soy sauce powder wheat or milk; not a single spice (v0.6 hard-case tests),codex-cxg-36-1989 (class names)

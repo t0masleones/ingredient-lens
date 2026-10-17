@@ -22,7 +22,7 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 |---|---|
 | Phase | Build v0.6 |
 | Rules engine vs golden set (text rows) | 25 / 25 |
-| Automated tests on every push | 3,251 passed |
+| Automated tests on every push | 3,274 passed |
 | Real products benchmarked | 6,000 (BR, US, FR, DE) |
 | Declared allergens missed | 22 of 4,607 (0.5%) |
 | Rules in the register | 16, each with basis, dates and tests |
@@ -62,6 +62,7 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 Newest first. One entry per meaningful step.
 
 <!-- timeline -->
+- **2026-10-17 · Overrides, escalation reasons and hard cases** — F-23: an override needs a standard reason category, and on a critical finding also the evidence and a second approver; the tool's result is kept. F-24: `usage_stats` reports the top escalation reasons, the reviewer's verdict on each escalation and a CAPA signal when the same override category repeats. F-27: a hard-case test pack, which found "temperos" and "realçador de sabor" coming out 🟢 for a soy allergy in STRICT mode; both now carry possible allergens. Tests: 3,274 passed.
 - **2026-10-17 · Second external consultation** — Six open questions to the same external AI assistant, public information only. It confirmed the next steps in order (expert-labelled gold set, then a photo ingestion benchmark, then a pilot), gave acceptance criteria for a pilot, described overrides as controlled deviations (structured reasons, evidence, a second approver for critical checks) and listed what clients ask for beyond the label text (additive limits, standards of identity, contaminants, packaging). Five roadmap items added (F-23 to F-27); pilot acceptance criteria in [05 · Analyst workflow](05-analyst-workflow.md#pilot-plan-proposed). [Details](04-critical-review.md#6-second-consultation-after-v06)
 - **2026-10-17 · v0.6 measured** — Benchmark on the same 6,000 products with every miss explained: 22 of 4,607 declared allergens missed (0.5%): 20 are not in the ingredient text at all, 2 are disagreements between the reference and the rule, and none is an engine error or an unreadable text. The ingredient list was read in 99.9% of the product texts; photos are not measured. The benchmark exposed four engine errors, all fixed with ten regression tests. The most serious: a statement inside an ingredient's parentheses ("arôme naturel (contient alcool)") ended the list, so later ingredients were dropped (gelatin came out 🟢 for a vegan) and the rest of the list was read as the label's allergen statement. It also found data errors that wait for a second reviewer, the largest being nutmeg ("noz-moscada") read as a tree nut. Agent evaluation: 120 runs, 0 "safe" claims, gate 9/9, sign-off 6/6; four grader errors fixed in general and all runs graded again; a controlled re-judge showed the plain-language score did not change from v0.5. [Benchmark review](../tests/evidence/benchmark-review-v0.6.md) · [Agent evaluation](../tests/evidence/agent-eval-v0.6.md)
 - **2026-10-17 · v0.6 built** — Ingestion gate that fails closed (rule INGEST-GATE): low confidence gives no verdict, an unsure word means nothing passes, a photo of part of the pack turns a missing statement into review. Rule register with the legal basis, dates, verification level, history and tests of 16 rules, read by the engine and enforced by CI ([07 · Rule register](07-rule-register.md)). "Approve" became "ready for sign-off"; new tool `record_review_decision`, where an override needs a reason. Every result carries a `check_id`, the input hash and a hash of the data. Data governance: synonym policy, disputed-mapping workflow and issue forms ([data README](../mcp-server/data/README.md#governance)). Instructions v0.6 with a scope statement.
@@ -252,8 +253,8 @@ Ranked by risk reduced and value to the analyst workflow, then by whether it can
 | 14 | F-11, F-12, F-13: hosted server, document input, regulated additive lists | Needs infrastructure or data access | Only if a pilot goes ahead | ⚪ To do |
 | 15 | F-15, F-16: certificate lookup in public registers; lab reports against claim thresholds | Automatable | Turns "request evidence" into a check | ⚪ To do |
 | 16 | F-17, F-18: food fraud vulnerability as data; GMO and organic rules as data | Automatable; sources must be confirmed | GFSI food fraud requirement | ⚪ To do |
-| 17 | F-23, F-24: structured override reasons with a second approver for critical checks; escalation reasons reported | Automatable | What an auditor expects of overrides (second consultation) | 🟣 Proposed |
-| 18 | F-27: hard-case test pack (gluten-free with malt, vegan with natural flavours, umbrella ingredients) | Automatable | Locks in fail-closed behaviour on the cases a regulatory team worries about | 🟣 Proposed |
+| 17 | F-23, F-24: structured override reasons with a second approver for critical checks; escalation reasons reported | Done | What an auditor expects of overrides (second consultation) | ✅ Done |
+| 18 | F-27: hard-case test pack (gluten-free with malt, vegan with natural flavours, umbrella ingredients) | Done; found two umbrella terms that were 🟢 | Locks in fail-closed behaviour on the cases a regulatory team worries about | ✅ Done |
 | 19 | F-25, F-26: "not verifiable from text" for additive limits, identity standards, contaminants and packaging; fraud-prone ingredient note | Automatable; F-26 needs public sources | Names the gaps clients ask about | 🟣 Proposed |
 
 <details>
@@ -303,6 +304,7 @@ Newest first.
 
 | Version | Date | Author | Change |
 |---|---|---|---|
+| 8 | 2026-10-17 | t0masleones | F-23, F-24 and F-27 done; two curated rows made stricter. |
 | 7 | 2026-10-17 | t0masleones | Second external consultation recorded; F-23 to F-27 proposed; pilot acceptance criteria. |
 | 6 | 2026-10-17 | t0masleones | v0.6 and the response to the external review; the page moved from HTML to Markdown so it reads in GitHub's viewer; decisions D-15 to D-20; US-21 to US-24; R-05 and R-10 mitigated, R-12 to R-15 added; quality metrics from the interpretable benchmark and the agent evaluation v0.6; backlog re-ranked with F-19 and F-22. |
 | 5 | 2026-10-17 | t0masleones | v0.5 standards alignment: decisions D-13 and D-14, US-19 and US-20 passed, R-11 added, roadmap F-15 to F-18; agent evaluation v0.5 (105 runs). Page moved into the documentation site. |
