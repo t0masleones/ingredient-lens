@@ -41,27 +41,29 @@
     <p class="eyebrow">05 · Primary use case</p>
     <h1>Analyst workflow</h1>
     <p class="lead">Label compliance first pass: to-be process, roles, checks per market, the decision rule and an ROI model ready for a pilot.</p>
-    <ul class="meta"><li>Updated 2026-10-16</li><li>5 min read</li><li>Source: 05-analyst-workflow.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>6 min read</li><li>Source: 05-analyst-workflow.md</li></ul>
   </div>
 </section>
 <div class="layout container">
-  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html" aria-current="page">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html" aria-current="page">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
   <main id="content" class="content" tabindex="-1">
-    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#why-this-is-the-primary-use-case">Why this is the primary use case</a></li><li><a href="#to-be-process-v05">To-be process (v0.5)</a></li><li><a href="#what-the-compliance-checklist-covers">What the compliance checklist covers</a></li><li><a href="#what-the-benchmark-says-about-this-workflow">What the benchmark says about this workflow</a></li><li><a href="#roi-model-to-be-filled-with-measured-values">ROI model (to be filled with measured values)</a></li><li><a href="#pilot-plan-proposed">Pilot plan (proposed)</a></li></ol></details></div>
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#why-this-is-the-primary-use-case">Why this is the primary use case</a></li><li><a href="#to-be-process-v06">To-be process (v0.6)</a></li><li><a href="#what-the-compliance-checklist-covers">What the compliance checklist covers</a></li><li><a href="#what-the-benchmark-says-about-this-workflow">What the benchmark says about this workflow</a></li><li><a href="#roi-model-to-be-filled-with-measured-values">ROI model (to be filled with measured values)</a></li><li><a href="#pilot-plan-proposed">Pilot plan (proposed)</a></li></ol></details></div>
     <article class="prose"><h2 id="why-this-is-the-primary-use-case">Why this is the primary use case<a class="anchor" href="#why-this-is-the-primary-use-case" aria-label="Link to this section">#</a></h2>
 <p>Shopper and Cook show the idea; the Analyst workflow is where a food company spends expert time. A regulatory or quality analyst reads every new or changed label, checks it against its own statements and the rules of each market, and sends doubtful cases to a senior reviewer or the supplier. A first pass that is repeatable, cites the legal basis of each check and says "review" when text cannot settle a point saves the reading and lookups, and keeps the decision with the expert.</p>
-<h2 id="to-be-process-v05">To-be process (v0.5)<a class="anchor" href="#to-be-process-v05" aria-label="Link to this section">#</a></h2>
+<h2 id="to-be-process-v06">To-be process (v0.6)<a class="anchor" href="#to-be-process-v06" aria-label="Link to this section">#</a></h2>
 <figure class="diagram"><pre class="mermaid">flowchart TD
-  A[Label artwork, photo or spec sheet] --&gt; B[Agent transcribes every statement on the pack]
-  B --&gt; C[check_label: market rules, cross-checks XC1-XC5, compliance checklist]
+  A[Label artwork, photo or spec sheet] --&gt; B[Agent transcribes every statement, marks unsure words and rates its reading]
+  B --&gt; G{Ingestion gate}
+  G -- low confidence or no list --&gt; M[Manual review: no verdict, ask for a clearer photo of the whole pack]
+  G -- readable --&gt; C[check_label: rule register, market rules, cross-checks XC1-XC5, compliance checklist]
   C --&gt; D{next_step}
-  D -- approve --&gt; E[Analyst skims the checklist and approves]
+  D -- ready_for_sign_off --&gt; E[Analyst reads the checklist and signs: record_review_decision]
   D -- request_evidence --&gt; R[Analyst collects certificates, lab reports or supplier records]
   R --&gt; C
   D -- escalate --&gt; F[Agent writes the handoff note and supplier questions]
-  F --&gt; G[create_review_ticket with traceability: product, supplier, lot, artwork version]
-  G --&gt; H[Senior reviewer decides]
-  E --&gt; I[(Audit log: every check, its basis, rules and data version, the decision)]
+  F --&gt; T[create_review_ticket with traceability: product, supplier, lot, artwork version]
+  T --&gt; H[Senior reviewer decides, with a reason for any override]
+  E --&gt; I[(Audit log: check_id, input hash, rules and data version, each rule&#x27;s result, the signed decision)]
   H --&gt; I</pre></figure>
 <div class="table-wrap"><table>
 <thead>
@@ -74,9 +76,15 @@
 </thead>
 <tbody>
 <tr>
-<td>Transcribe the label, mark unsure words</td>
+<td>Transcribe the label, mark unsure words, rate the reading</td>
 <td>Does</td>
 <td>Checks unclear photos</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Stop when the reading is unreliable</td>
+<td>Asks for a clearer photo; no verdict</td>
+<td>Sends one or types the text</td>
 <td>—</td>
 </tr>
 <tr>
@@ -86,9 +94,9 @@
 <td>—</td>
 </tr>
 <tr>
-<td>Decide on a clean label</td>
-<td>Proposes</td>
-<td><strong>Decides</strong></td>
+<td>Sign off a clean label</td>
+<td>Marks it ready for sign-off; never approves</td>
+<td><strong>Signs</strong> (<code>record_review_decision</code>)</td>
 <td>—</td>
 </tr>
 <tr>
@@ -96,6 +104,12 @@
 <td>Writes the handoff note</td>
 <td>Opens the ticket</td>
 <td><strong>Decides</strong></td>
+</tr>
+<tr>
+<td>Override the tool</td>
+<td>Asks for the reason and records it</td>
+<td>—</td>
+<td><strong>Decides, with a reason</strong></td>
 </tr>
 <tr>
 <td>Ask the supplier</td>
@@ -203,9 +217,10 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>Decision rule (<code>next_step</code>).</strong> Approve when every check passes or does not apply; Request evidence when a check is "review" (the analyst collects the evidence and runs the check again); Escalate when a check fails or a mismatch exists. Standards behind it: <a href="06-standards-alignment.html">06 · Standards alignment</a>.</p>
+<p>Each row also carries its <code>rule_id</code>, the date the rule applies from and how well its basis was checked; the full list is the <a href="07-rule-register.html">rule register</a>.</p>
+<p><strong>Decision rule (<code>next_step</code>).</strong> Ready for sign-off when every check passes or does not apply; Request evidence when a check is "review" (the analyst collects the evidence and runs the check again); Escalate when a check fails or a mismatch exists. Before any of these, the ingestion gate: an unreliable reading gets no decision (<code>needs_manual_review</code>), and an unsure word means no check can pass. The tool never approves: a named reviewer signs, and an approval against the tool's decision is an override that needs a reason (automation bias is the risk this guards against). Standards behind it: <a href="06-standards-alignment.html">06 · Standards alignment</a>.</p>
 <h2 id="what-the-benchmark-says-about-this-workflow">What the benchmark says about this workflow<a class="anchor" href="#what-the-benchmark-says-about-this-workflow" aria-label="Link to this section">#</a></h2>
-<p>On the 6,000 real products, Analyst mode flags 4% of US labels, 13–18% of EU labels and 76% of Brazilian labels. The Brazilian figure is not a real escalation rate: Open Food Facts usually stores only the ingredient list, without the "ALÉRGICOS" and "CONTÉM GLÚTEN" statements, so most labels look as if those statements were missing. The lesson for the workflow: the agent must transcribe every statement on the pack, and a pilot must measure the escalation rate on complete labels.</p>
+<p>On the 6,000 real products, Analyst mode flags 4% of US labels, 13–18% of EU labels and 76% of Brazilian labels. The Brazilian figure is not a real escalation rate: Open Food Facts usually stores only the ingredient list, without the "ALÉRGICOS" and "CONTÉM GLÚTEN" statements, so most labels look as if those statements were missing. The lesson for the workflow: the agent must transcribe every statement on the pack (since v0.6, when the photos may not show the whole pack, a missing statement is review, not fail), and a pilot must measure the escalation rate on complete labels.</p>
 <h2 id="roi-model-to-be-filled-with-measured-values">ROI model (to be filled with measured values)<a class="anchor" href="#roi-model-to-be-filled-with-measured-values" aria-label="Link to this section">#</a></h2>
 <p>The formula is fixed; the inputs are assumptions until a pilot measures them. Nothing below is a measured result except the model cost per label.</p>
 <p><strong>Monthly analyst hours saved = L × [t_manual − (1 − e) × t_clean − e × (t_manual + t_handoff)] ÷ 60</strong></p>
@@ -252,8 +267,8 @@
 <tr>
 <td>Model cost per label</td>
 <td>Claude usage per agent run</td>
-<td>about US$ 0.07</td>
-<td>Measured in the agent evaluation (<code>tests/evidence/agent-eval-v0.4.md</code>)</td>
+<td>about US$ 0.03</td>
+<td>Measured: mean of the 42 Analyst-style runs in the agent evaluation v0.6 (<code>tests/evidence/agent-eval-v0.6.md</code>), with prompt caching; US$ 0.07 in v0.4</td>
 </tr>
 </tbody>
 </table></div>
@@ -291,7 +306,7 @@
 </tr>
 </tbody>
 </table></div>
-<p>With these assumptions the model cost is about US$ 21 per month for 300 labels. The decision rule for a pilot: go ahead if measured hours saved stay above 25% with e measured on complete labels, and if no label the agent marked clean is later found non-compliant by the reviewer (the safety metric for this workflow).</p>
+<p>With these assumptions the model cost is about US$ 9 per month for 300 labels. The decision rule for a pilot: go ahead if measured hours saved stay above 25% with e measured on complete labels, and if no label the agent marked ready for sign-off is later found non-compliant by the reviewer (the safety metric for this workflow). The pilot should also report the override rate and the share of photos the gate stopped (<code>usage_stats</code>): a reviewer who never overrides may be signing without reading.</p>
 <h2 id="pilot-plan-proposed">Pilot plan (proposed)<a class="anchor" href="#pilot-plan-proposed" aria-label="Link to this section">#</a></h2>
 <ol>
 <li>Pick one market and one product category; collect 50 recent labels with the reviewer's final decision (the reference).</li>
@@ -303,12 +318,12 @@
     <nav class="pager" aria-label="Previous and next"><a class="prev" href="03-requirements.html"><small>Previous</small><span>Requirements</span></a><a class="next" href="06-standards-alignment.html"><small>Next</small><span>Standards alignment</span></a></nav>
     <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/docs/05-analyst-workflow.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/docs/05-analyst-workflow.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
   </main>
-  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#why-this-is-the-primary-use-case">Why this is the primary use case</a></li><li><a href="#to-be-process-v05">To-be process (v0.5)</a></li><li><a href="#what-the-compliance-checklist-covers">What the compliance checklist covers</a></li><li><a href="#what-the-benchmark-says-about-this-workflow">What the benchmark says about this workflow</a></li><li><a href="#roi-model-to-be-filled-with-measured-values">ROI model (to be filled with measured values)</a></li><li><a href="#pilot-plan-proposed">Pilot plan (proposed)</a></li></ol></nav>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#why-this-is-the-primary-use-case">Why this is the primary use case</a></li><li><a href="#to-be-process-v06">To-be process (v0.6)</a></li><li><a href="#what-the-compliance-checklist-covers">What the compliance checklist covers</a></li><li><a href="#what-the-benchmark-says-about-this-workflow">What the benchmark says about this workflow</a></li><li><a href="#roi-model-to-be-filled-with-measured-values">ROI model (to be filled with measured values)</a></li><li><a href="#pilot-plan-proposed">Pilot plan (proposed)</a></li></ol></nav>
 </div>
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
     <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
-  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
   <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
   <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
   <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>

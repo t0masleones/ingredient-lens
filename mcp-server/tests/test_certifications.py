@@ -94,9 +94,10 @@ def test_claim_needing_evidence_requests_evidence_without_escalating(m):
     assert any(e.startswith("GMO labelling") for e in r["evidence_needed"])
 
 
-def test_clean_label_is_approved(m):
+def test_clean_label_is_ready_for_sign_off(m):
     r = result(m, "INGREDIENTES: Farinha de trigo, açúcar, ovo. ALÉRGICOS: CONTÉM TRIGO E OVO. CONTÉM GLÚTEN.")
-    assert r["next_step"] == "approve"
+    assert r["next_step"] == "ready_for_sign_off"     # never "approved": a person signs (automation bias)
+    assert r["requires_sign_off"] is True
 
 
 def test_organic_with_gmo_declared_is_a_contradiction(m):

@@ -1,0 +1,73 @@
+name: Disputed ingredient mapping
+description: A term in the ingredient data gives the wrong allergen, lactose, gluten, origin or diet result.
+title: "[mapping] <term>: <what is wrong>"
+labels: ["data", "disputed-mapping"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form when the engine reads an ingredient wrongly, for example "cocoa butter flagged as milk" or
+        "malt extract not flagged for gluten". The workflow is in
+        [mcp-server/data/README.md](https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md#governance). A mapping changes only
+        with a source and a test; a change that makes a term milder needs a second reviewer.
+  - type: input
+    id: term
+    attributes:
+      label: Term as printed on the label
+      placeholder: "soro de leite em pó"
+    validations:
+      required: true
+  - type: dropdown
+    id: market
+    attributes:
+      label: Market
+      options: ["BR", "US", "EU", "All markets"]
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What the engine says now
+      description: >-
+        Paste the `lookup_ingredient` result or the ingredient line from `check_label`, including `match_sources`
+        (curated or Open Food Facts) and the `data_version` with its sha256.
+      render: json
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What it should say, and why
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source that settles it
+      description: Regulation, official list, supplier specification or scientific reference, with a link.
+    validations:
+      required: true
+  - type: dropdown
+    id: direction
+    attributes:
+      label: Effect of the change
+      options:
+        - "Stricter: the term becomes 🟡 or 🔴, or gains an allergen (one reviewer)"
+        - "Milder: the term becomes 🟢 or loses an allergen (second reviewer and a regression test)"
+        - "Neutral: name, synonym or source only"
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example label text
+      description: The ingredient list that shows the problem. It becomes the test case.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: The example contains no personal, customer or confidential data.
+          required: true

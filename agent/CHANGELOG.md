@@ -1,5 +1,22 @@
 # Agent changelog
 
+## v0.6 - 2026-10-17 (instructions v0.6, rules engine 0.6.0)
+An external AI review of v0.5 scored it 6.5/10 for rigor and 7/10 for business value and named three next steps: an interpretable benchmark, an ingestion gate that fails closed, and governed rules. All three are in this version (`docs/04-critical-review.md`, section 5).
+- **Ingestion gate that fails closed (rule INGEST-GATE).** `check_label` takes `source` (photo, text or recipe), `transcription_confidence` and `complete_pack`. Low confidence or no ingredient list: `needs_manual_review`, no check runs. Medium confidence or any word marked [?]: nothing can be 🟢 and no check can pass. A photo of part of the pack: a missing statement is review, not fail.
+- **Rule register** (`mcp-server/rules/register.json`, page `docs/07-rule-register.md`). Each rule has its intent, engine behaviour, legal basis per market (citation, link, date it applies from, how well it was checked), history and tests. Every checklist row and mismatch carries `rule_id`, citation and verification level; a basis not yet verified never gives pass or fail. CI fails when a review is overdue, a rule has no test, the page is out of date or the register and engine versions differ.
+- **Governance defect fixed:** v0.5 changed rules (GMO, organic, XC5) without raising the rules version, which stayed 0.4.0. A test now makes that impossible.
+- **Sign-off instead of approval.** `next_step` "approve" is now `ready_for_sign_off`, and `requires_sign_off` is true in Analyst mode: a named reviewer signs, the tool never approves. New tool `record_review_decision` (approve, reject, approve_with_override): a rejection or an override needs a reason, and approving a label the tool did not mark ready is recorded as an override. `usage_stats` reports decisions, the override rate and the uncertainty rate.
+- **Traceability.** Every result has a `check_id` (hash of the input, parameters, rules version and data hash), `input_sha256`, the data version with a SHA-256 of both data files, and `match_sources` per ingredient. The audit log records the check, the gate, each checklist row by rule and the decision.
+- **Interpretable benchmark.** Each miss gets a cause from keyword lists independent of the engine (ingestion, parsing, taxonomy, reference definition); extraction rates by input type (text measured, photos not); reference B checked from the ingredients alone; the false-alarm proxy split by whether the allergen is named in the text.
+- **Found by the benchmark and fixed:**
+  - "CONTÉM GLÚTEN. DERIVADOS DE SOJA" (a statement split by a period) hid the soy declaration.
+  - A statement inside an ingredient's parentheses ("arôme naturel (contient alcool)", "vinagre (contém sulfitos)", "coconut flakes (contains: sulfur dioxide)") ended the list. Every ingredient after it was dropped, so gelatin could come out 🟢 for a vegan, and the rest of the list was read as the label's allergen statement: false XC2 mismatches, and a declaration the label does not have. "Contains one or more of the following:" now lists ingredients.
+  - An unclosed parenthesis in OCR text ("farinha de trigo (glutenamido de milho, …") put the rest of the label inside one ingredient, so a "Pode conter vestígios de" line was read as ingredients, not traces. Parenthesis depth now counts only pairs that close (found by the ingredient-order property), and a statement word right after an unclosed parenthesis ("(CONTEM OLEO DE SOJA, AGUA, … SORO DE LEITE") stays part of the list.
+- **Data governance:** synonym policy, a disputed-mapping workflow (a change that makes a term milder needs a second reviewer) and GitHub issue forms for disputed mappings and rule changes (`mcp-server/data/README.md`).
+- Instructions v0.6: scope statement, honest transcription confidence, the gate, rule ids in the checklist, sign-off and overrides, `check_id` in document control.
+- Agent evaluation v0.6 (120 runs, 3 per case): 0 "safe" claims; emergency first 21/21; Analyst 15/15, never saying the tool approved a label; certification 12/12; ingestion gate 9/9; sign-off and overrides 6/6. Plain language judged 4+/5 in 8/18; a controlled re-judge of the v0.5 and v0.6 answers found no change (mean 3.87 and 3.85, while the judge's own spread on the same answer is 1.1 points), so US-02 stays partly met. Four grader errors (contractions, "what is safe for you", Portuguese word order) were fixed with control sentences (`mcp-server/tests/test_eval_graders.py`) and all runs graded again.
+- Tests: 3,251 passed. Golden set 25/25.
+
 ## v0.5 - 2026-10-17 (instructions v0.5, rules engine 0.4.0)
 Standards a food certification, testing and compliance company works under, turned into agent behaviour (`docs/06-standards-alignment.md`).
 - Screening is not certification: only bodies accredited to ISO/IEC 17065 certify, and only ISO/IEC 17025 laboratories prove thresholds. The agent never writes that a product is certified, organic, non-GMO or compliant; it names the evidence that settles each claim.
@@ -68,5 +85,6 @@ Code review fixes, each with a test in `mcp-server/tests/test_review_findings.py
 - Knowledge files: lactose and gluten glossary, origin glossary, label rules (Brazil items checked against sources; US and EU items still to verify).
 
 ## Next
-- Run the golden set in the Claude chat with the tools connected (`tests/test-plan.md`). For every failure, add one line here with the test ID and the change made.
-- Add 10 unseen test cases (held-out set) to check the rules were not tuned to the golden set.
+- Photo test set with known text (F-02): measure transcription, the confidence the agent declares and the ingestion gate on real photos.
+- Hand-labelled reference set (F-19): a confusion matrix per check, market and input type.
+- Decide the candidate disputed mappings found by the v0.6 benchmark (`tests/evidence/benchmark-review-v0.6.md`); each needs a second reviewer because it makes a term milder.

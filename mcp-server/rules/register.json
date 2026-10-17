@@ -1,0 +1,653 @@
+{
+  "schema_version": 1,
+  "rules_version": "0.6.0",
+  "updated": "2026-10-17",
+  "policy": {
+    "content_verified": "primary = official text read; secondary = reputable secondary source; unverified = not yet checked. A rule whose basis is unverified for a market never returns pass or fail there, only review.",
+    "effective_source": "Same scale for the date the rule applies from. Unverified dates are shown, never used to turn a check off.",
+    "review_cadence": "Every rule has a next review date. CI fails when a review is overdue, so regulatory drift is caught by the build.",
+    "change_control": "A change to a rule's behaviour needs a test, a changelog line and a new rules_version. Disputed mappings and rule changes use the GitHub issue forms in .github/ISSUE_TEMPLATE/."
+  },
+  "rules": [
+    {
+      "id": "ALG-DECL",
+      "check": "Allergen declaration",
+      "type": "compliance",
+      "intent": "Every allergen the market requires that appears in the ingredients is declared on the label in the form the market prescribes.",
+      "engine_behaviour": "n/a when no required allergen is listed; pass when the statement covers them; fail when the statement is missing (BR) or incomplete (XC2); review in the US when the statement is missing (the source may be in parentheses) and always in the EU (emphasis is not visible in text).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "RDC 26/2015 (consolidated in RDC 727/2022), Anvisa",
+          "url": "https://www.legisweb.com.br/legislacao/?id=286510",
+          "effective_from": "2016-07-03",
+          "effective_source": "secondary",
+          "content_verified": "secondary",
+          "note": "Published 3 Jul 2015 with 12 months to adapt; Anvisa refused an extension."
+        },
+        {
+          "market": "US",
+          "citation": "FALCPA 2004 (Public Law 108-282); FASTER Act 2021 (sesame)",
+          "url": "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies",
+          "effective_from": "2006-01-01",
+          "effective_source": "unverified",
+          "content_verified": "primary",
+          "note": "Sesame is a major allergen from 1 Jan 2023 (verified on the FDA page); 2006-01-01 for FALCPA is commonly cited, to verify."
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EU) No 1169/2011, Article 21 and Annex II",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1169",
+          "effective_from": "2014-12-13",
+          "effective_source": "unverified",
+          "content_verified": "primary"
+        }
+      ],
+      "since": "0.4.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Statement completeness as cross-check XC2."
+        },
+        {
+          "version": "0.4.0",
+          "change": "Checklist row per market; each market checks only the allergens it requires."
+        },
+        {
+          "version": "0.6.0",
+          "change": "Statements printed inside an ingredient's parentheses (\"arôme (contient alcool)\", \"vinagre (contém sulfitos)\") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark."
+        }
+      ],
+      "tests": [
+        "test_safety_and_compliance.py::test_br_complete_label_passes",
+        "test_safety_and_compliance.py::test_br_missing_statements_fail",
+        "test_safety_and_compliance.py::test_us_allergen_without_statement_is_review",
+        "test_safety_and_compliance.py::test_eu_emphasis_is_always_review",
+        "test_benchmark_findings.py::test_parenthetical_contains_is_not_the_allergen_statement",
+        "test_benchmark_findings.py::test_contains_one_or_more_of_the_following_lists_ingredients",
+        "test_benchmark_findings.py::test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement",
+        "test_benchmark_findings.py::test_unclosed_parenthesis_before_contains_keeps_the_list"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "BR-GLUTEN",
+      "check": "Gluten statement",
+      "type": "compliance",
+      "intent": "Every industrialized food in Brazil says either \"CONTÉM GLÚTEN\" or \"NÃO CONTÉM GLÚTEN\".",
+      "engine_behaviour": "pass when either statement is found; fail when neither is found (review when the photo did not capture the whole pack).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "Lei 10.674/2003",
+          "url": "https://www2.camara.leg.br/legin/fed/lei/2003/lei-10674-16-maio-2003-496699-normaatualizada-pl.html",
+          "effective_from": "2003-05-19",
+          "effective_source": "unverified",
+          "content_verified": "secondary",
+          "note": "19 May 2003 is the publication date in the Diário Oficial; the entry-into-force clause is to verify."
+        }
+      ],
+      "since": "0.4.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Missing statement reported as a note."
+        },
+        {
+          "version": "0.4.0",
+          "change": "Checklist row (pass / fail)."
+        },
+        {
+          "version": "0.6.0",
+          "change": "Review instead of fail when the photo did not capture the whole pack."
+        }
+      ],
+      "tests": [
+        "test_safety_and_compliance.py::test_br_complete_label_passes",
+        "test_safety_and_compliance.py::test_br_missing_statements_fail",
+        "test_ingestion_gate.py::test_incomplete_photo_turns_missing_statements_into_review"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "BR-LACTOSE-STMT",
+      "check": "\"Contém lactose\" statement",
+      "type": "compliance",
+      "intent": "Foods with more than 100 mg of lactose per 100 g or mL say \"CONTÉM LACTOSE\".",
+      "engine_behaviour": "pass when the statement is found; review when dairy is listed without it (the amount cannot be read from text).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "RDC 136/2017 (consolidated in RDC 727/2022), Anvisa",
+          "url": "https://www.gov.br/anvisa/en/rules-and-regulations/arquivos/rdc-136-2017-e.pdf",
+          "effective_from": "2019-02-09",
+          "effective_source": "secondary",
+          "content_verified": "secondary",
+          "note": "Published 9 Feb 2017; mandatory for consumer products from 9 Feb 2019 according to a secondary summary."
+        }
+      ],
+      "since": "0.4.0",
+      "history": [
+        {
+          "version": "0.4.0",
+          "change": "Checklist row (pass / review)."
+        }
+      ],
+      "tests": [
+        "test_safety_and_compliance.py::test_br_dairy_asks_for_lactose_statement"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "XC1",
+      "check": "Gluten-free claim",
+      "type": "cross_check",
+      "intent": "A gluten-free claim is not contradicted by a gluten source in the ingredients or the allergen statement.",
+      "engine_behaviour": "Mismatch and checklist fail when a gluten source is listed or declared; in the US, oats alone do not contradict the claim.",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "Lei 10.674/2003; state health surveillance guidance",
+          "url": "https://estado.rs.gov.br/vigilancia-intensifica-fiscalizacao-da-rotulagem-de-alimentos-sem-gluten",
+          "effective_from": "2003-05-19",
+          "effective_source": "unverified",
+          "content_verified": "secondary"
+        },
+        {
+          "market": "US",
+          "citation": "21 CFR 101.91",
+          "url": "https://www.govinfo.gov/content/pkg/FR-2013-08-05/html/2013-18813.htm",
+          "effective_from": "2014-08-05",
+          "effective_source": "primary",
+          "content_verified": "primary",
+          "note": "Final rule 5 Aug 2013; compliance date 5 Aug 2014; below 20 ppm."
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EU) No 828/2014",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0828",
+          "effective_from": "2016-07-20",
+          "effective_source": "unverified",
+          "content_verified": "primary"
+        }
+      ],
+      "since": "0.2.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Added."
+        },
+        {
+          "version": "0.4.0",
+          "change": "US oats exception; claims printed before the list."
+        }
+      ],
+      "tests": [
+        "test_engine.py::test_gluten_free_claim_contradiction_escalates",
+        "test_safety_and_compliance.py::test_gluten_free_claim_with_malt_fails",
+        "test_markets.py::test_gluten_free_oats_claim_is_legal_in_the_us",
+        "test_review_findings.py::test_gluten_free_claim_before_wheat_is_a_mismatch"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "XC2",
+      "check": "Allergen statement completeness",
+      "type": "cross_check",
+      "intent": "When a label has an allergen statement, it declares every allergen the market requires that the ingredients contain.",
+      "engine_behaviour": "Mismatch when a required allergen is in the ingredients but not in the statement; allergens the market does not require become a note.",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "RDC 26/2015 (consolidated in RDC 727/2022)",
+          "url": "https://www.legisweb.com.br/legislacao/?id=286510",
+          "effective_from": "2016-07-03",
+          "effective_source": "secondary",
+          "content_verified": "secondary"
+        },
+        {
+          "market": "US",
+          "citation": "FALCPA 2004; FASTER Act 2021",
+          "url": "https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies",
+          "effective_from": "2006-01-01",
+          "effective_source": "unverified",
+          "content_verified": "primary"
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EU) No 1169/2011, Annex II",
+          "url": "https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1169",
+          "effective_from": "2014-12-13",
+          "effective_source": "unverified",
+          "content_verified": "primary"
+        }
+      ],
+      "since": "0.2.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Added."
+        },
+        {
+          "version": "0.4.0",
+          "change": "Market-specific required allergens (BR has no sesame or molluscs)."
+        },
+        {
+          "version": "0.6.0",
+          "change": "Statements printed inside an ingredient's parentheses (\"arôme (contient alcool)\", \"vinagre (contém sulfitos)\") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark."
+        }
+      ],
+      "tests": [
+        "test_engine.py::test_allergen_missing_from_statement",
+        "test_markets.py::test_eu_statement_must_declare_mustard",
+        "test_markets.py::test_brazil_does_not_require_mustard_or_sesame",
+        "test_markets.py::test_us_requires_sesame",
+        "test_benchmark_findings.py::test_parenthetical_contains_is_not_the_allergen_statement"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "XC3",
+      "check": "Lactose-free claim",
+      "type": "cross_check",
+      "intent": "A lactose-free claim with milk ingredients lists lactase (or has a lab result).",
+      "engine_behaviour": "Mismatch and checklist fail when milk is listed without lactase; review otherwise (the 100 mg threshold needs a lab result).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "RDC 135/2017 (consolidated in RDC 727/2022)",
+          "url": "https://cfn.org.br/rotulagem-de-lactose-em-alimentos-tem-regra-publicada/",
+          "effective_from": "2019-02-09",
+          "effective_source": "secondary",
+          "content_verified": "secondary"
+        },
+        {
+          "market": "US",
+          "citation": "No legal definition of lactose-free; consistency check",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        },
+        {
+          "market": "EU",
+          "citation": "No harmonised definition of lactose-free; consistency check",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        }
+      ],
+      "since": "0.2.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Added; a lactose-free claim with lactase settles the milk declaration for intolerance (golden case T04)."
+        }
+      ],
+      "tests": [
+        "test_engine.py::test_zero_lactose_without_lactase",
+        "test_safety_and_compliance.py::test_br_lactose_free_claim_without_lactase_fails"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "XC4",
+      "check": "Vegan claim",
+      "type": "cross_check",
+      "intent": "A vegan claim is not contradicted by animal-derived ingredients.",
+      "engine_behaviour": "Mismatch and checklist fail when animal-derived items are listed; review otherwise (processing aids are invisible; the claim is not verified).",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "No legal definition of vegan in BR or the US; consistency check",
+          "url": "https://www.registrarcorp.com/blog/keto-vegan-or-plant-based-labeling-on-food-and-beverages/",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "secondary"
+        }
+      ],
+      "since": "0.2.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Added."
+        }
+      ],
+      "tests": [
+        "test_engine.py::test_vegan_claim_with_honey"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "XC5",
+      "check": "Organic claim with a declared GMO",
+      "type": "cross_check",
+      "intent": "An organic claim is not contradicted by a declared genetically modified ingredient.",
+      "engine_behaviour": "Mismatch (escalate) when the label claims organic and declares transgênico / bioengineered / genetically modified.",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "Lei 10.831/2003; Decreto 6.323/2007 (organic production excludes GMOs)",
+          "url": "https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/organicos/arquivos-organicos/IN_18_de_20062014_SELO_BRASILEIRO.pdf",
+          "effective_from": "2007-12-27",
+          "effective_source": "unverified",
+          "content_verified": "unverified"
+        },
+        {
+          "market": "US",
+          "citation": "7 CFR 205.105 (excluded methods)",
+          "url": "https://www.ecfr.gov/current/title-7/subtitle-B/chapter-I/subchapter-M/part-205",
+          "effective_from": "2002-10-21",
+          "effective_source": "unverified",
+          "content_verified": "unverified"
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EU) 2018/848, Article 11",
+          "url": "https://eur-lex.europa.eu/eli/reg/2018/848/oj",
+          "effective_from": "2022-01-01",
+          "effective_source": "unverified",
+          "content_verified": "unverified"
+        }
+      ],
+      "since": "0.5.0",
+      "history": [
+        {
+          "version": "0.5.0",
+          "change": "Added after the agent raised it in an evaluation run (the engine still reported 0.4.0; fixed in 0.6.0)."
+        }
+      ],
+      "tests": [
+        "test_certifications.py::test_organic_with_gmo_declared_is_a_contradiction"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "GMO-LABEL",
+      "check": "GMO labelling",
+      "type": "compliance",
+      "intent": "Genetically modified content above the market's threshold is disclosed in the market's form.",
+      "engine_behaviour": "Only for ingredients from crops also grown as GMO: pass when a GMO declaration is found; review otherwise (the GMO share needs supplier records or a PCR result).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "Decreto 4.680/2003; Portaria MJ 2.658/2003 (T symbol)",
+          "url": "https://www.contabeis.com.br/legislacao/23696/decreto-4680-2003/",
+          "effective_from": "2003-04-24",
+          "effective_source": "secondary",
+          "content_verified": "secondary",
+          "note": "Above 1% of the product; STJ confirmed the 1% limit in 2024; PLC 34/2015 status to verify."
+        },
+        {
+          "market": "US",
+          "citation": "National Bioengineered Food Disclosure Standard, 7 CFR Part 66",
+          "url": "https://www.federalregister.gov/documents/2018/12/21/2018-27283/national-bioengineered-food-disclosure-standard",
+          "effective_from": "2022-01-01",
+          "effective_source": "primary",
+          "content_verified": "secondary",
+          "note": "Mandatory compliance 1 Jan 2022; 5% per ingredient for inadvertent presence."
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EC) No 1829/2003, Articles 12-13",
+          "url": "https://www.legislation.gov.uk/eur/2003/1829/article/12",
+          "effective_from": "2004-04-18",
+          "effective_source": "unverified",
+          "content_verified": "primary",
+          "note": "0.9% per ingredient for adventitious presence."
+        }
+      ],
+      "since": "0.5.0",
+      "history": [
+        {
+          "version": "0.5.0",
+          "change": "Added (standards alignment)."
+        }
+      ],
+      "tests": [
+        "test_certifications.py::test_gm_crop_without_declaration_is_review",
+        "test_certifications.py::test_brazil_transgenic_declaration_passes",
+        "test_certifications.py::test_us_bioengineered_disclosure_passes",
+        "test_certifications.py::test_no_gm_crop_no_gmo_check"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "ORGANIC",
+      "check": "Organic claim",
+      "type": "compliance",
+      "intent": "An organic claim carries the particulars the market requires and rests on a certificate.",
+      "engine_behaviour": "fail when text shows a required particular is missing (US certifier statement, EU control body code); review otherwise (the certificate must be checked in the certifier's register).",
+      "applies": [
+        {
+          "market": "BR",
+          "citation": "Lei 10.831/2003; Decreto 6.323/2007; IN MAPA 18/2014 (SisOrg seal)",
+          "url": "https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/organicos/arquivos-organicos/IN_18_de_20062014_SELO_BRASILEIRO.pdf",
+          "effective_from": "2014-06-20",
+          "effective_source": "secondary",
+          "content_verified": "secondary"
+        },
+        {
+          "market": "US",
+          "citation": "USDA National Organic Program, 7 CFR Part 205 (205.303, 205.304)",
+          "url": "https://www.ecfr.gov/current/title-7/subtitle-B/chapter-I/subchapter-M/part-205/subpart-D/section-205.303",
+          "effective_from": "2002-10-21",
+          "effective_source": "unverified",
+          "content_verified": "secondary",
+          "note": "Certifier statement per a USDA retail labeling guide; exact eCFR wording to verify."
+        },
+        {
+          "market": "EU",
+          "citation": "Regulation (EU) 2018/848, Article 32",
+          "url": "https://gs1.eu/wp-content/uploads/2023/09/GS1-in-EU-Organic-Products-Guideline-v1.1.pdf",
+          "effective_from": "2022-01-01",
+          "effective_source": "unverified",
+          "content_verified": "secondary"
+        }
+      ],
+      "since": "0.5.0",
+      "history": [
+        {
+          "version": "0.5.0",
+          "change": "Added; missing US certifier statement or EU code is a fail."
+        }
+      ],
+      "tests": [
+        "test_certifications.py::test_organic_claim_rules_by_market",
+        "test_certifications.py::test_eu_organic_without_control_body_code_fails_and_escalates",
+        "test_certifications.py::test_eu_organic_with_code_is_review",
+        "test_certifications.py::test_us_organic_seal_without_certifier_fails"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 6
+    },
+    {
+      "id": "NONGMO-CLAIM",
+      "check": "Non-GMO claim",
+      "type": "compliance",
+      "intent": "A non-GMO claim rests on a certificate or a PCR result.",
+      "engine_behaviour": "Always review; names the GM-crop ingredients and the evidence to ask for.",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Private certification schemes (Non-GMO Project, VLOG, ProTerra); certification by ISO/IEC 17065 bodies",
+          "url": "https://www.proterrafoundation.org/wp-content/uploads/2021/03/2021-03-02-PTF-Certification-Procedure.pdf",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "secondary"
+        }
+      ],
+      "since": "0.5.0",
+      "history": [
+        {
+          "version": "0.5.0",
+          "change": "Added."
+        }
+      ],
+      "tests": [
+        "test_certifications.py::test_non_gmo_claim_asks_for_evidence"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "CERT-MARK",
+      "check": "Other certification mark",
+      "type": "compliance",
+      "intent": "A certification mark is never accepted from text; the certificate is checked.",
+      "engine_behaviour": "Always review.",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Certification by bodies accredited to ISO/IEC 17065",
+          "url": "https://www.iso.org/standard/46568.html",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "secondary"
+        }
+      ],
+      "since": "0.5.0",
+      "history": [
+        {
+          "version": "0.5.0",
+          "change": "Added."
+        }
+      ],
+      "tests": [
+        "test_certifications.py::test_certification_never_passes_from_text"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "INGEST-GATE",
+      "check": "Transcription confidence",
+      "type": "safety",
+      "intent": "No compliance or safety verdict is issued from a reading that may be wrong (fail-closed).",
+      "engine_behaviour": "low confidence or no ingredient list: needs_manual_review, no checks run; medium confidence or [?] marks: no item and no verdict can be green, no check can pass, decision at least request_evidence; photo of part of the pack: missing statements are review, not fail.",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Project safety requirement (external review, October 2026)",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        }
+      ],
+      "since": "0.6.0",
+      "history": [
+        {
+          "version": "0.6.0",
+          "change": "Added."
+        }
+      ],
+      "tests": [
+        "test_ingestion_gate.py::test_low_confidence_blocks_all_checks",
+        "test_ingestion_gate.py::test_unsure_words_never_green",
+        "test_ingestion_gate.py::test_medium_confidence_turns_passes_into_review",
+        "test_ingestion_gate.py::test_incomplete_photo_turns_missing_statements_into_review"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "SAFE-URGENT",
+      "check": "Symptoms described now",
+      "type": "safety",
+      "intent": "Symptoms of a reaction get emergency guidance only, before any analysis.",
+      "engine_behaviour": "verdict urgent, no analysis, emergency numbers (SAMU 192, 911, 112).",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Project safety requirement US-08",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        }
+      ],
+      "since": "0.4.0",
+      "history": [
+        {
+          "version": "0.4.0",
+          "change": "Added to the engine (was prompt-only)."
+        }
+      ],
+      "tests": [
+        "test_safety_and_compliance.py::test_symptoms_now_return_urgent_without_analysis",
+        "test_safety_and_compliance.py::test_no_false_urgent"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "SAFE-WORDING",
+      "check": "Never call a product safe",
+      "type": "safety",
+      "intent": "A green result only means nothing was found in the text; the agent never says safe.",
+      "engine_behaviour": "Every result carries the wording to use instead of safe.",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Project safety requirement US-07",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        }
+      ],
+      "since": "0.4.0",
+      "history": [
+        {
+          "version": "0.4.0",
+          "change": "Added to the engine (was prompt-only)."
+        }
+      ],
+      "tests": [
+        "test_safety_and_compliance.py::test_green_verdict_comes_with_safe_wording"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    },
+    {
+      "id": "SAFE-STRICT",
+      "check": "STRICT mode",
+      "type": "safety",
+      "intent": "For an allergy or celiac disease every unclear item counts as red.",
+      "engine_behaviour": "yellow becomes red for allergen profiles when strict is true.",
+      "applies": [
+        {
+          "market": "ALL",
+          "citation": "Project safety requirement US-04",
+          "url": "",
+          "effective_from": "",
+          "effective_source": "n/a",
+          "content_verified": "n/a"
+        }
+      ],
+      "since": "0.2.0",
+      "history": [
+        {
+          "version": "0.2.0",
+          "change": "Added."
+        }
+      ],
+      "tests": [
+        "test_engine.py::test_strict_turns_unclear_into_red"
+      ],
+      "last_reviewed": "2026-10-17",
+      "review_every_months": 12
+    }
+  ]
+}

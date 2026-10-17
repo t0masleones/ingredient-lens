@@ -1,0 +1,860 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Rule register · Ingredient Lens</title>
+<meta name="description" content="Every rule the engine applies, with its legal basis per market, the date it applies from, how well it was checked, its history and its tests. Generated from the register the engine reads.">
+<meta name="theme-color" content="#00596B">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Rule register · Ingredient Lens">
+<meta property="og:description" content="Every rule the engine applies, with its legal basis per market, the date it applies from, how well it was checked, its history and its tests. Generated from the register the engine reads.">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Open+Sans:wght@400;600;700&family=Signika:wght@400;500;600;700&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+<script>(function(){try{var t=localStorage.getItem("il-theme");if(t==="light"||t==="dark")document.documentElement.setAttribute("data-theme",t)}catch(e){}})();</script>
+</head>
+<body class="page-doc" data-base="">
+<a class="skip-link" href="#content">Skip to content</a>
+<div class="progress" aria-hidden="true"><span></span></div>
+<div class="utility-bar"><div class="container">
+  <p>Independent prototype · not affiliated with any company · not medical, legal or regulatory advice</p>
+  <nav aria-label="Utility"><a href="changelog.html">Changelog</a><a href="https://github.com/t0masleones/ingredient-lens">GitHub</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z"/></svg><span data-theme-label>Dark mode</span></button></nav>
+</div></div>
+<header class="site-header"><div class="container">
+  <button class="btn btn-outline menu-button" type="button" aria-controls="sidebar" aria-expanded="false" aria-label="Open navigation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+  <a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens<small>Documentation</small></span></a>
+  <nav class="main-nav" aria-label="Main"><a href="index.html">Home</a><a href="00-project-record.html">Project record</a><a href="05-analyst-workflow.html">Analyst workflow</a><a href="06-standards-alignment.html">Standards</a><a href="test-plan.html">Evidence</a></nav>
+  <div class="header-actions">
+    <button class="btn btn-outline" type="button" data-search-open aria-label="Search the documentation"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="label">Search</span><kbd>Ctrl K</kbd></button>
+    <a class="btn btn-accent" href="https://github.com/t0masleones/ingredient-lens"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.42c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.71 1.26 3.37.96.1-.75.4-1.26.73-1.55-2.56-.29-5.25-1.28-5.25-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.4-5.27 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg><span class="label">Repository</span></a>
+  </div>
+</div></header>
+
+<section class="page-hero">
+  <svg class="hero-arcs" viewBox="0 0 560 420" aria-hidden="true" focusable="false"><circle cx="430" cy="120" r="150" fill="none" stroke="#27787F" stroke-width="26"/><circle cx="520" cy="360" r="120" fill="none" stroke="#FFFFFF" stroke-opacity=".9" stroke-width="18"/><circle cx="250" cy="330" r="34" fill="none" stroke="#FFE600" stroke-width="9"/></svg>
+  <div class="container">
+    <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="index.html">Docs</a></li><li>Delivery</li><li aria-current="page">Rule register</li></ol></nav>
+    <p class="eyebrow">07 · Governance</p>
+    <h1>Rule register</h1>
+    <p class="lead">Every rule the engine applies, with its legal basis per market, the date it applies from, how well it was checked, its history and its tests. Generated from the register the engine reads.</p>
+    <ul class="meta"><li>Updated 2026-10-17</li><li>13 min read</li><li>Source: 07-rule-register.md</li></ul>
+  </div>
+</section>
+<div class="layout container">
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html" aria-current="page">Rule register</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <main id="content" class="content" tabindex="-1">
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#how-to-read-it">How to read it</a></li><li><a href="#rules">Rules</a></li><li><a href="#how-the-register-is-governed">How the register is governed</a><ol><li><a href="#release-process-for-a-rule-change">Release process for a rule change</a></li><li><a href="#what-the-register-does-not-do-yet">What the register does not do yet</a></li></ol></li><li><a href="#rule-details">Rule details</a><ol><li><a href="#alg-decl">ALG-DECL</a></li><li><a href="#br-gluten">BR-GLUTEN</a></li><li><a href="#br-lactose-stmt">BR-LACTOSE-STMT</a></li><li><a href="#xc1">XC1</a></li><li><a href="#xc2">XC2</a></li><li><a href="#xc3">XC3</a></li><li><a href="#xc4">XC4</a></li><li><a href="#xc5">XC5</a></li><li><a href="#gmo-label">GMO-LABEL</a></li><li><a href="#organic">ORGANIC</a></li><li><a href="#nongmo-claim">NONGMO-CLAIM</a></li><li><a href="#cert-mark">CERT-MARK</a></li><li><a href="#ingest-gate">INGEST-GATE</a></li><li><a href="#safe-urgent">SAFE-URGENT</a></li><li><a href="#safe-wording">SAFE-WORDING</a></li><li><a href="#safe-strict">SAFE-STRICT</a></li></ol></li></ol></details></div>
+    <article class="prose"><div class="callout note">
+<p><span class="callout-title">Note</span></p>
+<p>Generated from <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/rules/register.json"><code>register.json</code></a> by <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/rules/render.py"><code>render.py</code></a>. Do not edit this page: change the register, run <code>uv run python rules/render.py</code> from <code>mcp-server</code>, and commit both. A test fails when they differ.</p>
+</div>
+<p><strong>Rules version 0.6.0</strong> · register updated 2026-10-17 · 16 rules: 7 compliance checks, 5 cross-checks, 4 safety rules · first review due 2027-04-17</p>
+<p>The register is the single source of the legal basis the rules engine cites. Every row of the compliance checklist and every mismatch that <code>check_label</code> returns carries its <code>rule_id</code>, the citation, the date the rule applies from and how well that basis was checked, so a reviewer can trace any result to the text of the law. The engine reads this file at start-up; nothing about the legal basis is written in the prompt.</p>
+<h2 id="how-to-read-it">How to read it<a class="anchor" href="#how-to-read-it" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Mark</th>
+<th>Basis checked against</th>
+<th>Effect in the engine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>The official text</td>
+<td>The check can pass or fail</td>
+</tr>
+<tr>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>A reputable secondary source (agency guidance, legal database, trade body)</td>
+<td>The check can pass or fail; confirm against the official text before a pilot</td>
+</tr>
+<tr>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>Not checked yet</td>
+<td>A checklist row never passes or fails there: it is always review. A cross-check still sends the label to a person, and its mismatch says the basis is unverified</td>
+</tr>
+<tr>
+<td>n/a</td>
+<td>No legal text applies (a project safety rule or a consistency check)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table></div>
+<div class="callout warning">
+<p><span class="callout-title">Warning</span></p>
+<p><strong>Not yet verified:</strong> XC5 (BR, US, EU). Until someone reads the official text and updates the register, a checklist row on these rules returns review, and a contradiction they find is escalated with <code>content_verified: unverified</code>, never resolved by the tool.</p>
+</div>
+<h2 id="rules">Rules<a class="anchor" href="#rules" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Rule</th>
+<th>Check</th>
+<th>Type</th>
+<th>Basis checked</th>
+<th>Next review</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#alg-decl">ALG-DECL</a></td>
+<td>Allergen declaration</td>
+<td>Compliance check</td>
+<td>BR 🟡 · US ✅ · EU ✅</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#br-gluten">BR-GLUTEN</a></td>
+<td>Gluten statement</td>
+<td>Compliance check</td>
+<td>BR 🟡</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#br-lactose-stmt">BR-LACTOSE-STMT</a></td>
+<td>"Contém lactose" statement</td>
+<td>Compliance check</td>
+<td>BR 🟡</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#xc1">XC1</a></td>
+<td>Gluten-free claim</td>
+<td>Cross-check</td>
+<td>BR 🟡 · US ✅ · EU ✅</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#xc2">XC2</a></td>
+<td>Allergen statement completeness</td>
+<td>Cross-check</td>
+<td>BR 🟡 · US ✅ · EU ✅</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#xc3">XC3</a></td>
+<td>Lactose-free claim</td>
+<td>Cross-check</td>
+<td>BR 🟡 · US n/a · EU n/a</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#xc4">XC4</a></td>
+<td>Vegan claim</td>
+<td>Cross-check</td>
+<td>All 🟡</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#xc5">XC5</a></td>
+<td>Organic claim with a declared GMO</td>
+<td>Cross-check</td>
+<td>BR ⚪ · US ⚪ · EU ⚪</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#gmo-label">GMO-LABEL</a></td>
+<td>GMO labelling</td>
+<td>Compliance check</td>
+<td>BR 🟡 · US 🟡 · EU ✅</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#organic">ORGANIC</a></td>
+<td>Organic claim</td>
+<td>Compliance check</td>
+<td>BR 🟡 · US 🟡 · EU 🟡</td>
+<td>2027-04-17</td>
+</tr>
+<tr>
+<td><a href="#nongmo-claim">NONGMO-CLAIM</a></td>
+<td>Non-GMO claim</td>
+<td>Compliance check</td>
+<td>All 🟡</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#cert-mark">CERT-MARK</a></td>
+<td>Other certification mark</td>
+<td>Compliance check</td>
+<td>All 🟡</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#ingest-gate">INGEST-GATE</a></td>
+<td>Transcription confidence</td>
+<td>Safety rule</td>
+<td>All n/a</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#safe-urgent">SAFE-URGENT</a></td>
+<td>Symptoms described now</td>
+<td>Safety rule</td>
+<td>All n/a</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#safe-wording">SAFE-WORDING</a></td>
+<td>Never call a product safe</td>
+<td>Safety rule</td>
+<td>All n/a</td>
+<td>2027-10-17</td>
+</tr>
+<tr>
+<td><a href="#safe-strict">SAFE-STRICT</a></td>
+<td>STRICT mode</td>
+<td>Safety rule</td>
+<td>All n/a</td>
+<td>2027-10-17</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="how-the-register-is-governed">How the register is governed<a class="anchor" href="#how-the-register-is-governed" aria-label="Link to this section">#</a></h2>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Rule</th>
+<th>Enforced by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Verification</td>
+<td>primary = official text read; secondary = reputable secondary source; unverified = not yet checked. A rule whose basis is unverified for a market never returns pass or fail there, only review.</td>
+<td>The engine (<code>compliance_checklist</code>); test <code>test_unverified_basis_never_passes_or_fails</code></td>
+</tr>
+<tr>
+<td>Effective dates</td>
+<td>Same scale for the date the rule applies from. Unverified dates are shown, never used to turn a check off.</td>
+<td>Shown on every checklist row (<code>effective_from</code>)</td>
+</tr>
+<tr>
+<td>Review cadence</td>
+<td>Every rule has a next review date. CI fails when a review is overdue, so regulatory drift is caught by the build.</td>
+<td><code>test_no_review_is_overdue</code></td>
+</tr>
+<tr>
+<td>Change control</td>
+<td>A change to a rule's behaviour needs a test, a changelog line and a new rules_version. Disputed mappings and rule changes use the GitHub issue forms in .github/ISSUE_TEMPLATE/.</td>
+<td><code>test_register_version_matches_engine</code>, <code>test_every_rule_points_to_existing_tests</code>, <code>test_rule_register_page_is_up_to_date</code></td>
+</tr>
+<tr>
+<td>Coverage</td>
+<td>Every checklist row the engine emits names a rule.</td>
+<td><code>test_every_checklist_row_the_engine_emits_has_a_rule</code></td>
+</tr>
+</tbody>
+</table></div>
+<p>All of these run in continuous integration on every push (<a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_rule_register.py"><code>test_rule_register.py</code></a>).</p>
+<h3 id="release-process-for-a-rule-change">Release process for a rule change<a class="anchor" href="#release-process-for-a-rule-change" aria-label="Link to this section">#</a></h3>
+<ol>
+<li>Open a <strong>Rule change</strong> issue (<a href="https://github.com/t0masleones/ingredient-lens/blob/main/.github/ISSUE_TEMPLATE/rule-change.yml">form</a>): market, citation with a link to the official text, the date it applies from, the behaviour expected and an example label.</li>
+<li>Write the failing test first, with the example label.</li>
+<li>Change the engine and this rule's entry in the register: <code>applies</code>, a <code>history</code> line, <code>tests</code> and <code>last_reviewed</code>.</li>
+<li>Raise <code>rules_version</code> in the register and <code>RULES_VERSION</code> in <code>engine.py</code>: minor for a new or changed behaviour, patch for a citation or date fix. A test fails when the two differ.</li>
+<li>Run <code>uv run python rules/render.py</code>, <code>uv run pytest</code> and <code>uv run eval_rules.py</code> (and the benchmark when matching changes), then add a line to the <a href="changelog.html">changelog</a>.</li>
+<li>A second person, the regulatory owner, reviews the pull request. Every result names the rules version, so a past check can be traced to the rules it used.</li>
+</ol>
+<p>Disputed ingredient mappings ("this term is not milk") follow the same path with their own <a href="https://github.com/t0masleones/ingredient-lens/blob/main/.github/ISSUE_TEMPLATE/disputed-mapping.yml">form</a>; see <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md#governance">data governance</a>.</p>
+<h3 id="what-the-register-does-not-do-yet">What the register does not do yet<a class="anchor" href="#what-the-register-does-not-do-yet" aria-label="Link to this section">#</a></h3>
+<ul>
+<li><strong>Effective dates are recorded, not applied.</strong> The engine checks every label against the rules in force now; a label printed before a rule applied needs a person (roadmap F-09).</li>
+<li><strong>Thresholds and each market's allergen list still live in code</strong> (<code>MARKET_ALLERGENS</code>); the register cites them. Moving them into data is F-09.</li>
+<li><strong>The checks were made by the project author, not a regulatory professional.</strong> The ⚪ and 🟡 rows are the first thing to confirm before a pilot.</li>
+</ul>
+<h2 id="rule-details">Rule details<a class="anchor" href="#rule-details" aria-label="Link to this section">#</a></h2>
+<h3 id="alg-decl">ALG-DECL<a class="anchor" href="#alg-decl" aria-label="Link to this section">#</a></h3>
+<p><strong>Allergen declaration</strong> · Compliance check · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> Every allergen the market requires that appears in the ingredients is declared on the label in the form the market prescribes.</p>
+<p><strong>What the engine does.</strong> n/a when no required allergen is listed; pass when the statement covers them; fail when the statement is missing (BR) or incomplete (XC2); review in the US when the statement is missing (the source may be in parentheses) and always in the EU (emphasis is not visible in text).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.legisweb.com.br/legislacao/?id=286510">RDC 26/2015 (consolidated in RDC 727/2022), Anvisa</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2016-07-03</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>Published 3 Jul 2015 with 12 months to adapt; Anvisa refused an extension.</td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies">FALCPA 2004 (Public Law 108-282); FASTER Act 2021 (sesame)</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2006-01-01</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>Sesame is a major allergen from 1 Jan 2023 (verified on the FDA page); 2006-01-01 for FALCPA is commonly cited, to verify.</td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1169">Regulation (EU) No 1169/2011, Article 21 and Annex II</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2014-12-13</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Statement completeness as cross-check XC2. · <strong>0.4.0</strong> Checklist row per market; each market checks only the allergens it requires. · <strong>0.6.0</strong> Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement; found by reference B in the v0.6 benchmark.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_complete_label_passes</code>, <code>test_br_missing_statements_fail</code>, <code>test_us_allergen_without_statement_is_review</code>, <code>test_eu_emphasis_is_always_review</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_benchmark_findings.py">test_benchmark_findings.py</a>: <code>test_parenthetical_contains_is_not_the_allergen_statement</code>, <code>test_contains_one_or_more_of_the_following_lists_ingredients</code></p>
+<h3 id="br-gluten">BR-GLUTEN<a class="anchor" href="#br-gluten" aria-label="Link to this section">#</a></h3>
+<p><strong>Gluten statement</strong> · Compliance check · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> Every industrialized food in Brazil says either "CONTÉM GLÚTEN" or "NÃO CONTÉM GLÚTEN".</p>
+<p><strong>What the engine does.</strong> pass when either statement is found; fail when neither is found (review when the photo did not capture the whole pack).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www2.camara.leg.br/legin/fed/lei/2003/lei-10674-16-maio-2003-496699-normaatualizada-pl.html">Lei 10.674/2003</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2003-05-19</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>19 May 2003 is the publication date in the Diário Oficial; the entry-into-force clause is to verify.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Missing statement reported as a note. · <strong>0.4.0</strong> Checklist row (pass / fail). · <strong>0.6.0</strong> Review instead of fail when the photo did not capture the whole pack.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_complete_label_passes</code>, <code>test_br_missing_statements_fail</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_ingestion_gate.py">test_ingestion_gate.py</a>: <code>test_incomplete_photo_turns_missing_statements_into_review</code></p>
+<h3 id="br-lactose-stmt">BR-LACTOSE-STMT<a class="anchor" href="#br-lactose-stmt" aria-label="Link to this section">#</a></h3>
+<p><strong>"Contém lactose" statement</strong> · Compliance check · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> Foods with more than 100 mg of lactose per 100 g or mL say "CONTÉM LACTOSE".</p>
+<p><strong>What the engine does.</strong> pass when the statement is found; review when dairy is listed without it (the amount cannot be read from text).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.gov.br/anvisa/en/rules-and-regulations/arquivos/rdc-136-2017-e.pdf">RDC 136/2017 (consolidated in RDC 727/2022), Anvisa</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2019-02-09</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>Published 9 Feb 2017; mandatory for consumer products from 9 Feb 2019 according to a secondary summary.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.4.0</strong> Checklist row (pass / review).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_dairy_asks_for_lactose_statement</code></p>
+<h3 id="xc1">XC1<a class="anchor" href="#xc1" aria-label="Link to this section">#</a></h3>
+<p><strong>Gluten-free claim</strong> · Cross-check · since 0.2.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> A gluten-free claim is not contradicted by a gluten source in the ingredients or the allergen statement.</p>
+<p><strong>What the engine does.</strong> Mismatch and checklist fail when a gluten source is listed or declared; in the US, oats alone do not contradict the claim.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://estado.rs.gov.br/vigilancia-intensifica-fiscalizacao-da-rotulagem-de-alimentos-sem-gluten">Lei 10.674/2003; state health surveillance guidance</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2003-05-19</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.govinfo.gov/content/pkg/FR-2013-08-05/html/2013-18813.htm">21 CFR 101.91</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2014-08-05</td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>Final rule 5 Aug 2013; compliance date 5 Aug 2014; below 20 ppm.</td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32014R0828">Regulation (EU) No 828/2014</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2016-07-20</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Added. · <strong>0.4.0</strong> US oats exception; claims printed before the list.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_engine.py">test_engine.py</a>: <code>test_gluten_free_claim_contradiction_escalates</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_gluten_free_claim_with_malt_fails</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_markets.py">test_markets.py</a>: <code>test_gluten_free_oats_claim_is_legal_in_the_us</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_review_findings.py">test_review_findings.py</a>: <code>test_gluten_free_claim_before_wheat_is_a_mismatch</code></p>
+<h3 id="xc2">XC2<a class="anchor" href="#xc2" aria-label="Link to this section">#</a></h3>
+<p><strong>Allergen statement completeness</strong> · Cross-check · since 0.2.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> When a label has an allergen statement, it declares every allergen the market requires that the ingredients contain.</p>
+<p><strong>What the engine does.</strong> Mismatch when a required allergen is in the ingredients but not in the statement; allergens the market does not require become a note.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.legisweb.com.br/legislacao/?id=286510">RDC 26/2015 (consolidated in RDC 727/2022)</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2016-07-03</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td></td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies">FALCPA 2004; FASTER Act 2021</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2006-01-01</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1169">Regulation (EU) No 1169/2011, Annex II</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2014-12-13</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Added. · <strong>0.4.0</strong> Market-specific required allergens (BR has no sesame or molluscs). · <strong>0.6.0</strong> Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement; found by reference B in the v0.6 benchmark.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_engine.py">test_engine.py</a>: <code>test_allergen_missing_from_statement</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_markets.py">test_markets.py</a>: <code>test_eu_statement_must_declare_mustard</code>, <code>test_brazil_does_not_require_mustard_or_sesame</code>, <code>test_us_requires_sesame</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_benchmark_findings.py">test_benchmark_findings.py</a>: <code>test_parenthetical_contains_is_not_the_allergen_statement</code></p>
+<h3 id="xc3">XC3<a class="anchor" href="#xc3" aria-label="Link to this section">#</a></h3>
+<p><strong>Lactose-free claim</strong> · Cross-check · since 0.2.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> A lactose-free claim with milk ingredients lists lactase (or has a lab result).</p>
+<p><strong>What the engine does.</strong> Mismatch and checklist fail when milk is listed without lactase; review otherwise (the 100 mg threshold needs a lab result).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://cfn.org.br/rotulagem-de-lactose-em-alimentos-tem-regra-publicada/">RDC 135/2017 (consolidated in RDC 727/2022)</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2019-02-09</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td></td>
+</tr>
+<tr>
+<td>US</td>
+<td>No legal definition of lactose-free; consistency check</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+<tr>
+<td>EU</td>
+<td>No harmonised definition of lactose-free; consistency check</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Added; a lactose-free claim with lactase settles the milk declaration for intolerance (golden case T04).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_engine.py">test_engine.py</a>: <code>test_zero_lactose_without_lactase</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_lactose_free_claim_without_lactase_fails</code></p>
+<h3 id="xc4">XC4<a class="anchor" href="#xc4" aria-label="Link to this section">#</a></h3>
+<p><strong>Vegan claim</strong> · Cross-check · since 0.2.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> A vegan claim is not contradicted by animal-derived ingredients.</p>
+<p><strong>What the engine does.</strong> Mismatch and checklist fail when animal-derived items are listed; review otherwise (processing aids are invisible; the claim is not verified).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td><a href="https://www.registrarcorp.com/blog/keto-vegan-or-plant-based-labeling-on-food-and-beverages/">No legal definition of vegan in BR or the US; consistency check</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Added.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_engine.py">test_engine.py</a>: <code>test_vegan_claim_with_honey</code></p>
+<h3 id="xc5">XC5<a class="anchor" href="#xc5" aria-label="Link to this section">#</a></h3>
+<p><strong>Organic claim with a declared GMO</strong> · Cross-check · since 0.5.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> An organic claim is not contradicted by a declared genetically modified ingredient.</p>
+<p><strong>What the engine does.</strong> Mismatch (escalate) when the label claims organic and declares transgênico / bioengineered / genetically modified.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/organicos/arquivos-organicos/IN_18_de_20062014_SELO_BRASILEIRO.pdf">Lei 10.831/2003; Decreto 6.323/2007 (organic production excludes GMOs)</a></td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>2007-12-27</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.ecfr.gov/current/title-7/subtitle-B/chapter-I/subchapter-M/part-205">7 CFR 205.105 (excluded methods)</a></td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>2002-10-21</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://eur-lex.europa.eu/eli/reg/2018/848/oj">Regulation (EU) 2018/848, Article 11</a></td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>2022-01-01</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.5.0</strong> Added after the agent raised it in an evaluation run (the engine still reported 0.4.0; fixed in 0.6.0).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_certifications.py">test_certifications.py</a>: <code>test_organic_with_gmo_declared_is_a_contradiction</code></p>
+<h3 id="gmo-label">GMO-LABEL<a class="anchor" href="#gmo-label" aria-label="Link to this section">#</a></h3>
+<p><strong>GMO labelling</strong> · Compliance check · since 0.5.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> Genetically modified content above the market's threshold is disclosed in the market's form.</p>
+<p><strong>What the engine does.</strong> Only for ingredients from crops also grown as GMO: pass when a GMO declaration is found; review otherwise (the GMO share needs supplier records or a PCR result).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.contabeis.com.br/legislacao/23696/decreto-4680-2003/">Decreto 4.680/2003; Portaria MJ 2.658/2003 (T symbol)</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2003-04-24</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>Above 1% of the product; STJ confirmed the 1% limit in 2024; PLC 34/2015 status to verify.</td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.federalregister.gov/documents/2018/12/21/2018-27283/national-bioengineered-food-disclosure-standard">National Bioengineered Food Disclosure Standard, 7 CFR Part 66</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2022-01-01</td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>Mandatory compliance 1 Jan 2022; 5% per ingredient for inadvertent presence.</td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://www.legislation.gov.uk/eur/2003/1829/article/12">Regulation (EC) No 1829/2003, Articles 12-13</a></td>
+<td><span class="lozenge l-done">Primary</span></td>
+<td>2004-04-18</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>0.9% per ingredient for adventitious presence.</td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.5.0</strong> Added (standards alignment).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_certifications.py">test_certifications.py</a>: <code>test_gm_crop_without_declaration_is_review</code>, <code>test_brazil_transgenic_declaration_passes</code>, <code>test_us_bioengineered_disclosure_passes</code>, <code>test_no_gm_crop_no_gmo_check</code></p>
+<h3 id="organic">ORGANIC<a class="anchor" href="#organic" aria-label="Link to this section">#</a></h3>
+<p><strong>Organic claim</strong> · Compliance check · since 0.5.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
+<p><strong>Intent.</strong> An organic claim carries the particulars the market requires and rests on a certificate.</p>
+<p><strong>What the engine does.</strong> fail when text shows a required particular is missing (US certifier statement, EU control body code); review otherwise (the certificate must be checked in the certifier's register).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td><a href="https://www.gov.br/agricultura/pt-br/assuntos/sustentabilidade/organicos/arquivos-organicos/IN_18_de_20062014_SELO_BRASILEIRO.pdf">Lei 10.831/2003; Decreto 6.323/2007; IN MAPA 18/2014 (SisOrg seal)</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2014-06-20</td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td></td>
+</tr>
+<tr>
+<td>US</td>
+<td><a href="https://www.ecfr.gov/current/title-7/subtitle-B/chapter-I/subchapter-M/part-205/subpart-D/section-205.303">USDA National Organic Program, 7 CFR Part 205 (205.303, 205.304)</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2002-10-21</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td>Certifier statement per a USDA retail labeling guide; exact eCFR wording to verify.</td>
+</tr>
+<tr>
+<td>EU</td>
+<td><a href="https://gs1.eu/wp-content/uploads/2023/09/GS1-in-EU-Organic-Products-Guideline-v1.1.pdf">Regulation (EU) 2018/848, Article 32</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>2022-01-01</td>
+<td><span class="lozenge l-todo">Unverified</span></td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.5.0</strong> Added; missing US certifier statement or EU code is a fail.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_certifications.py">test_certifications.py</a>: <code>test_organic_claim_rules_by_market</code>, <code>test_eu_organic_without_control_body_code_fails_and_escalates</code>, <code>test_eu_organic_with_code_is_review</code>, <code>test_us_organic_seal_without_certifier_fails</code></p>
+<h3 id="nongmo-claim">NONGMO-CLAIM<a class="anchor" href="#nongmo-claim" aria-label="Link to this section">#</a></h3>
+<p><strong>Non-GMO claim</strong> · Compliance check · since 0.5.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> A non-GMO claim rests on a certificate or a PCR result.</p>
+<p><strong>What the engine does.</strong> Always review; names the GM-crop ingredients and the evidence to ask for.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td><a href="https://www.proterrafoundation.org/wp-content/uploads/2021/03/2021-03-02-PTF-Certification-Procedure.pdf">Private certification schemes (Non-GMO Project, VLOG, ProTerra); certification by ISO/IEC 17065 bodies</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.5.0</strong> Added.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_certifications.py">test_certifications.py</a>: <code>test_non_gmo_claim_asks_for_evidence</code></p>
+<h3 id="cert-mark">CERT-MARK<a class="anchor" href="#cert-mark" aria-label="Link to this section">#</a></h3>
+<p><strong>Other certification mark</strong> · Compliance check · since 0.5.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> A certification mark is never accepted from text; the certificate is checked.</p>
+<p><strong>What the engine does.</strong> Always review.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td><a href="https://www.iso.org/standard/46568.html">Certification by bodies accredited to ISO/IEC 17065</a></td>
+<td><span class="lozenge l-warn">Secondary</span></td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.5.0</strong> Added.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_certifications.py">test_certifications.py</a>: <code>test_certification_never_passes_from_text</code></p>
+<h3 id="ingest-gate">INGEST-GATE<a class="anchor" href="#ingest-gate" aria-label="Link to this section">#</a></h3>
+<p><strong>Transcription confidence</strong> · Safety rule · since 0.6.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> No compliance or safety verdict is issued from a reading that may be wrong (fail-closed).</p>
+<p><strong>What the engine does.</strong> low confidence or no ingredient list: needs_manual_review, no checks run; medium confidence or [?] marks: no item and no verdict can be green, no check can pass, decision at least request_evidence; photo of part of the pack: missing statements are review, not fail.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td>Project safety requirement (external review, October 2026)</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.6.0</strong> Added.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_ingestion_gate.py">test_ingestion_gate.py</a>: <code>test_low_confidence_blocks_all_checks</code>, <code>test_unsure_words_never_green</code>, <code>test_medium_confidence_turns_passes_into_review</code>, <code>test_incomplete_photo_turns_missing_statements_into_review</code></p>
+<h3 id="safe-urgent">SAFE-URGENT<a class="anchor" href="#safe-urgent" aria-label="Link to this section">#</a></h3>
+<p><strong>Symptoms described now</strong> · Safety rule · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> Symptoms of a reaction get emergency guidance only, before any analysis.</p>
+<p><strong>What the engine does.</strong> verdict urgent, no analysis, emergency numbers (SAMU 192, 911, 112).</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td>Project safety requirement US-08</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.4.0</strong> Added to the engine (was prompt-only).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_symptoms_now_return_urgent_without_analysis</code>, <code>test_no_false_urgent</code></p>
+<h3 id="safe-wording">SAFE-WORDING<a class="anchor" href="#safe-wording" aria-label="Link to this section">#</a></h3>
+<p><strong>Never call a product safe</strong> · Safety rule · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> A green result only means nothing was found in the text; the agent never says safe.</p>
+<p><strong>What the engine does.</strong> Every result carries the wording to use instead of safe.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td>Project safety requirement US-07</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.4.0</strong> Added to the engine (was prompt-only).</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_green_verdict_comes_with_safe_wording</code></p>
+<h3 id="safe-strict">SAFE-STRICT<a class="anchor" href="#safe-strict" aria-label="Link to this section">#</a></h3>
+<p><strong>STRICT mode</strong> · Safety rule · since 0.2.0 · last reviewed 2026-10-17 · next review 2027-10-17 (every 12 months)</p>
+<p><strong>Intent.</strong> For an allergy or celiac disease every unclear item counts as red.</p>
+<p><strong>What the engine does.</strong> yellow becomes red for allergen profiles when strict is true.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Legal basis</th>
+<th>Basis checked</th>
+<th>Applies from</th>
+<th>Date checked</th>
+<th>Note</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>All markets</td>
+<td>Project safety requirement US-04</td>
+<td>n/a</td>
+<td>—</td>
+<td>—</td>
+<td></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>History.</strong> <strong>0.2.0</strong> Added.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_engine.py">test_engine.py</a>: <code>test_strict_turns_unclear_into_red</code></p></article>
+    <nav class="pager" aria-label="Previous and next"><a class="prev" href="06-standards-alignment.html"><small>Previous</small><span>Standards alignment</span></a><a class="next" href="04-critical-review.html"><small>Next</small><span>Critical review and roadmap</span></a></nav>
+    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/docs/07-rule-register.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/docs/07-rule-register.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
+  </main>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#how-to-read-it">How to read it</a></li><li><a href="#rules">Rules</a></li><li><a href="#how-the-register-is-governed">How the register is governed</a><ol><li><a href="#release-process-for-a-rule-change">Release process for a rule change</a></li><li><a href="#what-the-register-does-not-do-yet">What the register does not do yet</a></li></ol></li><li><a href="#rule-details">Rule details</a><ol><li><a href="#alg-decl">ALG-DECL</a></li><li><a href="#br-gluten">BR-GLUTEN</a></li><li><a href="#br-lactose-stmt">BR-LACTOSE-STMT</a></li><li><a href="#xc1">XC1</a></li><li><a href="#xc2">XC2</a></li><li><a href="#xc3">XC3</a></li><li><a href="#xc4">XC4</a></li><li><a href="#xc5">XC5</a></li><li><a href="#gmo-label">GMO-LABEL</a></li><li><a href="#organic">ORGANIC</a></li><li><a href="#nongmo-claim">NONGMO-CLAIM</a></li><li><a href="#cert-mark">CERT-MARK</a></li><li><a href="#ingest-gate">INGEST-GATE</a></li><li><a href="#safe-urgent">SAFE-URGENT</a></li><li><a href="#safe-wording">SAFE-WORDING</a></li><li><a href="#safe-strict">SAFE-STRICT</a></li></ol></li></ol></nav>
+</div>
+<footer class="site-footer"><div class="container">
+  <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
+    <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
+  <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
+  <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>
+</div></footer>
+<div class="search" role="dialog" aria-modal="true" aria-label="Search the documentation" hidden>
+  <div class="search-panel">
+    <label class="search-field"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><span class="visually-hidden">Search</span>
+      <input type="search" placeholder="Search the documentation" autocomplete="off" spellcheck="false" role="combobox" aria-expanded="true" aria-controls="search-results"></label>
+    <ul class="search-results" id="search-results" role="listbox"></ul>
+    <p class="search-foot"><span><kbd>↑</kbd> <kbd>↓</kbd> to move</span><span><kbd>Enter</kbd> to open</span><span><kbd>Esc</kbd> to close</span></p>
+  </div>
+</div>
+<div class="toast" role="status" aria-live="polite"></div>
+<script src="assets/search-index.js" defer></script>
+
+<script src="assets/site.js" defer></script>
+</body>
+</html>

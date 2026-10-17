@@ -1,14 +1,14 @@
 # 03 - Requirements
 
-## Scope (v0.1, primary use case updated in v0.4)
+## Scope (v0.1, primary use case updated in v0.4, scope statement in v0.6)
 Since v0.4 the primary use case is the Analyst workflow: label compliance first pass for BR, US and EU (decision D-07, [05 · Analyst workflow](05-analyst-workflow.md)). Shopper and Cook stay as secondary modes.
 
-**In:** ingredient lists from label photos, typed text and recipes; allergen and intolerance flags; animal versus plant origin; vegan and vegetarian checks; cross-check against label statements; human-review handoff.
+**In:** what the label text shows (ingredient lists from photos, typed text and recipes; allergen, gluten and lactose statements; claims and seals), checked against its own statements and the market's rules, as a first pass that a named person signs; allergen and intolerance flags; animal versus plant origin; vegan and vegetarian checks; human-review handoff with traceability.
 
-**Out:** medical advice; legal or regulatory rulings; live data connections; user accounts; barcode lookup; nutrition analysis; halal and kosher (they need certification-level evidence).
+**Out:** certifying anything (only ISO/IEC 17065 bodies certify); deciding the origin of an ambiguous ingredient (flavourings, enzymes, emulsifiers, processing aids) without a supplier declaration; anything not printed on the pack (cross-contact controls, recipes behind a brand); medical advice; legal or regulatory rulings; live data connections; user accounts; barcode lookup; nutrition analysis; halal and kosher. For each out-of-scope point the agent says which evidence would settle it.
 
 ## User stories
-Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was added when the Analyst workflow became primary (v0.4).
+Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was added when the Analyst workflow became primary (v0.4); US-21 to US-24 answer the external review of v0.5 (v0.6).
 
 | ID | Priority | Story | Acceptance criteria |
 |---|---|---|---|
@@ -31,7 +31,11 @@ Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was a
 | US-17 | P2 | As the product owner, I want ingredient data from public sources with clear provenance, so coverage grows without new risk. | Every database row names its source. Imported data never turns a missing allergen fact into 🟢. Licenses are credited. Coverage is measured on labels not used for tuning. |
 | US-18 | P1 | As an analyst, I want each market rule checked with its legal basis, so I know what passed, what failed and what I must look at myself. | A checklist per market (BR, US, EU) with pass / fail / review / n/a and the regulation for each check. Points text cannot settle (format, amounts, emphasis) are always "review", never "pass". |
 | US-19 | P1 | As an analyst, I want claims that depend on a certificate or a lab test (organic, non-GMO, GMO labelling, certification marks) checked against the market's rule, so I know which evidence to collect. | GMO labelling per market (BR 1% with the T symbol, US bioengineered disclosure, EU 0.9%), organic particulars per market (SisOrg; certifier statement; EU code number), and certification marks are listed with their basis. The agent never states that a product is certified, organic, non-GMO or compliant; it names the evidence (certificate, ISO/IEC 17025 lab report, supplier record). |
-| US-20 | P1 | As an analyst, I want a clear decision for each label. | One of: Approve (all checks pass or do not apply), Request evidence (claims or thresholds that need a certificate, lab report or supplier record) or Escalate (a failed check or a contradiction, including an organic claim with a declared GMO). |
+| US-20 | P1 | As an analyst, I want a clear decision for each label. | One of: Ready for sign-off (all checks pass or do not apply; a named reviewer still signs), Request evidence (claims or thresholds that need a certificate, lab report or supplier record) or Escalate (a failed check or a contradiction, including an organic claim with a declared GMO). The tool never approves a label. |
+| US-21 | P1 | As an analyst, I want the agent to stop when it cannot read the label reliably, so a misread never becomes a pass. | The agent declares how well it read the label (`transcription_confidence`, `source`, `complete_pack`). Low confidence or no ingredient list: no verdict and no check (`needs_manual_review`), and the agent asks for a clearer photo of the whole pack. A word marked [?] or medium confidence: no item and no verdict is 🟢, no check passes. A photo of part of the pack: a missing statement is review, not fail. |
+| US-22 | P1 | As a compliance lead, I want every label decision signed by a named reviewer, with a reason for every override, so the audit trail stands up. | `record_review_decision` needs the `check_id` and the reviewer's name; a rejection or an override needs a reason; approving a label the tool did not mark ready is recorded as an override. The audit log links each decision to the input hash, the rules version and the data version. `usage_stats` reports the override rate. |
+| US-23 | P1 | As a compliance lead, I want each rule's legal basis, the date it applies from, how well it was checked and its history in one register, so I know what the engine applies and when it must be reviewed again. | Every checklist row and mismatch carries `rule_id` and its citation from the register. A basis not yet verified never gives pass or fail. CI fails when a review is overdue, a rule has no test or the register and engine versions differ. |
+| US-24 | P2 | As the product owner, I want every benchmark miss explained by its cause, so I know what to fix and what the number means. | Each miss is assigned to ingestion, parsing, taxonomy or reference definition with keyword lists independent of the engine. Extraction rates are reported by input type, with unmeasured types stated. A second reference (the manufacturer's statement) is checked from the ingredients alone. |
 
 ## Non-functional requirements
 - **Safety:** no diagnosis, no medication or dose advice, no claims of safety or "vegan for sure".
@@ -41,6 +45,9 @@ Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was a
 - **Transparency:** the agent shows what it read and how confident it is.
 - **Maintainability:** instructions and knowledge files are versioned, with a changelog.
 - **Data provenance:** curated data wins over imported data; imports are scripted, versioned and credited (Open Food Facts under the ODbL).
+- **Fail closed:** when the input may be wrong (unsure reading, part of the pack, no list), the result is review or no verdict, never pass or 🟢.
+- **Traceability:** every result can be reproduced from its `check_id`: the input hash, the parameters, the rules version and the data hash.
+- **Change control:** a rule changes only with a test, a register entry, a changelog line and a new rules version; a data change that makes a term milder needs a second reviewer.
 - **Cost:** zero.
 
 ## Definition of done for v0.1

@@ -22,7 +22,7 @@ jobs:
         run: |
           uv run eval_rules.py > eval.txt
           grep -q "Pass rate: 25/25" eval.txt
-  # The full benchmark (6,000 products, about 20 minutes) runs on demand from the Actions tab.
+  # The full benchmark (6,000 products, about 45 minutes) runs on demand from the Actions tab.
   benchmark:
     if: github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest

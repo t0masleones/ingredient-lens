@@ -41,6 +41,84 @@ def test_german_sharp_s_matches_in_upper_case(m):
     assert engine.normalize("WEISSWEIN") == engine.normalize("Weißwein")
 
 
+def test_split_derivados_statement_is_read(m):
+    # Found by the v0.6 failure buckets: "CONTÉM GLÚTEN. DERIVADOS DE SOJA" hid the soy declaration.
+    r = check(m, "INGREDIENTES: Farinha de trigo, aveia, açúcar. CONTÉM GLÚTEN. DERIVADOS DE SOJA.", ["soy"])
+    assert "soy" in r["statements"]["contains"]
+    assert r["verdict"] == "red"
+
+
+# Found by reference B in the v0.6 benchmark (40% of French statements "missed" an allergen): a statement printed
+# inside an ingredient's parentheses ended the list, so every ingredient after it was dropped.
+@pytest.mark.parametrize("text, market", [
+    ("INGREDIENTES: açúcar, vinagre (contém sulfitos), gelatina, sal.", "BR"),
+    ("Ingrédients : farine de blé, arôme naturel (contient alcool), sucre, gélatine de porc, sel.", "EU"),
+    ("INGREDIENTS: coconut flakes 28% (contains: sulfur dioxide), sugar, gelatin.", "EU"),
+    ("Zutaten: Zucker, Aroma (enthält Alkohol), Gelatine, Salz.", "EU"),
+])
+def test_contains_inside_parentheses_does_not_end_the_list(m, text, market):
+    r = check(m, text, ["vegan"], market=market)
+    assert r["verdict"] == "red"                                   # was 🟢 or 🟡: the gelatin was dropped
+    assert not r["statements"]["allergen_statement_found"]
+
+
+def test_parenthetical_contains_is_not_the_allergen_statement(m):
+    r = check(m, "Ingrédients : farine de BLÉ, œufs, arôme (contient alcool), beurre.", [], market="EU")
+    assert not any(x["rule"] == "XC2" for x in r["mismatches"])
+
+
+def test_contains_one_or_more_of_the_following_lists_ingredients(m):
+    text = ("INGREDIENTS: Potatoes, Vegetable Oil Contains One Or More Of The Following: Corn, Soybean, Sunflower, "
+            "Seasoning (Whey, Nonfat Dry Milk), Gelatin.")
+    r = check(m, text, ["vegan"], market="US")
+    assert "Gelatin" in [i["text"] for i in r["ingredients"]] and r["verdict"] == "red"
+    assert r["statements"]["contains"] == []                       # the label does not declare milk
+    row = [c for c in r["compliance"] if c["check"] == "Allergen declaration"][0]
+    assert row["status"] != "pass"
+
+
+def test_may_contain_inside_parentheses_is_a_statement(m):
+    r = check(m, "INGREDIENTES: açúcar, chocolate (cacau, pode conter leite), sal.", ["milk"])
+    assert r["verdict"] == "yellow" and "milk" in r["statements"]["may_contain"]
+    assert "cacau" in [i["text"] for i in r["ingredients"]]
+
+
+def test_gluten_statement_inside_parentheses_is_read(m):
+    assert check(m, "INGREDIENTES: farinha de trigo (contém glúten), açúcar.", [])["statements"]["gluten"] == "contains"
+
+
+def test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement(m):
+    # OCR text from the v0.6 benchmark: the "(" after "farinha de trigo" never closes, which made the traces
+    # statement part of an ingredient (read as "contains").
+    text = ("INGREDIENTS: Peito de frango (60%), farinha de trigo (glutenamido de milho, cebola em pó, sal, "
+            "aromas (contém leite e soja) especiarias, alho. Pode conter vestígios de: crustáceos, ovo, peixe.")
+    r = check(m, text, ["egg"])
+    assert r["verdict"] == "yellow" and "egg" in r["statements"]["may_contain"]
+
+
+def test_unclosed_parenthesis_before_contains_keeps_the_list(m):
+    # A margarine in the v0.6 sample: "(CONTEM OLEO DE SOJA, AGUA, …" never closes, and the whey after it was lost.
+    text = ("INGREDIENTES: óleos vegetais (contém óleo de soja, água, sal, soro de leite, gelatina. "
+            "ALÉRGICOS: CONTÉM LEITE E SOJA.")
+    r = check(m, text, ["vegan"])
+    assert "gelatina" in [i["text"] for i in r["ingredients"]] and r["verdict"] == "red"
+    assert r["statements"]["allergen_statement_found"]
+
+
+def test_a_rewritten_list_gives_the_same_verdict(m):
+    # The metamorphic order check rewrites the list from the parsed items, so no item may start a statement.
+    text = "INGREDIENTES: açúcar, aroma (contém leite e soja), gelatina, sal."
+    items = [i["text"] for i in check(m, text, ["vegan"])["ingredients"]]
+    assert "leite e soja" in items
+    for order in (items, items[::-1]):
+        assert check(m, "INGREDIENTES: " + ", ".join(order) + ".", ["vegan"])["verdict"] == "red"
+
+
+def test_allergen_header_ends_the_list_after_an_unclosed_parenthesis(m):
+    r = check(m, "INGREDIENTES: farinha de trigo (enriquecida com ferro, açúcar, sal. ALÉRGICOS: CONTÉM LEITE.", [])
+    assert r["statements"]["allergen_statement_found"] and "milk" in r["statements"]["contains"]
+
+
 def test_open_food_facts_allergen_underscores(m):
     assert check(m, "Zutaten: _Weizenmehl_, Zucker, _Magermilchpulver_.", ["milk"])["verdict"] == "red"
 

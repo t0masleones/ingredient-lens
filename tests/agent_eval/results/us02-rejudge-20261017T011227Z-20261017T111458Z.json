@@ -1,0 +1,888 @@
+{
+ "judge_model": "haiku",
+ "times": 3,
+ "summary": {
+  "runs-20261017T011227Z.jsonl": {
+   "judgements": 54,
+   "mean": 3.87,
+   "share_4plus": 0.704,
+   "answers_mean_4plus": 11,
+   "answers": 18,
+   "same_answer_spread_mean": 1.11
+  },
+  "runs-20261017T111458Z.jsonl": {
+   "judgements": 54,
+   "mean": 3.85,
+   "share_4plus": 0.63,
+   "answers_mean_4plus": 9,
+   "answers": 18,
+   "same_answer_spread_mean": 1.22
+  }
+ },
+ "judgements": [
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear, with short sentences and everyday words. Lactose, maltodextrina and lecitina are explained. But 'INS 322' and 'emulsificante' are never explained, 'aromatizante' is vague, and the 'Não encontrei lactose em...' sentence is a long list. Not fully plain language."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and an explicit next step. But it still uses technical terms that a low-literacy reader may not know: 'lactose' is explained only as 'o açúcar do leite', 'maltodextrina' and 'lecitina' get short glosses, and 'INS 322' and 'emulsificante' appear wit"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, everyday words, and most terms are explained (soro de leite, lactose, maltodextrina, lecitina). Some jargon remains unexplained or weakly explained: 'emulsificante' and 'aromatizante' are not defined, 'INS 322' is unexplained, and the bulleted 'O que a embalagem diz' s"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Frases curtas e palavras do dia a dia. Os termos técnicos (lactose, soro de leite, emulsificante, maltodextrina, INS 322) vêm com uma explicação de poucas palavras. A ação final é clara: olhar a embalagem, falar com o médico ou perguntar ao fabricante."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and emoji color cues. Still uses some jargon and terms a low-literacy reader may not know: \"INS 322\", \"lecitina\", \"maltodextrina\", \"aromatizante\", \"soro de leite em pó\", \"lactose\", \"tolerância\", \"fabricante\". Several sentences are long or formal (\""
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. Technical terms are explained briefly right where they appear: soro de leite em pó (a powder made from milk), lactose (the sugar in milk), lecitina (helps mix fat and water), maltodextrina (a type of sugar, usually from corn). The 'o que o rótulo diz' s"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday examples, and key terms are explained (soro de leite, lactose, lecitina, maltodextrina, INS 322 is explained as an additive code). Minor issues: 'emulsificante' and 'alérgeno' are used with brief glosses but are still somewhat technical, 'INS 322' is an unexplai"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly short sentences and everyday words, and most technical terms are explained: lactose, soro de leite, maltodextrina, and lecitina. Some gaps remain. 'Alérgeno' is not explained, 'INS 322' is a code given without meaning, and 'emulsificante' is named but explained only as 'ajuda a misturar gordu"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short, simple sentences with everyday words. Technical terms are explained right away in a few words: 'soro de leite em pó' (a liquid from milk), 'lactose' (the sugar in milk), 'aromatizante' (gives flavor), 'maltodextrina' (a sugar, usually from corn), 'lecitina' (helps mix fat and water), and 'alé"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain and well-organized, with short bullets and clear verdicts. Some terms still need work: 'lactose' and 'maltodextrin' are explained, but 'emulsifier', 'allergen statement', and 'lactose statement' are used with little or no explanation, and a few sentences like 'Lactose intolerance varies"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, simple words, and most terms are explained (whey, maltodextrin, E471, lactose, emulsifier). It loses a point for a few unexplained or dense bits, such as 'allergen statement', 'lactose statement', and the 'lactose intolerance varies' line, plus some longer sentences in t"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain and short, with clear steps and a verdict up front. Some terms need a glance: 'emulsifier' is explained, but 'lactose' is only partly explained, 'E471' and 'maltodextrin' are explained briefly, and 'cross-contact' is absent. Sentences are mostly short, though the 'How sure I am' line is"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words like 'milk' and 'powder', and most technical terms are explained in a few words (whey powder, E471, maltodextrin, flavouring). It loses a point because 'lactose' is only partly explained, 'label statements' and 'EU rules' are not explained at all, and 'tol"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and most terms are explained (whey, flavouring, maltodextrin, E471 in a few words). It loses a point because \"E-number\", \"lactose\" and \"emulsifier\" appear without a short definition in places, and some sentences such as the 'I assumed EU rules because of "
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short, simple sentences and everyday words. Technical terms are explained in a few words: whey powder, maltodextrin, emulsifier (E471), lactose. The next step is clear and easy to act on."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, and key terms like lactose, E471, maltodextrin and flavouring are explained in a few words. Some terms are left unexplained, including 'dietitian', 'lactose intolerance', 'allergy warning', 'label statements' and 'tolerate'. The 'Verdict' and 'How sure I am' sections a"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly short, clear sentences with everyday words. Ingredients like whey powder, maltodextrin, E471 and flavouring are explained in a few words. Some terms are not explained: 'allergy warning', 'zero lactose claim', 'lactose intolerance', 'tolerate' and 'dietitian'. The last paragraph is also a litt"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Uses short sentences and everyday words. Technical terms are explained in a few words: whey powder, lactose, E471, maltodextrin, flavouring. Actions are clear: skip the product or ask the maker. Minor issue: 'emulsifier' is glossed as a description of what it does, and the 'Label statements' and 'Ho"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and the key terms are explained (carmim as 'corante vermelho feito de um inseto', INS 471 as 'ajudam a misturar gordura e água', hidrogenada as 'óleo de planta endurecido'). Some lapses: 'Veredito' and 'Como tenho certeza: média' are abstract, 'sistema ma"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and most technical terms are explained (INS 471 as a mono/diglyceride helper for mixing fat and water, cochineal as an insect). Some lighter jargon remains: 'hidrogenada' is explained only partly, 'estabilizante' and 'vegetariano/vegano' are used without "
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, emoji and bold labels make it easy to scan, and most technical terms are explained inline (INS 471, mono e diglicerídeos, óleo hidrogenado, cochonilha). Some friction remains: 'Veredito', 'estabilizante', 'hidrogenada' and 'checagem' are less everyday, and the 'Como te"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain and well-structured, with short bullets and clear actions. But it uses some terms a low-literacy reader may not know: 'estabilizante', 'diglicerídeos', 'hidrogenada', 'base de dados', 'INS'. Most are explained briefly, but 'INS 471' and 'INS 120' are never explained as codes, and the 'C"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well-structured, with short bullets and an explicit next step. But it leans on jargon a low-literacy reader may not know: 'INS 471', 'mono e diglicerídeos', 'emulsificante-like' terms, 'base de dados', 'gordura vegetal hidrogenada', and 'glúten' are used with only brief glosses or n"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. The technical terms are explained in a few words each: INS 120 (a red dye from insects), INS 471 (mono and diglycerides, which help mix ingredients), and hydrogenated vegetable fat (hardened plant oil). The verdict is clear and the next step is concrete"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words like 'corante vermelho feito de um inseto' and 'ajudam a misturar', and clear next steps. It loses a point for some residual jargon and dense lines that a low-literacy reader may struggle with: 'estabilizante INS 471', 'gordura vegetal hidrogenada', 'siste"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and an actionable next step. But it uses several technical terms without enough explanation: 'INS 120' and 'INS 471' are E-number-style codes that are never clearly explained, 'estabilizante' and 'mono e diglicerídeos' are jargon, and 'óleo de plan"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The answer is mostly clear and well organized, with short bullets and an explained verdict. But it uses several terms a low-literacy reader may not follow: 'INS 120', 'INS 471', 'mono e diglicerídeos', 'gordura vegetal hidrogenada', 'glúten', and 'aviso de alérgicos'. Some sentences are long and nes"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, clear verdict first, and most terms are explained (barley malt extract, modified starch, E330, citric acid). It falls short of a 5 because 'celiac disease' is never explained, 'label statements' and 'high for the barley malt' are a bit abstract, and 'sour powder' is loos"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, clear verdict up front, and terms like 'barley malt extract' and 'modified starch' are explained in a few words. Minor lapses: 'acidity regulator (E330)' is quoted from the label without a plain explanation in that line, 'cross-contact' is not used, and 'celiac disease' "
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences with everyday words. Technical terms are explained in a few words: 'barley malt extract' is 'a syrup made from barley', 'modified starch' is 'starch changed to make it thicker', 'E330' is '(citric acid, a sour powder)', and 'celiac disease' is used as a known term for this re"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: The core message is clear: 'Not for you' and 'Don't eat it' are easy to act on, and the short bullets help. But several parts are dense for a low-literacy or limited-English reader: 'acidity regulator (E330)' and 'modified starch' are explained only partly, 'celiac disease' and 'allergen warning' ar"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences and everyday words. Technical terms are explained in a few words each: barley malt extract as a syrup from barley, modified starch as starch changed to thicken, E330 as citric acid, a sour powder. The action is clear: don't eat it, look for a gluten-free label, ask a doctor. "
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well-organized, with short labeled sections and plain verdicts. But it uses some jargon without full explanation: 'celiac disease' is not defined, 'acidity regulator' is explained only briefly, 'allergen warning' and 'gluten statement' are unexplained, and 'E330' is given only a sho"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: The core safety verdict and structure are clear, and most terms are explained (barley malt, modified starch, E330, celiac disease). However, several sentences are long and packed with clauses, such as the modified starch and 'unclear item' lines, and phrases like 'quick check' and 'I count an unclea"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. Technical terms are explained inline: barley malt extract, modified starch, E330 (citric acid, a sour powder), and celiac disease. The verdict and next step come first and are easy to act on. The only mild friction is 'acidity regulator' and 'gluten sta"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 2,
+   "detail": "2/5: The answer is mostly clear and well organized, and it uses short bullets and emoji markers. But it has several hard words that a low-literacy or limited-English reader may not know: \"modified starch\" is explained, yet \"celiac disease\" gets only a short gloss, and \"gluten\" is never explained at all. "
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, everyday words, and most terms are explained (albumina = clara do ovo, lecitina = ajuda a misturar gordura e água). Minor jargon remains: 'aviso de alergia' and 'CONTÉM GLÚTEN' are not explained, and 'Alta' confidence and 'checagem' are slightly technical. The action s"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words. Technical terms are explained in a few words: 'lecitina' (ajuda a misturar gordura e água), 'albumina' (é a clara do ovo), and 'alérgicos' (aviso de alergia). The next steps are clear and easy to act on."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and E-number-style jargon is avoided. It explains albumina and lecitina in a few words. Some phrases are a bit dense for low literacy, such as 'Como tenho certeza: Alta para a albumina' and 'aviso de alergia ... CONTÉM GLÚTEN' (the reader may not know wha"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short, simple sentences and everyday words. Technical terms like albumina, lecitina, and alergia are each explained right away in a few words. Clear next step and clear statement of how sure the assistant is. Easy for a low-literacy reader to act on."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and it explains albumina (clara do ovo), lecitina (ajuda a misturar gordura e água), and the action to take. Minor issues: 'alergia' and 'embalagem' are fine, but 'conferir', 'trato como perigo', and the phrase 'avisos de alergia' plus the 'Quão certo est"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, clear 'Não coma este produto' action, and jargon like 'albumina' and 'lecitina' is explained right after with 'é a clara do ovo' and 'ajuda a misturar gordura e água'. Some sentences are a bit long (e.g., the lecitina origin line) and 'alergia' and 'glúten' are used with"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well-organized, with short bullets and an explicit 'Não coma' action. But it uses some jargon a low-literacy reader may not know: 'Albumina' is only partly explained ('é clara de ovo'), 'Lecitina' is explained as 'ajuda a misturar gordura e água' (a bit abstract), and the 'Alta' cer"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 2,
+   "detail": "2/5: The answer is mostly short and actionable, with clear warnings and steps. But it uses several terms without explaining them well: 'albumina' is described only as 'clara de ovo', lecitina gets a brief gloss, and phrases like 'revisão', 'pedido de revisão', 'alergista (médico de alergia)' and 'Alta pa"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: Mostly clear and actionable: short bullets, a clear 'Não coma' headline, and a concrete next step. Some jargon and longer sentences remain: 'Lecitina' is explained only partly ('ajuda a misturar gordura e água'), 'aviso de alergia' and 'CONTÉM GLÚTEN' are used without explanation, 'Alta para a album"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear, with short bullets and everyday words in places. But it uses some jargon that is not explained: \"natural flavors\" is left unexplained, \"bone char\" is explained only loosely, \"pectin\" and \"agar\" are not explained at all, and \"cross-contact\" and \"gluten statement\" appear without definiti"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Short sentences, everyday words, and most technical terms are explained in a few words (gelatin, bone char, citric acid, carnauba wax, pectin, agar). Minor gaps: 'gluten statement' and 'label statements' are not explained, and 'bone char' is explained but the sentence around it is a little dense."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The verdict and next step are clear and use short sentences, and most terms are explained (gelatin, natural flavors, bone char, cane sugar). But some terms are left unexplained or dense: 'Label statements', 'How sure I am' with a hedged reasoning chain, and 'pectin' and 'agar' appear with only brief"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Short sentences and everyday words. Most technical terms are explained: gelatin, citric acid, carnauba wax, and E903. Some terms are not explained: 'fermentation', 'bone char', 'pectin', 'agar', and 'thickener'. The emoji color codes also add a layer a low-literacy reader must decode."
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and everyday examples. But some terms are not explained well enough for a low-literacy reader: \"E903\" and \"INS codes\" are not defined, \"fermentation\" is unexplained, \"bone char\" needs more context, and \"natural flavors\" is only partly explained. Se"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain and easy to act on: short bullets, everyday words, and the next step is clear. Some terms still need a little more help: 'emulsifier' is not used, but 'natural flavors' and 'fermentation' are not explained, and 'bone char' and 'pectin/agar' are named without a simple definition. The fir"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Most sentences are short and use everyday words, and the next step is clear. Some terms are not explained: \"gelling agents,\" \"pectin,\" and \"agar\" are never defined, and \"label statements\" is unclear. \"Bone char\" is only partly explained, and the note about the bone-cleaning process is a bit long for"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Very clear: short sentences, everyday words, and most technical terms are explained inline (gelatin, natural flavors, bone char, citric acid, carnauba wax). Minor issues: 'pectin' and 'agar' are named as alternatives without explanation, and 'cross-contact' and 'emulsifier' terms are absent so not a"
+  },
+  {
+   "file": "runs-20261017T011227Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain and well-organized, with short bullets and clear next steps. It still uses some terms that a low-literacy reader may not know, such as \"pectin,\" \"agar,\" \"gelling agents,\" and \"bone char,\" and the \"Label statements\" and \"How sure I am\" headers add reading load. Most sentences are short, "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and everyday Portuguese. But it still uses terms a low-literacy reader may not know: 'emulsificante', 'lactose' (explained only partly), 'INS 322', 'maltodextrina' (explained), and 'laboratório' and 'fabricante'. Several sentences are long, such as"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. Technical terms are explained right away: lactose ('o açúcar do leite'), lecithin ('ajuda a misturar gordura e água'), maltodextrin ('um tipo de açúcar, quase sempre de milho'), and the 'soro de leite em pó' is described as a powder made from the liquid"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The answer is mostly clear and uses short bullets, and it explains lactose, soy lecithin, and maltodextrin in a few words. But it still has some jargon and longer sentences: 'emulsificante lecitina de soja (INS 322)' is shown without explaining 'emulsificante' or 'INS 322' in the ingredients list, a"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly short sentences and everyday words, and most terms are explained (soro de leite, lactose, maltodextrina, lecitina). Some remaining jargon: 'emulsificante' and 'INS 322' are not explained as clearly as the other items, 'aromatizante' gets little explanation, and 'Alta para a lista que você col"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear with short bullets and simple warnings, but it uses several technical terms without enough explanation for a low-literacy reader: 'INS 322' (not explained), 'emulsificante' (not explained beyond 'ajuda a misturar'), 'maltodextrina' (called 'um açúcar' only), 'intolerância à lactose' and"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: Mostly clear, with short bullets and everyday explanations for soro de leite, lactose, aromatizante and lecitina. Some jargon remains unexplained: INS 322, 'emulsificante', 'maltodextrina' (only partly explained), 'intolerância', 'glúten', 'alérgicos' and 'fabricante'. Several sentences are long or "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words. Technical terms are explained inline: lecitina is 'ajuda a misturar gordura e água', maltodextrina is 'um açúcar quase sempre de milho', and soro de leite is 'um líquido que vem do leite'. The only jargon left is 'INS 322' and 'lactose', and both are followed by a"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly short sentences and everyday words, with each ingredient group explained in a few words (soro de leite, maltodextrina, lecitina, aromatizante). It loses a point for some jargon and a few longer sentences: 'Quão certo estou', 'aviso', 'tolerância', 'INS 322' is shown without explanation of wha"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P01",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. Technical terms are explained in a few words: 'lecitina de soja' is 'ajuda a misturar gordura e água', 'maltodextrina' is 'um açúcar quase sempre de milho', and 'soro de leite' is 'um líquido que vem do leite'. Each item has a clear color and a clear ne"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short, clear sentences and everyday words. Technical terms are explained in a few words: E471 as an emulsifier that helps fat and water mix, maltodextrin as a sugar usually from corn, lactose as the sugar in milk, and whey powder as dried milk. Each point is easy to act on, with a clear next step."
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words throughout. Technical terms are explained right away: E471 as 'an emulsifier, which helps fat and water mix', maltodextrin as 'a sugar, usually from corn', and whey powder as 'a dried liquid made from milk'. Each point is easy to act on, with a clear next step and "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The core verdict and steps are clear and actionable, with short bullets and simple color cues. But it uses several terms a low-literacy reader may not know or may find hard: 'emulsifier' is explained, but 'lactose' is only partly explained, 'E471' is glossed only as a fat-and-water helper, and 'alle"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences with everyday words. Technical terms are explained in a few words each: whey powder, lactose, emulsifier, E471, maltodextrin, flavouring. The next step is a clear action (skip it or ask the maker). Only minor lapse: 'Contains milk' statement and 'highlighted in bold' are a bi"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Short sentences and everyday words. Most technical terms are explained in a few words: whey powder, lactose, flavouring, E471, emulsifier, maltodextrin. Some phrases are harder for a low-literacy reader: 'highlighted in the ingredient list', 'tolerance differs from person to person', and 'palm oil' "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain and easy to act on: short bullets, clear next step, and a simple 'skip it or ask the maker' action. Some terms need a bit more help for low-literacy readers: 'emulsifier' is explained, but 'lactose' is only partly explained ('the sugar in milk' is clear), 'flavouring' and 'maltodextrin'"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and most terms are explained inline (emulsifier, whey, lactose, maltodextrin, flavouring). Some sentences run long and the emoji-coded format plus phrases like 'Label statements' and 'the amount decides' add reading load. E471 is explained only as 'helps "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Most sentences are short and use everyday words. Each technical term is explained in a few words: whey powder, lactose, E471, emulsifier, maltodextrin. A few sentences run long, such as the one about lactose amounts, and words like 'tolerance' and 'statement' are not explained."
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P02",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and most technical terms are explained (whey, emulsifier, maltodextrin, lactose, flavouring). Some sentences are a bit long, 'emulsifier' is glossed only partly, and 'label statements' and 'tolerance' are slightly abstract for a low-literacy reader, so it"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Short sentences and clear everyday wording overall, with useful next steps. Some technical terms remain only partly explained: 'INS 120' and 'INS 471' are given without a plain meaning beyond the parenthetical, 'gordura vegetal hidrogenada' is explained, and 'estabilizante' is glossed as 'ajudam a m"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words. Technical terms are explained inline: INS 120 (cochonilha, a red dye from an insect), INS 471 (ajudam a misturar), and gordura vegetal hidrogenada (óleo de planta endurecido). The reader gets a clear action: leave the product if they don't eat carmim, or ask the m"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The structure is clear, with short bullets and emojis that help a low-literacy reader. But it has jargon that is only partly explained: 'INS 471' and 'INS 120' are codes with no plain meaning, 'estabilizante' and 'gordura vegetal hidrogenada' are technical, 'alergicos' and 'confiança' are abstract, "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly short, clear sentences with everyday words, and several terms are explained in parentheses (hidrogenada, mono e diglicerídeos, cochonilha). But some technical terms are left unexplained: 'estabilizante', 'glúten' (only described as a risk, not what it is), the 'INS' codes, and 'sistema marcou"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear, with a bold verdict up front and short bullets, but it uses several unexplained or only partly explained technical terms: 'INS 471', 'mono e diglicerídeos', 'hidrogenada', 'glúten' and 'alergia' appear without plain definitions. Some sentences are long and dense, e.g. the 'Como tenho c"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: The verdict and structure are easy to follow, and most sentences are short. However, several technical terms are used with only partial explanation: 'INS 471' and 'INS 120' are codes never explained beyond their examples, 'estabilizante' and 'gordura vegetal hidrogenada' are explained only briefly, "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Frases curtas e palavras do dia a dia. Os termos técnicos (INS 120, INS 471, estabilizante, gordura hidrogenada) vêm acompanhados de explicação curta, e as instruções de próximo passo são diretas. Pequeno ponto de atenção: 'mono e diglicerídeos' e 'base de dados' são um pouco técnicos, mas ainda ass"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear: the verdict comes first, bullets are short, and the next step is actionable. But it uses several terms without explanation or with only partial explanation: 'INS 471' (only partly explained as mono and diglicerídeos), 'INS 120' and 'carmim' (the insect is named but the term is not expl"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P03",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 2,
+   "detail": "2/5: Plain-language intent is partly there (emoji color flags, short bullets, a 'Próximo passo' with a concrete action), but the answer is dense for a low-literacy reader: it uses unexplained or only partly explained terms like 'INS 471', 'INS 120', 'gordura vegetal hidrogenada', 'base de dados', 'glúten"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and most jargon is explained (barley malt extract, modified starch, E330 as citric acid, gluten, celiac). Some items remain hard for a low-literacy reader: 'acidity regulator (E330)' is shown in the ingredient list, 'the text I could read' and 'red flag' "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences and everyday words. Technical terms are explained in a few words each: barley malt extract, modified starch, E330 (citric acid, a sour powder), and celiac disease are all glossed. The action is clear (skip the product, ask the maker about the starch). Minor issue: 'label stat"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, clear 'Do not eat this' headline, and a concrete next step. Some terms still need a quick explanation for a low-literacy reader: 'celiac disease' is not explained, 'modified starch' is explained but 'gluten' and 'acidity regulator' are only partly explained, and 'E330'"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well-organized, with short bullets and everyday verdict wording. But it leans on jargon not explained: \"celiac disease\" is unexplained, \"modified starch\" and \"acidity regulator\" are glossed only loosely, \"E330\" is given a parenthetical but \"allergy doctor\" and \"certified gluten-free"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: The verdict and next steps are clear and action-oriented, and most sentences are short. But it uses several terms a low-literacy or limited-English reader may not know without a clear explanation: 'modified starch' is explained, but 'celiac disease', 'allergy doctor', 'certified gluten-free', and 'a"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, a clear verdict, and concrete next steps. Some terms still need a few-word explanation for low-literacy readers: \"E330\" is explained, but \"celiac disease\", \"certified gluten-free\", \"modified starch\" (explained only partly), and \"allergy doctor\" are not glossed, and \"gl"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly short, clear sentences, and the barley, modified starch, and E330 items are explained in plain words. But 'celiac disease' is never explained, 'red flag' is an idiom, and 'EU rules' and 'label statements' are unexplained. Those gaps keep it below a 5."
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and an explicit verdict. But it uses jargon that is not explained: \"celiac disease\" is never defined, \"E330\" is only partly explained, \"acidity regulator\" and \"modified starch\" are only partly explained, and \"red flag\" and \"allergy warning\" are idi"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P04",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well-structured, with short bullets and plain verdicts. But it uses jargon the reader may not know: 'modified starch' is explained, yet 'celiac disease', 'gut', 'E330', 'barley malt extract', and 'allergy warning' are used without much explanation. Some sentences are long, such as t"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Sentences are short and mostly everyday words. Albumina is explained as 'a clara do ovo' and lecitina as 'ajuda a misturar gordura e água', with its possible sources named. 'Glúten' is never explained, and 'aviso de alergia' and 'Alta' are slightly abstract. Otherwise it is easy to act on, with a cl"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain and easy to act on: short bullets, clear 'Não coma' instruction, everyday words. Some jargon remains unexplained: 'albumina' is glossed as 'a clara do ovo', but 'lecitina' is explained only by function ('ajuda a misturar gordura e água') and 'alérgicos' / 'aviso de alergia' / 'glúten' a"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences in everyday Portuguese. Technical terms are explained inline: 'albumina' is 'a clara do ovo', 'lecitina' is 'ajuda a misturar gordura e água'. The action is clear ('Não coma este produto', 'Deixe este produto de lado'), and the emergency contact is given plainly. Minor gap: '"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and clear actions ('Não coma'). Technical terms are explained inline (albumina = clara de ovo, lecitina = ajuda a misturar gordura e água). Some terms are still a bit abstract for low literacy: 'aviso de alergia', 'glúten' is not explained (what it is), '"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short sentences, everyday words, and the key terms are explained (albumina = clara de ovo, lecitina = ajuda a misturar gordura e água). Minor issues: 'Quanto eu tenho certeza' and 'checagem rápida' are slightly abstract, and 'Alérgicos: Contém...' and 'CONTÉM GLÚTEN' appear as quoted l"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 3,
+   "detail": "3/5: Mostly clear, with short bullets and an explicit 'Não coma' action. But it uses technical terms without explaining them: 'albumina' is glossed only as 'clara de ovo', 'lecitina' as 'ajuda a misturar gordura e água' (no plain 'emulsificante' explanation), and 'alérgicos'/'glúten' are used as-is. Some"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short sentences and everyday words. Technical terms are explained in a few words: 'Albumina' is 'a clara do ovo', 'Lecitina' is 'ajuda a misturar gordura e água', and 'alergista' is glossed. Next steps are concrete and easy to act on. Only minor density in the 'Quanto tenho certeza' and 'aviso' phra"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain and easy to act on: short bullets, a clear 'Não use este produto' instruction, and simple colored markers. Some terms still need a quick explanation: 'albumina' is explained as egg white, but 'lecitina' is explained only by its function (mixing fat and water), and 'alergista', 'aviso de"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P05",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 5,
+   "detail": "5/5: Frases curtas e palavras do dia a dia. Termos técnicos são explicados logo em seguida: albumina é a clara do ovo, lecitina é um ingrediente que mistura gordura e água. A ação é clara: não coma o produto e procure o alergista. O único ponto um pouco técnico é 'aviso de alergia', mas ele aparece com o"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 1,
+   "score": 4,
+   "detail": "4/5: Mostly short sentences and everyday words, with clear action steps and a plain warning. Some terms are still technical or only partly explained: 'bone char' and 'pectin' and 'agar' are named without enough explanation for a low-literacy reader, and 'cross-contact' and 'natural flavors' appear withou"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 2,
+   "score": 5,
+   "detail": "5/5: Short, direct sentences and everyday words. Technical terms are explained in a few words each: gelatin (from animal skin and bones), natural flavors, bone char, pectin, agar. The next step is clear and easy to act on: don't buy it, look for a 'vegan' label with no gelatin."
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 1,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Sentences are short and mostly use everyday words. Gelatin, natural flavors, citric acid, carnauba wax, pectin, agar, and bone char are each explained in a few words, and the next step is clear. It loses a point because 'vegan' is never explained, 'label statements' and 'how sure I am' are abstract "
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 1,
+   "score": 3,
+   "detail": "3/5: Mostly clear and well organized, with short bullets and everyday wording. It still has some jargon and technical terms left unexplained or only partly explained: 'natural flavors' is glossed but 'carnauba wax' and 'citric acid' are explained only briefly, 'pectin' and 'agar' are named without any ex"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 2,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, everyday words, and the key terms (gelatin, natural flavors, bone char, citric acid, carnauba wax) get brief plain explanations. Minor drag from a few longer clauses and a bit of wording like 'clean cane sugar' and 'the label does not give their source' that a low-litera"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 2,
+   "judge_run": 3,
+   "score": 4,
+   "detail": "4/5: Mostly plain: short bullets, simple words, and most terms are explained (gelatin, natural flavors, citric acid, carnauba wax, bone char). Some items are still dense for a low-literacy reader: 'Label statements', 'How sure I am', 'Medium', 'allergy warning', 'pectin' and 'agar' are not explained, and"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 1,
+   "score": 5,
+   "detail": "5/5: Short, simple sentences and everyday words. Technical terms are explained right away: gelatin is 'made from the skin and bones of animals', natural flavors are 'add taste', and citric acid is 'a sour powder'. The action is clear: 'Do not choose this product' and look for a gelatin-free one. The only"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 2,
+   "score": 3,
+   "detail": "3/5: Mostly plain: short bullets, clear verdict up front, and the next step is actionable. But some terms are left unexplained or only partly explained for a low-literacy reader: 'gelatin' is described but 'pectin' and 'vegan seal' are not, 'natural flavors' is only partly explained, and 'citric acid' is"
+  },
+  {
+   "file": "runs-20261017T111458Z.jsonl",
+   "id": "P06",
+   "repeat": 3,
+   "judge_run": 3,
+   "score": 2,
+   "detail": "2/5: The answer is mostly short and uses bold headers and emoji, but it has dense or technical wording a low-literacy reader may miss. 'Citric acid is a sour powder' is clear, but 'Some factories clean sugar with animal bones' and 'Label statements' need more explaining. 'Natural flavors' is labeled 'add"
+  }
+ ]
+}

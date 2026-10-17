@@ -41,19 +41,19 @@
     <p class="eyebrow">03 · Requirements</p>
     <h1>Requirements</h1>
     <p class="lead">User stories with measurable acceptance criteria, non-functional requirements and the definition of done.</p>
-    <ul class="meta"><li>Updated 2026-10-16</li><li>5 min read</li><li>Source: 03-requirements.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>8 min read</li><li>Source: 03-requirements.md</li></ul>
   </div>
 </section>
 <div class="layout container">
-  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html" aria-current="page">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html" aria-current="page">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
   <main id="content" class="content" tabindex="-1">
-    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#scope-v01-primary-use-case-updated-in-v04">Scope (v0.1, primary use case updated in v0.4)</a></li><li><a href="#user-stories">User stories</a></li><li><a href="#non-functional-requirements">Non-functional requirements</a></li><li><a href="#definition-of-done-for-v01">Definition of done for v0.1</a></li><li><a href="#open-questions-if-this-became-a-real-project">Open questions (if this became a real project)</a></li></ol></details></div>
-    <article class="prose"><h2 id="scope-v01-primary-use-case-updated-in-v04">Scope (v0.1, primary use case updated in v0.4)<a class="anchor" href="#scope-v01-primary-use-case-updated-in-v04" aria-label="Link to this section">#</a></h2>
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#scope-v01-primary-use-case-updated-in-v04-scope-statement-in-v06">Scope (v0.1, primary use case updated in v0.4, scope statement in v0.6)</a></li><li><a href="#user-stories">User stories</a></li><li><a href="#non-functional-requirements">Non-functional requirements</a></li><li><a href="#definition-of-done-for-v01">Definition of done for v0.1</a></li><li><a href="#open-questions-if-this-became-a-real-project">Open questions (if this became a real project)</a></li></ol></details></div>
+    <article class="prose"><h2 id="scope-v01-primary-use-case-updated-in-v04-scope-statement-in-v06">Scope (v0.1, primary use case updated in v0.4, scope statement in v0.6)<a class="anchor" href="#scope-v01-primary-use-case-updated-in-v04-scope-statement-in-v06" aria-label="Link to this section">#</a></h2>
 <p>Since v0.4 the primary use case is the Analyst workflow: label compliance first pass for BR, US and EU (decision D-07, <a href="05-analyst-workflow.html">05 · Analyst workflow</a>). Shopper and Cook stay as secondary modes.</p>
-<p><strong>In:</strong> ingredient lists from label photos, typed text and recipes; allergen and intolerance flags; animal versus plant origin; vegan and vegetarian checks; cross-check against label statements; human-review handoff.</p>
-<p><strong>Out:</strong> medical advice; legal or regulatory rulings; live data connections; user accounts; barcode lookup; nutrition analysis; halal and kosher (they need certification-level evidence).</p>
+<p><strong>In:</strong> what the label text shows (ingredient lists from photos, typed text and recipes; allergen, gluten and lactose statements; claims and seals), checked against its own statements and the market's rules, as a first pass that a named person signs; allergen and intolerance flags; animal versus plant origin; vegan and vegetarian checks; human-review handoff with traceability.</p>
+<p><strong>Out:</strong> certifying anything (only ISO/IEC 17065 bodies certify); deciding the origin of an ambiguous ingredient (flavourings, enzymes, emulsifiers, processing aids) without a supplier declaration; anything not printed on the pack (cross-contact controls, recipes behind a brand); medical advice; legal or regulatory rulings; live data connections; user accounts; barcode lookup; nutrition analysis; halal and kosher. For each out-of-scope point the agent says which evidence would settle it.</p>
 <h2 id="user-stories">User stories<a class="anchor" href="#user-stories" aria-label="Link to this section">#</a></h2>
-<p>Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was added when the Analyst workflow became primary (v0.4).</p>
+<p>Priority: P1 = needed for the demo, P2 = next. US-15 moved to P1 and US-18 was added when the Analyst workflow became primary (v0.4); US-21 to US-24 answer the external review of v0.5 (v0.6).</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -182,7 +182,31 @@
 <td>US-20</td>
 <td>P1</td>
 <td>As an analyst, I want a clear decision for each label.</td>
-<td>One of: Approve (all checks pass or do not apply), Request evidence (claims or thresholds that need a certificate, lab report or supplier record) or Escalate (a failed check or a contradiction, including an organic claim with a declared GMO).</td>
+<td>One of: Ready for sign-off (all checks pass or do not apply; a named reviewer still signs), Request evidence (claims or thresholds that need a certificate, lab report or supplier record) or Escalate (a failed check or a contradiction, including an organic claim with a declared GMO). The tool never approves a label.</td>
+</tr>
+<tr>
+<td>US-21</td>
+<td>P1</td>
+<td>As an analyst, I want the agent to stop when it cannot read the label reliably, so a misread never becomes a pass.</td>
+<td>The agent declares how well it read the label (<code>transcription_confidence</code>, <code>source</code>, <code>complete_pack</code>). Low confidence or no ingredient list: no verdict and no check (<code>needs_manual_review</code>), and the agent asks for a clearer photo of the whole pack. A word marked [?] or medium confidence: no item and no verdict is 🟢, no check passes. A photo of part of the pack: a missing statement is review, not fail.</td>
+</tr>
+<tr>
+<td>US-22</td>
+<td>P1</td>
+<td>As a compliance lead, I want every label decision signed by a named reviewer, with a reason for every override, so the audit trail stands up.</td>
+<td><code>record_review_decision</code> needs the <code>check_id</code> and the reviewer's name; a rejection or an override needs a reason; approving a label the tool did not mark ready is recorded as an override. The audit log links each decision to the input hash, the rules version and the data version. <code>usage_stats</code> reports the override rate.</td>
+</tr>
+<tr>
+<td>US-23</td>
+<td>P1</td>
+<td>As a compliance lead, I want each rule's legal basis, the date it applies from, how well it was checked and its history in one register, so I know what the engine applies and when it must be reviewed again.</td>
+<td>Every checklist row and mismatch carries <code>rule_id</code> and its citation from the register. A basis not yet verified never gives pass or fail. CI fails when a review is overdue, a rule has no test or the register and engine versions differ.</td>
+</tr>
+<tr>
+<td>US-24</td>
+<td>P2</td>
+<td>As the product owner, I want every benchmark miss explained by its cause, so I know what to fix and what the number means.</td>
+<td>Each miss is assigned to ingestion, parsing, taxonomy or reference definition with keyword lists independent of the engine. Extraction rates are reported by input type, with unmeasured types stated. A second reference (the manufacturer's statement) is checked from the ingredients alone.</td>
 </tr>
 </tbody>
 </table></div>
@@ -195,6 +219,9 @@
 <li><strong>Transparency:</strong> the agent shows what it read and how confident it is.</li>
 <li><strong>Maintainability:</strong> instructions and knowledge files are versioned, with a changelog.</li>
 <li><strong>Data provenance:</strong> curated data wins over imported data; imports are scripted, versioned and credited (Open Food Facts under the ODbL).</li>
+<li><strong>Fail closed:</strong> when the input may be wrong (unsure reading, part of the pack, no list), the result is review or no verdict, never pass or 🟢.</li>
+<li><strong>Traceability:</strong> every result can be reproduced from its <code>check_id</code>: the input hash, the parameters, the rules version and the data hash.</li>
+<li><strong>Change control:</strong> a rule changes only with a test, a register entry, a changelog line and a new rules version; a data change that makes a term milder needs a second reviewer.</li>
 <li><strong>Cost:</strong> zero.</li>
 </ul>
 <h2 id="definition-of-done-for-v01">Definition of done for v0.1<a class="anchor" href="#definition-of-done-for-v01" aria-label="Link to this section">#</a></h2>
@@ -214,12 +241,12 @@
     <nav class="pager" aria-label="Previous and next"><a class="prev" href="02-tool-selection.html"><small>Previous</small><span>Tool and data selection</span></a><a class="next" href="05-analyst-workflow.html"><small>Next</small><span>Analyst workflow</span></a></nav>
     <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/docs/03-requirements.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/docs/03-requirements.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
   </main>
-  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#scope-v01-primary-use-case-updated-in-v04">Scope (v0.1, primary use case updated in v0.4)</a></li><li><a href="#user-stories">User stories</a></li><li><a href="#non-functional-requirements">Non-functional requirements</a></li><li><a href="#definition-of-done-for-v01">Definition of done for v0.1</a></li><li><a href="#open-questions-if-this-became-a-real-project">Open questions (if this became a real project)</a></li></ol></nav>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#scope-v01-primary-use-case-updated-in-v04-scope-statement-in-v06">Scope (v0.1, primary use case updated in v0.4, scope statement in v0.6)</a></li><li><a href="#user-stories">User stories</a></li><li><a href="#non-functional-requirements">Non-functional requirements</a></li><li><a href="#definition-of-done-for-v01">Definition of done for v0.1</a></li><li><a href="#open-questions-if-this-became-a-real-project">Open questions (if this became a real project)</a></li></ol></nav>
 </div>
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
     <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
-  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
   <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
   <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
   <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>

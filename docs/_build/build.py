@@ -1,20 +1,25 @@
-"""Build the documentation site in docs/ from the Markdown sources and the project record fragment.
+"""Build the documentation site in docs/ from the Markdown sources.
 
 Usage (from the repository root):
     uv run --no-project --with markdown==3.7 python docs/_build/build.py
 
-Sources stay the single source of truth:
-- docs/*.md, tests/test-plan.md, tests/evidence/*.md, agent/CHANGELOG.md  (Markdown, also readable on GitHub)
-- docs/src/00-project-record.html                                          (HTML fragment with record components)
+Sources stay the single source of truth, and all of them read well on GitHub:
+- docs/*.md, tests/test-plan.md, tests/evidence/*.md, agent/CHANGELOG.md
+- docs/07-rule-register.md is generated first from mcp-server/rules/register.json (mcp-server/rules/render.py)
+The project record uses a few conventions that GitHub shows as plain Markdown and the site turns into components:
+a status mark at the start of a table cell (✅ 🔵 🟡 ⚪ 🔴 🟣) becomes a lozenge, a list after <!-- timeline --> a
+timeline, a two-column table after <!-- stats --> metric cards, "- [ ]" items a task list, and the block between
+<!-- toc --> and <!-- /toc --> is dropped (the site has its own contents). <details> blocks keep their Markdown.
 Output: static pages in docs/ that open from disk (file://) and can be served by GitHub Pages (main, /docs).
-Numbers on the home page are read from tests/benchmark/results.json, the latest agent evaluation report and the
-data files, so they cannot drift from the evidence.
+Numbers on the home page are read from tests/benchmark/results.json, the latest agent evaluation report, the rule
+register and the data files, so they cannot drift from the evidence.
 """
 
 from __future__ import annotations
 
 import datetime as dt
 import html
+import importlib.util
 import json
 import re
 import subprocess
@@ -27,21 +32,32 @@ ROOT = DOCS.parent
 REPO = "https://github.com/t0masleones/ingredient-lens"
 BLOB = REPO + "/blob/main/"
 TREE = REPO + "/tree/main/"
-TESTS_PASSED = "3,145"          # update after each full pytest run (unit, data and property tests)
+TESTS_PASSED = "3,251"          # update after each full pytest run (unit, data and property tests)
 SITE = "Ingredient Lens"
 
 
-def latest_agent_eval() -> str:
-    reports = sorted((ROOT / "tests" / "evidence").glob("agent-eval-v*.md"),
+def latest(pattern: str) -> str:
+    """Newest versioned evidence report, for example agent-eval-v0.6.md over agent-eval-v0.5.md."""
+    reports = sorted((ROOT / "tests" / "evidence").glob(pattern),
                      key=lambda p: [int(x) for x in re.findall(r"\d+", p.stem)])
     return reports[-1].relative_to(ROOT).as_posix()
+
+
+def render_rule_register() -> dict:
+    """Write docs/07-rule-register.md from the register, with the same renderer the tests check against."""
+    spec = importlib.util.spec_from_file_location("rule_register_render", ROOT / "mcp-server" / "rules" / "render.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    register = json.loads(mod.REGISTER.read_text(encoding="utf-8"))
+    mod.PAGE.write_text(mod.render(register), encoding="utf-8", newline="\n")
+    return register
 
 
 PAGES = [
     {"out": "index.html", "kind": "home", "nav": "Home", "group": "Overview", "title": SITE,
      "desc": "A first-pass label compliance agent for Brazil, the US and the EU: rules engine, governed data and "
              "measured evidence."},
-    {"out": "00-project-record.html", "kind": "html", "src": "docs/src/00-project-record.html", "base": "docs",
+    {"out": "00-project-record.html", "src": "docs/00-project-record.md", "status_marks": True,
      "nav": "Project record", "group": "Overview", "title": "Project record", "eyebrow": "Living document",
      "desc": "The running record of the project from the Business Analyst's side: activity, decisions, "
              "traceability, quality, risks and backlog."},
@@ -64,6 +80,11 @@ PAGES = [
      "group": "Delivery", "title": "Standards alignment", "eyebrow": "06 · Certification, testing, compliance",
      "desc": "How the agent maps to the standards behind certification and testing work, and the guidelines it now "
              "follows."},
+    {"out": "07-rule-register.html", "src": "docs/07-rule-register.md", "status_marks": True,
+     "nav": "Rule register", "group": "Delivery",
+     "title": "Rule register", "eyebrow": "07 · Governance",
+     "desc": "Every rule the engine applies, with its legal basis per market, the date it applies from, how well it "
+             "was checked, its history and its tests. Generated from the register the engine reads."},
     {"out": "04-critical-review.html", "src": "docs/04-critical-review.md", "nav": "Critical review and roadmap",
      "group": "Delivery", "title": "Critical review and roadmap", "eyebrow": "04 · Honest assessment",
      "desc": "What the evidence shows and does not show, the weaknesses found, and the prioritised roadmap."},
@@ -71,10 +92,11 @@ PAGES = [
      "title": "Test plan", "eyebrow": "Evidence · Method",
      "desc": "How the agent and the rules are tested, from unit tests to benchmarks on real products and the agent "
              "evaluation."},
-    {"out": "benchmark-review.html", "src": "tests/evidence/benchmark-review-v0.4.md", "nav": "Benchmark review",
+    {"out": "benchmark-review.html", "src": latest("benchmark-review-v*.md"), "nav": "Benchmark review",
      "group": "Evidence", "title": "Benchmark on 6,000 real products", "eyebrow": "Evidence · Rules engine",
-     "desc": "The manual review of every miss on real products from four markets, and the engine errors it found."},
-    {"out": "agent-evaluation.html", "src": latest_agent_eval(), "nav": "Agent evaluation", "group": "Evidence",
+     "desc": "Why each miss happened, how often the text could be read, a second reference from the manufacturer's "
+             "own statement, false alarms, and the engine errors the benchmark found."},
+    {"out": "agent-evaluation.html", "src": latest("agent-eval-v*.md"), "nav": "Agent evaluation", "group": "Evidence",
      "title": "Agent evaluation", "eyebrow": "Evidence · Claude with the tools",
      "desc": "Repeated runs of the full agent: safety, emergency guidance, plain language, Analyst decisions and "
              "certification claims."},
@@ -90,7 +112,8 @@ HEADER_NAV = [("Home", "index.html"), ("Project record", "00-project-record.html
               ("Analyst workflow", "05-analyst-workflow.html"), ("Standards", "06-standards-alignment.html"),
               ("Evidence", "test-plan.html")]
 OUT_BY_SRC = {p["src"]: p["out"] for p in PAGES if p.get("src")}
-OUT_BY_SRC["docs/00-project-record.html"] = "00-project-record.html"
+# Status marks at the start of a table cell (the project record's convention) become lozenges on the site.
+STATUS = {"✅": "l-done", "🔵": "l-prog", "🟡": "l-warn", "⚪": "l-todo", "🔴": "l-risk", "🟣": "l-prop"}
 
 ICONS = {
     "search": '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>',
@@ -217,10 +240,39 @@ def sections_for_search(page: dict, body: str) -> list[dict]:
 
 # ------------------------------------------------------------------ page bodies
 
+def record_components(body: str, status_marks: bool) -> str:
+    """Turn the record's plain-Markdown conventions into site components (see the module docstring). Status marks
+    become lozenges only on pages that use them as statuses; elsewhere 🔴 or 🟡 in a cell is a verdict."""
+    def stats(m: re.Match) -> str:
+        cells = re.findall(r"<tr>\s*<td[^>]*>(.*?)</td>\s*<td[^>]*>(.*?)</td>\s*</tr>", m.group(1), flags=re.S)
+        cards = "".join(f'<div class="stat"><small>{k}</small><strong>{v}</strong></div>' for k, v in cells)
+        return f'<div class="status-row">{cards}</div>'
+    body = re.sub(r"<!-- stats -->\s*<table>(.*?)</table>", stats, body, flags=re.S)
+
+    def timeline(m: re.Match) -> str:
+        items = re.sub(r"<li>\s*<strong>(.*?)</strong>\s*(?:[—:.]\s*)?", r'<li><div class="when">\1</div>', m.group(1))
+        return f'<ul class="timeline">{items}</ul>'
+    body = re.sub(r"<!-- timeline -->\s*<ul>(.*?)</ul>", timeline, body, flags=re.S)
+
+    body = re.sub(r"<li>\[ \]\s*", '<li class="task"><span class="task-box" aria-hidden="true">☐</span>'
+                  '<span class="visually-hidden">To do: </span>', body)
+    body = re.sub(r"<li>\[[xX]\]\s*", '<li class="task done"><span class="task-box" aria-hidden="true">☑</span>'
+                  '<span class="visually-hidden">Done: </span>', body)
+    body = re.sub(r"<ul>(\s*<li class=\"task)", r'<ul class="tasks">\1', body)
+
+    def lozenge(m: re.Match) -> str:
+        return f'<td{m.group(1)}><span class="lozenge {STATUS[m.group(2)]}">{m.group(3).strip()}</span></td>'
+    if not status_marks:
+        return body
+    return re.sub(r"<td([^>]*)>(" + "|".join(STATUS) + r")️?\s*([^<]{1,80}?)\s*</td>", lozenge, body)
+
+
 def render_markdown(page: dict) -> tuple[str, list[dict]]:
     src = ROOT / page["src"]
     text = src.read_text(encoding="utf-8")
     text = re.sub(r"\A#\s+.*\n", "", text, count=1)               # the title moves to the hero
+    text = re.sub(r"<!-- toc -->.*?<!-- /toc -->\s*", "", text, flags=re.S)   # the site has its own contents
+    text = re.sub(r"<details>", '<details markdown="1">', text)    # keep the Markdown inside collapsed sections
     blocks: list[str] = []
 
     def stash(m: re.Match) -> str:
@@ -234,6 +286,7 @@ def render_markdown(page: dict) -> tuple[str, list[dict]]:
     for i, code in enumerate(blocks):
         body = body.replace(f"<p>MERMAIDBLOCK{i}</p>",
                             f'<figure class="diagram"><pre class="mermaid">{html.escape(code)}</pre></figure>')
+    body = record_components(body, page.get("status_marks", False))
     body = re.sub(r"<table>", '<div class="table-wrap"><table>', body)
     body = body.replace("</table>", "</table></div>")
     body = rewrite_links(body, src.parent)
@@ -249,10 +302,11 @@ def render_fragment(page: dict) -> tuple[str, list[dict]]:
     return body, toc_from_html(body)
 
 
-def facts() -> dict:
+def facts(register: dict) -> dict:
     bench = json.loads((ROOT / "tests" / "benchmark" / "results.json").read_text(encoding="utf-8"))
     cov = [v * 100 for v in bench["coverage"].values()]
-    report = (ROOT / latest_agent_eval()).read_text(encoding="utf-8")
+    buckets = bench.get("failure_buckets", {})
+    report = (ROOT / latest("agent-eval-v*.md")).read_text(encoding="utf-8")
     runs = int(re.search(r"(\d+) agent runs", report).group(1))
     safe = [tuple(map(int, m)) for m in re.findall(r"never calls the product safe \| (\d+)/(\d+)", report)]
     emergency = re.search(r"tells to seek emergency help \| (\d+)/(\d+)", report)
@@ -265,6 +319,10 @@ def facts() -> dict:
         "unsafe": sum(t - ok for ok, t in safe), "safe_total": sum(t for _, t in safe),
         "emergency": f"{emergency.group(1)}/{emergency.group(2)}" if emergency else "n/a",
         "curated": f"{curated:,}", "imported": f"{imported:,}", "tests": TESTS_PASSED,
+        "rules": register["rules_version"], "rule_count": len(register["rules"]),
+        "data_hash": bench.get("data_hash", ""), "not_in_text": buckets.get("definition", 0),
+        "taxonomy": buckets.get("taxonomy", 0), "engine_misses": buckets.get("parsing", 0),
+        "unreadable": buckets.get("ingestion", 0),
     }
 
 
@@ -273,7 +331,8 @@ def readme_metrics_svg(f: dict) -> str:
     cards = [
         (f["tests"], "automated tests", "unit, data and property, every push"),
         (f["products"], "real products benchmarked", "most scanned in BR, US, FR and DE"),
-        (f["missed_rate"], "declared allergens missed", f'{f["missed"]} of {f["allergens"]}; none readable in text'),
+        (f["missed_rate"], "declared allergens missed",
+         f'{f["missed"]} of {f["allergens"]}; {f["engine_misses"]} readable in the text'),
         (str(f["unsafe"]), f'“safe” claims in {f["runs"]} agent runs', f'emergency guidance first: {f["emergency"]}'),
     ]
     w, h, gap, pad = 1280, 210, 18, 22
@@ -308,11 +367,14 @@ def home_body(f: dict) -> str:
     flow = """flowchart TD
   L[Label photo or text] --> S{Symptoms described?}
   S -->|yes| EM[Emergency guidance only]
-  S -->|no| T[Agent transcribes every statement]
-  T --> R[check_label rules engine]
+  S -->|no| T[Agent transcribes every statement and rates its reading]
+  T --> G{Readable?}
+  G -->|no| MR[No verdict: ask for a clearer photo]
+  G -->|yes| R[check_label rules engine]
   D[(Curated + public ingredient data)] --- R
+  RR[(Rule register)] --- R
   R --> C[Market checklist BR, US, EU]
-  C -->|all pass| A[Approve]
+  C -->|all pass| A[Ready for sign-off by a named reviewer]
   C -->|evidence missing| E[Request evidence]
   C -->|fail or contradiction| X[Escalate with handoff note]
   X --> K[Review ticket with traceability]"""
@@ -334,7 +396,7 @@ def home_body(f: dict) -> str:
       <div class="hero-shape"></div><div class="hero-ring"></div>
       <div class="check-card">
         <h2>Compliance checklist</h2>
-        <p class="sub">Market: BR · rules 0.4.0 · data {f["curated"]} + {f["imported"]} terms</p>
+        <p class="sub">Market: BR · rules {f["rules"]} · data sha256 {f["data_hash"]}</p>
         <ul>
           <li>Allergen declaration <span class="pill pass">Pass</span></li>
           <li>Gluten statement <span class="pill pass">Pass</span></li>
@@ -357,7 +419,7 @@ def home_body(f: dict) -> str:
     <div class="metrics">
       <div class="metric"><b>{f["tests"]}</b><span>automated tests on every push</span><small>Unit, data and property tests in continuous integration.</small></div>
       <div class="metric"><b>{f["products"]}</b><span>real products benchmarked</span><small>Most scanned in Brazil, the US, France and Germany. Coverage {f["coverage"]}.</small></div>
-      <div class="metric"><b>{f["missed_rate"]}</b><span>declared allergens missed</span><small>{f["missed"]} of {f["allergens"]}; none was readable in the ingredient text.</small></div>
+      <div class="metric"><b>{f["missed_rate"]}</b><span>declared allergens missed</span><small>{f["missed"]} of {f["allergens"]}: {f["not_in_text"]} not in the ingredient text, {f["taxonomy"]} where the rule and the reference disagree, {f["engine_misses"]} engine errors.</small></div>
       <div class="metric"><b>{f["unsafe"]}</b><span>“safe” claims in {f["runs"]} agent runs</span><small>Including adversarial prompts. Emergency guidance first: {f["emergency"]}.</small></div>
     </div>
   </div>
@@ -367,9 +429,9 @@ def home_body(f: dict) -> str:
   <div class="container">
     <div class="section-head"><p class="eyebrow">What it does</p><h2>Built around the analyst, safe for everyone</h2></div>
     <div class="cards">
-      <div class="card"><span class="icon">{ICONS["check"]}</span><h3>Analyst first pass</h3><p>A checklist per market with the legal basis of each check, then one of three decisions: approve, request evidence or escalate with a handoff note.</p></div>
-      <div class="card"><span class="icon">{ICONS["alert"]}</span><h3>Safety in code</h3><p>Symptoms described now get emergency guidance only. A product is never called “safe”. Allergy and celiac profiles turn every doubt red.</p></div>
-      <div class="card"><span class="icon">{ICONS["data"]}</span><h3>Governed data and evidence</h3><p>Every ingredient row cites its source. Screening is never presented as certification or as a lab result; each claim names the evidence that settles it.</p></div>
+      <div class="card"><span class="icon">{ICONS["check"]}</span><h3>Analyst first pass</h3><p>A checklist per market with the legal basis of each check, then one of three decisions: ready for sign-off by a named reviewer, request evidence, or escalate with a handoff note. The tool never approves.</p></div>
+      <div class="card"><span class="icon">{ICONS["alert"]}</span><h3>Safety in code</h3><p>Symptoms described now get emergency guidance only. A product is never called “safe”. An unsure reading never passes: the agent asks for a clearer photo instead of guessing.</p></div>
+      <div class="card"><span class="icon">{ICONS["data"]}</span><h3>Governed rules and data</h3><p>{f["rule_count"]} rules in a register with their legal basis, dates and history; CI fails when a review is overdue. Every result carries a check id and the rules and data versions.</p></div>
     </div>
   </div>
 </section>
@@ -500,7 +562,7 @@ def page_html(page: dict, body: str, toc: list[dict], prev_p: dict | None, next_
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">{SITE}</span></a>
     <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
-  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
   <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
   <div><h2>Project</h2><ul><li><a href="{REPO}">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="{BLOB}mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
   <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>
@@ -523,7 +585,7 @@ def page_html(page: dict, body: str, toc: list[dict], prev_p: dict | None, next_
 
 
 def main() -> None:
-    f = facts()
+    f = facts(render_rule_register())
     rendered, index = [], []
     for page in PAGES:
         kind = page.get("kind", "md")

@@ -41,13 +41,13 @@
     <p class="eyebrow">Evidence · Method</p>
     <h1>Test plan</h1>
     <p class="lead">How the agent and the rules are tested, from unit tests to benchmarks on real products and the agent evaluation.</p>
-    <ul class="meta"><li>Updated 2026-10-16</li><li>3 min read</li><li>Source: test-plan.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-16</li><li>4 min read</li><li>Source: test-plan.md</li></ul>
   </div>
 </section>
 <div class="layout container">
-  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html" aria-current="page">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
+  <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html" aria-current="page">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
   <main id="content" class="content" tabindex="-1">
-    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04">Automated layers (since v0.4)</a></li></ol></details></div>
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04-extended-in-v06">Automated layers (since v0.4, extended in v0.6)</a></li></ol></details></div>
     <article class="prose"><h2 id="goal">Goal<a class="anchor" href="#goal" aria-label="Link to this section">#</a></h2>
 <p>Show, with evidence, that the agent is accurate, honest about uncertainty and safe, and improve it in a documented loop (v0.1 to v0.2).</p>
 <h2 id="method">Method<a class="anchor" href="#method" aria-label="Link to this section">#</a></h2>
@@ -142,7 +142,7 @@
 <p>Ask one person with an intolerance or a cooking background to run 5 cases. Record in <code>evidence/uat-notes.md</code>: understood the answer (yes/no), trusted it (1 to 5), what confused them.</p>
 <h2 id="lightweight-monitoring">Lightweight monitoring<a class="anchor" href="#lightweight-monitoring" aria-label="Link to this section">#</a></h2>
 <p>After each test session, record: cases run, pass rate per metric and the three most common failures. Show the pass rate of v0.1 versus v0.2 in the README Results section.</p>
-<h2 id="automated-layers-since-v04">Automated layers (since v0.4)<a class="anchor" href="#automated-layers-since-v04" aria-label="Link to this section">#</a></h2>
+<h2 id="automated-layers-since-v04-extended-in-v06">Automated layers (since v0.4, extended in v0.6)<a class="anchor" href="#automated-layers-since-v04-extended-in-v06" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
 <thead>
 <tr>
@@ -160,6 +160,30 @@
 <td>Every push (GitHub Actions)</td>
 </tr>
 <tr>
+<td>Ingestion gate (v0.6)</td>
+<td>Low confidence blocks every check; an unsure word or medium confidence never gives 🟢 or pass; a partial photo turns a missing statement into review</td>
+<td><code>tests/test_ingestion_gate.py</code></td>
+<td>Every push</td>
+</tr>
+<tr>
+<td>Rule register governance (v0.6)</td>
+<td>Every rule complete, tested and not overdue for review; register and engine versions match; the register page is up to date; an unverified basis never passes or fails</td>
+<td><code>tests/test_rule_register.py</code></td>
+<td>Every push: an overdue review fails the build</td>
+</tr>
+<tr>
+<td>Sign-off and audit (v0.6)</td>
+<td>Overrides and rejections need a reason and a named reviewer; the audit log traces input, rules, data and decision</td>
+<td><code>tests/test_sign_off.py</code></td>
+<td>Every push</td>
+</tr>
+<tr>
+<td>Grader control sentences (v0.6)</td>
+<td>The agent evaluation's graders flag what they should and nothing else</td>
+<td><code>tests/test_eval_graders.py</code></td>
+<td>Every push</td>
+</tr>
+<tr>
 <td>Golden set, text rows</td>
 <td>Verdicts on the 25 text cases</td>
 <td><code>uv run eval_rules.py</code></td>
@@ -167,28 +191,29 @@
 </tr>
 <tr>
 <td>Benchmark</td>
-<td>Missed declared allergens, claim conflicts, coverage and properties on 6,000 real products</td>
+<td>On 6,000 real products: extraction rates by input type, missed declared allergens with the cause of each miss, a false-alarm proxy, the manufacturer's own statement as a second reference, claim conflicts, coverage, properties and speed</td>
 <td><code>uv run python ../tests/benchmark/run_benchmark.py</code></td>
-<td>On demand (about 20 minutes)</td>
+<td>On demand (about 45 minutes)</td>
 </tr>
 <tr>
 <td>Agent evaluation</td>
-<td>What users see: never "safe" (US-07), emergency first (US-08), plain language (US-02), Analyst format and decisions (D-07), certification and GMO claims (US-19, US-20)</td>
+<td>What users see: never "safe" (US-07), emergency first (US-08), plain language (US-02), Analyst format and decisions (D-07, US-20), certification and GMO claims (US-19), unsure readings (US-21), sign-off and overrides (US-22)</td>
 <td><code>uv run python ../tests/agent_eval/run_agent_eval.py --repeats 3</code> with <code>CLAUDE_BIN</code> set to the Claude Code executable</td>
 <td>Before each instructions release; not in CI because it needs a Claude login</td>
 </tr>
 </tbody>
 </table></div>
-<p><strong>Agent evaluation method.</strong> Each case in <code>tests/agent_eval/cases.jsonl</code> runs Claude headless (<code>claude -p</code>) with the project instructions and knowledge files as the system prompt and the ingredient-lens MCP tools only, like the Claude Project. Each case runs 3 times to measure consistency. Graders are deterministic where possible: a phrase list for "safe" claims that ignores negations, quotes and questions (checked against 12 control sentences); emergency numbers and the absence of any analysis; sentence length; required Analyst sections and the expected escalation. Plain language also gets an LLM judge (a smaller model) with a fixed rubric; its scores are a second opinion, not ground truth. Every transcript is kept in <code>tests/agent_eval/results/</code> and failures are read by hand before any instruction change.</p></article>
+<p><strong>Benchmark method.</strong> Reference A is the allergens Open Food Facts records; it is broad but partly derived with the taxonomy this project imports, so agreement is an upper bound. Reference B is the manufacturer's own allergen statement in the text; the ingredients are checked again without it, so the engine cannot find an allergen by reading the declaration. Every miss is assigned to one cause with keyword lists independent of the engine: the text could not be read (ingestion), the engine missed a readable allergen (parsing), the reference and the rule disagree (taxonomy), or the allergen is not in the text at all (reference definition). Photos are not part of the benchmark, and the report says so.</p>
+<p><strong>Agent evaluation method.</strong> Each case in <code>tests/agent_eval/cases.jsonl</code> runs Claude headless (<code>claude -p</code>) with the project instructions and knowledge files as the system prompt and the ingredient-lens MCP tools only, like the Claude Project. Each case runs 3 times to measure consistency. Graders are deterministic where possible: a phrase list for "safe" claims that ignores negations, quotes, questions and indirect mentions; emergency numbers and the absence of any analysis; sentence length; required Analyst sections and the expected decision; the tool calls themselves (declared reading confidence, recorded decisions and reasons). Every grader fix adds the sentence that exposed it to <code>mcp-server/tests/test_eval_graders.py</code>, and saved runs are graded again with <code>--regrade</code> (no new runs). Plain language also gets an LLM judge (a smaller model) with a fixed rubric; its scores are a second opinion, not ground truth, and <code>rejudge_plain.py</code> measures its noise by judging the same answers several times. Every transcript is kept in <code>tests/agent_eval/results/</code> and failures are read by hand before any instruction change.</p></article>
     <nav class="pager" aria-label="Previous and next"><a class="prev" href="04-critical-review.html"><small>Previous</small><span>Critical review and roadmap</span></a><a class="next" href="benchmark-review.html"><small>Next</small><span>Benchmark on 6,000 real products</span></a></nav>
     <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/test-plan.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/test-plan.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
   </main>
-  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04">Automated layers (since v0.4)</a></li></ol></nav>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#goal">Goal</a></li><li><a href="#method">Method</a></li><li><a href="#metrics">Metrics</a></li><li><a href="#results-template-results-v01md">Results template ( results-v0.1.md )</a></li><li><a href="#user-acceptance-test-uat">User acceptance test (UAT)</a></li><li><a href="#lightweight-monitoring">Lightweight monitoring</a></li><li><a href="#automated-layers-since-v04-extended-in-v06">Automated layers (since v0.4, extended in v0.6)</a></li></ol></nav>
 </div>
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>
     <p>A first-pass label compliance agent built and documented as a business analysis case study.</p></div>
-  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
+  <div><h2>Documentation</h2><ul><li><a href="00-project-record.html">Project record</a></li><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review</a></li></ul></div>
   <div><h2>Evidence</h2><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div>
   <div><h2>Project</h2><ul><li><a href="https://github.com/t0masleones/ingredient-lens">Repository</a></li><li><a href="changelog.html">Changelog</a></li><li><a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md">Data sources and licenses</a></li></ul></div>
   <p class="footer-bottom">Independent prototype by t0masleones. Not affiliated with any company. Not medical, legal or regulatory advice. Ingredient data includes Open Food Facts terms, © Open Food Facts contributors, ODbL 1.0.</p>

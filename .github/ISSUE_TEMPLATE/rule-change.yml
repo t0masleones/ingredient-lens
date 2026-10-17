@@ -1,0 +1,79 @@
+name: Rule change
+description: A market rule is new, changed or applied wrongly by the engine.
+title: "[rule] <rule id or market>: <change>"
+labels: ["rules", "regulatory"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Every legal basis the engine cites lives in the rule register
+        ([docs/07-rule-register.md](https://github.com/t0masleones/ingredient-lens/blob/main/docs/07-rule-register.md)). A rule changes only with the official
+        text, a failing test first, a register entry, a new rules version and a second reviewer. The release
+        process is on the register page.
+  - type: input
+    id: rule
+    attributes:
+      label: Rule id
+      description: For example ALG-DECL or XC1. Write "new" for a rule that is not in the register.
+    validations:
+      required: true
+  - type: dropdown
+    id: market
+    attributes:
+      label: Market
+      options: ["BR", "US", "EU", "All markets"]
+    validations:
+      required: true
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind of change
+      options:
+        - New rule
+        - The requirement changed (new regulation or revision)
+        - The engine applies the rule wrongly
+        - Citation or date fix only
+    validations:
+      required: true
+  - type: input
+    id: citation
+    attributes:
+      label: Citation
+      placeholder: "RDC 727/2022, Art. 8"
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Link to the official text
+      description: The regulator's or official gazette's page, not only a summary.
+    validations:
+      required: true
+  - type: input
+    id: effective
+    attributes:
+      label: Applies from (YYYY-MM-DD)
+      description: Leave empty if unknown; it is recorded as unverified.
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What the checklist row or cross-check should return (pass, fail, review or n/a), and when.
+    validations:
+      required: true
+  - type: textarea
+    id: example
+    attributes:
+      label: Example label text
+      description: It becomes the failing test that the change must fix.
+    validations:
+      required: true
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Before you submit
+      options:
+        - label: I read the official text, not only a secondary summary (or I marked what is unverified above).
+          required: true
+        - label: The example contains no personal, customer or confidential data.
+          required: true

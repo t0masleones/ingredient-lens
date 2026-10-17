@@ -19,6 +19,26 @@ Terms per language in `off-terms.csv`: Portuguese 2,130 · English 7,258 · Span
 - **Sugar:** Open Food Facts marks sugars "maybe vegan" because of bone-char filtering. The project treats that as an invisible processing aid (see `agent/knowledge/origin-glossary.md`), so sugars are imported as plant-based with that note.
 - **Tests:** `tests/test_open_food_facts.py` checks known traps, EU-language terms and the "never ruled out without evidence" invariant on every imported row.
 
+## Governance
+The data decides allergens, so it is governed like code: versioned, reviewed, and traceable to every result it produced.
+
+**Versioning.** Every `check_label` result and every audit record names the data version, for example `644 curated + 35051 Open Food Facts terms (sha256 d9d2171dfc)`: the term counts in the database and the first 10 hex characters of the SHA-256 of both CSV files. The same hash means the same data, so a past result can be reproduced from the Git history. Each ingredient in a result also lists `match_sources`, the source of every term it matched: a curated row's source (`origin-glossary`, `eu-1169-2011-annex-ii`…) or the Open Food Facts entry (`openfoodfacts:en:oat-flakes`).
+
+**Which names count as the same ingredient (synonym policy).**
+- A curated row may add a name in any language, with a source.
+- Open Food Facts names and synonyms are imported in Portuguese, English, Spanish, French, German, Italian and Dutch. A French, German, Italian or Dutch word never replaces a Portuguese, English or Spanish one, and short or common words are skipped.
+- A synonym inherits the diet status of its entry, never an "allergen absent" fact: allergens are ruled out only with the evidence described above.
+- When the same name is in both files, the curated row wins.
+
+**Disputed mappings.** When someone thinks a term gives the wrong result:
+1. Open a **Disputed ingredient mapping** issue ([form](../../.github/ISSUE_TEMPLATE/disputed-mapping.yml)): the term, the market, the current result with its `match_sources` and data hash, the expected result, a source and an example label.
+2. Reproduce it with `lookup_ingredient` and the example, and write a failing test (`tests/test_open_food_facts.py` for imported terms, `tests/test_engine.py` for curated ones).
+3. Fix it with a curated row that cites the source, which overrides the import, or in `import_off.py` when the error is systematic (as with peanuts filed under tree nuts in v0.4).
+4. A change that makes a term **milder** (🟢, or one allergen fewer) needs a second reviewer; a stricter change needs one. Either way the example stays as a regression test.
+5. Run `uv run pytest`, `uv run eval_rules.py` and the benchmark. The data hash changes, and the changelog line names the issue.
+
+Rules (what a label must declare, and where the law says so) are governed the same way in the [rule register](../../docs/07-rule-register.md).
+
 ## Refresh
 ```
 uv run data/import_off.py              # downloads the current taxonomies (JSON and source .txt with synonyms)
@@ -26,7 +46,7 @@ uv run data/import_off.py <folder>     # or reads them from a folder
 uv run data/crosscheck_curated.py <folder> [--apply]   # re-check curated rows without a source
 uv run pytest && uv run eval_rules.py
 ```
-Review the diff of `off-terms.csv` before committing: Open Food Facts is edited by volunteers.
+Review the diff of `off-terms.csv` before committing: Open Food Facts is edited by volunteers. A monthly refresh opened as a pull request with that diff is on the roadmap (F-08).
 
 ## Regulated sources considered
 | Source | What it gives | Status |

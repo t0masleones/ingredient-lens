@@ -4,3 +4,7 @@ __pycache__/
 mcp-server/data/ingredients.db
 mcp-server/logs/
 tests/agent_eval/last-run.log
+
+# Local previews and probes of the documentation site
+docs/_*.html
+tests/benchmark/last-run.log

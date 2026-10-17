@@ -29,11 +29,60 @@ def _append(path: Path, record: dict) -> None:
         f.write(json.dumps(record, ensure_ascii=False) + "\n")
 
 
+AUDIT_KEYS = ("check_id", "input_sha256", "rules_version", "data_version", "verdict", "next_step",
+              "escalate_to_human_review", "requires_sign_off", "coverage", "mode", "ticket", "decision", "reviewer")
+DECISIONS = {"approve", "reject", "approve_with_override"}
+
+
 def audit(tool: str, inputs: dict, result: dict) -> None:
-    summary = {k: result.get(k) for k in ("verdict", "escalate_to_human_review", "coverage", "mode", "ticket")}
-    _append(AUDIT, {"at": _now(), "tool": tool, "inputs": inputs,
-                    "result": {k: v for k, v in summary.items() if v is not None},
-                    "mismatch_rules": [m["rule"] for m in result.get("mismatches", [])]})
+    """One line per tool call. A check is identified by check_id (input hash + rules and data version), so a
+    reviewer's decision can be traced to the exact input, rules and data that produced it."""
+    summary = {k: result.get(k) for k in AUDIT_KEYS}
+    record = {"at": _now(), "tool": tool, "inputs": inputs,
+              "result": {k: v for k, v in summary.items() if v is not None},
+              "mismatch_rules": [m["rule"] for m in result.get("mismatches", [])]}
+    if "compliance" in result:
+        record["compliance"] = {c["rule_id"] or c["check"]: c["status"] for c in result["compliance"]}
+    if "ingestion" in result:
+        record["ingestion_gate"] = result["ingestion"].get("gate")
+    _append(AUDIT, record)
+
+
+def find_check(check_id: str) -> dict | None:
+    """The last check_label record with this check_id in the audit log."""
+    if not AUDIT.exists():
+        return None
+    hit = None
+    for line in AUDIT.read_text(encoding="utf-8").splitlines():
+        if line.strip():
+            row = json.loads(line)
+            if row.get("tool") == "check_label" and row.get("result", {}).get("check_id") == check_id:
+                hit = row
+    return hit
+
+
+def record_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "") -> dict:
+    """A named person's decision on a checked label. Approving a label the tool did not mark ready for sign-off is
+    an override and needs a reason; so does a rejection. Returns the record, or an error the agent must show."""
+    decision = decision.strip().lower()
+    if decision not in DECISIONS:
+        return {"error": f"decision must be one of {sorted(DECISIONS)}"}
+    if not reviewer.strip():
+        return {"error": "a named reviewer is required"}
+    check = find_check(check_id)
+    if check is None:
+        return {"error": f"no check_label run with check_id {check_id} in the audit log"}
+    tool_step = check["result"].get("next_step")
+    override = decision.startswith("approve") and tool_step != "ready_for_sign_off"
+    if override and decision == "approve":
+        decision = "approve_with_override"
+    if (override or decision == "reject") and not reason.strip():
+        return {"error": f"a reason is required: the tool's decision was '{tool_step}'"}
+    record = {"check_id": check_id, "reviewer": reviewer.strip(), "decision": decision, "tool_next_step": tool_step,
+              "override": override, "reason": reason.strip(), "ticket": ticket,
+              "rules_version": check["result"].get("rules_version"), "data_version": check["result"].get("data_version")}
+    audit("record_review_decision", {"check_id": check_id}, record)
+    return {**record, "recorded_at": _now()}
 
 
 def _github_token() -> str | None:
@@ -78,12 +127,18 @@ def usage_stats() -> dict:
     if not rows:
         return {"checks": 0}
     checks = [r for r in rows if r["tool"] == "check_label"]
+    decisions = [r for r in rows if r["tool"] == "record_review_decision"]
+    n = max(len(checks), 1)
     return {
         "checks": len(checks),
         "verdicts": dict(Counter(r["result"].get("verdict") for r in checks)),
-        "escalation_rate": round(sum(bool(r["result"].get("escalate_to_human_review")) for r in checks)
-                                 / max(len(checks), 1), 2),
+        "next_steps": dict(Counter(r["result"].get("next_step") for r in checks)),
+        "escalation_rate": round(sum(bool(r["result"].get("escalate_to_human_review")) for r in checks) / n, 2),
+        "uncertainty_rate": round(sum(r.get("ingestion_gate") in ("blocked", "degraded") for r in checks) / n, 2),
         "mismatch_rules": dict(Counter(rule for r in checks for rule in r.get("mismatch_rules", []))),
         "tickets": sum(r["tool"] == "create_review_ticket" for r in rows),
+        "decisions": dict(Counter(r["result"].get("decision") for r in decisions)),
+        "override_rate": round(sum(r["result"].get("decision") == "approve_with_override" for r in decisions)
+                               / max(len(decisions), 1), 2),
         "first_call": rows[0]["at"], "last_call": rows[-1]["at"],
     }

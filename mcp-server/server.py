@@ -10,29 +10,55 @@ _matcher = engine.Matcher()
 
 
 @mcp.tool()
-def check_label(label_text: str, avoid: list[str], strict: bool = False, market: str = "BR") -> dict:
+def check_label(label_text: str, avoid: list[str], strict: bool = False, market: str = "BR",
+                source: str = "text", transcription_confidence: str = "high", complete_pack: bool = True) -> dict:
     """Classify a transcribed ingredient label or recipe and cross-check its statements.
 
     Call this after transcribing the label exactly. Base the verdict on the result.
     Include the user's own words when they describe symptoms: a verdict of "urgent" means stop and tell them to
     seek emergency help. Use `wording` instead of ever calling a product safe. In Analyst mode, report the
-    `compliance` checklist (pass / fail / review per legal requirement, including GMO labelling and organic or
-    other certification claims), the mismatches and the decision in `next_step`: approve, request_evidence (list
-    `evidence_needed`) or escalate. The rules screen a label; they never certify it.
+    `compliance` checklist (pass / fail / review per legal requirement, each with its rule_id and citation), the
+    mismatches and the decision in `next_step`: ready_for_sign_off (a named person still signs), request_evidence
+    (list `evidence_needed`) or escalate. "needs_manual_review" means the reading was not reliable and no check
+    ran. The rules screen a label; they never certify it.
 
     Args:
         label_text: The label text as printed (ingredient list plus allergen, gluten,
-            lactose and diet statements), or a recipe's ingredient list.
+            lactose and diet statements, seals as "[seal: ...]"), or a recipe's ingredient list.
+            Mark every word you are not sure of with [?].
         avoid: Restrictions, any of: lactose, milk, gluten, egg, soy, peanut, tree_nuts,
-            sesame, fish, crustacean, mollusc, vegan, vegetarian. Empty list = analyst
-            cross-check only.
+            sesame, fish, crustacean, mollusc, celery, mustard, sulphites, lupin, vegan, vegetarian.
+            Empty list = analyst cross-check only.
         strict: True for an allergy or celiac disease (every unclear item becomes red).
         market: Label market: BR, US or EU.
+        source: "photo", "text" (typed or pasted) or "recipe".
+        transcription_confidence: "high" (every word clearly read), "medium" (some words unsure, marked [?])
+            or "low" (parts blurred, cut off or hidden: no checks will run). Be honest; a wrong "high" defeats
+            the safety gate.
+        complete_pack: For photos, false when the photos may not show every panel of the pack.
     """
-    result = engine.check_label(label_text, avoid, strict, market, matcher=_matcher)
-    review.audit("check_label", {"avoid": avoid, "strict": strict, "market": market,
+    result = engine.check_label(label_text, avoid, strict, market, matcher=_matcher, source=source,
+                                transcription_confidence=transcription_confidence, complete_pack=complete_pack)
+    review.audit("check_label", {"avoid": avoid, "strict": strict, "market": market, "source": source,
+                                 "transcription_confidence": transcription_confidence, "complete_pack": complete_pack,
                                  "label_chars": len(label_text)}, result)
     return result
+
+
+@mcp.tool()
+def record_review_decision(check_id: str, reviewer: str, decision: str, reason: str = "", ticket: str = "") -> dict:
+    """Record a named person's decision on a checked label (human sign-off). Only call it when the user, acting as
+    the reviewer, states the decision. Never decide on their behalf.
+
+    Args:
+        check_id: The check_id returned by check_label.
+        reviewer: Name or ID of the person signing.
+        decision: "approve", "reject" or "approve_with_override". Approving a label the tool did not mark
+            ready_for_sign_off counts as an override.
+        reason: Required for a rejection or an override.
+        ticket: Optional review ticket link.
+    """
+    return review.record_decision(check_id, reviewer, decision, reason, ticket)
 
 
 @mcp.tool()

@@ -282,6 +282,14 @@ kbd {
 .prose code { font: 500 .88em var(--font-mono); background: var(--code-bg); border: 1px solid var(--border); border-radius: 6px; padding: .12em .4em; color: var(--text-strong); }
 .prose pre:not(.mermaid) { overflow: auto; padding: 1rem 1.2rem; background: var(--code-bg); border: 1px solid var(--border); border-radius: var(--radius); font-size: .9rem; line-height: 1.6; }
 .prose pre code { background: none; border: 0; padding: 0; }
+/* collapsed sections (<details> in the Markdown sources) */
+.prose details { margin: 1.4rem 0; border: 1px solid var(--border); border-radius: var(--radius); background: var(--surface); }
+.prose details > summary { cursor: pointer; padding: .8rem 1.1rem; font: 700 .95rem var(--font-ui); color: var(--heading); }
+.prose details > summary:focus-visible { outline: 3px solid var(--focus, var(--teal-700)); outline-offset: 2px; border-radius: var(--radius); }
+.prose details[open] > summary { border-bottom: 1px solid var(--border); }
+.prose details > :not(summary) { margin-left: 1.1rem; margin-right: 1.1rem; }
+.prose details > :last-child { margin-bottom: 1.1rem; }
+.prose details .table-wrap { margin-left: 0; margin-right: 0; border-radius: 0; border-left: 0; border-right: 0; }
 .prose a[href^="http"]::after { content: "↗"; display: inline-block; margin-left: .15em; font-size: .78em; text-decoration: none; opacity: .7; }
 .anchor {
   position: absolute; left: -1.3em; top: auto; padding: 0 .2em; color: var(--text-muted); text-decoration: none;
@@ -365,7 +373,7 @@ kbd {
   content: ""; position: absolute; left: -1.62rem; top: 1.15rem; width: .9rem; height: .9rem; border-radius: 50%;
   background: var(--surface); border: 3px solid var(--teal-700);
 }
-.timeline > li:last-child::before { background: var(--yellow-400); border-color: var(--teal-900); }
+.timeline > li:first-child::before { background: var(--yellow-400); border-color: var(--teal-900); }  /* newest first */
 .when { margin-bottom: .3rem; font: 700 .82rem/1.3 var(--font-ui); letter-spacing: .02em; color: var(--teal-700); text-transform: uppercase; }
 :root[data-theme="dark"] .when { color: var(--link); }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .when { color: var(--link); } }
@@ -373,6 +381,9 @@ kbd {
 /* task list */
 .tasks { list-style: none; padding: 0 !important; }
 .tasks li { padding: .65rem .9rem; border: 1px solid var(--border); border-radius: var(--radius-sm); background: var(--surface); margin: .5rem 0; }
+.tasks .task-box { display: inline-block; width: 1.4em; font-weight: 700; color: var(--teal-700); }
+.tasks li.done { color: var(--text-muted); }
+.tasks li.done .task-box { color: var(--green-700); }
 
 /* diagrams */
 .diagram { margin: 1.6rem 0 2rem; padding: 1.2rem; border-radius: var(--radius-lg); background: var(--bg-soft); border: 1px solid var(--border); overflow-x: auto; text-align: center; }
