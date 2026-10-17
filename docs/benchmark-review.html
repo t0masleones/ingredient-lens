@@ -41,127 +41,504 @@
     <p class="eyebrow">Evidence · Rules engine</p>
     <h1>Benchmark on 6,000 real products</h1>
     <p class="lead">Why each miss happened, how often the text could be read, a second reference from the manufacturer&#x27;s own statement, false alarms, and the engine errors the benchmark found.</p>
-    <ul class="meta"><li>Updated 2026-10-16</li><li>3 min read</li><li>Source: benchmark-review-v0.4.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-17</li><li>11 min read</li><li>Source: benchmark-review-v0.6.md</li></ul>
   </div>
 </section>
 <div class="layout container">
   <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html" aria-current="page">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
   <main id="content" class="content" tabindex="-1">
-    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#final-result">Final result</a></li><li><a href="#the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one</a></li><li><a href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests</a></li><li><a href="#still-open">Still open</a></li></ol></details></div>
-    <article class="prose"><p>Companion to <code>benchmark-rules-v0.4.md</code> (generated). This file is the manual review of every miss, done on 2026-10-16.</p>
-<h2 id="final-result">Final result<a class="anchor" href="#final-result" aria-label="Link to this section">#</a></h2>
-<ul>
-<li>6,000 real products (2,000 BR, 2,000 US, 1,000 FR, 1,000 DE), 160,570 engine runs, median 3.1 ms per label.</li>
-<li>4,607 declared allergens checked: 4,090 🔴, 492 🟡, <strong>25 🟢 (0.5%)</strong>, same in STRICT mode.</li>
-<li>Coverage of ingredients found in the database: BR 93.1%, US 94.6%, FR 95.0%, DE 91.5%.</li>
-<li>Metamorphic properties: 94,097 checks. Deterministic, case-insensitive, STRICT never milder, "may contain milk" never improves a milk verdict: 0 failures. Ingredient order: 45 failures (0.2%), see below.</li>
-</ul>
-<h2 id="the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one<a class="anchor" href="#the-25-remaining-misses-one-by-one" aria-label="Link to this section">#</a></h2>
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#1-extraction-by-input-type">1. Extraction by input type</a></li><li><a href="#2-misses-against-reference-a-and-why">2. Misses against reference A, and why</a></li><li><a href="#3-reference-b-the-manufacturers-own-statements">3. Reference B: the manufacturers&#x27; own statements</a></li><li><a href="#4-false-alarms-gaps-in-the-reference-or-the-engine">4. False alarms: gaps in the reference, or the engine?</a></li><li><a href="#5-engine-errors-the-benchmark-found-in-v06-now-fixed-and-kept-as-tests">5. Engine errors the benchmark found in v0.6, now fixed and kept as tests</a></li><li><a href="#6-candidate-data-changes-waiting-for-a-second-reviewer">6. Candidate data changes, waiting for a second reviewer</a></li><li><a href="#7-still-open">7. Still open</a></li></ol></details></div>
+    <article class="prose"><p>Companion to <a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/evidence/benchmark-rules-v0.6.md"><code>benchmark-rules-v0.6.md</code></a> (generated: rules 0.6.0, data sha256 d9d2171dfc, 167,319 engine runs on 6,000 products). This file reads those numbers by hand, on 2026-10-17. It answers the external review's question about extraction (section 1), explains every miss (section 2), checks the engine against the manufacturers' own statements (section 3), separates real false alarms from gaps in the reference (section 4), and lists what the benchmark exposed: four engine errors, now fixed (section 5), and data that a second reviewer must decide (section 6).</p>
+<div class="callout important">
+<p><span class="callout-title">Important</span></p>
+<p><strong>In short.</strong> No allergen written in the ingredient text was missed: the 22 misses (0.5% of 4,607) are 20 allergens that are not in the text at all and 2 where the reference disagrees with the rule. With the manufacturer's statement removed, the engine still flags 98.7% of what manufacturers declare. Most "false alarms" against the reference are gaps in the reference (93.5% name the allergen in the text). The benchmark found four engine errors, now fixed, and eight places where the data or a rule makes the engine too cautious; those wait for a second reviewer. Photos are not measured.</p>
+</div>
+<h2 id="1-extraction-by-input-type">1. Extraction by input type<a class="anchor" href="#1-extraction-by-input-type" aria-label="Link to this section">#</a></h2>
+<p>The external review asked: <em>what percentage of cases did the system confidently extract the ingredient list and the allergen and gluten statements, split by photo, text and recipe?</em></p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
-<th>Cause</th>
-<th>Count</th>
-<th>Products</th>
+<th>Input type</th>
+<th>Cases</th>
+<th>Ingredient list extracted</th>
+<th>Allergen statement found</th>
+<th>Gluten statement found (Brazil, where it is mandatory)</th>
+<th>How confidence is handled</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>The allergen does not appear in the ingredient text (Open Food Facts took it from traces, a separate allergen box or a data error)</td>
+<td>Text (product ingredient field)</td>
+<td>6,000</td>
+<td>5,993 (99.9%)</td>
+<td>1,138 of 5,993 (19.0%)</td>
+<td>538 of 1,995 (27.0%)</td>
+<td>Typed or pasted text is read as given (<code>transcription_confidence</code> "high"); a word marked [?] still blocks every pass</td>
+</tr>
+<tr>
+<td>Recipe (typed list)</td>
+<td>10 golden cases (V01–V10)</td>
+<td>10 of 10 read and judged as expected</td>
+<td>n/a</td>
+<td>n/a</td>
+<td>Same as text</td>
+</tr>
+<tr>
+<td>Photo</td>
+<td>0</td>
+<td><strong>not measured</strong></td>
+<td><strong>not measured</strong></td>
+<td><strong>not measured</strong></td>
+<td>The agent declares the confidence; the gate's behaviour is tested (unit tests and 9/9 agent runs), its calibration is not (F-02)</td>
+</tr>
+</tbody>
+</table></div>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Products</th>
+<th>Ingredient list extracted</th>
+<th>Allergen statement found</th>
+<th>Gluten statement found</th>
+<th>Any statement found</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td>2,000</td>
+<td>99.8%</td>
+<td>24.2%</td>
+<td>27.0%</td>
+<td>32.3%</td>
+</tr>
+<tr>
+<td>US</td>
+<td>2,000</td>
+<td>99.9%</td>
+<td>12.9%</td>
+<td>0.4%</td>
+<td>13.2%</td>
+</tr>
+<tr>
+<td>FR</td>
+<td>1,000</td>
+<td>100.0%</td>
+<td>23.5%</td>
+<td>0.6%</td>
+<td>23.8%</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>1,000</td>
+<td>100.0%</td>
+<td>16.2%</td>
+<td>1.0%</td>
+<td>17.0%</td>
+</tr>
+</tbody>
+</table></div>
+<p>How to read the statement columns: Open Food Facts usually stores only the ingredient list, not the separate allergen and gluten lines of the pack, so "not found" here mostly describes the data source, not the engine. The engine's own reading of statements is checked where they are present (section 3), and the agent is told to transcribe every panel. Photos are the input that matters most in practice and the one not yet measured; until they are, the ingestion gate is the safeguard, and it relies on the confidence the model declares (risk R-12).</p>
+<h2 id="2-misses-against-reference-a-and-why">2. Misses against reference A, and why<a class="anchor" href="#2-misses-against-reference-a-and-why" aria-label="Link to this section">#</a></h2>
+<p>Reference A is the allergens Open Food Facts records for each product. "Detected" means the engine flags the allergen for a profile avoiding it, 🔴 or 🟡.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Result</th>
+<th>Count</th>
+<th>Share</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>🔴 Definite flag</td>
+<td>4,093</td>
+<td>88.8%</td>
+</tr>
+<tr>
+<td>🟡 Possible: a person checks</td>
+<td>492</td>
+<td>10.7%</td>
+</tr>
+<tr>
+<td>🟢 Missed</td>
 <td>22</td>
-<td>Organic Garbanzo Beans (gluten, milk), Organic Popcorn (milk), Light Rye Crispbread (milk), Tortilla Wraps (gluten; the text is a different product), Great Grains (milk; the text says "CONTAINS WHEAT AND PECANS"), Omega-3 Trail Mix (egg), Cacao céréales, Les Fourrées, Tartines Multi-Céréales, Saveir, Biscuits Petit déj (milk), Chicorée soluble (gluten), Reiswaffeln (sesame), Cornichons (egg, milk), Fette croccanti (milk), Pan Bauletto (egg, milk), Rummo Rigatoni (milk), kimchi 4056489152903 (fish, crustacean)</td>
+<td>0.5%</td>
+</tr>
+</tbody>
+</table></div>
+<p>A 🟡 is the right answer when the text does not settle the question, but it is not the same as finding the allergen: 224 of the 492 include an item the database does not know and 307 an ingredient whose source is not stated (a product can have several reasons). Counting only 🔴, detection is 88.8%. In v0.4 the split was 4,090 🔴, 492 🟡 and 25 🟢.</p>
+<p>Every miss was read by hand. The keyword lists that sort them are independent of the engine's database.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Cause</th>
+<th>Misses</th>
+<th>Products (allergen, market) and what the text shows</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The allergen is not in the ingredient text: the reference took it from traces, a separate allergen box or a data error</td>
+<td>20</td>
+<td><strong>US:</strong> Great Grains cereal (milk), Light Rye Crispbread (milk), Organic Garbanzo Beans (gluten, milk), Organic Popcorn (milk), Tortilla Wraps (gluten; the text is a different product), Omega-3 Trail Mix (egg) · <strong>FR:</strong> Cacao céréales (milk), Chicorée soluble (gluten), Les Fourrées (milk), Tartines Craquantes (milk), Saveir Sel &amp; Vinaigre (milk), Biscuits Petit déj (milk) · <strong>DE:</strong> Reiswaffeln (sesame), Fette croccanti (milk), Pan Bauletto Bianco (egg, milk), Rummo Mezzi Rigatoni (milk), kimchi 4056489152903 (crustacean, fish)</td>
 </tr>
 <tr>
-<td>Ingredient text is unreadable OCR</td>
-<td>1</td>
-<td>Biscoito Aveia e Mel (soy)</td>
-</tr>
-<tr>
-<td>The reference disagrees with the regulation or the label</td>
+<td>The reference disagrees with the rule or the label</td>
 <td>2</td>
-<td>Natural Coconut Cream (tree nuts: the FDA removed coconut in 2025 and EU Annex II does not list it), Paçoquita (gluten: the label says GLUTEN FREE and lists only peanut, sugar, salt)</td>
+<td><strong>BR:</strong> Paçoquita (gluten; the label says GLUTEN FREE and lists only peanut, sugar and salt) · <strong>FR:</strong> Natural Coconut Cream (tree_nuts; coconut is on neither the FDA list (since 2025) nor EU Annex II)</td>
+</tr>
+<tr>
+<td>The text could not be read (ingestion)</td>
+<td>0</td>
+<td>—</td>
 </tr>
 <tr>
 <td><strong>Engine error with the allergen readable in the text</strong></td>
 <td><strong>0</strong></td>
-<td></td>
+<td>—</td>
 </tr>
 </tbody>
 </table></div>
-<p>What this means: on this sample, the engine did not miss an allergen that was written in the ingredient text. It cannot see allergens that are only in a separate box or in the traces field, which is why the agent must transcribe every statement on the pack (instructions, section 2).</p>
-<h2 id="engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests<a class="anchor" href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests" aria-label="Link to this section">#</a></h2>
-<p>Each one is a test in <code>mcp-server/tests/test_benchmark_findings.py</code> or <code>test_review_findings.py</code>.</p>
+<p><strong>Compared with v0.4 (25 misses):</strong> three fewer. Biscoito Aveia e Mel (soy) is now detected because of a real fix: the "DERIVADOS DE SOJA" statement split by a period. The other two are Cornichons Gurken (egg, milk): the parenthesis fix restored "Senf" and "Gewürzextrakt" as ingredients, and an imported term cannot rule an allergen out, so egg and milk are now 🟡. Those allergens are still not in the text, so that change is caution, not detection.</p>
+<p>What this means: on this sample, no allergen that is written in the ingredient text was missed. The engine cannot see an allergen printed only in a separate box, in the traces field of the database, or on another panel, which is why the agent transcribes every statement on the pack.</p>
+<h2 id="3-reference-b-the-manufacturers-own-statements">3. Reference B: the manufacturers' own statements<a class="anchor" href="#3-reference-b-the-manufacturers-own-statements" aria-label="Link to this section">#</a></h2>
+<p>For the products whose text includes an allergen statement, the ingredients were checked again <strong>without the statement</strong>, so the engine could not find an allergen by reading the declaration.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Market</th>
+<th>Products with a statement</th>
+<th>Allergens declared</th>
+<th>Flagged from the ingredients alone</th>
+<th>🔴 flags the statement also declares</th>
+<th>Labels whose statement leaves a required allergen out (XC2)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BR</td>
+<td>457</td>
+<td>880</td>
+<td>870 (98.9%)</td>
+<td>660 of 716 (92.2%)</td>
+<td>26 (5.7%)</td>
+</tr>
+<tr>
+<td>US</td>
+<td>172</td>
+<td>289</td>
+<td>284 (98.3%)</td>
+<td>249 of 272 (91.5%)</td>
+<td>18 (10.5%)</td>
+</tr>
+<tr>
+<td>FR</td>
+<td>5</td>
+<td>12</td>
+<td>12 (100.0%)</td>
+<td>6 of 8 (75.0%)</td>
+<td>1 (20.0%)</td>
+</tr>
+<tr>
+<td>DE</td>
+<td>10</td>
+<td>10</td>
+<td>10 (100.0%)</td>
+<td>10 of 17 (58.8%)</td>
+<td>3 (30.0%)</td>
+</tr>
+<tr>
+<td><strong>All</strong></td>
+<td><strong>644</strong></td>
+<td><strong>1,191</strong></td>
+<td><strong>1,176 (98.7%)</strong></td>
+<td><strong>925 of 1,013 (91.3%)</strong></td>
+<td><strong>48 (7.5%)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Recall from the ingredients alone: 98.7%. The 15 declared allergens not flagged, read by hand: 7 are texts that are not an ingredient list (a nutrition table, marketing copy, a brewery address, OCR that turns NÃO CONTÉM GLÚTEN into CONTÉM), 5 are declarations with no source in the list (a precautionary CONTÉM GLÚTEN on potato straws and tomato paste, a soup base not listed), 1 is a typo in the source (ovas for ovos), and 2 are an engine rule: a facility line read as part of a Contains statement (section 6). Precision: 91.3% of the definite flags are also declared; the rest are what XC2 sends to a person. In Brazil (26 labels), soy lecithin, peanut and milk powder listed without a declaration look like real omissions or statements cut short in the data, while nutmeg read as a tree nut (5 labels) is a data error (section 6). Many US cases are French labels in the US sample, judged by US rules. Before the parenthesis fix, France and Germany had 37 and 45 labels with a statement; most were notes in parentheses.</p>
+<h2 id="4-false-alarms-gaps-in-the-reference-or-the-engine">4. False alarms: gaps in the reference, or the engine?<a class="anchor" href="#4-false-alarms-gaps-in-the-reference-or-the-engine" aria-label="Link to this section">#</a></h2>
+<p>A 🔴 for an allergen that reference A does not record is not proof of a false alarm: the reference is incomplete. Each such flag was split by whether an independent keyword list sees the allergen in the text.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Allergen</th>
+<th>Products without it in reference A</th>
+<th>🔴</th>
+<th>Named in the text (reference incomplete)</th>
+<th>Not named (upper bound on false alarms)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>celery</td>
+<td>5,886</td>
+<td>40</td>
+<td>39</td>
+<td>1</td>
+</tr>
+<tr>
+<td>crustacean</td>
+<td>5,986</td>
+<td>5</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>egg</td>
+<td>5,729</td>
+<td>152</td>
+<td>134</td>
+<td>18</td>
+</tr>
+<tr>
+<td>fish</td>
+<td>5,921</td>
+<td>52</td>
+<td>37</td>
+<td>15</td>
+</tr>
+<tr>
+<td>gluten</td>
+<td>4,732</td>
+<td>712</td>
+<td>693</td>
+<td>19</td>
+</tr>
+<tr>
+<td>lupin</td>
+<td>5,986</td>
+<td>8</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr>
+<td>milk</td>
+<td>4,866</td>
+<td>862</td>
+<td>849</td>
+<td>13</td>
+</tr>
+<tr>
+<td>mollusc</td>
+<td>5,986</td>
+<td>39</td>
+<td>35</td>
+<td>4</td>
+</tr>
+<tr>
+<td>mustard</td>
+<td>5,915</td>
+<td>44</td>
+<td>44</td>
+<td>0</td>
+</tr>
+<tr>
+<td>peanut</td>
+<td>5,780</td>
+<td>125</td>
+<td>121</td>
+<td>4</td>
+</tr>
+<tr>
+<td>sesame</td>
+<td>5,918</td>
+<td>91</td>
+<td>91</td>
+<td>0</td>
+</tr>
+<tr>
+<td>soy</td>
+<td>5,132</td>
+<td>569</td>
+<td>538</td>
+<td>31</td>
+</tr>
+<tr>
+<td>sulphites</td>
+<td>5,920</td>
+<td>102</td>
+<td>55</td>
+<td>47</td>
+</tr>
+<tr>
+<td>tree_nuts</td>
+<td>5,538</td>
+<td>238</td>
+<td>195</td>
+<td>43</td>
+</tr>
+<tr>
+<td><strong>All</strong></td>
+<td><strong>79,295</strong></td>
+<td><strong>3,039</strong></td>
+<td><strong>2,841 (93.5%)</strong></td>
+<td><strong>198 (0.25% of pairs)</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p>Of the 3,039 flags, 2,841 (93.5%) name the allergen in the text: the reference is incomplete, not the engine wrong. The other 198, 0.25% of all product–allergen pairs, are the upper bound on false alarms. The first 40 of them, read by hand, fall into four groups:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>What the flags without a keyword turned out to be (read by hand)</th>
+<th>Examples</th>
+<th>What to do</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Correct: the allergen is there, in a word the keyword list lacks</td>
+<td>"soybean", "lecitina de soia", "œufs", "requeijão", "queso", "Greek yoghurt", "avellanas", "almendras"</td>
+<td>Nothing in the engine; extend the benchmark's keyword list</td>
+</tr>
+<tr>
+<td>Correct by design: a cautious reading</td>
+<td>"non-dairy" (in the US it may still contain caseinate, a milk protein), "lactic acid bacteria" (cultures can be grown on milk), "molho de soja" for gluten (soy sauce is usually brewed with wheat)</td>
+<td>Keep; explain in the answer</td>
+</tr>
+<tr>
+<td>Data candidates: a wrong fact, or a word that means something else in another language</td>
+<td>Soy flour carries gluten; the Dutch "room" (cream) matches the English "room" ("store at controlled room temperature" read as milk); the French "râpé" (grated) loses its accent and matches the Spanish "rape" (monkfish), so "noix de coco râpé" reads as fish; "macarrão caracol" (a pasta shape) reads as snail; "mayonesa vegano" reads as egg; artificial hazelnut or almond flavour reads as the nut</td>
+<td>Section 6: each one makes a term milder, so it needs a second reviewer</td>
+</tr>
+<tr>
+<td>Noise in the source text</td>
+<td>OCR text "DO SOLE CALOR" (for "do sol e calor") matched the fish "sole"</td>
+<td>Nothing in the data; the ingestion gate exists for unreadable text</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="5-engine-errors-the-benchmark-found-in-v06-now-fixed-and-kept-as-tests">5. Engine errors the benchmark found in v0.6, now fixed and kept as tests<a class="anchor" href="#5-engine-errors-the-benchmark-found-in-v06-now-fixed-and-kept-as-tests" aria-label="Link to this section">#</a></h2>
+<p>Each one is a test in <code>mcp-server/tests/test_benchmark_findings.py</code>.</p>
 <div class="table-wrap"><table>
 <thead>
 <tr>
 <th>Error</th>
 <th>Example from the sample</th>
 <th>Effect before the fix</th>
+<th>How it surfaced</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>A period inside parentheses, or used as a separator, ended the list</td>
-<td>"MILK CHOCOLATE (SUGAR, MILK. CHOCOLATE, … LECITHIN (SOY)"; "HASELNÜSSE (13%). MAGERMILCHPULVER"</td>
-<td>Soy and milk after the period were dropped: false greens</td>
+<td>A statement split by a period was not read</td>
+<td>"CONTÉM GLÚTEN. DERIVADOS DE SOJA"</td>
+<td>The soy declaration was lost</td>
+<td>Failure buckets: the only "parsing" miss</td>
 </tr>
 <tr>
-<td>French trace wording not read as "may contain"</td>
-<td>"Peut aussi contenir du lait", "Traces éventuelles de lait"</td>
-<td>Possible milk not reported</td>
+<td>A statement inside an ingredient's parentheses ended the list</td>
+<td>"arôme naturel (contient alcool)", "vinagre (contém sulfitos)", "coconut flakes 28% (contains: sulfur dioxide)"</td>
+<td>Every ingredient after it was dropped (gelatin came out 🟢 for a vegan), and the rest of the list was read as the label's allergen statement: false XC2 mismatches, and a declaration the label does not have</td>
+<td>Reference B: XC2 on 40% of French and 29% of German labels with a statement</td>
 </tr>
 <tr>
-<td>Unnamed oil not flagged as possible soy</td>
-<td>"Atum, água, óleo, sal"</td>
-<td>🟢 for soy where the oil is usually soybean</td>
+<td>"Contains one or more of the following" read as an allergen statement</td>
+<td>"Vegetable Oil Contains One Or More Of The Following: Corn, Soybean, … Whey, Nonfat Dry Milk"</td>
+<td>Same as above; milk reported as declared</td>
+<td>Reference B, reading the "declared but not found" cases</td>
 </tr>
 <tr>
-<td>Claims before the list emptied it</td>
-<td>"Sem glúten, Rico em fibras, Farinha de trigo…", "CONTÉM FENILALANINA Água…"</td>
-<td>No ingredients read ("insufficient")</td>
-</tr>
-<tr>
-<td>German ß changed in upper case</td>
-<td>"WEISSWEIN" vs "Weißwein"</td>
-<td>Verdict depended on letter case</td>
-</tr>
-<tr>
-<td>Decimal commas split items</td>
-<td>"chocolat noir 12,5%"</td>
-<td>Items "chocolat noir 12" and "5%"</td>
-</tr>
-<tr>
-<td>Open Food Facts allergen markup</td>
-<td>"<em>Weizenmehl</em>"</td>
-<td>Term not found</td>
-</tr>
-<tr>
-<td>Oats treated as gluten in every market</td>
-<td>111 of 626 US "gluten-free" products came out 🔴, most with oats or "gluten free oats"</td>
-<td>US false alarms; oats are not a gluten grain under 21 CFR 101.91 (now 🟡 in the US, 🔴 in BR and EU and in STRICT mode). Conflicts: 111 → 24</td>
-</tr>
-<tr>
-<td>"corn semolina" and "gluten free oats" inherited gluten from a word in the name</td>
-<td>"Enriched corn meal"</td>
-<td>False gluten alarms on corn</td>
-</tr>
-<tr>
-<td>Missing basic terms</td>
-<td>"sel", "eau", "blé", "riz", additive class names, vitamins</td>
-<td>Unknown items (🟡 by default)</td>
+<td>An unclosed parenthesis in OCR text hid the rest of the label</td>
+<td>"farinha de trigo (glutenamido de milho, … Pode conter vestígios de: crustáceos, ovo, peixe"; "ÓLEOS VEGETAIS (CONTEM OLEO DE SOJA, AGUA, … SORO DE LEITE"</td>
+<td>The traces line became part of an ingredient, so traces were read as contents; in the second label the list was cut and the whey lost</td>
+<td>The ingredient-order property: failures rose from 45 to 280 after the second fix, and the cause was this. The second label came up while reading reference B by hand</td>
 </tr>
 </tbody>
 </table></div>
-<p>A lesson worth keeping: adding coverage can raise false greens. When "blé" became a known term, some French labels that had been 🟡 only because of an unknown word turned 🟢, which exposed the missing trace wording. Coverage changes must always be re-measured on the benchmark.</p>
-<h2 id="still-open">Still open<a class="anchor" href="#still-open" aria-label="Link to this section">#</a></h2>
+<p>A lesson for the next round: the second fix made the metamorphic property fail more, not less, and that is how the third error was found. A property test that gets worse after a fix is evidence, not noise.</p>
+<h2 id="6-candidate-data-changes-waiting-for-a-second-reviewer">6. Candidate data changes, waiting for a second reviewer<a class="anchor" href="#6-candidate-data-changes-waiting-for-a-second-reviewer" aria-label="Link to this section">#</a></h2>
+<p>Each change below makes a term milder (fewer allergens), so under the data governance policy it needs a second reviewer and a regression test before it is applied (<a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/data/README.md#governance">disputed mappings</a>). Until then the engine stays cautious: these cause false alarms, never false greens.</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Term</th>
+<th>What the engine says now</th>
+<th>Proposed</th>
+<th>Evidence to check</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Nutmeg in Portuguese and German ("noz-moscada", "Muskatnuss")</td>
+<td>Tree nuts, definite (entry "nutmeg-nut"), while the English "nutmeg" has none</td>
+<td>No tree nut, like the English entry</td>
+<td>FDA tree-nut list (Edition 5 guidance) and EU Regulation 1169/2011 Annex II: nutmeg is a spice seed, on neither list</td>
+<td>The largest single source of false XC2 escalations in Brazil (mortadela, lasagne, instant noodles, honey cake)</td>
+</tr>
+<tr>
+<td>Soy flour (soy flour, farinha de soja, farine de soja, Sojamehl)</td>
+<td>Contains gluten and soy (Open Food Facts entry, inherited)</td>
+<td>Soy; gluten possible (🟡), not certain</td>
+<td>Codex and FDA definitions of soy flour; the taxonomy's parent link</td>
+<td>Fewer false gluten alarms and false XC1 and XC2 mismatches</td>
+</tr>
+<tr>
+<td>"creme de milho" (creamed corn)</td>
+<td>Milk, definite (matched "creme")</td>
+<td>Milk possible (🟡)</td>
+<td>Product composition; supplier specification</td>
+<td>Fewer false milk flags on corn products</td>
+</tr>
+<tr>
+<td>"room"</td>
+<td>Milk (Dutch synonym of cream)</td>
+<td>Keep for Dutch labels only, or drop as a common English word</td>
+<td>The import's language rules (<code>import_off.py</code>)</td>
+<td>Removes false milk flags on English storage text</td>
+</tr>
+<tr>
+<td>"rape"</td>
+<td>Fish (Spanish synonym of monkfish); the French "râpé" (grated) matches it once accents are removed</td>
+<td>Match it only as a whole Spanish item, or keep accents for this word</td>
+<td>The import's language rules</td>
+<td>Removes false fish flags on French "râpé" (grated coconut, cheese, carrots)</td>
+</tr>
+<tr>
+<td>"caracol"</td>
+<td>Mollusc (snail)</td>
+<td>Not when it names a pasta shape ("macarrão caracol", "caracolito")</td>
+<td>Product context</td>
+<td>Removes a false mollusc flag on pasta</td>
+</tr>
+<tr>
+<td>"mayonesa vegana", "mayonesa vegano"</td>
+<td>Egg (matched "mayonesa")</td>
+<td>Curated rows without egg, like "maionese vegana"</td>
+<td>Product category definition</td>
+<td>Fewer false egg flags</td>
+</tr>
+<tr>
+<td>Artificial hazelnut or almond flavour ("saborizante artificial a avellana", "esencia artificial de almendra")</td>
+<td>Tree nuts, definite</td>
+<td>Tree nuts possible (🟡)</td>
+<td>Flavour regulations; artificial almond flavour is usually benzaldehyde</td>
+<td>Fewer definite tree-nut flags</td>
+</tr>
+<tr>
+<td>A facility line after a "Contains:" statement ("Contains: Soy Made in a facility that processes peanuts and tree nuts")</td>
+<td>Read as part of the declaration: peanut and tree nuts "declared" (an engine rule, not data)</td>
+<td>A cross-contact (may contain) statement</td>
+<td>US practice: facility statements are advisory, not FALCPA declarations</td>
+<td>Fewer false declarations; still 🔴 in STRICT mode</td>
+</tr>
+</tbody>
+</table></div>
+<h2 id="7-still-open">7. Still open<a class="anchor" href="#7-still-open" aria-label="Link to this section">#</a></h2>
 <ul>
-<li><strong>Ingredient order (45 cases, 0.2%).</strong> Rejoining the parsed items in reverse order can move a statement keyword or a claim inside the list and change where it ends. These are mostly labels with claims or nutrition text mixed into the ingredient field. To review case by case (roadmap F-05).</li>
-<li><strong>Claims on the pack in conflict with the engine</strong> (section 2 of the report): 24 of 626 US and 25 of 382 Brazilian "gluten-free" products, and many "lactose-free" products (BR 29 of 100, US 36 of 64, DE 26 of 66), mostly because milk is listed and lactase is not (XC3 asks for a person in that case). Each needs a person: it can be an engine false alarm, a data error or a real labeling issue (roadmap F-05).</li>
+<li><strong>Ingredient order (32 of 20,402 checks, 0.2%).</strong> Rejoining the parsed items in reverse order still changes the verdict on a few labels, mostly OCR text where claims or nutrition figures are mixed into the list. Down from 45 in v0.4; to review case by case (roadmap F-05).</li>
+<li><strong>Claims on the pack in conflict with the engine</strong> (section 6 of the generated report): the engine contradicts the claim on 30 of 763 vegan products, 65 of 1,311 gluten-free and 98 of 260 lactose-free (mostly milk listed without lactase). Each needs a person: it can be an engine false alarm, a data error (for example soy flour above) or a real labelling issue (roadmap F-05).</li>
+<li><strong>What this benchmark cannot show:</strong> photos, panels other than the ingredient field, cross-contact, and anything a hand-labelled reference would catch that both references miss (roadmap F-02 and F-19).</li>
 </ul></article>
     <nav class="pager" aria-label="Previous and next"><a class="prev" href="test-plan.html"><small>Previous</small><span>Test plan</span></a><a class="next" href="agent-evaluation.html"><small>Next</small><span>Agent evaluation</span></a></nav>
-    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/evidence/benchmark-review-v0.4.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/evidence/benchmark-review-v0.4.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
+    <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/tests/evidence/benchmark-review-v0.6.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/tests/evidence/benchmark-review-v0.6.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
   </main>
-  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#final-result">Final result</a></li><li><a href="#the-25-remaining-misses-one-by-one">The 25 remaining misses, one by one</a></li><li><a href="#engine-errors-the-benchmark-found-now-fixed-and-kept-as-tests">Engine errors the benchmark found, now fixed and kept as tests</a></li><li><a href="#still-open">Still open</a></li></ol></nav>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#1-extraction-by-input-type">1. Extraction by input type</a></li><li><a href="#2-misses-against-reference-a-and-why">2. Misses against reference A, and why</a></li><li><a href="#3-reference-b-the-manufacturers-own-statements">3. Reference B: the manufacturers&#x27; own statements</a></li><li><a href="#4-false-alarms-gaps-in-the-reference-or-the-engine">4. False alarms: gaps in the reference, or the engine?</a></li><li><a href="#5-engine-errors-the-benchmark-found-in-v06-now-fixed-and-kept-as-tests">5. Engine errors the benchmark found in v0.6, now fixed and kept as tests</a></li><li><a href="#6-candidate-data-changes-waiting-for-a-second-reviewer">6. Candidate data changes, waiting for a second reviewer</a></li><li><a href="#7-still-open">7. Still open</a></li></ol></nav>
 </div>
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>

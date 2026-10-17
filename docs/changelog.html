@@ -41,7 +41,7 @@
     <p class="eyebrow">Reference</p>
     <h1>Changelog</h1>
     <p class="lead">What changed in each version of the agent, the rules and the data.</p>
-    <ul class="meta"><li>Updated 2026-10-16</li><li>10 min read</li><li>Source: CHANGELOG.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-17</li><li>10 min read</li><li>Source: CHANGELOG.md</li></ul>
   </div>
 </section>
 <div class="layout container">
@@ -59,10 +59,11 @@
 - <strong>Found by the benchmark and fixed:</strong>
   - "CONTÉM GLÚTEN. DERIVADOS DE SOJA" (a statement split by a period) hid the soy declaration.
   - A statement inside an ingredient's parentheses ("arôme naturel (contient alcool)", "vinagre (contém sulfitos)", "coconut flakes (contains: sulfur dioxide)") ended the list. Every ingredient after it was dropped, so gelatin could come out 🟢 for a vegan, and the rest of the list was read as the label's allergen statement: false XC2 mismatches, and a declaration the label does not have. "Contains one or more of the following:" now lists ingredients.
+  - An unclosed parenthesis in OCR text ("farinha de trigo (glutenamido de milho, …") put the rest of the label inside one ingredient, so a "Pode conter vestígios de" line was read as ingredients, not traces. Parenthesis depth now counts only pairs that close (found by the ingredient-order property), and a statement word right after an unclosed parenthesis ("(CONTEM OLEO DE SOJA, AGUA, … SORO DE LEITE") stays part of the list.
 - <strong>Data governance:</strong> synonym policy, a disputed-mapping workflow (a change that makes a term milder needs a second reviewer) and GitHub issue forms for disputed mappings and rule changes (<code>mcp-server/data/README.md</code>).
 - Instructions v0.6: scope statement, honest transcription confidence, the gate, rule ids in the checklist, sign-off and overrides, <code>check_id</code> in document control.
 - Agent evaluation v0.6 (120 runs, 3 per case): 0 "safe" claims; emergency first 21/21; Analyst 15/15, never saying the tool approved a label; certification 12/12; ingestion gate 9/9; sign-off and overrides 6/6. Plain language judged 4+/5 in 8/18; a controlled re-judge of the v0.5 and v0.6 answers found no change (mean 3.87 and 3.85, while the judge's own spread on the same answer is 1.1 points), so US-02 stays partly met. Four grader errors (contractions, "what is safe for you", Portuguese word order) were fixed with control sentences (<code>mcp-server/tests/test_eval_graders.py</code>) and all runs graded again.
-- Tests: 3,248 passed. Golden set 25/25.</p>
+- Tests: 3,251 passed. Golden set 25/25.</p>
 <h2 id="v05-2026-10-17-instructions-v05-rules-engine-040">v0.5 - 2026-10-17 (instructions v0.5, rules engine 0.4.0)<a class="anchor" href="#v05-2026-10-17-instructions-v05-rules-engine-040" aria-label="Link to this section">#</a></h2>
 <p>Standards a food certification, testing and compliance company works under, turned into agent behaviour (<code>docs/06-standards-alignment.md</code>).
 - Screening is not certification: only bodies accredited to ISO/IEC 17065 certify, and only ISO/IEC 17025 laboratories prove thresholds. The agent never writes that a product is certified, organic, non-GMO or compliant; it names the evidence that settles each claim.

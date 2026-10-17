@@ -6,11 +6,11 @@ A cold look at what was built, what the evidence really shows, and what should c
 | Claim | Evidence | How strong |
 |---|---|---|
 | The rules engine gives the expected verdict on the golden set | 25/25 text rows | Weak: the golden set was written by the same author and used while building the rules |
-| The engine rarely misses a declared allergen on real products | ⟪CR_REF_A⟫ | Medium: a large sample of real labels, but reference A is partly derived with the taxonomy this project imports, so agreement is inflated |
-| The engine finds what manufacturers declare, without reading the declaration | ⟪CR_REF_B⟫ | Medium: independent of the taxonomy, but only for the products whose text includes a statement, and a declaration can include cross-contact |
-| The engine's definite flags are rarely false alarms | ⟪CR_FALSE⟫ | Medium: an upper bound, read by hand on a sample; no hand-labelled ground truth yet (F-19) |
-| Claims on the pack (vegan, gluten-free, lactose-free) seldom conflict with the engine | ⟪CR_CLAIMS⟫ | Medium: independent of the rules, but a conflict can be the engine, the data or the label |
-| The engine is deterministic, case-insensitive and STRICT is never milder | ⟪CR_META⟫ | Strong for these properties; they say nothing about correctness |
+| The engine rarely misses a declared allergen on real products | 6,000 products: 22 of 4,607 declared allergens came out 🟢 (0.5%); 20 of them are not in the ingredient text, 2 are rule disagreements, 0 are engine errors. "Detected" includes 492 🟡 (10.7%), a flag for a person rather than a finding | Medium: a large sample of real labels, but reference A is partly derived with the taxonomy this project imports, so agreement is inflated |
+| The engine finds what manufacturers declare, without reading the declaration | With the statement removed, 1,176 of 1,191 declared allergens (98.7%) are still flagged from the ingredients, 933 of them 🔴; 91.3% of the definite flags are also declared | Medium: independent of the taxonomy, but only for the products whose text includes a statement, and a declaration can include cross-contact |
+| The engine's definite flags are rarely false alarms | 3,039 🔴 for an allergen the reference does not record: 2,841 (93.5%) name the allergen in the text, so the reference is incomplete; the other 198 (0.25% of product–allergen pairs) are an upper bound, and most were correct when read by hand | Medium: an upper bound, read by hand on a sample; no hand-labelled ground truth yet (F-19) |
+| Claims on the pack (vegan, gluten-free, lactose-free) seldom conflict with the engine | Vegan: 30 🔴 of 763 claims; gluten-free: 65 of 1,311; lactose-free: 98 of 260 (mostly milk listed without lactase) | Medium: independent of the rules, but a conflict can be the engine, the data or the label |
+| The engine is deterministic, case-insensitive and STRICT is never milder | 94,153 metamorphic checks: 0 failures on those properties; 32 on ingredient order (0.2%) | Strong for these properties; they say nothing about correctness |
 | An unsure reading never becomes a pass | 11 unit tests on the gate; agent evaluation: 9/9 unsure readings declared and stopped | Strong in code; **weak in practice** until real photos calibrate the confidence the model declares (R-12) |
 | The agent (LLM + tools) answers safely and clearly | 120 headless runs (v0.6): 0 "safe" claims, emergency first 21/21, Analyst 15/15, certification 12/12, sign-off 6/6; plain language 4+/5 in 8 of 18 runs | **Partly tested.** Text only, headless instead of the project UI, graded by rules and a model judge, not by users. No UAT |
 
@@ -73,7 +73,7 @@ In October 2026 an external AI review read the public repository at v0.5 and ass
 ### Point by point
 | Point raised | What v0.6 does | Evidence | Status |
 |---|---|---|---|
-| "25 of 4,607 … none readable" reads like a pipeline failure | Every miss gets one cause, from keyword lists independent of the engine: ingestion, parsing, taxonomy or reference definition | ⟪CR_BUCKETS⟫ | ✅ Done |
+| "25 of 4,607 … none readable" reads like a pipeline failure | Every miss gets one cause, from keyword lists independent of the engine: ingestion, parsing, taxonomy or reference definition | 22 misses: 20 not in the text, 2 rule disagreements, 0 engine errors, 0 unreadable texts ([benchmark §3](../tests/evidence/benchmark-rules-v0.6.md), [review](../tests/evidence/benchmark-review-v0.6.md)) | ✅ Done |
 | Photo ingestion is unproven | A gate that fails closed: low confidence gives no verdict, an unsure word means nothing passes, part of the pack turns missing statements into review. Extraction is reported by input type, and photos are reported as not measured | `test_ingestion_gate.py` (11 tests); agent evaluation GATE 9/9; [benchmark §1](../tests/evidence/benchmark-rules-v0.6.md) | 🟡 Partial: built and tested, not measured on photos (F-02) |
 | Open Food Facts governance | Data versioned by hash in every result; `match_sources` per ingredient; synonym policy; disputed-mapping workflow with an issue form; a milder change needs a second reviewer | [Data governance](../mcp-server/data/README.md#governance); candidates in the [benchmark review](../tests/evidence/benchmark-review-v0.6.md) | 🟡 Partial: process in place, refresh not scheduled (F-08) |
 | Taxonomy coupling of the benchmark | Reference B, the manufacturer's own statement, checked from the ingredients alone; false alarms split by an independent keyword list | [Benchmark §4–5](../tests/evidence/benchmark-rules-v0.6.md) | 🟡 Partial: no hand-labelled set yet (F-19) |
@@ -92,7 +92,11 @@ In October 2026 an external AI review read the public repository at v0.5 and ass
 ### The reviewer's question
 *"In the 6,000-product set, what percentage of cases did the system confidently extract the ingredient list and the allergen and gluten statements, split by photo, text and recipe?"*
 
-⟪CR_ANSWER⟫
+| Input type | Cases | Ingredient list extracted | Allergen statement found | Gluten statement found (Brazil, where it is mandatory) |
+|---|---|---|---|---|
+| Text | 6,000 product texts | 5,993 (99.9%) | 1,138 of 5,993 (19.0%) | 538 of 1,995 (27.0%) |
+| Recipe | 10 golden cases | 10 of 10, judged as expected | n/a | n/a |
+| Photo | 0 | **not measured** | **not measured** | **not measured** |
 
 Two cautions. First, a statement "not found" in this data usually means the open database stored only the ingredient list, not that the pack lacks the statement; it says little about the engine. Second, for text the engine does not report a confidence: the confidence belongs to the transcription, so it can only be measured with photos, which is the first item on the roadmap (F-02).
 

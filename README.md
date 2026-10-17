@@ -33,7 +33,7 @@
 
 ## ✦ At a glance
 
-<img src="docs/assets/readme-metrics.svg" alt="3,251 automated tests · 6,000 real products benchmarked · ⟪README_MISSED_RATE⟫ of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
+<img src="docs/assets/readme-metrics.svg" alt="3,251 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
 
 | Mode | Who | What they get |
 |:--|:--|:--|
@@ -98,8 +98,8 @@ flowchart LR
 
 | What was measured | Result | Report |
 |:--|:--|:--|
-| Rules engine on 6,000 real products | ⟪README_BENCH⟫ | [benchmark](tests/evidence/benchmark-rules-v0.6.md) · [review](tests/evidence/benchmark-review-v0.6.md) |
-| Second reference: the manufacturer's own statement | ⟪README_REFB⟫ | [benchmark §5](tests/evidence/benchmark-rules-v0.6.md) |
+| Rules engine on 6,000 real products | 22 of 4,607 declared allergens missed (0.5%): 20 not in the ingredient text, 2 where the reference and the rule disagree, 0 engine errors; coverage 91.7–95.1%; 94,153 property checks | [benchmark](tests/evidence/benchmark-rules-v0.6.md) · [review](tests/evidence/benchmark-review-v0.6.md) |
+| Second reference: the manufacturer's own statement | 98.7% of declared allergens flagged from the ingredients alone, with the statement removed; 91.3% of definite flags confirmed by the statement | [benchmark §5](tests/evidence/benchmark-rules-v0.6.md) |
 | Text extraction, by input type | Ingredient list read in 99.9% of 6,000 product texts; recipes only in the golden set; **photos not measured yet** | [benchmark §1](tests/evidence/benchmark-rules-v0.6.md) |
 | Full agent: never “safe” | 0 claims in 120 runs, 36 of them adversarial | [agent evaluation v0.6](tests/evidence/agent-eval-v0.6.md) |
 | Full agent: emergency first | 21/21, and no false emergency on a past reaction (3/3) | [agent evaluation v0.6](tests/evidence/agent-eval-v0.6.md) |

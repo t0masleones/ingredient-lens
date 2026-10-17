@@ -24,7 +24,7 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 | Rules engine vs golden set (text rows) | 25 / 25 |
 | Automated tests on every push | 3,251 passed |
 | Real products benchmarked | 6,000 (BR, US, FR, DE) |
-| Declared allergens missed | ⟪MISSED⟫ |
+| Declared allergens missed | 22 of 4,607 (0.5%) |
 | Rules in the register | 16, each with basis, dates and tests |
 | Agent runs evaluated (v0.6) | 120 runs, 0 “safe” claims |
 
@@ -62,7 +62,7 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 Newest first. One entry per meaningful step.
 
 <!-- timeline -->
-- **2026-10-17 · v0.6 measured** — Benchmark on the same 6,000 products with every miss explained: ⟪BENCH_LINE⟫ The benchmark exposed four engine errors, all fixed with ten regression tests. The most serious: a statement inside an ingredient's parentheses ("arôme naturel (contient alcool)") ended the list, so later ingredients were dropped (gelatin came out 🟢 for a vegan) and the rest of the list was read as the label's allergen statement. It also found data errors that wait for a second reviewer, the largest being nutmeg ("noz-moscada") read as a tree nut. Agent evaluation: 120 runs, 0 "safe" claims, gate 9/9, sign-off 6/6; four grader errors fixed in general and all runs graded again; a controlled re-judge showed the plain-language score did not change from v0.5. [Benchmark review](../tests/evidence/benchmark-review-v0.6.md) · [Agent evaluation](../tests/evidence/agent-eval-v0.6.md)
+- **2026-10-17 · v0.6 measured** — Benchmark on the same 6,000 products with every miss explained: 22 of 4,607 declared allergens missed (0.5%): 20 are not in the ingredient text at all, 2 are disagreements between the reference and the rule, and none is an engine error or an unreadable text. The ingredient list was read in 99.9% of the product texts; photos are not measured. The benchmark exposed four engine errors, all fixed with ten regression tests. The most serious: a statement inside an ingredient's parentheses ("arôme naturel (contient alcool)") ended the list, so later ingredients were dropped (gelatin came out 🟢 for a vegan) and the rest of the list was read as the label's allergen statement. It also found data errors that wait for a second reviewer, the largest being nutmeg ("noz-moscada") read as a tree nut. Agent evaluation: 120 runs, 0 "safe" claims, gate 9/9, sign-off 6/6; four grader errors fixed in general and all runs graded again; a controlled re-judge showed the plain-language score did not change from v0.5. [Benchmark review](../tests/evidence/benchmark-review-v0.6.md) · [Agent evaluation](../tests/evidence/agent-eval-v0.6.md)
 - **2026-10-17 · v0.6 built** — Ingestion gate that fails closed (rule INGEST-GATE): low confidence gives no verdict, an unsure word means nothing passes, a photo of part of the pack turns a missing statement into review. Rule register with the legal basis, dates, verification level, history and tests of 16 rules, read by the engine and enforced by CI ([07 · Rule register](07-rule-register.md)). "Approve" became "ready for sign-off"; new tool `record_review_decision`, where an override needs a reason. Every result carries a `check_id`, the input hash and a hash of the data. Data governance: synonym policy, disputed-mapping workflow and issue forms ([data README](../mcp-server/data/README.md#governance)). Instructions v0.6 with a scope statement.
 - **2026-10-17 · External review of v0.5** — An external AI review scored the project 6.5/10 for rigor and 7/10 for business value. Strong points: the deterministic engine, the review queue and audit log, the tests and the safety posture. Gaps: the "none readable" claim read as a pipeline failure, photo ingestion unproven, data and taxonomy governance, rule governance, workflow controls. Next steps proposed: an interpretable benchmark, a fail-closed ingestion gate, governed rules. [Response, point by point](04-critical-review.md#5-external-review-of-v05-and-the-response)
 - **2026-10-17 · Standards alignment (v0.5)** — Public research on the accreditations a food certification, testing and compliance company holds (ISO/IEC 17065, ISO/IEC 17025, organic and non-GMO programmes, GFSI schemes) turned into agent behaviour: GMO labelling and organic particulars per market, certification marks always review, rule XC5, traceability fields in tickets. The first evaluation run exposed a specification defect (tool and instructions disagreed on when to escalate), fixed with three decisions. 105 runs, 0 "safe" claims. [06 · Standards alignment](06-standards-alignment.md)
@@ -177,13 +177,13 @@ The v0.1 chat was never run against the test plan; these are the measured layers
 |---|---|---|---|
 | Verdict matches the golden set (text rows) | — | 25/25 (biased, see the warning above) | — |
 | Ingredient list extracted, by input type | — | Text: 99.9% of 6,000 · Recipes: 10 golden cases · Photos: not measured | Photos not measured (F-02) |
-| Declared allergens missed, reference A | 0 readable in the text | ⟪REF_A⟫ | n/a |
-| Declared allergens flagged from the ingredients alone, reference B | — | ⟪REF_B_RECALL⟫ | n/a |
-| Definite (🔴) flags the manufacturer also declares, reference B | — | ⟪REF_B_PRECISION⟫ | n/a |
-| False-alarm proxy: 🔴 with the allergen not named in the text | — | ⟪FALSE_ALARM⟫ | n/a |
-| Ingredients found in the database | — | ⟪COVERAGE⟫ | n/a |
-| Claims on the pack in conflict with the engine | Each one reviewed | ⟪CLAIMS⟫ | n/a |
-| Metamorphic properties | 0 failures | ⟪META⟫ | n/a |
+| Declared allergens missed, reference A | 0 readable in the text | 22 of 4,607 (0.5%): 20 not in the text, 2 rule disagreements, 0 engine errors, 0 unreadable; detected = 4,093 🔴 + 492 🟡 | n/a |
+| Declared allergens flagged from the ingredients alone, reference B | — | 1,176 of 1,191 (98.7%); 933 of them 🔴 | n/a |
+| Definite (🔴) flags the manufacturer also declares, reference B | — | 925 of 1,013 (91.3%); the rest go to a person as XC2 | n/a |
+| False-alarm proxy: 🔴 with the allergen not named in the text | — | 198 of 79,295 product–allergen pairs (0.25%), an upper bound; 93.5% of the proxy's flags name the allergen in the text | n/a |
+| Ingredients found in the database | — | BR 92.9%, US 94.5%, FR 95.1%, DE 91.7% | n/a |
+| Claims on the pack in conflict with the engine | Each one reviewed | Vegan 30 of 763, gluten-free 65 of 1,311, lactose-free 98 of 260 | n/a |
+| Metamorphic properties | 0 failures | 94,153 checks; 32 failures, all on ingredient order (45 in v0.4) | n/a |
 | Consistency (same input, same verdict) | ≥ 90% | 100% by design (deterministic) | — |
 | Never "safe" | 0 | The tool returns the wording | 0 in 120 runs |
 | Emergency first, no analysis | 100% | Rules return `urgent` | 21/21; no false emergency 3/3 |
