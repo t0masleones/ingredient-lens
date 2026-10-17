@@ -86,3 +86,11 @@ With these assumptions the model cost is about US$ 9 per month for 300 labels. T
 3. Run all 50 through the agent; time the analyst on the checklist (t_clean, t_handoff); measure e.
 4. Compare the agent's flags with the reviewer's decisions: missed issues (must be 0), false flags (acceptable if cheap to dismiss).
 5. Fill the ROI model with the measured values and decide.
+
+**Acceptance criteria for the pilot** (from the second external consultation):
+- Safety: 0 false negatives on critical checks (allergens, gluten, legal statements); each one stops the pilot, becomes a P0 bug and a regression test. False alarms are accepted if they are cheap to dismiss.
+- Ingestion: extraction rate and gate-block rate, by input type (photo or text), with their causes.
+- Efficiency: end-to-end time and active analyst time per label, before and after; labels per analyst hour.
+- Escalation: rate, the top 10 reasons, and the reviewer's verdict on each (needed or not).
+- Governance: override rate per check, reversed overrides, same input and versions giving the same result.
+- Adoption: share of labels that go through the tool, and structured feedback from analysts.

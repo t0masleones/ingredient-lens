@@ -41,13 +41,13 @@
     <p class="eyebrow">04 · Honest assessment</p>
     <h1>Critical review and roadmap</h1>
     <p class="lead">What the evidence shows and does not show, the weaknesses found, and the prioritised roadmap.</p>
-    <ul class="meta"><li>Updated 2026-10-17</li><li>11 min read</li><li>Source: 04-critical-review.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-17</li><li>13 min read</li><li>Source: 04-critical-review.md</li></ul>
   </div>
 </section>
 <div class="layout container">
   <aside class="sidebar" id="sidebar" aria-label="Documentation"><div class="sidebar-group"><p class="sidebar-title">Overview</p><ul><li><a href="index.html">Home</a></li><li><a href="00-project-record.html">Project record</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Analysis</p><ul><li><a href="01-discovery.html">Discovery</a></li><li><a href="02-tool-selection.html">Tool and data selection</a></li><li><a href="03-requirements.html">Requirements</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Delivery</p><ul><li><a href="05-analyst-workflow.html">Analyst workflow</a></li><li><a href="06-standards-alignment.html">Standards alignment</a></li><li><a href="07-rule-register.html">Rule register</a></li><li><a href="04-critical-review.html" aria-current="page">Critical review and roadmap</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Evidence</p><ul><li><a href="test-plan.html">Test plan</a></li><li><a href="benchmark-review.html">Benchmark review</a></li><li><a href="agent-evaluation.html">Agent evaluation</a></li><li><a href="data-crosscheck.html">Data cross-check</a></li></ul></div><div class="sidebar-group"><p class="sidebar-title">Reference</p><ul><li><a href="changelog.html">Changelog</a></li></ul></div><p class="sidebar-note">Independent prototype. Screening aid, not medical, legal or regulatory advice.</p></aside><div class="drawer-backdrop" aria-hidden="true"></div>
   <main id="content" class="content" tabindex="-1">
-    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#1-what-the-evidence-shows-and-what-it-does-not">1. What the evidence shows, and what it does not</a></li><li><a href="#2-weaknesses-found">2. Weaknesses found</a><ol><li><a href="#product-and-business-analysis">Product and business analysis</a></li><li><a href="#safety-and-quality">Safety and quality</a></li><li><a href="#engineering-and-operations">Engineering and operations</a></li></ol></li><li><a href="#3-roadmap-proposed-future-activities">3. Roadmap (proposed future activities)</a></li><li><a href="#4-what-went-well-and-should-be-kept">4. What went well and should be kept</a></li><li><a href="#5-external-review-of-v05-and-the-response">5. External review of v0.5 and the response</a><ol><li><a href="#point-by-point">Point by point</a></li><li><a href="#the-reviewers-question">The reviewer&#x27;s question</a></li><li><a href="#what-did-not-change">What did not change</a></li></ol></li></ol></details></div>
+    <div class="toc-inline"><details><summary>On this page</summary><ol><li><a href="#1-what-the-evidence-shows-and-what-it-does-not">1. What the evidence shows, and what it does not</a></li><li><a href="#2-weaknesses-found">2. Weaknesses found</a><ol><li><a href="#product-and-business-analysis">Product and business analysis</a></li><li><a href="#safety-and-quality">Safety and quality</a></li><li><a href="#engineering-and-operations">Engineering and operations</a></li></ol></li><li><a href="#3-roadmap-proposed-future-activities">3. Roadmap (proposed future activities)</a></li><li><a href="#4-what-went-well-and-should-be-kept">4. What went well and should be kept</a></li><li><a href="#5-external-review-of-v05-and-the-response">5. External review of v0.5 and the response</a><ol><li><a href="#point-by-point">Point by point</a></li><li><a href="#the-reviewers-question">The reviewer&#x27;s question</a></li><li><a href="#what-did-not-change">What did not change</a></li></ol></li><li><a href="#6-second-consultation-after-v06">6. Second consultation (after v0.6)</a></li></ol></details></div>
     <article class="prose"><p>A cold look at what was built, what the evidence really shows, and what should come next. Written for the project owner and for anyone deciding whether this prototype deserves engineering time. Section 5 answers an external review of v0.5, point by point.</p>
 <h2 id="1-what-the-evidence-shows-and-what-it-does-not">1. What the evidence shows, and what it does not<a class="anchor" href="#1-what-the-evidence-shows-and-what-it-does-not" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
@@ -276,6 +276,41 @@
 <td>M</td>
 <td>P2</td>
 </tr>
+<tr>
+<td>F-23</td>
+<td>Structured override reasons (category, severity, evidence attached yes/no) and a second approver for overrides on allergen, gluten and legal claims; report the override rate per check and per input type</td>
+<td>Overrides as controlled deviations, as an auditor expects; free text alone gives no KPI</td>
+<td>S</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F-24</td>
+<td>Escalation reasons as a reported distribution (top 10) and a reviewer verdict on each escalation (needed / not needed)</td>
+<td>Separates good escalation (OCR, ambiguity, evidence) from noise (parser, dictionary)</td>
+<td>S</td>
+<td>P1</td>
+</tr>
+<tr>
+<td>F-25</td>
+<td>"Not verifiable from text" for additive limits, standards of identity, contaminants and packaging: say the check exists and what evidence or data it needs</td>
+<td>Clients ask for these; text cannot settle them, so the agent must name the gap instead of staying silent</td>
+<td>S</td>
+<td>P2</td>
+</tr>
+<tr>
+<td>F-26</td>
+<td>Fraud-vulnerable ingredient note (honey, olive oil, spices…) from public sources, asking for a vulnerability assessment (with F-17)</td>
+<td>GFSI schemes require food fraud assessments</td>
+<td>M</td>
+<td>P3</td>
+</tr>
+<tr>
+<td>F-27</td>
+<td>Hard-case test pack (12 to 20 cases): gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, "may contain" variants, umbrella ingredients, additives without concentration</td>
+<td>Locks in fail-closed behaviour on the cases a regulatory team worries about</td>
+<td>S</td>
+<td>P1</td>
+</tr>
 </tbody>
 </table></div>
 <h2 id="4-what-went-well-and-should-be-kept">4. What went well and should be kept<a class="anchor" href="#4-what-went-well-and-should-be-kept" aria-label="Link to this section">#</a></h2>
@@ -432,11 +467,59 @@
 <ul>
 <li>Photos, users and a hand-labelled reference are still missing; these are the three things that would move rigor most (F-02, F-03, F-19).</li>
 <li>The agent is evaluated headless with the same instructions and tools, not inside the project UI.</li>
-</ul></article>
+</ul>
+<h2 id="6-second-consultation-after-v06">6. Second consultation (after v0.6)<a class="anchor" href="#6-second-consultation-after-v06" aria-label="Link to this section">#</a></h2>
+<p>The same external AI assistant was asked six open questions about v0.6, as one would ask an experienced colleague, using public information only. It pointed to public pages rather than internal data, and said so where it could not share. What it added, and where it lands:</p>
+<div class="table-wrap"><table>
+<thead>
+<tr>
+<th>Advice</th>
+<th>What it means for the agent</th>
+<th>Where it lands</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Next step of most value: an expert-labelled gold set (300–800 hard labels per market and risk class), then a separate photo ingestion benchmark, then a short pilot; a pilot before the first two "turns into opinion"</td>
+<td>Confirms the order of F-19, F-02 and F-04</td>
+<td>Roadmap order unchanged; F-19 stays P1</td>
+</tr>
+<tr>
+<td>Pilot acceptance: zero false negatives on critical checks (each one a P0 bug and a regression test), more false alarms accepted than misses, extraction and gate-block rates, time per label and active analyst time, escalation rate with its reasons, override and reversal rates, adoption</td>
+<td>The pilot plan gains explicit acceptance criteria</td>
+<td><a href="05-analyst-workflow.html#pilot-plan-proposed">05 · Pilot plan</a>; F-24</td>
+</tr>
+<tr>
+<td>Overrides are controlled deviations: keep the original finding, standard reason categories with severity, evidence attached, a second approver for allergen and legal claims, CAPA when the same override repeats</td>
+<td>"Ready for sign-off" with a mandatory reason is the right principle; reasons should be structured</td>
+<td>F-23</td>
+</tr>
+<tr>
+<td>Clients also ask for additive limits by country, standards of identity, contaminants, packaging (food contact) and documentary evidence for non-GMO and organic</td>
+<td>Out of scope for text, so the agent should say "not verifiable from text" and name the evidence</td>
+<td>F-25</td>
+</tr>
+<tr>
+<td>Gluten-free certification uses a system review and a 10 ppm limit, stricter than the 20 ppm legal limit</td>
+<td>A gluten-free claim never passes from text; certified claims name the scheme's limit</td>
+<td>Already "review"; test cases in F-27</td>
+</tr>
+<tr>
+<td>Vegan certification also excludes processing aids; food fraud needs a vulnerability assessment</td>
+<td>Ambiguous ingredients ask for supplier evidence; fraud-prone ingredients get a note</td>
+<td>Scope statement (done); F-26</td>
+</tr>
+<tr>
+<td>For the role: requirements that can be tested, governance of AI (versions, audit, overrides, fail-closed), end-to-end workflow, gold-set evaluation, explicit limits, cross-functional trade-offs, integration with PLM, supplier portals and QMS</td>
+<td>The portfolio should lead with three proofs with numbers: safety (false negatives on critical checks), governance (audit trail and overrides), efficiency (time per label with safe escalation)</td>
+<td>README and the presentation</td>
+</tr>
+</tbody>
+</table></div></article>
     <nav class="pager" aria-label="Previous and next"><a class="prev" href="07-rule-register.html"><small>Previous</small><span>Rule register</span></a><a class="next" href="test-plan.html"><small>Next</small><span>Test plan</span></a></nav>
     <p class="page-meta"><a href="https://github.com/t0masleones/ingredient-lens/blob/main/docs/04-critical-review.md">View source on GitHub</a><a href="https://github.com/t0masleones/ingredient-lens/edit/main/docs/04-critical-review.md">Suggest an edit</a><span>Generated by docs/_build/build.py</span></p>
   </main>
-  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#1-what-the-evidence-shows-and-what-it-does-not">1. What the evidence shows, and what it does not</a></li><li><a href="#2-weaknesses-found">2. Weaknesses found</a><ol><li><a href="#product-and-business-analysis">Product and business analysis</a></li><li><a href="#safety-and-quality">Safety and quality</a></li><li><a href="#engineering-and-operations">Engineering and operations</a></li></ol></li><li><a href="#3-roadmap-proposed-future-activities">3. Roadmap (proposed future activities)</a></li><li><a href="#4-what-went-well-and-should-be-kept">4. What went well and should be kept</a></li><li><a href="#5-external-review-of-v05-and-the-response">5. External review of v0.5 and the response</a><ol><li><a href="#point-by-point">Point by point</a></li><li><a href="#the-reviewers-question">The reviewer&#x27;s question</a></li><li><a href="#what-did-not-change">What did not change</a></li></ol></li></ol></nav>
+  <nav class="toc" aria-label="On this page"><p class="toc-title">On this page</p><ol><li><a href="#1-what-the-evidence-shows-and-what-it-does-not">1. What the evidence shows, and what it does not</a></li><li><a href="#2-weaknesses-found">2. Weaknesses found</a><ol><li><a href="#product-and-business-analysis">Product and business analysis</a></li><li><a href="#safety-and-quality">Safety and quality</a></li><li><a href="#engineering-and-operations">Engineering and operations</a></li></ol></li><li><a href="#3-roadmap-proposed-future-activities">3. Roadmap (proposed future activities)</a></li><li><a href="#4-what-went-well-and-should-be-kept">4. What went well and should be kept</a></li><li><a href="#5-external-review-of-v05-and-the-response">5. External review of v0.5 and the response</a><ol><li><a href="#point-by-point">Point by point</a></li><li><a href="#the-reviewers-question">The reviewer&#x27;s question</a></li><li><a href="#what-did-not-change">What did not change</a></li></ol></li><li><a href="#6-second-consultation-after-v06">6. Second consultation (after v0.6)</a></li></ol></nav>
 </div>
 <footer class="site-footer"><div class="container">
   <div><a class="brand" href="index.html"><img class="brand-mark" src="assets/icon.svg" alt="" width="38" height="38"><span class="brand-name">Ingredient Lens</span></a>

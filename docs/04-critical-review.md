@@ -59,6 +59,11 @@ Ordered by value for a regulated B2B setting. P1 = before showing results as evi
 | F-18 | GMO and organic rules as data, including the outcome of PLC 34/2015 in Brazil and USDA BE list updates | Regulation changes without code changes (with F-09) | S | P2 |
 | F-19 | Hand-labelled reference set (labels read by a regulatory reviewer): a confusion matrix per check, market and input type | The only way to measure precision and recall without a coupled reference | M | P1 |
 | F-22 | Apply effective dates: check a label against the rules in force when it was printed | Jurisdiction and date drift (R-14) | M | P2 |
+| F-23 | Structured override reasons (category, severity, evidence attached yes/no) and a second approver for overrides on allergen, gluten and legal claims; report the override rate per check and per input type | Overrides as controlled deviations, as an auditor expects; free text alone gives no KPI | S | P1 |
+| F-24 | Escalation reasons as a reported distribution (top 10) and a reviewer verdict on each escalation (needed / not needed) | Separates good escalation (OCR, ambiguity, evidence) from noise (parser, dictionary) | S | P1 |
+| F-25 | "Not verifiable from text" for additive limits, standards of identity, contaminants and packaging: say the check exists and what evidence or data it needs | Clients ask for these; text cannot settle them, so the agent must name the gap instead of staying silent | S | P2 |
+| F-26 | Fraud-vulnerable ingredient note (honey, olive oil, spices…) from public sources, asking for a vulnerability assessment (with F-17) | GFSI schemes require food fraud assessments | M | P3 |
+| F-27 | Hard-case test pack (12 to 20 cases): gluten-free with malt or ambiguous starch, vegan with natural flavours or enzymes, "may contain" variants, umbrella ingredients, additives without concentration | Locks in fail-closed behaviour on the cases a regulatory team worries about | S | P1 |
 
 ## 4. What went well and should be kept
 - Decisions are logged with the alternatives considered; every change has a changelog line and a test.
@@ -103,3 +108,17 @@ Two cautions. First, a statement "not found" in this data usually means the open
 ### What did not change
 - Photos, users and a hand-labelled reference are still missing; these are the three things that would move rigor most (F-02, F-03, F-19).
 - The agent is evaluated headless with the same instructions and tools, not inside the project UI.
+
+## 6. Second consultation (after v0.6)
+The same external AI assistant was asked six open questions about v0.6, as one would ask an experienced colleague, using public information only. It pointed to public pages rather than internal data, and said so where it could not share. What it added, and where it lands:
+
+| Advice | What it means for the agent | Where it lands |
+|---|---|---|
+| Next step of most value: an expert-labelled gold set (300–800 hard labels per market and risk class), then a separate photo ingestion benchmark, then a short pilot; a pilot before the first two "turns into opinion" | Confirms the order of F-19, F-02 and F-04 | Roadmap order unchanged; F-19 stays P1 |
+| Pilot acceptance: zero false negatives on critical checks (each one a P0 bug and a regression test), more false alarms accepted than misses, extraction and gate-block rates, time per label and active analyst time, escalation rate with its reasons, override and reversal rates, adoption | The pilot plan gains explicit acceptance criteria | [05 · Pilot plan](05-analyst-workflow.md#pilot-plan-proposed); F-24 |
+| Overrides are controlled deviations: keep the original finding, standard reason categories with severity, evidence attached, a second approver for allergen and legal claims, CAPA when the same override repeats | "Ready for sign-off" with a mandatory reason is the right principle; reasons should be structured | F-23 |
+| Clients also ask for additive limits by country, standards of identity, contaminants, packaging (food contact) and documentary evidence for non-GMO and organic | Out of scope for text, so the agent should say "not verifiable from text" and name the evidence | F-25 |
+| Gluten-free certification uses a system review and a 10 ppm limit, stricter than the 20 ppm legal limit | A gluten-free claim never passes from text; certified claims name the scheme's limit | Already "review"; test cases in F-27 |
+| Vegan certification also excludes processing aids; food fraud needs a vulnerability assessment | Ambiguous ingredients ask for supplier evidence; fraud-prone ingredients get a note | Scope statement (done); F-26 |
+| For the role: requirements that can be tested, governance of AI (versions, audit, overrides, fail-closed), end-to-end workflow, gold-set evaluation, explicit limits, cross-functional trade-offs, integration with PLM, supplier portals and QMS | The portfolio should lead with three proofs with numbers: safety (false negatives on critical checks), governance (audit trail and overrides), efficiency (time per label with safe escalation) | README and the presentation |
+
