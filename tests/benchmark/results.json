@@ -2,7 +2,7 @@
   "rules_version": "0.6.0",
   "data_hash": "d9d2171dfc",
   "products": 6000,
-  "engine_runs": 167314,
+  "engine_runs": 167319,
   "allergen_checks": 4607,
   "false_greens": 22,
   "false_green_rate": 0.00477534187106577,
@@ -38,19 +38,19 @@
     "DE": {
       "products": 1000,
       "ingredient_list": 1000,
-      "allergen_statement": 163,
+      "allergen_statement": 162,
       "gluten_statement": 10,
-      "any_statement": 171
+      "any_statement": 170
     }
   },
   "ingredient_list_rate": 0.9988,
   "reference_b": {
     "BR": {
       "products": 457,
-      "declared": 882,
-      "declared_flagged": 871,
+      "declared": 880,
+      "declared_flagged": 870,
       "declared_red": 664,
-      "required_red": 714,
+      "required_red": 716,
       "required_red_declared": 660,
       "xc2": 26
     },
@@ -73,12 +73,12 @@
       "xc2": 1
     },
     "DE": {
-      "products": 11,
-      "declared": 13,
-      "declared_flagged": 13,
-      "declared_red": 13,
-      "required_red": 20,
-      "required_red_declared": 13,
+      "products": 10,
+      "declared": 10,
+      "declared_flagged": 10,
+      "declared_red": 10,
+      "required_red": 17,
+      "required_red_declared": 10,
       "xc2": 3
     }
   },
@@ -231,13 +231,13 @@
     }
   },
   "coverage": {
-    "BR": 0.9293,
+    "BR": 0.9294,
     "US": 0.9454,
     "FR": 0.9508,
-    "DE": 0.9172
+    "DE": 0.9174
   },
-  "metamorphic_checks": 94150,
-  "metamorphic_failures": 24,
+  "metamorphic_checks": 94153,
+  "metamorphic_failures": 32,
   "misses": [
     {
       "market": "BR",

@@ -1,6 +1,6 @@
 # Rules engine benchmark on real products (rules 0.6.0)
 
-6,000 products from Open Food Facts (most scanned in BR, US, FR and DE), 167,314 engine runs, data 644 curated + 35051 Open Food Facts terms (sha256 d9d2171dfc). Sample: `tests/benchmark/off-products.jsonl` (ODbL). Reproduce: `uv run --directory mcp-server python ../tests/benchmark/run_benchmark.py`.
+6,000 products from Open Food Facts (most scanned in BR, US, FR and DE), 167,319 engine runs, data 644 curated + 35051 Open Food Facts terms (sha256 d9d2171dfc). Sample: `tests/benchmark/off-products.jsonl` (ODbL). Reproduce: `uv run --directory mcp-server python ../tests/benchmark/run_benchmark.py`.
 
 > [!NOTE]
 > **Two references.** A = the allergens Open Food Facts records (broad, but partly derived with the taxonomy this project imports, so an upper bound). B = the manufacturer's own allergen statement when it is in the ingredient text (narrower, independent of those tags). Only the ingredient text is checked: an allergen box printed elsewhere on the pack is invisible here.
@@ -20,7 +20,7 @@ Statements are often missing because the Open Food Facts ingredient field usuall
 | BR | 2,000 | 99.8% | 24.2% | 27.0% | 32.3% |
 | US | 2,000 | 99.9% | 12.9% | 0.4% | 13.2% |
 | FR | 1,000 | 100.0% | 23.5% | 0.6% | 23.8% |
-| DE | 1,000 | 100.0% | 16.3% | 1.0% | 17.1% |
+| DE | 1,000 | 100.0% | 16.2% | 1.0% | 17.0% |
 
 ## 2. Allergen detection against reference A
 
@@ -168,10 +168,10 @@ Products whose ingredient text includes an allergen statement. The ingredients a
 
 | Market | Products with a statement | Allergens declared | Flagged from the ingredients alone (recall) | Of which 🔴 | 🔴 flags also declared (precision) | Statements missing a required allergen (XC2) |
 |---|---|---|---|---|---|---|
-| BR | 457 | 882 | 871 (98.8%) | 664 | 660 of 714 (92.4%) | 26 (5.7%) |
+| BR | 457 | 880 | 870 (98.9%) | 664 | 660 of 716 (92.2%) | 26 (5.7%) |
 | US | 172 | 289 | 284 (98.3%) | 253 | 249 of 272 (91.5%) | 18 (10.5%) |
 | FR | 5 | 12 | 12 (100.0%) | 6 | 6 of 8 (75.0%) | 1 (20.0%) |
-| DE | 11 | 13 | 13 (100.0%) | 13 | 13 of 20 (65.0%) | 3 (27.3%) |
+| DE | 10 | 10 | 10 (100.0%) | 10 | 10 of 17 (58.8%) | 3 (30.0%) |
 
 <details>
 <summary>Statements missing a required allergen (first 30)</summary>
@@ -272,10 +272,10 @@ A 🔴 here means the engine found something that contradicts the claim: an engi
 
 | Market | Ingredients | Found | Coverage | Most frequent unknown items |
 |---|---|---|---|---|
-| BR | 19,102 | 17,752 | 92.9% | bacillus thuringiensis (31), streptomyces viridochromogenes (30), agrobacterium tumefaciens (28), poliglicerol polirricinoleato (21), minerais (20), a (19), e (19), zea mays (16), leudante quimico (14), l (12), acetato de dl alfa tocoferila (10), quot (10) |
-| US | 24,330 | 23,001 | 94.5% | l (28), a b vitamin (22), processed with alkali (21), to preserve freshness (20), palmitate (16), to maintain freshness (14), for freshness (13), almondmilk (13), yellow 5 (12), mineral nutrients (10), yellow 6 (10), red 40 (10) |
+| BR | 19,112 | 17,762 | 92.9% | bacillus thuringiensis (31), streptomyces viridochromogenes (30), agrobacterium tumefaciens (28), poliglicerol polirricinoleato (21), minerais (20), a (19), e (19), zea mays (16), leudante quimico (14), l (12), acetato de dl alfa tocoferila (10), quot (10) |
+| US | 24,333 | 23,004 | 94.5% | l (28), a b vitamin (22), processed with alkali (21), to preserve freshness (20), palmitate (16), to maintain freshness (14), for freshness (13), almondmilk (13), yellow 5 (12), mineral nutrients (10), yellow 6 (10), red 40 (10) |
 | FR | 11,046 | 10,503 | 95.1% | e (17), b9 (16), bouillon (16), presence naturelle de polyphenols (16), d (14), origine : france (13), mineraux (10), mais (9), origine france (8), pp (7), origine: france (7), riboflavine (7) |
-| DE | 11,365 | 10,424 | 91.7% | e (10), d (9), mais (9), emulgente (6), a (6), tricalciumphosphat (5), riboflavine (5), origine : france (5), c (4), secer (4), sol (4), tricalciumcitrat (4) |
+| DE | 11,394 | 10,453 | 91.7% | e (10), d (9), mais (9), emulgente (6), a (6), tricalciumphosphat (5), riboflavine (5), origine : france (5), c (4), secer (4), sol (4), tricalciumcitrat (4) |
 
 ## 8. Metamorphic tests (properties that must hold for any label)
 
@@ -283,7 +283,7 @@ A 🔴 here means the engine found something that contradicts the claim: an engi
 |---|---|---|
 | STRICT is never milder | 22,586 | 0 |
 | adding 'may contain milk' never improves a milk verdict | 5,993 | 0 |
-| ingredient order does not change the verdict | 20,399 | 24 |
+| ingredient order does not change the verdict | 20,402 | 32 |
 | same input, same verdict | 22,586 | 0 |
 | upper case does not change the verdict | 22,586 | 0 |
 
@@ -296,4 +296,4 @@ Examples of failures, ingredient order does not change the verdict:
 
 ## 9. Performance
 
-167,314 engine runs: median 3.8 ms, 95th percentile 15.1 ms per label.
+167,319 engine runs: median 3.5 ms, 95th percentile 15.1 ms per label.
