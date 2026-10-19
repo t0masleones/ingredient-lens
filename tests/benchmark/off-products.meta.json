@@ -1,0 +1,74 @@
+{
+ "source": "https://static.openfoodfacts.org/data/en.openfoodfacts.org.products.csv.gz",
+ "source_sha256": "5e345434bb41f93d9f817a7243874c7156d063468a008fac52f563974038d9a3",
+ "latest_product_modified": "2026-10-19T09:16:54Z",
+ "built": "2026-10-19T13:25:13+00:00",
+ "filters": {
+  "min_scans": {
+   "BR": 0,
+   "US": 5,
+   "FR": 5,
+   "DE": 5
+  },
+  "min_completeness": 0.5,
+  "states": "en:ingredients-completed",
+  "data_quality_errors": "none",
+  "language": "detected from the text, score >= 1.5, margin >= 1.5"
+ },
+ "markets": {
+  "BR": {
+   "kept": 2000,
+   "target": 2000,
+   "dropped": {
+    "language_en": 130,
+    "language_es": 2289,
+    "language_fr": 29,
+    "language_it": 7,
+    "language_nl": 4,
+    "language_unclear": 974
+   }
+  },
+  "US": {
+   "kept": 2000,
+   "target": 2000,
+   "dropped": {
+    "language_de": 23,
+    "language_es": 28,
+    "language_fr": 139,
+    "language_it": 7,
+    "language_nl": 1,
+    "language_pt": 1,
+    "language_unclear": 474,
+    "other_market": 1
+   }
+  },
+  "FR": {
+   "kept": 1000,
+   "target": 1000,
+   "dropped": {
+    "language_de": 25,
+    "language_en": 115,
+    "language_es": 20,
+    "language_it": 10,
+    "language_nl": 2,
+    "language_pt": 2,
+    "language_unclear": 215,
+    "other_market": 5
+   }
+  },
+  "DE": {
+   "kept": 1000,
+   "target": 1000,
+   "dropped": {
+    "language_en": 502,
+    "language_es": 79,
+    "language_fr": 754,
+    "language_it": 91,
+    "language_nl": 32,
+    "language_pt": 21,
+    "language_unclear": 1065,
+    "other_market": 159
+   }
+  }
+ }
+}

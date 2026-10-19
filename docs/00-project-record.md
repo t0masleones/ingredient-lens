@@ -22,9 +22,9 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 |---|---|
 | Phase | Build v0.6 |
 | Rules engine vs golden set (text rows) | 25 / 25 |
-| Automated tests on every push | 3,298 passed |
+| Automated tests on every push | 3,312 passed |
 | Real products benchmarked | 6,000 (BR, US, FR, DE) |
-| Declared allergens missed | 22 of 4,607 (0.5%) |
+| Declared allergens missed | 13 of 7,941 (0.16%) |
 | Rules in the register | 16, each with basis, dates and tests |
 | Agent runs evaluated (v0.6) | 120 runs, 0 “safe” claims |
 
@@ -62,6 +62,7 @@ Ingredient Lens is an AI agent for the first-pass label compliance check a regul
 Newest first. One entry per meaningful step.
 
 <!-- timeline -->
+- **2026-10-19 · F-28: benchmark sample checked for language and quality** — The sample was rebuilt from the current Open Food Facts export: each product's ingredient text must be in its market's language (detected from the text; only 182 of the old 1,000 "DE" products and 1,405 of the 2,000 "BR" were in the market's language), with completeness, ingredients-completed and no data-quality error; US, FR and DE need 5 scans, Brazil none (only 87 Portuguese labels have 5). The dump's hash and the drop counts are in `off-products.meta.json`, and a test fails if a product is not in its market's language. On the new sample the engine missed two trace statements ("atelier qui utilise : gluten. lait.", "glutenhaltigem Getreide"); fixed in rules 0.6.1. Result: 13 of 7,941 declared allergens missed (0.16%): all 13 not in the ingredient text, 0 rule disagreements, 0 engine errors. Next: F-29 to F-31.
 - **2026-10-17 · US-13: strict reminder for allergic guests** — Measured with a new evaluation story (peanut, celiac, egg and milk guests): the agent used STRICT mode and said the check must not be the only safeguard in 9 of 9 runs, with no change to the agent. The first grading said 4/9 because the grader expected "the only"; fixed with control sentences and graded again. [Report](../tests/evidence/strict-reminder-check-v0.6.md)
 - **2026-10-17 · US-14: substitutes re-checked by the rules** — A new evaluation story measured the gap first: the agent re-checked its substitutes with the rules engine in only 2 of 9 runs and named the rest from memory. `check_label` now returns `on_substitutes` (run the candidates with the same avoid list, name only those not flagged red) and the Cook instructions say how. After the fix: 9/9. One grader error (it only knew the word "label", not "pack" or "carton") fixed with control sentences and the runs graded again. [Report](../tests/evidence/substitutes-check-v0.6.md)
 - **2026-10-17 · Retrieval and grounding** — Reviewed against RAG practice: verdicts stay in deterministic tools; the knowledge files stay in full context (30 KB). Added `search_knowledge` (section passages, BM25, citable ids, Portuguese expansion), a grounding rule (every fact cited from a tool, or "not covered"), exact or partial matches in `lookup_ingredient`, and a retrieval test (recall@3 0.94). Agent: cited 6/6, refused to answer from memory 3/3, no regression 10/10. [Changelog](../agent/CHANGELOG.md)
@@ -77,6 +78,7 @@ Newest first. One entry per meaningful step.
 <summary><b>Earlier entries: v0.1 to v0.4.1 (17)</b></summary>
 
 <!-- timeline -->
+- **2026-10-19 · F-28: benchmark sample checked for language and quality** — The sample was rebuilt from the current Open Food Facts export: each product's ingredient text must be in its market's language (detected from the text; only 182 of the old 1,000 "DE" products and 1,405 of the 2,000 "BR" were in the market's language), with completeness, ingredients-completed and no data-quality error; US, FR and DE need 5 scans, Brazil none (only 87 Portuguese labels have 5). The dump's hash and the drop counts are in `off-products.meta.json`, and a test fails if a product is not in its market's language. On the new sample the engine missed two trace statements ("atelier qui utilise : gluten. lait.", "glutenhaltigem Getreide"); fixed in rules 0.6.1. Result: 13 of 7,941 declared allergens missed (0.16%): all 13 not in the ingredient text, 0 rule disagreements, 0 engine errors. Next: F-29 to F-31.
 - **2026-10-17 · Analyst workflow first (D-07) and safety stories tested** — Instructions v0.4 put the Analyst workflow first; `check_label` returns a compliance checklist per market with the legal basis of each check (US-18); [05 · Analyst workflow](05-analyst-workflow.md) has the to-be process, roles, an ROI model and a pilot plan. Symptoms described return "urgent" (US-08) and every result carries the wording to use instead of "safe" (US-07). First automated evaluation of the full agent: 93 runs, 0 "safe" claims, emergency first 21/21, Analyst escalation 15/15; plain language partly met. [Agent evaluation v0.4](../tests/evidence/agent-eval-v0.4.md)
 - **2026-10-16 · Continuous integration and critical review** — GitHub Actions runs the tests and the golden set on every push; the full benchmark runs on demand. A critical review of everything built so far, with a roadmap. [04 · Critical review and roadmap](04-critical-review.md)
 - **2026-10-16 · Benchmark on 6,000 real products** — Frozen sample of the most scanned products in BR, US, FR and DE. Found and fixed nine engine errors, among them periods inside the list hiding milk and soy, French trace wording, oats treated as gluten in the US and claims printed before the list. 25 of 4,607 declared allergens missed (0.5%); coverage 91.5–95.0%. [Benchmark review v0.4](../tests/evidence/benchmark-review-v0.4.md)
@@ -184,9 +186,9 @@ The v0.1 chat was never run against the test plan; these are the measured layers
 |---|---|---|---|
 | Verdict matches the golden set (text rows) | — | 25/25 (biased, see the warning above) | — |
 | Ingredient list extracted, by input type | — | Text: 99.9% of 6,000 · Recipes: 10 golden cases · Photos: not measured | Photos not measured (F-02) |
-| Declared allergens missed, reference A | 0 readable in the text | 22 of 4,607 (0.5%): 20 not in the text, 2 rule disagreements, 0 engine errors, 0 unreadable; detected = 4,093 🔴 + 492 🟡 | n/a |
-| Declared allergens flagged from the ingredients alone, reference B | — | 1,176 of 1,191 (98.7%); 933 of them 🔴 | n/a |
-| Definite (🔴) flags the manufacturer also declares, reference B | — | 925 of 1,013 (91.3%); the rest go to a person as XC2 | n/a |
+| Declared allergens missed, reference A | 0 readable in the text | 13 of 7,941 (0.16%): 13 not in the text, 0 rule disagreements, 0 engine errors, 0 unreadable (language-checked sample, F-28) | n/a |
+| Declared allergens flagged from the ingredients alone, reference B | — | 1,641 of 1,658 (99.0%); 1,288 of them 🔴 | n/a |
+| Definite (🔴) flags the manufacturer also declares, reference B | — | 1,280 of 1,389 (92.2%); the rest go to a person as XC2 | n/a |
 | False-alarm proxy: 🔴 with the allergen not named in the text | — | 198 of 79,295 product–allergen pairs (0.25%), an upper bound; 93.5% of the proxy's flags name the allergen in the text | n/a |
 | Ingredients found in the database | — | BR 92.9%, US 94.5%, FR 95.1%, DE 91.7% | n/a |
 | Claims on the pack in conflict with the engine | Each one reviewed | Vegan 30 of 763, gluten-free 65 of 1,311, lactose-free 98 of 260 | n/a |
@@ -261,6 +263,10 @@ Ranked by risk reduced and value to the analyst workflow, then by whether it can
 | 17 | F-23, F-24: structured override reasons with a second approver for critical checks; escalation reasons reported | Done | What an auditor expects of overrides (second consultation) | ✅ Done |
 | 18 | F-27: hard-case test pack (gluten-free with malt, vegan with natural flavours, umbrella ingredients) | Done; found two umbrella terms that were 🟢 | Locks in fail-closed behaviour on the cases a regulatory team worries about | ✅ Done |
 | 19 | F-25 done (gaps named in Analyst results); F-26 fraud-prone ingredient note | F-26 needs public sources | Names the gaps clients ask about | 🔵 In progress |
+| 20 | F-28: benchmark sample filtered by text language, minimum scans and completeness, with the dump recorded | Done; found two trace statements the engine did not read (rules 0.6.1) | Only 1,405 of 2,000 "BR" and 182 of 1,000 "DE" products were in the market's language | ✅ Done |
+| 21 | F-29: EU reference B from the allergens highlighted on the label | Automatable | Reference B has 15 EU products today | ⚪ To do |
+| 22 | F-30: stratified 30,000 to 50,000 product layer, new EU markets, confidence intervals | Automatable | Rare allergens are under-sampled | ⚪ To do |
+| 23 | F-31: USDA branded foods, allergen recalls and synthetic OCR noise as reference sets | Automatable; recall sources to confirm | Independent and adversarial references | ⚪ To do |
 
 <details>
 <summary><b>Original backlog (items 1 to 13), kept for traceability</b></summary>

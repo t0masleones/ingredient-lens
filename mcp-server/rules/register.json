@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "rules_version": "0.6.0",
+  "rules_version": "0.6.1",
   "updated": "2026-10-17",
   "policy": {
     "content_verified": "primary = official text read; secondary = reputable secondary source; unverified = not yet checked. A rule whose basis is unverified for a market never returns pass or fail there, only review.",
@@ -56,6 +56,10 @@
         {
           "version": "0.6.0",
           "change": "Statements printed inside an ingredient's parentheses (\"arôme (contient alcool)\", \"vinagre (contém sulfitos)\") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark."
+        },
+        {
+          "version": "0.6.1",
+          "change": "Shared-facility wording (\"atelier qui utilise\", \"facility that processes\", \"linha que processa\") is a may-contain statement, a short allergen sentence right after it continues its list, and German \"glutenhaltiges Getreide\" is gluten; found in the F-28 language-checked sample."
         }
       ],
       "tests": [
@@ -66,7 +70,8 @@
         "test_benchmark_findings.py::test_parenthetical_contains_is_not_the_allergen_statement",
         "test_benchmark_findings.py::test_contains_one_or_more_of_the_following_lists_ingredients",
         "test_benchmark_findings.py::test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement",
-        "test_benchmark_findings.py::test_unclosed_parenthesis_before_contains_keeps_the_list"
+        "test_benchmark_findings.py::test_unclosed_parenthesis_before_contains_keeps_the_list",
+        "test_benchmark_findings.py::test_trace_and_shared_facility_statements_are_read"
       ],
       "last_reviewed": "2026-10-17",
       "review_every_months": 6

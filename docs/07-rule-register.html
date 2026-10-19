@@ -41,7 +41,7 @@
     <p class="eyebrow">07 · Governance</p>
     <h1>Rule register</h1>
     <p class="lead">Every rule the engine applies, with its legal basis per market, the date it applies from, how well it was checked, its history and its tests. Generated from the register the engine reads.</p>
-    <ul class="meta"><li>Updated 2026-10-17</li><li>13 min read</li><li>Source: 07-rule-register.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-19</li><li>13 min read</li><li>Source: 07-rule-register.md</li></ul>
   </div>
 </section>
 <div class="layout container">
@@ -52,7 +52,7 @@
 <p><span class="callout-title">Note</span></p>
 <p>Generated from <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/rules/register.json"><code>register.json</code></a> by <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/rules/render.py"><code>render.py</code></a>. Do not edit this page: change the register, run <code>uv run python rules/render.py</code> from <code>mcp-server</code>, and commit both. A test fails when they differ.</p>
 </div>
-<p><strong>Rules version 0.6.0</strong> · register updated 2026-10-17 · 16 rules: 7 compliance checks, 5 cross-checks, 4 safety rules · first review due 2027-04-17</p>
+<p><strong>Rules version 0.6.1</strong> · register updated 2026-10-17 · 16 rules: 7 compliance checks, 5 cross-checks, 4 safety rules · first review due 2027-04-17</p>
 <p>The register is the single source of the legal basis the rules engine cites. Every row of the compliance checklist and every mismatch that <code>check_label</code> returns carries its <code>rule_id</code>, the citation, the date the rule applies from and how well that basis was checked, so a reviewer can trace any result to the text of the law. The engine reads this file at start-up; nothing about the legal basis is written in the prompt.</p>
 <h2 id="how-to-read-it">How to read it<a class="anchor" href="#how-to-read-it" aria-label="Link to this section">#</a></h2>
 <div class="table-wrap"><table>
@@ -313,8 +313,8 @@
 </tr>
 </tbody>
 </table></div>
-<p><strong>History.</strong> <strong>0.2.0</strong> Statement completeness as cross-check XC2. · <strong>0.4.0</strong> Checklist row per market; each market checks only the allergens it requires. · <strong>0.6.0</strong> Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark.</p>
-<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_complete_label_passes</code>, <code>test_br_missing_statements_fail</code>, <code>test_us_allergen_without_statement_is_review</code>, <code>test_eu_emphasis_is_always_review</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_benchmark_findings.py">test_benchmark_findings.py</a>: <code>test_parenthetical_contains_is_not_the_allergen_statement</code>, <code>test_contains_one_or_more_of_the_following_lists_ingredients</code>, <code>test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement</code>, <code>test_unclosed_parenthesis_before_contains_keeps_the_list</code></p>
+<p><strong>History.</strong> <strong>0.2.0</strong> Statement completeness as cross-check XC2. · <strong>0.4.0</strong> Checklist row per market; each market checks only the allergens it requires. · <strong>0.6.0</strong> Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark. · <strong>0.6.1</strong> Shared-facility wording ("atelier qui utilise", "facility that processes", "linha que processa") is a may-contain statement, a short allergen sentence right after it continues its list, and German "glutenhaltiges Getreide" is gluten; found in the F-28 language-checked sample.</p>
+<p><strong>Tests.</strong> <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_safety_and_compliance.py">test_safety_and_compliance.py</a>: <code>test_br_complete_label_passes</code>, <code>test_br_missing_statements_fail</code>, <code>test_us_allergen_without_statement_is_review</code>, <code>test_eu_emphasis_is_always_review</code>; <a href="https://github.com/t0masleones/ingredient-lens/blob/main/mcp-server/tests/test_benchmark_findings.py">test_benchmark_findings.py</a>: <code>test_parenthetical_contains_is_not_the_allergen_statement</code>, <code>test_contains_one_or_more_of_the_following_lists_ingredients</code>, <code>test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement</code>, <code>test_unclosed_parenthesis_before_contains_keeps_the_list</code>, <code>test_trace_and_shared_facility_statements_are_read</code></p>
 <h3 id="br-gluten">BR-GLUTEN<a class="anchor" href="#br-gluten" aria-label="Link to this section">#</a></h3>
 <p><strong>Gluten statement</strong> · Compliance check · since 0.4.0 · last reviewed 2026-10-17 · next review 2027-04-17 (every 6 months)</p>
 <p><strong>Intent.</strong> Every industrialized food in Brazil says either "CONTÉM GLÚTEN" or "NÃO CONTÉM GLÚTEN".</p>

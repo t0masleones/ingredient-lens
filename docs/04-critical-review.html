@@ -41,7 +41,7 @@
     <p class="eyebrow">04 · Honest assessment</p>
     <h1>Critical review and roadmap</h1>
     <p class="lead">What the evidence shows and does not show, the weaknesses found, and the prioritised roadmap.</p>
-    <ul class="meta"><li>Updated 2026-10-17</li><li>13 min read</li><li>Source: 04-critical-review.md</li></ul>
+    <ul class="meta"><li>Updated 2026-10-19</li><li>14 min read</li><li>Source: 04-critical-review.md</li></ul>
   </div>
 </section>
 <div class="layout container">
@@ -66,7 +66,7 @@
 </tr>
 <tr>
 <td>The engine rarely misses a declared allergen on real products</td>
-<td>6,000 products: 22 of 4,607 declared allergens came out 🟢 (0.5%); 20 of them are not in the ingredient text, 2 are rule disagreements, 0 are engine errors. "Detected" includes 492 🟡 (10.7%), a flag for a person rather than a finding</td>
+<td>6,000 products, each in its market's language (F-28): 13 of 7,941 declared allergens came out 🟢 (0.16%); all 13 are not in the ingredient text, 0 are engine errors (two found on this sample were fixed in rules 0.6.1). "Detected" includes 🟡 flags for a person rather than findings</td>
 <td>Medium: a large sample of real labels, but reference A is partly derived with the taxonomy this project imports, so agreement is inflated</td>
 </tr>
 <tr>
@@ -310,6 +310,34 @@
 <td>Locks in fail-closed behaviour on the cases a regulatory team worries about</td>
 <td>S</td>
 <td>P1 · ✅ Done</td>
+</tr>
+<tr>
+<td>F-28</td>
+<td>Benchmark sample quality: keep a product only when the language of its ingredient text matches the market, set a minimum scan count and completeness, and record the source dump's date and hash</td>
+<td>The sample measures each market in its own language; fewer reference errors from barely reviewed products</td>
+<td>S</td>
+<td>P1 · ✅ Done</td>
+</tr>
+<tr>
+<td>F-29</td>
+<td>Independent reference B for the EU: use the allergens the label highlights (<code>ingredients_text_with_allergens</code>) instead of only "Contains:" statements</td>
+<td>Reference B has 5 FR and 10 DE products today</td>
+<td>S</td>
+<td>P1 · ⚪ To do</td>
+</tr>
+<tr>
+<td>F-30</td>
+<td>Stratified benchmark layer (30,000 to 50,000 products) by market, category and allergen, adding IT, ES, PT and NL, with Wilson confidence intervals per market and allergen; the frozen 6,000 stay as the series</td>
+<td>Rare allergens (fish, molluscs, lupin, celery) get enough cases to measure</td>
+<td>M</td>
+<td>P2 · ⚪ To do</td>
+</tr>
+<tr>
+<td>F-31</td>
+<td>External reference sets: USDA FoodData Central branded foods (US, independent of Open Food Facts), undeclared-allergen recalls (FDA, RASFF, Anvisa) as an adversarial regression set, and synthetic OCR noise derived from real labels for the ingestion gate</td>
+<td>Hard cases with an authority-confirmed answer; the ingestion gate tested on dirty text</td>
+<td>M</td>
+<td>P2 · ⚪ To do</td>
 </tr>
 </tbody>
 </table></div>

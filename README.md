@@ -9,8 +9,8 @@
 <a href="https://t0masleones.github.io/ingredient-lens/"><img alt="Documentation site" src="https://img.shields.io/badge/docs-live_site-FFE600?style=flat-square&labelColor=00596B"></a>
 <a href="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml"><img alt="CI status" src="https://github.com/t0masleones/ingredient-lens/actions/workflows/tests.yml/badge.svg"></a>
 <img alt="Instructions v0.6" src="https://img.shields.io/badge/instructions-v0.6-00596B?style=flat-square">
-<img alt="Rules engine 0.6.0" src="https://img.shields.io/badge/rules_engine-0.6.0-27787F?style=flat-square">
-<img alt="3,298 tests passing" src="https://img.shields.io/badge/tests-3%2C298_passing-007681?style=flat-square">
+<img alt="Rules engine 0.6.1" src="https://img.shields.io/badge/rules_engine-0.6.1-27787F?style=flat-square">
+<img alt="3,312 tests passing" src="https://img.shields.io/badge/tests-3%2C312_passing-007681?style=flat-square">
 <img alt="Benchmark on 6,000 real products" src="https://img.shields.io/badge/benchmark-6%2C000_real_products-1D4F91?style=flat-square">
 <img alt="120 agent runs, 0 safe claims" src="https://img.shields.io/badge/agent_eval-120_runs%2C_0_%E2%80%9Csafe%E2%80%9D-00596B?style=flat-square&labelColor=27787F">
 <img alt="Markets Brazil, US, EU" src="https://img.shields.io/badge/markets-BR_%C2%B7_US_%C2%B7_EU-FFE600?style=flat-square&labelColor=00596B">
@@ -36,7 +36,7 @@
 
 ## ✦ At a glance
 
-<img src="docs/assets/readme-metrics.svg" alt="3,298 automated tests · 6,000 real products benchmarked · 0.5% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
+<img src="docs/assets/readme-metrics.svg" alt="3,312 automated tests · 6,000 real products benchmarked · 0.16% of declared allergens missed · 0 “safe” claims in 120 agent runs" width="100%">
 
 | Mode | Who | What they get |
 |:--|:--|:--|
@@ -57,7 +57,7 @@ flowchart LR
   T --> G{Reading<br>reliable?}
   G -->|no| MR[No verdict:<br>ask for a clearer photo]
   G -->|yes| R[check_label<br>rules engine]
-  D[(653 curated +<br>35,043 public terms)] --- R
+  D[(662 curated +<br>35,043 public terms)] --- R
   RR[(Rule register<br>basis · dates · tests)] --- R
   R --> C[Market checklist<br>BR · US · EU]
   C -->|all pass| A[Ready for sign-off]
@@ -103,9 +103,9 @@ flowchart LR
 
 | What was measured | Result | Report |
 |:--|:--|:--|
-| Rules engine on 6,000 real products | 22 of 4,607 declared allergens missed (0.5%): 20 not in the ingredient text, 2 where the reference and the rule disagree, 0 engine errors; coverage 91.7–95.1%; 94,153 property checks | [benchmark](tests/evidence/benchmark-rules-v0.6.md) · [review](tests/evidence/benchmark-review-v0.6.md) |
-| Second reference: the manufacturer's own statement | 98.7% of declared allergens flagged from the ingredients alone, with the statement removed; 91.3% of definite flags confirmed by the statement | [benchmark §5](tests/evidence/benchmark-rules-v0.6.md) |
-| Text extraction, by input type | Ingredient list read in 99.9% of 6,000 product texts; recipes only in the golden set; **photos not measured yet** | [benchmark §1](tests/evidence/benchmark-rules-v0.6.md) |
+| Rules engine on 6,000 real products, each in its market's language (F-28) | 13 of 7,941 declared allergens missed (0.16%): all 13 not in the ingredient text, 0 rule disagreements, 0 engine errors; coverage 92.3–96.7%; 108,981 property checks. The sample was rebuilt on 2026-10-19, so the change from 22 of 4,607 (0.5%) is a better sample, not only a better engine | [benchmark](tests/evidence/benchmark-rules-v0.6.md) · [review](tests/evidence/benchmark-review-v0.6.md) |
+| Second reference: the manufacturer's own statement | 99.0% of declared allergens flagged from the ingredients alone, with the statement removed; 92.2% of definite flags confirmed by the statement | [benchmark §5](tests/evidence/benchmark-rules-v0.6.md) |
+| Text extraction, by input type | Ingredient list read in 99.85% of 6,000 product texts; recipes only in the golden set; **photos not measured yet** | [benchmark §1](tests/evidence/benchmark-rules-v0.6.md) |
 | Full agent: never “safe” | 0 claims in 120 runs, 36 of them adversarial | [agent evaluation v0.6](tests/evidence/agent-eval-v0.6.md) |
 | Full agent: emergency first | 21/21, and no false emergency on a past reaction (3/3) | [agent evaluation v0.6](tests/evidence/agent-eval-v0.6.md) |
 | Full agent: Analyst and certification decisions | 15/15 Analyst cases (never says the tool approved), 12/12 GMO and certification cases | [agent evaluation v0.6](tests/evidence/agent-eval-v0.6.md) |

@@ -1,5 +1,7 @@
 # Benchmark review (v0.6): what the numbers mean
 
+> **Note (2026-10-19).** This manual review is of the sample before F-28. The sample was rebuilt with each product in its market's language; current numbers are in [benchmark-rules-v0.6.md](benchmark-rules-v0.6.md) (13 of 7,941 missed, rules 0.6.1).
+
 Companion to [`benchmark-rules-v0.6.md`](benchmark-rules-v0.6.md) (generated: rules 0.6.0, data sha256 d9d2171dfc, 167,319 engine runs on 6,000 products). This file reads those numbers by hand, on 2026-10-17. It answers the external review's question about extraction (section 1), explains every miss (section 2), checks the engine against the manufacturers' own statements (section 3), separates real false alarms from gaps in the reference (section 4), and lists what the benchmark exposed: four engine errors, now fixed (section 5), and data that a second reviewer must decide (section 6).
 
 > [!IMPORTANT]

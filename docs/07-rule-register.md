@@ -3,7 +3,7 @@
 > [!NOTE]
 > Generated from [`register.json`](../mcp-server/rules/register.json) by [`render.py`](../mcp-server/rules/render.py). Do not edit this page: change the register, run `uv run python rules/render.py` from `mcp-server`, and commit both. A test fails when they differ.
 
-**Rules version 0.6.0** · register updated 2026-10-17 · 16 rules: 7 compliance checks, 5 cross-checks, 4 safety rules · first review due 2027-04-17
+**Rules version 0.6.1** · register updated 2026-10-17 · 16 rules: 7 compliance checks, 5 cross-checks, 4 safety rules · first review due 2027-04-17
 
 The register is the single source of the legal basis the rules engine cites. Every row of the compliance checklist and every mismatch that `check_label` returns carries its `rule_id`, the citation, the date the rule applies from and how well that basis was checked, so a reviewer can trace any result to the text of the law. The engine reads this file at start-up; nothing about the legal basis is written in the prompt.
 
@@ -85,9 +85,9 @@ Disputed ingredient mappings ("this term is not milk") follow the same path with
 | US | [FALCPA 2004 (Public Law 108-282); FASTER Act 2021 (sesame)](https://www.fda.gov/food/nutrition-food-labeling-and-critical-foods/food-allergies) | ✅ Primary | 2006-01-01 | ⚪ Unverified | Sesame is a major allergen from 1 Jan 2023 (verified on the FDA page); 2006-01-01 for FALCPA is commonly cited, to verify. |
 | EU | [Regulation (EU) No 1169/2011, Article 21 and Annex II](https://eur-lex.europa.eu/legal-content/EN/TXT/?uri=CELEX:32011R1169) | ✅ Primary | 2014-12-13 | ⚪ Unverified |  |
 
-**History.** **0.2.0** Statement completeness as cross-check XC2. · **0.4.0** Checklist row per market; each market checks only the allergens it requires. · **0.6.0** Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark.
+**History.** **0.2.0** Statement completeness as cross-check XC2. · **0.4.0** Checklist row per market; each market checks only the allergens it requires. · **0.6.0** Statements printed inside an ingredient's parentheses ("arôme (contient alcool)", "vinagre (contém sulfitos)") no longer end the list or count as the label's allergen statement, and an unclosed parenthesis in OCR text no longer hides the rest of the label; found by reference B and the ingredient-order property in the v0.6 benchmark. · **0.6.1** Shared-facility wording ("atelier qui utilise", "facility that processes", "linha que processa") is a may-contain statement, a short allergen sentence right after it continues its list, and German "glutenhaltiges Getreide" is gluten; found in the F-28 language-checked sample.
 
-**Tests.** [test_safety_and_compliance.py](../mcp-server/tests/test_safety_and_compliance.py): `test_br_complete_label_passes`, `test_br_missing_statements_fail`, `test_us_allergen_without_statement_is_review`, `test_eu_emphasis_is_always_review`; [test_benchmark_findings.py](../mcp-server/tests/test_benchmark_findings.py): `test_parenthetical_contains_is_not_the_allergen_statement`, `test_contains_one_or_more_of_the_following_lists_ingredients`, `test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement`, `test_unclosed_parenthesis_before_contains_keeps_the_list`
+**Tests.** [test_safety_and_compliance.py](../mcp-server/tests/test_safety_and_compliance.py): `test_br_complete_label_passes`, `test_br_missing_statements_fail`, `test_us_allergen_without_statement_is_review`, `test_eu_emphasis_is_always_review`; [test_benchmark_findings.py](../mcp-server/tests/test_benchmark_findings.py): `test_parenthetical_contains_is_not_the_allergen_statement`, `test_contains_one_or_more_of_the_following_lists_ingredients`, `test_unclosed_parenthesis_does_not_swallow_the_may_contain_statement`, `test_unclosed_parenthesis_before_contains_keeps_the_list`, `test_trace_and_shared_facility_statements_are_read`
 
 ### BR-GLUTEN
 
