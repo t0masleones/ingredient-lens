@@ -151,3 +151,15 @@ def test_unnamed_oil_may_be_soy(m, item):
 ])
 def test_additive_classes_and_vitamins(m, item, avoid, level):
     assert check(m, f"INGREDIENTES: {item}.", [avoid])["ingredients"][0]["status"][avoid] == level
+
+
+@pytest.mark.parametrize("text, avoid", [
+    # F-28 sample (v0.6): German compound "glutenhaltigem Getreide" was not read in a trace statement.
+    ("Zutaten: Kurkuma. Kann Spuren von glutenhaltigem Getreide, Soja und Senf enthalten.", "gluten"),
+    # F-28 sample (v0.6): shared-facility wording, with the allergen list split by a period.
+    ("Ingrédients: Purée de pomme de terre, sel. Produit élaboré dans un atelier qui utilise : gluten. lait.", "milk"),
+    ("Ingrédients: Purée de pomme de terre, sel. Produit élaboré dans un atelier qui utilise : gluten. lait.", "gluten"),
+    ("INGREDIENTS: Sugar, salt. Made in a facility that also processes peanuts.", "peanut"),
+])
+def test_trace_and_shared_facility_statements_are_read(m, text, avoid):
+    assert check(m, text, [avoid], market="EU")["verdict"] == "yellow"

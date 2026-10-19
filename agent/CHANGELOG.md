@@ -1,5 +1,8 @@
 # Agent changelog
 
+## v0.6.1 - 2026-10-19 (instructions v0.6, rules engine 0.6.1)
+Benchmark sample checked for language and quality (F-28): `tests/benchmark/build_sample.py` keeps a product only when its ingredient text is in its market's language (detected from the text), with completeness, ingredients-completed and no data-quality error, and at least 5 scans outside Brazil. The source dump and drop counts are in `tests/benchmark/off-products.meta.json`; `tests/test_benchmark_sample.py` fails on a product in the wrong language. On the rebuilt sample the engine missed two trace statements, now read: shared-facility wording ("atelier qui utilise : gluten. lait.", "facility that processes", "linha que processa") and German "glutenhaltiges Getreide". Result: 13 of 7,941 declared allergens missed (0.16%): all 13 not in the ingredient text, 0 rule disagreements, 0 engine errors (was 22 of 4,607 on the old sample). Reference B: 99.0% flagged from the ingredients alone. Backlog: F-29 to F-31. Known gap left for F-06: German "Ei" in a trace list is not read. Tests: 3,312 passed. Golden set 25/25.
+
 ## v0.6 - 2026-10-17 (instructions v0.6, rules engine 0.6.0)
 US-13, strict reminder for allergic guests: measured with a new evaluation story, 9/9 with no change to the agent (`tests/evidence/strict-reminder-check-v0.6.md`); one grader error fixed with control sentences.
 

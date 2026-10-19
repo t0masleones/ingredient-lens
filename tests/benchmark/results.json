@@ -1,251 +1,259 @@
 {
-  "rules_version": "0.6.0",
-  "data_hash": "d9d2171dfc",
+  "rules_version": "0.6.1",
+  "data_hash": "46f3a9bb9c",
   "products": 6000,
-  "engine_runs": 167319,
-  "allergen_checks": 4607,
-  "false_greens": 22,
-  "false_green_rate": 0.00477534187106577,
-  "false_greens_strict": 22,
+  "engine_runs": 197300,
+  "allergen_checks": 7941,
+  "false_greens": 13,
+  "false_green_rate": 0.0016370734164462915,
+  "false_greens_strict": 13,
   "failure_buckets": {
-    "definition": 20,
+    "definition": 13,
     "ingestion": 0,
-    "taxonomy": 2,
+    "taxonomy": 0,
     "parsing": 0
   },
   "extraction": {
     "BR": {
       "products": 2000,
-      "ingredient_list": 1995,
-      "allergen_statement": 483,
-      "gluten_statement": 538,
-      "any_statement": 645
+      "ingredient_list": 1993,
+      "allergen_statement": 603,
+      "gluten_statement": 738,
+      "any_statement": 805
     },
     "US": {
       "products": 2000,
-      "ingredient_list": 1998,
-      "allergen_statement": 258,
-      "gluten_statement": 8,
-      "any_statement": 263
+      "ingredient_list": 1999,
+      "allergen_statement": 309,
+      "gluten_statement": 11,
+      "any_statement": 315
     },
     "FR": {
       "products": 1000,
       "ingredient_list": 1000,
-      "allergen_statement": 235,
-      "gluten_statement": 6,
-      "any_statement": 238
+      "allergen_statement": 305,
+      "gluten_statement": 1,
+      "any_statement": 306
     },
     "DE": {
       "products": 1000,
-      "ingredient_list": 1000,
-      "allergen_statement": 162,
-      "gluten_statement": 10,
-      "any_statement": 170
+      "ingredient_list": 999,
+      "allergen_statement": 278,
+      "gluten_statement": 1,
+      "any_statement": 278
     }
   },
-  "ingredient_list_rate": 0.9988,
+  "ingredient_list_rate": 0.9985,
   "reference_b": {
     "BR": {
-      "products": 457,
-      "declared": 880,
-      "declared_flagged": 870,
-      "declared_red": 664,
-      "required_red": 716,
-      "required_red_declared": 660,
-      "xc2": 26
+      "products": 591,
+      "declared": 1240,
+      "declared_flagged": 1226,
+      "declared_red": 916,
+      "required_red": 978,
+      "required_red_declared": 911,
+      "xc2": 33
     },
     "US": {
-      "products": 172,
-      "declared": 289,
-      "declared_flagged": 284,
-      "declared_red": 253,
-      "required_red": 272,
-      "required_red_declared": 249,
-      "xc2": 18
+      "products": 236,
+      "declared": 389,
+      "declared_flagged": 386,
+      "declared_red": 349,
+      "required_red": 377,
+      "required_red_declared": 346,
+      "xc2": 23
     },
     "FR": {
-      "products": 5,
-      "declared": 12,
-      "declared_flagged": 12,
-      "declared_red": 6,
-      "required_red": 8,
-      "required_red_declared": 6,
-      "xc2": 1
+      "products": 9,
+      "declared": 16,
+      "declared_flagged": 16,
+      "declared_red": 10,
+      "required_red": 20,
+      "required_red_declared": 10,
+      "xc2": 5
     },
     "DE": {
-      "products": 10,
-      "declared": 10,
-      "declared_flagged": 10,
-      "declared_red": 10,
-      "required_red": 17,
-      "required_red_declared": 10,
-      "xc2": 3
+      "products": 9,
+      "declared": 13,
+      "declared_flagged": 13,
+      "declared_red": 13,
+      "required_red": 14,
+      "required_red_declared": 13,
+      "xc2": 0
     }
   },
   "false_alarm_proxy": {
     "celery": {
-      "n": 5886,
-      "red": 40,
-      "named": 39,
-      "not_named": 1
+      "n": 5845,
+      "red": 9,
+      "named": 9,
+      "not_named": 0
     },
     "crustacean": {
-      "n": 5986,
-      "red": 5,
-      "named": 2,
-      "not_named": 3
+      "n": 5982,
+      "red": 1,
+      "named": 0,
+      "not_named": 1
     },
     "egg": {
-      "n": 5729,
-      "red": 152,
-      "named": 134,
-      "not_named": 18
+      "n": 5480,
+      "red": 32,
+      "named": 24,
+      "not_named": 8
     },
     "fish": {
-      "n": 5921,
-      "red": 52,
-      "named": 37,
-      "not_named": 15
+      "n": 5899,
+      "red": 16,
+      "named": 13,
+      "not_named": 3
     },
     "gluten": {
-      "n": 4732,
-      "red": 712,
-      "named": 693,
-      "not_named": 19
+      "n": 3957,
+      "red": 224,
+      "named": 201,
+      "not_named": 23
     },
     "lupin": {
-      "n": 5986,
-      "red": 8,
-      "named": 8,
+      "n": 5976,
+      "red": 5,
+      "named": 5,
       "not_named": 0
     },
     "milk": {
-      "n": 4866,
-      "red": 862,
-      "named": 849,
-      "not_named": 13
+      "n": 3885,
+      "red": 222,
+      "named": 211,
+      "not_named": 11
     },
     "mollusc": {
-      "n": 5986,
-      "red": 39,
-      "named": 35,
-      "not_named": 4
+      "n": 5984,
+      "red": 7,
+      "named": 0,
+      "not_named": 7
     },
     "mustard": {
-      "n": 5915,
-      "red": 44,
-      "named": 44,
+      "n": 5846,
+      "red": 23,
+      "named": 23,
       "not_named": 0
     },
     "peanut": {
-      "n": 5780,
-      "red": 125,
-      "named": 121,
-      "not_named": 4
+      "n": 5648,
+      "red": 20,
+      "named": 19,
+      "not_named": 1
     },
     "sesame": {
-      "n": 5918,
-      "red": 91,
-      "named": 91,
+      "n": 5827,
+      "red": 52,
+      "named": 52,
       "not_named": 0
     },
     "soy": {
-      "n": 5132,
-      "red": 569,
-      "named": 538,
-      "not_named": 31
+      "n": 4376,
+      "red": 131,
+      "named": 122,
+      "not_named": 9
     },
     "sulphites": {
-      "n": 5920,
-      "red": 102,
-      "named": 55,
-      "not_named": 47
+      "n": 5954,
+      "red": 97,
+      "named": 65,
+      "not_named": 32
     },
     "tree_nuts": {
-      "n": 5538,
-      "red": 238,
-      "named": 195,
-      "not_named": 43
+      "n": 5274,
+      "red": 105,
+      "named": 89,
+      "not_named": 16
     }
   },
   "claims": {
-    "BR/vegan": {
-      "yellow": 59,
-      "green": 61,
-      "red": 6
-    },
     "BR/gluten": {
-      "red": 25,
-      "yellow": 283,
-      "green": 74
+      "yellow": 284,
+      "green": 36,
+      "red": 18
     },
     "BR/lactose": {
-      "green": 35,
-      "red": 29,
-      "yellow": 36
+      "green": 28,
+      "red": 27,
+      "yellow": 49
     },
-    "US/gluten": {
-      "yellow": 560,
-      "red": 24,
-      "green": 42
-    },
-    "US/vegan": {
-      "yellow": 178,
-      "green": 103,
+    "BR/vegan": {
+      "yellow": 73,
+      "green": 29,
       "red": 9
     },
+    "US/vegan": {
+      "green": 94,
+      "yellow": 181,
+      "red": 11
+    },
+    "US/gluten": {
+      "yellow": 641,
+      "red": 30,
+      "green": 36
+    },
     "US/lactose": {
-      "red": 36,
-      "yellow": 18,
+      "red": 38,
+      "yellow": 13,
       "green": 10
     },
-    "FR/vegan": {
-      "green": 25,
-      "yellow": 94,
-      "red": 8
-    },
     "FR/gluten": {
-      "yellow": 112,
-      "green": 6,
-      "red": 7
+      "yellow": 84,
+      "red": 6,
+      "green": 1
+    },
+    "FR/vegan": {
+      "yellow": 81,
+      "green": 15,
+      "red": 4
     },
     "FR/lactose": {
-      "yellow": 21,
-      "green": 2,
-      "red": 7
+      "green": 3,
+      "yellow": 12,
+      "red": 2
     },
     "DE/vegan": {
-      "yellow": 145,
-      "green": 68,
+      "green": 50,
+      "yellow": 339,
       "red": 7
     },
     "DE/gluten": {
-      "yellow": 158,
-      "red": 9,
-      "green": 11
+      "yellow": 140,
+      "red": 8,
+      "green": 3
     },
     "DE/lactose": {
-      "yellow": 35,
-      "red": 26,
-      "green": 5
+      "red": 32,
+      "yellow": 45,
+      "green": 9
     }
   },
   "coverage": {
-    "BR": 0.9294,
-    "US": 0.9454,
-    "FR": 0.9508,
-    "DE": 0.9174
+    "BR": 0.9367,
+    "US": 0.9609,
+    "FR": 0.9674,
+    "DE": 0.9231
   },
-  "metamorphic_checks": 94153,
+  "metamorphic_checks": 108981,
   "metamorphic_failures": 32,
   "misses": [
     {
       "market": "BR",
-      "group": "gluten",
-      "code": "7896336006631",
-      "name": "Paçoquita 3,84 GR.",
-      "text": "roasted and crushed peanut, sugar and salt. ATTENTION ALLERGIC PEOPLE: IT CONTAINS PEANUT. GLUTEN FREE. Product exempted from sanitary registration as per ANVIS",
-      "bucket": "taxonomy"
+      "group": "egg",
+      "code": "7891193012030",
+      "name": "Pão de Fôrma Integral com Castanha e Nozes - Seven Boys - 500g",
+      "text": "Farinha de trigo integral, farinha de trigo enriquecida com ferro e ácido fólico, glúten, castanha-do-Pará, fibra de trigo, açúcar, óleo de soja, sementes de gi",
+      "bucket": "definition"
+    },
+    {
+      "market": "BR",
+      "group": "milk",
+      "code": "7891193012030",
+      "name": "Pão de Fôrma Integral com Castanha e Nozes - Seven Boys - 500g",
+      "text": "Farinha de trigo integral, farinha de trigo enriquecida com ferro e ácido fólico, glúten, castanha-do-Pará, fibra de trigo, açúcar, óleo de soja, sementes de gi",
+      "bucket": "definition"
     },
     {
       "market": "US",
@@ -289,42 +297,18 @@
     },
     {
       "market": "US",
-      "group": "gluten",
-      "code": "0027331032128",
-      "name": "Tortilla Wraps",
-      "text": "Soybean, water, salt, caramel color, star anise, calcium sulfate",
-      "bucket": "definition"
-    },
-    {
-      "market": "US",
       "group": "egg",
       "code": "0078742221427",
-      "name": "Omega-3 Trail Mix",
+      "name": "Trail Mix",
       "text": "DRIED SWEETENED CRANBERRIES (CRANBERRIES, SUGAR, SUNFLOWER OIL), WALNUTS, PEPITAS, ALMONDS, PECANS, VEGETABLE OIL PEANUT OIL, COTTONSEED OIL, SOYBEAN OIL AND/OR",
       "bucket": "definition"
     },
     {
-      "market": "FR",
+      "market": "US",
       "group": "milk",
-      "code": "3175681261372",
-      "name": "Cacao céréales",
-      "text": "Farine de blé 54,9%, huile de colza, sucre non raffiné, germe de blé 5,6%, cacao maigre en poudre¹ 5,1%, amidon de blé, fibre de blé, farine de riz 3,1%, fèves ",
-      "bucket": "definition"
-    },
-    {
-      "market": "FR",
-      "group": "gluten",
-      "code": "3067140037898",
-      "name": "Chicoree soluble nature bio 100g",
-      "text": "Chicorée Soluble",
-      "bucket": "definition"
-    },
-    {
-      "market": "FR",
-      "group": "milk",
-      "code": "3770008009882",
-      "name": "Les Fourrées  -  Beurre de Cacahuète & Cacao",
-      "text": "Céréales* 51% (farinė de riz complet*, farine de maïs*), beurre de cacahuète* 31%, sucre .de betterave*, cacao en poudre* 6,5%, une pointe de sel.",
+      "code": "5054775347735",
+      "name": "White Folded Flatbreads",
+      "text": "Wheat Flour (_Wheat_ Flour, Calcium Carbonate, Iron, Niacin, Thiamin), Water, Rapeseed Oil, Yeast, Spirit Vinegar, Raising Agents (Disodium Diphosphate, Sodium ",
       "bucket": "definition"
     },
     {
@@ -337,82 +321,26 @@
     },
     {
       "market": "FR",
-      "group": "tree_nuts",
-      "code": "8886303210207",
-      "name": "Natural Coconut Cream",
-      "text": "Natural Coconut Cream (99.9%), Xanthan Gum, Guar Gum, Carrageenan.",
-      "bucket": "taxonomy"
-    },
-    {
-      "market": "FR",
       "group": "milk",
-      "code": "3497911105127",
-      "name": "Saveir Sel & Vinaigre",
-      "text": "Pommes de terre (62,9%), huile de tournesol (31%), farine de blé, correcteur d'acidité : diacétate de sodium, sel, sucre, acidifiants: (acide citrique, acide ma",
-      "bucket": "definition"
-    },
-    {
-      "market": "FR",
-      "group": "milk",
-      "code": "3175681272934",
-      "name": "Biscuits Petit déj Bio Céréales Miel",
-      "text": "Flocons d'avoine* 33%, farine complète de grand épeautre (blé)* 18,1%, farine complète de blé* de meule 16,2% huile de tournesol oléique*, sucre de canne*, riz*",
-      "bucket": "definition"
-    },
-    {
-      "market": "DE",
-      "group": "sesame",
-      "code": "20884680",
-      "name": "Reiswaffeln",
-      "text": "table salt (0.31%), rice (99.69%)",
+      "code": "3770008009882",
+      "name": "Les Fourrées  -  Beurre de Cacahuète & Cacao",
+      "text": "Céréales* 51% (farinė de riz complet*, farine de maïs*), beurre de cacahuète* 31%, sucre de betterave*, cacao en poudre* 6,5%, une pointe de sel.",
       "bucket": "definition"
     },
     {
       "market": "DE",
       "group": "milk",
-      "code": "20006167",
-      "name": "Fette croccanti con sesamo",
-      "text": "Farina di segale integrale (84%), sesamo (10%), sale",
-      "bucket": "definition"
-    },
-    {
-      "market": "DE",
-      "group": "egg",
-      "code": "8076809504720",
-      "name": "Pan Bauletto Bianco",
-      "text": "Farina Di Grano Tenero Tipo 0 71,7%, Acqua, Olio Extravergine Di Oliva 2,4%, Lievito, Sale, Farina D'orzo Maltato,",
+      "code": "4008404001018",
+      "name": "Brot Mein Knusperbrot Roggen",
+      "text": "Roggenmehl, Weizenmehl, Roggenvollkornmehl, Weizenmalzmehl, Zucker, Sonnenblumenöl, Salz",
       "bucket": "definition"
     },
     {
       "market": "DE",
       "group": "milk",
-      "code": "8076809504720",
-      "name": "Pan Bauletto Bianco",
-      "text": "Farina Di Grano Tenero Tipo 0 71,7%, Acqua, Olio Extravergine Di Oliva 2,4%, Lievito, Sale, Farina D'orzo Maltato,",
-      "bucket": "definition"
-    },
-    {
-      "market": "DE",
-      "group": "milk",
-      "code": "8008343200516",
-      "name": "RUMMO Mezzi Rigatoni No 51",
-      "text": "Semoule de blé dur de qualité supérieure.",
-      "bucket": "definition"
-    },
-    {
-      "market": "DE",
-      "group": "crustacean",
-      "code": "4056489152903",
-      "name": "",
-      "text": "58% chou chinois, eau, 2,5% carotte, 2% radis, 2% radis vert, 1,8% sel, 1,5% sucre, 0,5% oignon, 0,5% oignon de printemps, 0,5% ail, 0.3% piment rouge en poudre",
-      "bucket": "definition"
-    },
-    {
-      "market": "DE",
-      "group": "fish",
-      "code": "4056489152903",
-      "name": "",
-      "text": "58% chou chinois, eau, 2,5% carotte, 2% radis, 2% radis vert, 1,8% sel, 1,5% sucre, 0,5% oignon, 0,5% oignon de printemps, 0,5% ail, 0.3% piment rouge en poudre",
+      "code": "20009885",
+      "name": "Junge Erbsen extra fein",
+      "text": "Erbsen, Wasser, Zucker, Speisesalz",
       "bucket": "definition"
     }
   ]
